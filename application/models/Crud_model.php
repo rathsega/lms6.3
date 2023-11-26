@@ -645,6 +645,11 @@ class Crud_model extends CI_Model
             } else {
                 $data['is_top_course'] = 1;
             }
+            if ($this->input->post('is_top10_course') != 1) {
+                $data['is_top10_course'] = 0;
+            } else {
+                $data['is_top10_course'] = 1;
+            }
             $status = $this->input->post('status');
             if($status== 'active' || $status== 'private' || $status== 'upcoming'){
                 $data['status'] = $status;
@@ -827,6 +832,11 @@ class Crud_model extends CI_Model
                 $data['is_top_course'] = 0;
             } else {
                 $data['is_top_course'] = 1;
+            }
+            if ($this->input->post('is_top10_course') != 1) {
+                $data['is_top10_course'] = 0;
+            } else {
+                $data['is_top10_course'] = 1;
             }
             $status = $this->input->post('status');
             if($status== 'active' || $status== 'private' || $status== 'upcoming'){
