@@ -143,6 +143,7 @@ class Home extends CI_Controller
                 }
             $this->db->group_end();
             $this->db->where('status', 'active');
+            $this->db->where('show_it_in_category', '1');
             $total_rows = $this->db->get('course')->num_rows();
             $config = array();
             $config = pagintaion($total_rows, 9);
@@ -162,6 +163,7 @@ class Home extends CI_Controller
 
             $this->db->group_start();
             $this->db->where('status', 'active');
+            $this->db->where('show_it_in_category', '1');
             $this->db->group_end();
             //sorting randomly
             //$this->db->order_by(6, 'RANDOM');
@@ -866,7 +868,7 @@ class Home extends CI_Controller
             }
 
 
-            $all_rows = $this->crud_model->get_courses_by_search_string($search_string)->num_rows();
+            $all_rows = $this->crud_model->get_active_and_visible_courses_by_search_string($search_string)->num_rows();
             $config = array();
             $config = pagintaion($all_rows, 9);
             $config['base_url']  = site_url('home/search/');
@@ -874,7 +876,7 @@ class Home extends CI_Controller
             $config['first_url']  = site_url('home/search').'?query=' . $search_string;
             $this->pagination->initialize($config);
 
-            $page_data['courses'] = $this->crud_model->get_courses_by_search_string($search_string, $config['per_page'], $this->uri->segment(3))->result_array();
+            $page_data['courses'] = $this->crud_model->get_active_and_visible_courses_by_search_string($search_string, $config['per_page'], $this->uri->segment(3))->result_array();
             $page_data['total_result'] = $all_rows;
         } else {
             $this->session->set_flashdata('error_message', site_phrase('no_search_value_found'));

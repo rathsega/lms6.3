@@ -650,6 +650,11 @@ class Crud_model extends CI_Model
             } else {
                 $data['is_top10_course'] = 1;
             }
+            if ($this->input->post('show_it_in_category') != 1) {
+                $data['show_it_in_category'] = 0;
+            } else {
+                $data['show_it_in_category'] = 1;
+            }
             $status = $this->input->post('status');
             if($status== 'active' || $status== 'private' || $status== 'upcoming'){
                 $data['status'] = $status;
@@ -837,6 +842,11 @@ class Crud_model extends CI_Model
                 $data['is_top10_course'] = 0;
             } else {
                 $data['is_top10_course'] = 1;
+            }
+            if ($this->input->post('show_it_in_category') != 1) {
+                $data['show_it_in_category'] = 0;
+            } else {
+                $data['show_it_in_category'] = 1;
             }
             $status = $this->input->post('status');
             if($status== 'active' || $status== 'private' || $status== 'upcoming'){
@@ -2765,6 +2775,7 @@ class Crud_model extends CI_Model
 
             $this->db->group_start();
             $this->db->where('c.status', 'active');
+            $this->db->where('show_it_in_category', '1');
             $this->db->group_end();
 
             $this->db->from('course c')->join('rating r', 'r.ratable_id = c.id', 'left');
@@ -2854,6 +2865,7 @@ class Crud_model extends CI_Model
 
         $this->db->group_start();
         $this->db->where('c.status', 'active');
+        $this->db->where('show_it_in_category', '1');
         $this->db->group_end();
 
 
@@ -4807,7 +4819,7 @@ class Crud_model extends CI_Model
         $data['broucher'] = "";
         if (isset($_FILES['broucher']) && $_FILES['broucher']['name'] != "" && $_FILES['broucher']['name'][0] != "") {
             //unlink('uploads/broucher/' . $this->db->get_where('users', array('id' => $this->session->userdata('user_id')))->row('image') . '.jpg');
-            $file_name = time() . $i . '.' . end((explode(".", $_FILES['broucher']['name'])));
+            $file_name = time() . '.' . end((explode(".", $_FILES['broucher']['name'])));
             $this->user_model->upload_broucher_of_reviewer($file_name, $i);
             $data['broucher'] = $file_name;
         }
@@ -4816,5 +4828,58 @@ class Crud_model extends CI_Model
         $this->session->set_flashdata('flash_message', get_phrase('data_added_successfully'));
     }
 
+    function get_active_and_visible_course_by_category_id($category_id = "", $category_id_type = "category_id")
+    {
+        $this->db->where($category_id_type, $category_id);
+        $this->db->where('status', 'active');
+        $this->db->where('show_it_in_category', '1');
+        return $this->db->get('course');
+    }
+
+    function get_active_and_visible_course($course_id = "")
+    {
+
+        if ($course_id > 0) {
+            $this->db->where('id', $course_id = "");
+        }
+        $this->db->where('status', 'active');
+        $this->db->where('show_it_in_category', '1');
+        return $this->db->get('course');
+    }
+
+    public function get_active_and_visible_courses_by_search_string($search_string = "", $per_page = "", $uri_segment = "")
+    {
+        $scorm_status = addon_status('scorm_course');
+        $h5p_status = addon_status('h5p');
+
+        $this->db->group_start();
+            $this->db->where('course_type', 'general');
+            if ($scorm_status) {
+                $this->db->or_where('course_type', 'scorm');
+            }
+            if ($h5p_status) {
+                $this->db->or_where('course_type', 'h5p');
+            }
+        $this->db->group_end();
+        $this->db->where('status', 'active');
+        $this->db->where('show_it_in_category', '1');
+
+        $this->db->group_start();
+            $this->db->like('title', $search_string);
+            $this->db->or_like('short_description', $search_string);
+            $this->db->or_like('description', $search_string);
+            $this->db->or_like('outcomes', $search_string);
+            $this->db->or_like('language', $search_string);
+            $this->db->or_like('requirements', $search_string);
+            $this->db->or_like('meta_keywords', $search_string);
+            $this->db->or_like('meta_description', $search_string);
+        $this->db->group_end();
+
+        if ($per_page != "" || $uri_segment != "") {
+            return $this->db->get('course', $per_page, $uri_segment);
+        } else {
+            return $this->db->get('course');
+        }
+    }
     
 }

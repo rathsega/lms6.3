@@ -14,13 +14,13 @@
                     <div class="category-heading">
                         <span class="text-13px"><?php echo get_phrase('All category') ?></span>
                     </div>
-                    <span>(<?php echo $this->crud_model->get_active_course()->num_rows(); ?>)</span>
+                    <span>(<?php echo $this->crud_model->get_active_and_visible_course()->num_rows(); ?>)</span>
                 </label>
             </div>
             <div class="webdesign webdesign-category less">
                 <?php $categories = $this->crud_model->get_categories()->result_array(); ?>
                 <?php foreach($categories as $category): ?>
-                    <?php $course_number = $this->crud_model->get_active_course_by_category_id($category['id'], 'category_id')->num_rows(); ?>
+                    <?php $course_number = $this->crud_model->get_active_and_visible_course_by_category_id($category['id'], 'category_id')->num_rows(); ?>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" value="<?php echo $category['slug'] ?>" name="category" id="category-<?php echo $category['id']; ?>" onchange="filterCourse()" <?php if($selected_category == $category['slug']) echo 'checked'; ?>>
                         <label class="form-check-label" for="category-<?php echo $category['id']; ?>">
@@ -32,7 +32,7 @@
                     </div>
                     <ul>
                         <?php foreach ($this->crud_model->get_sub_categories($category['id']) as $sub_category): ?>
-                            <?php $course_number = $this->crud_model->get_active_course_by_category_id($sub_category['id'], 'sub_category_id')->num_rows(); ?>
+                            <?php $course_number = $this->crud_model->get_active_and_visible_course_by_category_id($sub_category['id'], 'sub_category_id')->num_rows(); ?>
                             <li>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" value="<?php echo $sub_category['slug'] ?>" name="category" id="sub_category-<?php echo $sub_category['id']; ?>" onchange="filterCourse()" <?php if($selected_category == $sub_category['slug']) echo 'checked'; ?>>

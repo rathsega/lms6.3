@@ -206,6 +206,14 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="form-group row mb-3">
+                                                <div class="offset-md-2 col-md-10">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" name="show_it_in_category" id="show_it_in_category" value="1">
+                                                        <label class="custom-control-label" for="show_it_in_category"><?php echo get_phrase('check_if_this_course_should_show_in_category'); ?></label>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div> <!-- end col -->
                                     </div> <!-- end row -->
                                 </div> <!-- end tab pane -->
