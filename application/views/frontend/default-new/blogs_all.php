@@ -36,7 +36,8 @@
                                     </div>
                                     <div class="courses-text">
                                         <h5><?php echo $blog['title']; ?></h5>
-                                        <p class="ellipsis-line-2"><?php echo ellipsis($blog['description'], 150); ?></p>
+                                        <p class="ellipsis-line-2">
+                                            <p class="ellipsis-line-2"><?php echo ellipsis(strip_tags(htmlspecialchars_decode_($blog['description'])), 150); ?></p>
                                             <div class="courses-price-border">
                                                 <div class="courses-price">
                                                     <div class="courses-price-left">
