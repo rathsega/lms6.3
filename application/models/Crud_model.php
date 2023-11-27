@@ -2192,18 +2192,18 @@ class Crud_model extends CI_Model
     {
         $courses_id = $this->input->post('course_id');
         $users_id   = $this->input->post('user_id');
-        //log_message('error', $this->input->post('expiry_date'));
+        log_message('error', "Expiry Date" . $this->input->post('expiry_date'));
         $data['expiry_date']   = date('Y-m-d',strtotime($this->input->post('expiry_date')));
         foreach($users_id as $user_id){
 
             foreach($courses_id as $course_id){
                 $course_details = $this->get_course_by_id($course_id)->row_array();
-                if($course_details['expiry_period'] > 0){
+                /*if($course_details['expiry_period'] > 0){
                     $days = $course_details['expiry_period'] * 30;
                     $data['expiry_date'] = strtotime("+".$days." days");
-                }else{
-                    $data['expiry_date']   = date('Y-m-d',strtotime($this->input->post('expiry_date')));
-                }
+                }else{*/
+                    $data['expiry_date']   = $this->input->post('expiry_date');
+                //}
                 $data['gifted_by'] = 0;
 
 
