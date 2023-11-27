@@ -1412,7 +1412,41 @@ class Api_model extends CI_Model
     }
 
 
+	public function certificate_addon_get_forcefully($user_id = "", $course_id = "")
+	{
+		$response = array();
+		if (addon_status('certificate')) {
+			$response['addon_status'] = 'success';
 
+			$this->load->model('addons/Certificate_model', 'certificate_model');
+			$checker = array(
+				'course_id' => $course_id,
+				'student_id' => $user_id
+			);
+			$previous_data = $this->db->get_where('certificates', $checker);
+			if ($previous_data->num_rows() == 0) {
+
+				$certificate_identifier = substr(sha1($user_id . '-' . $course_id . '-' . date('d-M-Y')), 0, 10);
+				$certificate_link = base_url('uploads/certificates/' . $certificate_identifier . '.jpg');
+				$insert_data = array(
+					'course_id' => $course_id,
+					'student_id' => $user_id,
+					'shareable_url' => $certificate_identifier
+				);
+				$this->db->insert('certificates', $insert_data);
+			} else {
+				$previous_data = $previous_data->row_array();
+				$certificate_identifier =  $previous_data['shareable_url'];
+			}
+			return $certificate_identifier;
+		} else {
+			$response['addon_status'] = 'failed';
+			$response['is_completed'] = 0;
+			$response['certificate_shareable_url'] = "";
+		}
+
+		return $response;
+	}
 
 
 

@@ -2901,6 +2901,28 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
+    public function generate_certificate($param1 = "")
+    {
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        $page_data['page_name'] = 'generate_certificate';
+        $page_data['page_title'] = get_phrase('generate_certificate');
+        $this->load->view('backend/index', $page_data);
+    }
+
+    public function generate_certificate_manually(){
+        $user_id = $this->input->post('user_id');
+        $course_id = $this->input->post('course_id');
+        $certificate_identifier = $this->api_model->certificate_addon_get_forcefully($user_id, $course_id);
+        if($certificate_identifier){
+            $certificate = $this->db->get_where('certificates', array('course_id' => $course_id, 'student_id' => $user_id));
+            redirect(site_url('certificate/'.$certificate->row('shareable_url')));
+        }
+    }
+
     public function customsettings($param1=""){
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');

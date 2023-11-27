@@ -38,19 +38,18 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 				<span> <?php echo get_phrase('customsettings'); ?> </span>
 				<span class="menu-arrow"></span>
 			</a>
-			<ul class="side-nav-second-level" aria-expanded="false">
+			<ul class="side-nav-second-level" aria-expanded="true">
 				<li class="<?php if ($page_name == 'ratings_count_form') echo 'active'; ?>">
 					<a href="<?php echo site_url('admin/ratings_count_form'); ?>"><?php echo get_phrase('ratings_count'); ?></a>
 				</li>
-			</ul>
-			<ul class="side-nav-second-level" aria-expanded="false">
 				<li class="<?php if ($page_name == 'custom_reviews') echo 'active'; ?>">
 					<a href="<?php echo site_url('admin/custom_reviews'); ?>"><?php echo get_phrase('custom_reviews'); ?></a>
 				</li>
-			</ul>
-			<ul class="side-nav-second-level" aria-expanded="false">
 				<li class="<?php if ($page_name == 'broucher') echo 'active'; ?>">
 					<a href="<?php echo site_url('admin/broucher'); ?>"><?php echo "Broucher"; ?></a>
+				</li>
+				<li class="<?php if ($page_name == 'generate_certificate') echo 'active'; ?>">
+					<a href="<?php echo site_url('admin/generate_certificate'); ?>"><?php echo "Generate Certificate"; ?></a>
 				</li>
 			</ul>
 		</li>
