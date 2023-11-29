@@ -2002,6 +2002,10 @@ class Crud_model extends CI_Model
         $this->db->where('key', 'about_us');
         $this->db->update('frontend_settings', $data);
 
+        $data['value'] = $this->input->post('contact_us');
+        $this->db->where('key', 'contact_us');
+        $this->db->update('frontend_settings', $data);
+
         $data['value'] = $this->input->post('terms_and_condition');
         $this->db->where('key', 'terms_and_condition');
         $this->db->update('frontend_settings', $data);

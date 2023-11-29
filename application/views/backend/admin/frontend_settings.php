@@ -108,6 +108,10 @@
                                 <textarea name="about_us" id = "about_us" class="form-control" rows="5"><?php echo get_frontend_settings('about_us'); ?></textarea>
                             </div>
                             <div class="form-group">
+                                <label for="contact_us"><?php echo get_phrase('contact_us'); ?></label>
+                                <textarea name="contact_us" id = "contact_us" class="form-control" rows="5"><?php echo get_frontend_settings('contact_us'); ?></textarea>
+                            </div>
+                            <div class="form-group">
                                 <label for="terms_and_condition"><?php echo get_phrase('terms_and_condition'); ?></label>
                                 <textarea name="terms_and_condition" id ="terms_and_condition" class="form-control" rows="5"><?php echo get_frontend_settings('terms_and_condition'); ?></textarea>
                             </div>
@@ -579,7 +583,7 @@
     var blank_faq = jQuery('#blank_faq_field').html();
     var blank_motivational_speech = jQuery('#blank_motivational_speech_field').html();
     $(document).ready(function () {
-        initSummerNote(['#about_us', '#terms_and_condition', '#privacy_policy', '#cookie_policy', '#refund_policy']);
+        initSummerNote(['#about_us', '#contact_us', '#terms_and_condition', '#privacy_policy', '#cookie_policy', '#refund_policy']);
         jQuery('#blank_faq_field').hide();
         jQuery('#blank_motivational_speech_field').hide();
 

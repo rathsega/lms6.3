@@ -8,10 +8,10 @@
 <section class="contact-page">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-md-8">
+            <div class="col-lg-12 col-md-12">
                 <div class="contact-heading">
-                    <h3><?php echo get_phrase('Contact Us') ?></h3>
-                    <p><?php echo get_phrase('Connect with us to experience seamless communication. We value open dialogue and are eager to engage with you. Whether you have questions, ideas, or feedback, we are here to listen and respond.') ?></p>
+                    <h3><?php //echo get_phrase('Contact Us') ?></h3>
+                    <p><?php echo get_frontend_settings('contact_us'); ?></p>
                 </div>               
             </div>
             <div class="col-lg-6 col-md-4">
