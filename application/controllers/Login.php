@@ -156,7 +156,7 @@ class Login extends CI_Controller
         $social_links = array(
             'facebook' => "",
             'twitter'  => "",
-            'linkedin' => ""
+            'linkedin' => $this->input->post('linkedin_link')
         );
         $data['social_links'] = json_encode($social_links);
         $data['role_id']  = 2;
@@ -179,8 +179,9 @@ class Login extends CI_Controller
                         $this->session->set_flashdata('error_message', get_phrase('Please choice your document file'));
                         redirect(site_url('sign_up'), 'refresh');
                     }
-                    $accepted_ext = array('doc', 'docs', 'pdf', 'txt', 'png', 'jpg', 'jpeg');
+                    $accepted_ext = array('doc', 'docs', 'docx', 'pdf', 'txt', 'png', 'jpg', 'jpeg');
                     $ext = pathinfo($_FILES['document']['name'], PATHINFO_EXTENSION);
+                    log_message("error","Uploaded file extension : " . $ext);
                     if (in_array(strtolower($ext), $accepted_ext)) {
                         $instructor_apply = true;
                     }else{
