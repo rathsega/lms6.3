@@ -108,7 +108,7 @@
                                 <textarea name="about_us" id = "about_us" class="form-control" rows="5"><?php echo get_frontend_settings('about_us'); ?></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="contact_us"><?php echo get_phrase('contact_us'); ?></label>
+                                <label for="contact_us"><?php echo get_phrase('contact_us') . " <b>(X)</b>"; ?></label>
                                 <textarea name="contact_us" id = "contact_us" class="form-control" rows="5"><?php echo get_frontend_settings('contact_us'); ?></textarea>
                             </div>
                             <div class="form-group">

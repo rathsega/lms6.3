@@ -16,7 +16,7 @@
               <div class="row justify-content-md-center">
                   <div class="col-xl-12">
                       <form class="form-inline" action="<?php echo site_url('admin/enrol_history/filter_by_date_range') ?>" method="get">
-                            <div class="col-xl-3"><input type="text" name="name_email" placeholder="Search with name/email/course" class="form-control"></div> 
+                            <div class="col-xl-3"><input type="text" name="name_email" placeholder="(X) Search with name/email/course" class="form-control"></div> 
                           <div class="col-xl-6">
                               <div class="form-group">
                                   <div id="reportrange" class="form-control" data-toggle="date-picker-range" data-target-display="#selectedValue"  data-cancel-class="btn-light" style="width: 100%;">

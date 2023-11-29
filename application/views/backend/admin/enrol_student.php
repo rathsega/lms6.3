@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="expiry_date"><?php echo get_phrase('expiry_date'); ?><span class="required">*</span> </label>
+                        <label for="expiry_date"><?php echo get_phrase('expiry_date'). " <b>(X)</b>"; ?><span class="required">*</span> </label>
                         <input type="date" class="form-control" value="<?php echo date('Y-m-d',strtotime( "+12 month", strtotime( date('D, d-M-Y')  ) )); ?>" name="expiry_date" id="expiry_date" required>
                     </div>
 

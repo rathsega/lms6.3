@@ -35,7 +35,7 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 		<li class="side-nav-item <?php if ($page_name == 'ratings_count_form' || $page_name == 'custom_reviews' ) : ?> active <?php endif; ?>">
 			<a href="javascript: void(0);" class="side-nav-link <?php if ($page_name == 'instructors_pending_blog' || $page_name == 'custom_reviews') : ?> active <?php endif; ?>">
 				<i class="dripicons-blog"></i>
-				<span> <?php echo get_phrase('customsettings'); ?> </span>
+				<span> <?php echo get_phrase('customsettings'). " <b>(X)</b>"; ?> </span>
 				<span class="menu-arrow"></span>
 			</a>
 			<ul class="side-nav-second-level" aria-expanded="true">

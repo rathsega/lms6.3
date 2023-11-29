@@ -361,7 +361,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                     <div class="offset-md-2 col-md-10">
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input" name="is_top10_course" id="is_top10_course" value="1" <?php if ($course_details['is_top10_course'] == 1) echo 'checked'; ?>>
-                                                            <label class="custom-control-label" for="is_top10_course"><?php echo get_phrase('check_if_this_course_is_top10_course'); ?></label>
+                                                            <label class="custom-control-label" for="is_top10_course"><?php echo get_phrase('check_if_this_course_is_top10_course'). " <b>(X)</b>"; ?></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -369,7 +369,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                     <div class="offset-md-2 col-md-10">
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input" name="show_it_in_category" id="show_it_in_category" value="1" <?php if ($course_details['show_it_in_category'] == 1) echo 'checked'; ?>>
-                                                            <label class="custom-control-label" for="show_it_in_category"><?php echo get_phrase('check_if_this_course_should_show_in_category'); ?></label>
+                                                            <label class="custom-control-label" for="show_it_in_category"><?php echo get_phrase('check_if_this_course_should_show_in_category'). " <b>(X)</b>"; ?></label>
                                                         </div>
                                                     </div>
                                                 </div>
