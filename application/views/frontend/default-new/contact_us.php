@@ -23,55 +23,7 @@
                 <div class="contact-image">
                     <img src="<?php echo site_url('assets/frontend/default-new/'); ?>image/contact-img.png">
                 </div>
-                <div class="office-time">
-                    <?php
-                        $contact_info = json_decode(get_frontend_settings('contact_info'), true);
-                    ?>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                            <div class="office-hour mb-4" style="font-size:14px; font-weight:400;">
-                                <div class="icon">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div class="office-hour-text">
-                                    <h4><?php echo get_phrase('Email'); ?></h4>
-                                    <?php echo nl2br($contact_info['email']); ?>
-                                </div>
-                            </div>
-                            <div class="office-hour mb-4" style="font-size:14px; font-weight:400;">
-                                <div class="icon">
-                                    <i class="fa-solid fa-phone"></i>
-                                </div>
-                                <div class="office-hour-text">
-                                    <h4><?php echo get_phrase('Get In Touch'); ?></h4>
-                                    <?php echo nl2br($contact_info['phone']); ?>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                            <div class="office-hour mb-4" style="font-size:14px; font-weight:400;">
-                                <div class="icon">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                </div>
-                                <div class="office-hour-text">
-                                    <h4><?php echo get_phrase('Our Address'); ?></h4>
-                                    <?php echo nl2br($contact_info['address']); ?>
-                                </div>
-                            </div>
-                            <div class="office-hour mb-4" style="font-size:14px; font-weight:400;">
-                                <div class="icon">
-                                    <i class="fa-solid fa-house"></i>
-                                </div>
-                                <div class="office-hour-text">
-                                    <h4><?php echo get_phrase('Office Hours'); ?></h4>
-                                    <?php echo nl2br($contact_info['office_hours']); ?>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+                
                 
             </div>
             <div class="col-lg-6 col-md-6">
