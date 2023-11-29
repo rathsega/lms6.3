@@ -46,7 +46,7 @@ class Blog extends CI_Controller
             $config['base_url']  = site_url('blogs/');
             $this->pagination->initialize($config);
 
-            $this->db->order_by('added_date', 'asc');
+            $this->db->order_by('added_date', 'desc');
             $this->db->like('title', $_GET['search']);
             $this->db->or_like('description', $_GET['search']);
             $this->db->where('status', 1);
@@ -66,7 +66,7 @@ class Blog extends CI_Controller
             $config['base_url']  = site_url('blogs/');
             $this->pagination->initialize($config);
 
-            $this->db->order_by('added_date', 'asc');
+            $this->db->order_by('added_date', 'desc');
             $this->db->where('blog_category_id', $blog_category_id);
             $this->db->where('status', 1);
             $page_data['blogs'] = $this->db->get('blogs', $config['per_page'], $uri_segment);
@@ -80,7 +80,7 @@ class Blog extends CI_Controller
             $config['base_url']  = site_url('blogs/');
             $this->pagination->initialize($config);
 
-            $this->db->order_by('added_date', 'asc');
+            $this->db->order_by('added_date', 'desc');
             $this->db->where('status', 1);
             $page_data['blogs'] = $this->db->get('blogs', $config['per_page'], $uri_segment);
             $page_data['total_rows'] = $total_rows;
