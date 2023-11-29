@@ -2779,7 +2779,7 @@ class Crud_model extends CI_Model
 
             $this->db->group_start();
             $this->db->where('c.status', 'active');
-            $this->db->where('show_it_in_category', '1');
+            $this->db->where('c.show_it_in_category', '1');
             $this->db->group_end();
 
             $this->db->from('course c')->join('rating r', 'r.ratable_id = c.id', 'left');
@@ -2869,7 +2869,7 @@ class Crud_model extends CI_Model
 
         $this->db->group_start();
         $this->db->where('c.status', 'active');
-        $this->db->where('show_it_in_category', '1');
+        $this->db->where('c.show_it_in_category', '1');
         $this->db->group_end();
 
 
