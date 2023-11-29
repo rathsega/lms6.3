@@ -187,7 +187,7 @@ if($user_id && $user_id > 1){
 <section class="courses grid-view-body pt-50 pb-4">
     <div class="container">
         <h1><span><?php echo site_phrase('top_courses'); ?></span></h1>
-        <p><?php echo site_phrase('These_are_the_most_popular_courses_among_Listen_Courses_learners_worldwide')?></p>
+        <p class='fs-16'><?php echo site_phrase('These_are_the_most_popular_courses_among_Listen_Courses_learners_worldwide')?></p>
         <div class="courses-card">
             <div class="course-group-slider">
                 <?php
