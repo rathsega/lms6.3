@@ -230,7 +230,6 @@ if($user_id && $user_id > 1){
                                         </span>
                                     </div>
                                 </div>
-                                <p class="ellipsis-line-2"><?php echo $top_course['short_description'] ?></p>
                                 <div class="courses-price-border">
                                     <div class="courses-price">
                                         <div class="courses-price-left">
@@ -278,9 +277,6 @@ if($user_id && $user_id > 1){
                                 <?php endif; ?>
                                 <span class=""><i class="fas fa-closed-captioning"></i><?php echo ucfirst($top_course['language']); ?></span>
                              </div>
-                            <div class="course-subtitle">
-                                 <?php echo $top_course['short_description']; ?>
-                            </div>
                             <h6 class="text-black text-14px mb-1"><?php echo get_phrase('Outcomes') ?>:</h6>
                             <ul class="will-learn">
                                 <?php $outcomes = json_decode($top_course['outcomes']);
@@ -414,7 +410,6 @@ if($user_id && $user_id > 1){
                                         </span>
                                     </div>
                                 </div>
-                                <p class="ellipsis-line-2"><?php echo $latest_course['short_description'] ?></p>
                                 <div class="courses-price-border">
                                     <div class="courses-price">
                                         <div class="courses-price-left">
@@ -462,9 +457,6 @@ if($user_id && $user_id > 1){
                                 <?php endif; ?>
                                 <span class=""><i class="fas fa-closed-captioning"></i><?php echo ucfirst($latest_course['language']); ?></span>
                              </div>
-                            <div class="course-subtitle">
-                                 <?php echo $latest_course['short_description']; ?>
-                            </div>
                             <h6 class="text-black text-14px mb-1"><?php echo get_phrase('Outcomes') ?>:</h6>
                             <ul class="will-learn">
                                 <?php $outcomes = json_decode($latest_course['outcomes']);

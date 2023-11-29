@@ -41,7 +41,6 @@
                         <p>(<?php echo $number_of_ratings; ?> <?php echo get_phrase('Reviews') ?>)</p>
                         <p><i class="fas fa-closed-captioning"></i><?php echo site_phrase($course['language']); ?></p>
                     </div>
-                    <p class="ellipsis-line-2"><?php echo $course['short_description']; ?></p>
                     <div class="courses-price-border">
                         <div class="courses-price">
                             <div class="courses-price-left">

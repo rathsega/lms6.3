@@ -42,7 +42,6 @@
                                     </span>
                                 </div>
                             </div>
-                            <p class="ellipsis-line-2"><?php echo $course['short_description'] ?></p>
                             <div class="courses-price-border">
                                 <div class="courses-price">
                                     <div class="courses-price-left">
