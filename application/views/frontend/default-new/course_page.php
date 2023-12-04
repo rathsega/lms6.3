@@ -4,6 +4,7 @@ $course_details = $this->crud_model->get_course_by_slug($slug)->row_array();
 if(!$course_details){
     //redirect(site_url('404_override'), 'refresh');
 }
+$course_id = $course_details['id'];
 $lessons = $this->crud_model->get_lessons('course', $course_details['id']);
 $instructor_details = $this->user_model->get_all_user($course_details['creator'])->row_array();
 $course_duration = $this->crud_model->get_total_duration_of_lesson_by_course_id($course_details['id']);

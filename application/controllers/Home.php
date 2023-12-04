@@ -216,7 +216,7 @@ class Home extends CI_Controller
     public function course($slug = "", $course_id = "")
     {
         //course_addon start
-
+        //log_message("error", "Course method slug : " . $slug . " , Course Id : " . $course_id);
 
         if (addon_status('affiliate_course')) {
             if (isset($_GET['ref'])) {
@@ -250,9 +250,10 @@ class Home extends CI_Controller
         //course_addon end 
 
 
-        $this->access_denied_courses($course_id);
+        $this->access_denied_courses_by_slug($slug);
+        $course_data = $this->crud_model->get_course_by_slug($slug)->row_array();
         $page_data['slug'] = $slug;
-        $page_data['course_id'] = $course_id;
+        $page_data['course_id'] = $course_data['id'];
         $page_data['page_name'] = "course_page";
         $page_data['page_title'] = site_phrase('course');
 
@@ -1277,6 +1278,20 @@ class Home extends CI_Controller
     private function access_denied_courses($course_id)
     {
         $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
+        if ($course_details['status'] == 'draft' && $course_details['user_id'] != $this->session->userdata('user_id')) {
+            $this->session->set_flashdata('error_message', site_phrase('you_do_not_have_permission_to_access_this_course'));
+            redirect(site_url('home'), 'refresh');
+        } elseif ($course_details['status'] == 'pending') {
+            if ($course_details['user_id'] != $this->session->userdata('user_id') && $this->session->userdata('role_id') != 1) {
+                $this->session->set_flashdata('error_message', site_phrase('you_do_not_have_permission_to_access_this_course'));
+                redirect(site_url('home'), 'refresh');
+            }
+        }
+    }
+
+    private function access_denied_courses_by_slug($slug)
+    {
+        $course_details = $this->crud_model->get_course_by_slug($slug)->row_array();
         if ($course_details['status'] == 'draft' && $course_details['user_id'] != $this->session->userdata('user_id')) {
             $this->session->set_flashdata('error_message', site_phrase('you_do_not_have_permission_to_access_this_course'));
             redirect(site_url('home'), 'refresh');
