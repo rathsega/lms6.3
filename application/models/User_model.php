@@ -873,4 +873,12 @@ class User_model extends CI_Model
             return base_url() . 'uploads/broucher/placeholder.png';
         }
     }
+
+    public function upload_user_image_of_reviewer($image_code, $i)
+    {
+        if (isset($_FILES['user_image']) && $_FILES['user_image']['name'] != "" && $_FILES['user_image']['name'][$i] != "") {
+            move_uploaded_file($_FILES['user_image']['tmp_name'][$i], 'uploads/user_image/' . $image_code );
+            //$this->session->set_flashdata('flash_message', get_phrase('user_update_successfully'));
+        }
+    }
 }
