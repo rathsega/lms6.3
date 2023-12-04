@@ -51,6 +51,9 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 				<li class="<?php if ($page_name == 'generate_certificate') echo 'active'; ?>">
 					<a href="<?php echo site_url('admin/generate_certificate'); ?>"><?php echo "Generate Certificate"; ?></a>
 				</li>
+				<li class="<?php if ($page_name == 'user_login_history') echo 'active'; ?>">
+					<a href="<?php echo site_url('admin/user_login_history'); ?>"><?php echo "User Login History"; ?></a>
+				</li>
 			</ul>
 		</li>
 

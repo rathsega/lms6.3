@@ -2913,6 +2913,23 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
+    public function user_login_history()
+    {
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        if($this->input->post('name_email')){
+            $page_data['user_login_history'] = $this->crud_model->user_login_history_by_name_email($this->input->get('name_email'));
+        }else{
+            $page_data['user_login_history'] = $this->crud_model->user_login_history();
+        }
+        // CHECK ACCESS PERMISSION
+        $page_data['page_name'] = 'user_login_history';
+        $page_data['page_title'] = get_phrase('user_login_history');
+        $this->load->view('backend/index', $page_data);
+    }
+
     public function generate_certificate_manually(){
         $user_id = $this->input->post('user_id');
         $course_id = $this->input->post('course_id');

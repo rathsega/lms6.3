@@ -13,33 +13,38 @@
  * @filesource
  */
 //phpinfo();
-if (! function_exists('remove_js')) {
-    function remove_js($description = '') {
+if (!function_exists('remove_js')) {
+    function remove_js($description = '')
+    {
         return preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', "", $description);
     }
 }
 
 
-if (! function_exists('htmlspecialchars_')) {
-    function htmlspecialchars_($description = '') {
+if (!function_exists('htmlspecialchars_')) {
+    function htmlspecialchars_($description = '')
+    {
         return htmlspecialchars($description ?? "");
     }
 }
-if (! function_exists('htmlspecialchars_decode_')) {
-    function htmlspecialchars_decode_($description = '') {
+if (!function_exists('htmlspecialchars_decode_')) {
+    function htmlspecialchars_decode_($description = '')
+    {
         return htmlspecialchars_decode($description ?? "");
     }
 }
 
 if (!function_exists('isJson')) {
-    function isJson($string) {
+    function isJson($string)
+    {
         json_decode($string);
         return (json_last_error() == JSON_ERROR_NONE);
     }
 }
 
 if (!function_exists('set_url_history')) {
-    function set_url_history($url) {
+    function set_url_history($url)
+    {
         $CI    = &get_instance();
         $CI->session->set_userdata('url_history', $url);
     }
@@ -118,66 +123,72 @@ if (!function_exists('custom_date')) {
 }
 
 if (!function_exists('nice_number')) {
-    function nice_number($n) {
+    function nice_number($n)
+    {
         // first strip any formatting;
-        $n = (0+str_replace(",", "", $n));
+        $n = (0 + str_replace(",", "", $n));
 
         // is this a number?
         if (!is_numeric($n)) return false;
 
         // now filter it;
-        if($n <= 1000) return number_format($n);
-        elseif ($n > 1000000000000) return round(($n/1000000000000), 1).'T';
-        elseif ($n > 1000000000) return round(($n/1000000000), 1).'M';
-        elseif ($n > 1000000) return round(($n/1000000), 1).'M';
-        elseif ($n > 1000) return round(($n/1000), 1).'k';
+        if ($n <= 1000) return number_format($n);
+        elseif ($n > 1000000000000) return round(($n / 1000000000000), 1) . 'T';
+        elseif ($n > 1000000000) return round(($n / 1000000000), 1) . 'M';
+        elseif ($n > 1000000) return round(($n / 1000000), 1) . 'M';
+        elseif ($n > 1000) return round(($n / 1000), 1) . 'k';
 
         return number_format($n);
     }
 }
 
-if (! function_exists('get_past_time')) {
-    function get_past_time( $time = "" ) {
+if (!function_exists('get_past_time')) {
+    function get_past_time($time = "")
+    {
         $time_difference = time() - $time;
 
-        if( $time_difference < 1 ) { return 'less than 1 second ago'; }
+        if ($time_difference < 1) {
+            return 'less than 1 second ago';
+        }
 
         //864000 = 10 days
-        if($time_difference > 864000){ return custom_date($time, 1); }
+        if ($time_difference > 864000) {
+            return custom_date($time, 1);
+        }
 
-        $condition = array( 12 * 30 * 24 * 60 * 60 =>  site_phrase('year'),
-                    30 * 24 * 60 * 60       =>  site_phrase('month'),
-                    24 * 60 * 60            =>  site_phrase('day'),
-                    60 * 60                 =>  site_phrase('hour'),
-                    60                      =>  site_phrase('minute'),
-                    1                       =>  site_phrase('second')
+        $condition = array(
+            12 * 30 * 24 * 60 * 60 =>  site_phrase('year'),
+            30 * 24 * 60 * 60       =>  site_phrase('month'),
+            24 * 60 * 60            =>  site_phrase('day'),
+            60 * 60                 =>  site_phrase('hour'),
+            60                      =>  site_phrase('minute'),
+            1                       =>  site_phrase('second')
         );
 
-        foreach( $condition as $secs => $str )
-        {
+        foreach ($condition as $secs => $str) {
             $d = $time_difference / $secs;
 
-            if( $d >= 1 )
-            {
-                $t = round( $d );
-                return $t . ' ' . $str . ( $t > 1 ? 's' : '' ) .' '. site_phrase('ago');
+            if ($d >= 1) {
+                $t = round($d);
+                return $t . ' ' . $str . ($t > 1 ? 's' : '') . ' ' . site_phrase('ago');
             }
         }
     }
 }
 
-if (! function_exists('resizeImage')) {
-    function resizeImage($filelocation = "", $target_path = "", $width = "", $height = "") {
-        $CI =&  get_instance();
+if (!function_exists('resizeImage')) {
+    function resizeImage($filelocation = "", $target_path = "", $width = "", $height = "")
+    {
+        $CI = &get_instance();
         $CI->load->database();
-        
-        if($width == ""){
+
+        if ($width == "") {
             $width = 200;
         }
 
-        if($height == ""){
+        if ($height == "") {
             $maintain_ratio = TRUE;
-        }else{
+        } else {
             $maintain_ratio = FALSE;
         }
 
@@ -195,12 +206,12 @@ if (! function_exists('resizeImage')) {
 
         if ($CI->image_lib->resize()) {
             return true;
-        }else{
+        } else {
             $CI->image_lib->display_errors();
             return false;
         }
         $CI->image_lib->clear();
-   }
+    }
 }
 
 if (!function_exists('get_settings')) {
@@ -212,9 +223,9 @@ if (!function_exists('get_settings')) {
         $CI->db->where('key', $key);
         $result = $CI->db->get('settings')->row('value');
 
-        if($type){
+        if ($type) {
             return json_decode($result, true);
-        }else{
+        } else {
             return $result;
         }
     }
@@ -244,7 +255,7 @@ if (!function_exists('currency')) {
             } elseif ($position == 'left-space') {
                 return $symbol . ' ' . $price;
             }
-        }else{
+        } else {
             $CI->db->where('key', 'system_currency');
             $currency_code = $CI->db->get('settings')->row('value');
 
@@ -283,7 +294,7 @@ if (!function_exists('get_frontend_settings')) {
 
 
 
-        if($key == 'banner_image'){
+        if ($key == 'banner_image') {
             $banner_images = json_decode($result, true);
             return $banner_images[get_frontend_settings('home_page')];
         }
@@ -448,11 +459,11 @@ if (!function_exists('lesson_progress')) {
 
         $query = $CI->db->get_where('watch_histories', array('course_id' => $course_id, 'student_id' => $user_id));
 
-        if($query->num_rows() > 0){
+        if ($query->num_rows() > 0) {
             $lesson_ids = json_decode($query->row('completed_lesson'), true);
-            if(is_array($lesson_ids) && in_array($lesson_id, $lesson_ids)){
+            if (is_array($lesson_ids) && in_array($lesson_id, $lesson_ids)) {
                 return 1;
-            }else{
+            } else {
                 return 0;
             }
         }
@@ -472,9 +483,9 @@ if (!function_exists('course_progress')) {
         if ($return_type == "completed_lesson_ids") {
             return json_decode($watch_history['completed_lesson']);
         }
-        if(is_array($watch_history) && $watch_history['course_progress'] > 0){
+        if (is_array($watch_history) && $watch_history['course_progress'] > 0) {
             return $watch_history['course_progress'];
-        }else{
+        } else {
             return 0;
         }
     }
@@ -554,42 +565,42 @@ if (!function_exists('get_lesson_type')) {
         $CI = &get_instance();
         $CI->load->database();
         $lesson = $CI->db->get_where('lesson', ['id' => $lesson_id]);
-        if($lesson->num_rows() > 0){
+        if ($lesson->num_rows() > 0) {
             $lesson = $lesson->row_array();
-            if($lesson['lesson_type'] == 'video' && $lesson['video_type'] == 'YouTube' || $lesson['video_type'] == 'youtube'){
+            if ($lesson['lesson_type'] == 'video' && $lesson['video_type'] == 'YouTube' || $lesson['video_type'] == 'youtube') {
                 return 'youtube_video_url';
-            }elseif($lesson['lesson_type'] == 'video' && $lesson['video_type'] == 'google_drive'){
+            } elseif ($lesson['lesson_type'] == 'video' && $lesson['video_type'] == 'google_drive') {
                 return 'google_drive_video_url';
-            }elseif($lesson['lesson_type'] == 'video' && $lesson['video_type'] == 'Vimeo' || $lesson['video_type'] == 'vimeo'){
+            } elseif ($lesson['lesson_type'] == 'video' && $lesson['video_type'] == 'Vimeo' || $lesson['video_type'] == 'vimeo') {
                 return 'vimeo_video_url';
-            }elseif($lesson['lesson_type'] == 'video' && $lesson['video_type'] == 'amazon'){
+            } elseif ($lesson['lesson_type'] == 'video' && $lesson['video_type'] == 'amazon') {
                 return 'amazon_video_url';
-            }elseif($lesson['lesson_type'] == 'video' && $lesson['video_type'] == 'system'){
+            } elseif ($lesson['lesson_type'] == 'video' && $lesson['video_type'] == 'system') {
                 return 'video_file';
-            }elseif($lesson['lesson_type'] == 'video' && $lesson['video_type'] == 'academy_cloud'){
+            } elseif ($lesson['lesson_type'] == 'video' && $lesson['video_type'] == 'academy_cloud') {
                 return 'academy_cloud';
-            }elseif($lesson['lesson_type'] == 'video' && $lesson['video_type'] == 'html5'){
+            } elseif ($lesson['lesson_type'] == 'video' && $lesson['video_type'] == 'html5') {
                 return 'html5_video_url';
-            }elseif($lesson['lesson_type'] == 'quiz'){
+            } elseif ($lesson['lesson_type'] == 'quiz') {
                 return 'quiz';
-            }elseif($lesson['lesson_type'] == 'text'){
+            } elseif ($lesson['lesson_type'] == 'text') {
                 return 'text';
-            }elseif($lesson['lesson_type'] == 'other' && $lesson['attachment_type'] == 'txt'){
+            } elseif ($lesson['lesson_type'] == 'other' && $lesson['attachment_type'] == 'txt') {
                 return 'text_file';
-            }elseif($lesson['lesson_type'] == 'other' && $lesson['attachment_type'] == 'pdf'){
+            } elseif ($lesson['lesson_type'] == 'other' && $lesson['attachment_type'] == 'pdf') {
                 return 'pdf_file';
-            }elseif($lesson['lesson_type'] == 'other' && $lesson['attachment_type'] == 'doc'){
+            } elseif ($lesson['lesson_type'] == 'other' && $lesson['attachment_type'] == 'doc') {
                 return 'doc_file';
-            }elseif($lesson['lesson_type'] == 'other' && $lesson['attachment_type'] == 'img'){
+            } elseif ($lesson['lesson_type'] == 'other' && $lesson['attachment_type'] == 'img') {
                 return 'image_file';
-            }else{
+            } else {
                 return 'iframe';
             }
 
             //'image_file' || 'doc_file' || 'pdf_file' || 'text_file' || 
         }
     }
-    
+
     if (!function_exists('get_latest_ci_session_id')) {
         function get_latest_ci_session_id($ip_address, $user_id)
         {
@@ -631,7 +642,7 @@ if (!function_exists('get_lesson_type')) {
         }
     }
 
-    
+
     if (!function_exists('delete_sessions')) {
         function delete_sessions($ids)
         {
@@ -642,7 +653,7 @@ if (!function_exists('get_lesson_type')) {
             return $CI->db->delete('ci_sessions');
         }
     }
-    
+
     if (!function_exists('update_user_sessions')) {
         function update_user_sessions($ids, $user_id)
         {
@@ -653,6 +664,172 @@ if (!function_exists('get_lesson_type')) {
             $data = array("sessions" => $ids);
             return $CI->db->update('users', $data);
         }
+    }
+
+    if (!function_exists('get_browser_details')) {
+        function get_browser_details()
+        {
+            return get_browser();
+            $user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+            $browser        =   "Unknown Browser";
+
+            $browser_array  = array(
+                '/msie/i'       =>  'Internet Explorer',
+                '/firefox/i'    =>  'Firefox',
+                '/safari/i'     =>  'Safari',
+                '/chrome/i'     =>  'Chrome',
+                '/opera/i'      =>  'Opera',
+                '/netscape/i'   =>  'Netscape',
+                '/maxthon/i'    =>  'Maxthon',
+                '/konqueror/i'  =>  'Konqueror',
+                '/mobile/i'     =>  'Handheld Browser'
+            );
+            $found = false;
+            foreach ($browser_array as $regex => $value) {
+                if ($found)
+                    break;
+                else if (preg_match($regex, $user_agent, $result)) {
+                    $browser    =   $value;
+                    $found = true;
+                }
+            }
+            return $browser;
+        }
+    }
+
+    if (!function_exists('get_system_info')) {
+        function get_system_info()
+        {
+            /*$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+            $os_platform    = "Unknown OS Platform";
+            $os_array       = array(
+                '/Windows NT 10.0'    =>  'Windows Phone 8',
+                '/windows phone 8/i'    =>  'Windows Phone 8',
+                '/windows phone os 7/i' =>  'Windows Phone 7',
+                '/windows nt 6.3/i'     =>  'Windows 8.1',
+                '/windows nt 6.2/i'     =>  'Windows 8',
+                '/windows nt 6.1/i'     =>  'Windows 7',
+                '/windows nt 6.0/i'     =>  'Windows Vista',
+                '/windows nt 5.2/i'     =>  'Windows Server 2003/XP x64',
+                '/windows nt 5.1/i'     =>  'Windows XP',
+                '/windows xp/i'         =>  'Windows XP',
+                '/windows nt 5.0/i'     =>  'Windows 2000',
+                '/windows me/i'         =>  'Windows ME',
+                '/win98/i'              =>  'Windows 98',
+                '/win95/i'              =>  'Windows 95',
+                '/win16/i'              =>  'Windows 3.11',
+                '/macintosh|mac os x/i' =>  'Mac OS X',
+                '/mac_powerpc/i'        =>  'Mac OS 9',
+                '/linux/i'              =>  'Linux',
+                '/ubuntu/i'             =>  'Ubuntu',
+                '/iphone/i'             =>  'iPhone',
+                '/ipod/i'               =>  'iPod',
+                '/ipad/i'               =>  'iPad',
+                '/android/i'            =>  'Android',
+                '/blackberry/i'         =>  'BlackBerry',
+                '/webos/i'              =>  'Mobile'
+            );
+            $found = false;
+            $device = '';
+            foreach ($os_array as $regex => $value) {
+                $regex = strtolower($regex);
+                if ($found)
+                    break;
+                else if (preg_match($regex, $user_agent)) {
+                    $os_platform    =   $value;
+                    $device = !preg_match('/(windows|mac|linux|ubuntu)/i', $os_platform)
+                        ? 'MOBILE' : (preg_match('/phone/i', $os_platform) ? 'MOBILE' : 'SYSTEM');
+                }
+            }
+            $device = !$device ? 'SYSTEM' : $device;
+            return array('os' => $os_platform, 'device' => $device);*/
+            $u_agent = $_SERVER['HTTP_USER_AGENT'];
+        $bname = 'Unknown';
+        $os_platform = 'Unknown';
+        $version = "";
+
+        //First get the platform?
+        if (preg_match('/linux/i', $u_agent)) {
+            $os_platform = 'linux';
+        } elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
+            $os_platform = 'mac';
+        } elseif (preg_match('/windows|win32/i', $u_agent)) {
+            $os_platform = 'windows';
+        }
+
+        // Next get the name of the useragent yes seperately and for good reason
+        if (preg_match('/MSIE/i', $u_agent) && !preg_match('/Opera/i', $u_agent)) {
+            $bname = 'Internet Explorer';
+            $ub = "MSIE";
+        } elseif (preg_match('/Firefox/i', $u_agent)) {
+            $bname = 'Mozilla Firefox';
+            $ub = "Firefox";
+        } elseif (preg_match('/OPR/i', $u_agent)) {
+            $bname = 'Opera';
+            $ub = "Opera";
+        } elseif (preg_match('/Chrome/i', $u_agent) && !preg_match('/Edge/i', $u_agent) && !preg_match('/Edg/i', $u_agent)) {
+            $bname = 'Google Chrome';
+            $ub = "Chrome";
+        } elseif (preg_match('/Safari/i', $u_agent) && !preg_match('/Edge/i', $u_agent) && !preg_match('/Edg/i', $u_agent)) {
+            $bname = 'Apple Safari';
+            $ub = "Safari";
+        } elseif (preg_match('/Netscape/i', $u_agent)) {
+            $bname = 'Netscape';
+            $ub = "Netscape";
+        } elseif (preg_match('/Edge/i', $u_agent)) {
+            $bname = 'Edge';
+            $ub = "Edge";
+        } elseif (preg_match('/Edg/i', $u_agent)) {
+            $bname = 'Edge';
+            $ub = "Edge";
+        } elseif (preg_match('/Trident/i', $u_agent)) {
+            $bname = 'Internet Explorer';
+            $ub = "MSIE";
+        }
+
+        // finally get the correct version number
+        $known = array('Version', $ub, 'other');
+        $pattern = '#(?<browser>' . join('|', $known) .
+            ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+        if (!preg_match_all($pattern, $u_agent, $matches)) {
+            // we have no matching number just continue
+        }
+        // see how many we have
+        $i = count($matches['browser']);
+        if ($i != 1) {
+            //we will have two since we are not using 'other' argument yet
+            //see if version is before or after the name
+            if (strripos($u_agent, "Version") < strripos($u_agent, $ub)) {
+                $version = $matches['version'][0];
+            } else {
+                $version = $matches['version'][1];
+            }
+        } else {
+            $version = $matches['version'][0];
+        }
+
+        // check if we have a number
+        if ($version == null || $version == "") {
+            $version = "?";
+        }
+
+
+        $device = !preg_match('/(windows|mac|linux|ubuntu)/i', $os_platform)
+            ? 'MOBILE' : (preg_match('/phone/i', $os_platform) ? 'MOBILE' : 'SYSTEM');
+        $device = !$device ? 'SYSTEM' : $device;
+
+        return array(
+            'userAgent' => $u_agent,
+            'browser'      => $bname,
+            'version'   => $version,
+            'os'  => $os_platform,
+            'pattern'    => $pattern,
+            'device' => $device
+        );
+        }
+
+        
     }
 }
 

@@ -14,14 +14,20 @@ if($user_id && $user_id > 1){
         //set user id
         $updated = set_user_id_in_session($empty_user_sessions[0]->id, $user_id);
         if($updated){
+            //$browser = get_browser_details();
+            $sysinfo = get_system_info();
+            $date_time = date('Y-m-d h:i:s a', time());
+            $this->crud_model->add_user_login_history($user_id, $sysinfo['device'], $sysinfo['os'], $sysinfo['browser'], $ip_address, $date_time);
             $active_sessions = get_active_sessions_of_current_user($user_id);
             if($active_sessions && count($active_sessions) > 1){
                 $active_session_ids = [];
                 for($i=1; $i<count($active_sessions); $i++){
-                    array_push($active_session_ids, $active_sessions[$i]["id"]);
+                    if($active_sessions[$i]){
+                        array_push($active_session_ids, $active_sessions[$i]["id"]);
+                    }
                 }
                 delete_sessions($active_session_ids);
-                update_user_sessions([$active_sessions[0]["id"]], $user_id);
+                //update_user_sessions([$active_sessions[0]["id"]], $user_id);
                 update_user_sessions(json_encode([$active_sessions[0]["id"]]), $user_id);
             }
         }
@@ -54,7 +60,7 @@ if($user_id && $user_id > 1){
                     <p><?php echo site_phrase(get_frontend_settings('banner_sub_title')); ?></p>
                 </div>
                 <div class="search-option">
-                    <form action="<?php echo site_url('home/search'); ?>" method="get">
+                    <form action="<?php echo site_url('home/courses'); ?>" method="get">
                         <input class="form-control" type="text" placeholder="<?php echo get_phrase('What do you want to learn'); ?>" name="query">
                         <button class="submit-cls" type="submit"><i class="fa fa-search"></i><?php echo get_phrase('Search') ?></button>
                     </form>

@@ -4885,5 +4885,43 @@ class Crud_model extends CI_Model
             return $this->db->get('course');
         }
     }
+
+    public function add_user_login_history($user_id, $device, $os, $browser, $ip_address, $date_time){
+        $data = [];
+        $data['user_id'] = $user_id;
+        $data['device'] = $device;
+        $data['os'] = $os;
+        $data['browser'] = $browser;
+        $data['ip_address'] = $ip_address;
+        $data['date_time'] = $date_time;
+        log_message("error", "user details : " . json_encode($data));
+        return $this->db->insert('user_login_history', $data);
+    }
     
+    public function user_login_history_by_name_email($str)
+    {
+
+        $this->db->like('first_name', $str);
+        $this->db->or_like('last_name', $str);
+        $this->db->or_like('email', $str);
+        $data =  $this->db->get('users');
+        $user_id = [];
+        foreach ($data->result_array() as $user) {
+            array_push($user_id, $user['id']);
+        }
+        $user_id_string = implode(',',$user_id);
+
+        //$this->db->order_by('date_added', 'desc');
+        //return $this->db->get_where_in('enrol', array('user_id' => $user_id));
+        return $this->db->query("
+     SELECT * FROM user_login_history 
+     WHERE user_id IN ($user_id_string) 
+     order by date_time desc
+     ");
+    }
+
+    public function user_login_history(){
+        $this->db->order_by('date_time', 'desc');
+        return $this->db->get('user_login_history');
+    }
 }
