@@ -27,15 +27,17 @@ $my_rating = $this->db->where('user_id', $user_id)->where('ratable_id', $course_
     </div>
 <?php endif; ?>
 
-<?php $ratings = $this->crud_model->get_ratings('course', $course_details['id'])->result_array();
+<?php $ratings = $this->crud_model->get_custom_ratings($course_details['id'])->result_array();
 foreach($ratings as $rating):
-$user_details = $this->user_model->get_user($rating['user_id'])->row_array();
+//$user_details = $this->user_model->get_user($rating['user_id'])->row_array();
+$user_details = [];
+$user_details['id'] = -1;
 ?>
     <div class="reviews-border" id="userReview<?php echo $rating['id']; ?>">
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-5 col-5 mt-5">
-                <h3 class="text-center text-black fw-500"><?php echo $user_details['first_name'].' '.$user_details['last_name']; ?></h3>
-                <p class="text-center"><?php echo date('d-M-Y', $rating['date_added']); ?></p>
+                <h3 class="text-center text-black fw-500"><?php echo $rating['student_name']; ?></h3>
+                <p class="text-center"><?php echo date('d-M-Y', strtotime($rating['date_added'])); ?></p>
                 <h1><?php echo $rating['rating']; ?></h1>
                 <div class="icon">
                     <?php for($i = 1; $i <= 5; $i++): ?>
@@ -51,18 +53,7 @@ $user_details = $this->user_model->get_user($rating['user_id'])->row_array();
                 <!-- <h3 class="mb-3">Great product, smooth purchase</h3> -->
                 <p class="text"><?php echo $rating['review']; ?></p>
             </div>
-            <div class="col-md-12">
-                <p class="d-flex justify-content-end">
-
-                    <?php if($user_details['id'] == $user_id): ?>
-                        <a class="px-2" onclick="$('#myReview<?php echo $rating['id']; ?>').toggle();" href="#" data-bs-toggle="tooltip" title="<?php echo get_phrase('Edit'); ?>"><i class="fas fa-pencil"></i></a>
-                    <?php endif; ?>
-
-                    <?php if($user_details['id'] == $user_id || $admin_login): ?>
-                        <a  class="px-2 text-danger" onclick="actionTo('<?php echo site_url('home/remove_rating/'.$course_details['id'].'/'.$rating['id']) ?>')" href="#" data-bs-toggle="tooltip" title="<?php echo get_phrase('Remove'); ?>"><i class="fas fa-trash"></i></a>
-                    <?php endif; ?>
-                </p>
-            </div>
+            
         </div>
 
         <?php if($user_details['id'] == $user_id): ?>

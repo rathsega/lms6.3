@@ -48,9 +48,16 @@
                             </div>
 
                             <div class="form-group row mb-3">
-                                <label class="col-md-5 col-form-label" for="user_image_1"><?php echo site_phrase('upload_image'); ?><span class="required">*</span></label>
+                                <label class="col-md-5 col-form-label" for="date_added_1"><?php echo get_phrase('date_added'); ?> <span class="required">*</span> </label>
                                 <div class="col-md-7">
-                                    <input type="file" class="form-control" name = "user_image[0]" id="user_image_1" required>
+                                    <input type="date" class="form-control" id="date_added_1" name = "date_added[0]" placeholder="<?php echo get_phrase('enter_date_added'); ?>" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-3">
+                                <label class="col-md-5 col-form-label" for="user_image_1"><?php echo site_phrase('upload_image'); ?></label>
+                                <div class="col-md-7">
+                                    <input type="file" class="form-control" name = "user_image[0]" id="user_image_1">
                                 </div>
                             </div>
 
@@ -80,9 +87,16 @@
                             </div>
 
                             <div class="form-group row mb-3">
-                                <label class="col-md-5 col-form-label" for="user_image_2"><?php echo site_phrase('upload_image'); ?><span class="required">*</span></label>
+                                <label class="col-md-5 col-form-label" for="date_added_2"><?php echo get_phrase('date_added'); ?> <span class="required">*</span> </label>
                                 <div class="col-md-7">
-                                    <input type="file" class="form-control" name = "user_image[1]" id="user_image_2" required>
+                                    <input type="date" class="form-control" id="date_added_2" name = "date_added[1]" placeholder="<?php echo get_phrase('enter_date_added'); ?>" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-3">
+                                <label class="col-md-5 col-form-label" for="user_image_2"><?php echo site_phrase('upload_image'); ?></label>
+                                <div class="col-md-7">
+                                    <input type="file" class="form-control" name = "user_image[1]" id="user_image_2">
                                 </div>
                             </div>
 
@@ -112,9 +126,16 @@
                             </div>
 
                             <div class="form-group row mb-3">
-                                <label class="col-md-5 col-form-label" for="user_image_3"><?php echo site_phrase('upload_image'); ?><span class="required">*</span></label>
+                                <label class="col-md-5 col-form-label" for="date_added_3"><?php echo get_phrase('date_added'); ?> <span class="required">*</span> </label>
                                 <div class="col-md-7">
-                                    <input type="file" class="form-control" name = "user_image[2]" id="user_image_3" required>
+                                    <input type="date" class="form-control" id="date_added_3" name = "date_added[2]" placeholder="<?php echo get_phrase('enter_date_added'); ?>" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-3">
+                                <label class="col-md-5 col-form-label" for="user_image_3"><?php echo site_phrase('upload_image'); ?></label>
+                                <div class="col-md-7">
+                                    <input type="file" class="form-control" name = "user_image[2]" id="user_image_3">
                                 </div>
                             </div>
 
@@ -143,11 +164,18 @@
                                 </div>
                             </div>
 
+                            <div class="form-group row mb-3">
+                                <label class="col-md-5 col-form-label" for="date_added_4"><?php echo get_phrase('date_added'); ?> <span class="required">*</span> </label>
+                                <div class="col-md-7">
+                                    <input type="date" class="form-control" id="date_added_4" name = "date_added[3]" placeholder="<?php echo get_phrase('enter_date_added'); ?>" required>
+                                </div>
+                            </div>
+
                             
                             <div class="form-group row mb-3">
-                                <label class="col-md-5 col-form-label" for="user_image_4"><?php echo site_phrase('upload_image'); ?><span class="required">*</span></label>
+                                <label class="col-md-5 col-form-label" for="user_image_4"><?php echo site_phrase('upload_image'); ?></label>
                                 <div class="col-md-7">
-                                    <input type="file" class="form-control" name = "user_image[3]" id="user_image_4" required>
+                                    <input type="file" class="form-control" name = "user_image[3]" id="user_image_4">
                                 </div>
                             </div>
 
@@ -176,11 +204,18 @@
                                 </div>
                             </div>
 
+                            <div class="form-group row mb-3">
+                                <label class="col-md-5 col-form-label" for="date_added_5"><?php echo get_phrase('date_added'); ?> <span class="required">*</span> </label>
+                                <div class="col-md-7">
+                                    <input type="date" class="form-control" id="date_added_5" name = "date_added[4]" placeholder="<?php echo get_phrase('enter_date_added'); ?>" required>
+                                </div>
+                            </div>
+
                             
                             <div class="form-group row mb-3">
-                                <label class="col-md-5 col-form-label" for="user_image_5"><?php echo site_phrase('upload_image'); ?><span class="required">*</span></label>
+                                <label class="col-md-5 col-form-label" for="user_image_5"><?php echo site_phrase('upload_image'); ?></label>
                                 <div class="col-md-7">
-                                    <input type="file" class="form-control" name = "user_image[4]" id="user_image_5" required>
+                                    <input type="file" class="form-control" name = "user_image[4]" id="user_image_5">
                                 </div>
                             </div>
 

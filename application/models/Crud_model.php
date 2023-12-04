@@ -4760,6 +4760,7 @@ class Crud_model extends CI_Model
         for($i=0; $i<count($_POST['rating']); $i++){
             $data[$i]['course_id'] = $this->input->post('id');
             $data[$i]['student_name'] = $_POST['student_name'][$i];
+            $data[$i]['date_added'] = date('Y-m-d',strtotime($_POST['date_added'][$i]));
             $data[$i]['rating'] = $_POST['rating'][$i];
             $data[$i]['review'] = $_POST['review'][$i];
 
@@ -4923,5 +4924,10 @@ class Crud_model extends CI_Model
     public function user_login_history(){
         $this->db->order_by('date_time', 'desc');
         return $this->db->get('user_login_history');
+    }
+
+    public function get_custom_ratings($course_id)
+    {
+        return $this->db->order_by('id', 'desc')->get_where('custom_reviews', array('course_id' => $course_id));
     }
 }
