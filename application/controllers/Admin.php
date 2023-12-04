@@ -887,7 +887,7 @@ class Admin extends CI_Controller
         $page_data['page_name']              = 'courses-server-side';
         $page_data['categories']             = $this->crud_model->get_categories();
         $page_data['page_title']             = get_phrase('active_courses');
-        $this->load->view('backend/index', $page_data);
+        $this->load->view('backend/index', $page_data); 
     }
 
     // This function is responsible for loading the course data from server side for datatable SILENTLY
