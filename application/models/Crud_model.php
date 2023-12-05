@@ -2166,6 +2166,7 @@ class Crud_model extends CI_Model
         $this->db->order_by("id", "desc");
         $this->db->limit('10');
         $this->db->where('status', 'active');
+        $this->db->where('is_top10_course', '1');
         return $this->db->get('course')->result_array();
     }
 
