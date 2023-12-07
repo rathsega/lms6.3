@@ -96,8 +96,12 @@ $route['my_bookings'] = "addons/tutor_booking/booked_schedules_student";
 
 $existed_segments = ["translate_uri_dashes","bundle_details","default_controller", "certificate", "404_override","home", "ebook", "ebook_manager", "course_bundles", "my_bookings", "schedules_bookings", "tutor", "tutors", "page", "blogs","login","admin","payment","sign_up","blog"];
 $seg1 = $this->uri->segment(1);
+$seg2 = $this->uri->segment(2);
+$seg3 = $this->uri->segment(3);
+$seg4 = $this->uri->segment(4);
 if(!in_array($seg1, $existed_segments)){
-    $route[$seg1] =  "home/course/".$this->uri->segment(1);
+    $route['(:any)/(:any)/(:any)'] =  "home/course/".$this->uri->segment(1)."/".$this->uri->segment(2)."/".$this->uri->segment(3);
+    $route['(:any)/(:any)/(:any)/(:any)'] =  "home/course/".$this->uri->segment(1)."/".$this->uri->segment(2)."/".$this->uri->segment(3)."/".$this->uri->segment(4);
 }
 
 $route['translate_uri_dashes'] = FALSE;

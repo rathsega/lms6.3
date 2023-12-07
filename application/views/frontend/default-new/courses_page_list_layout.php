@@ -17,7 +17,7 @@
             }
             ?>
             <!-- Course List Card -->
-            <a href="<?php echo site_url($course['slug']); ?>" class="courses-list-view-card-body courses-card-body checkPropagation">
+            <a href="<?php echo site_url($course['category_slug'] .'/' . $course['sub_category_slug'] . '/' . $course['slug']); ?>" class="courses-list-view-card-body courses-card-body checkPropagation">
                 <div class="courses-card-image ">
                     <img src="<?php echo $this->crud_model->get_course_thumbnail_url($course['id']); ?>">
                     <div class="courses-icon <?php if(in_array($course['id'], $my_wishlist_items)) echo 'red-heart'; ?>" id="coursesWishlistIcon<?php echo $course['id']; ?>">

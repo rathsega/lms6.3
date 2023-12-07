@@ -213,8 +213,14 @@ class Home extends CI_Controller
         echo json_encode(['reload' => true]);
     }
 
-    public function course($slug = "", $course_id = "")
+    public function course($category_slug, $sub_category_slug, $course_slug_1, $course_slug_2=null)
     {
+        if($course_slug_2){
+            $slug = $course_slug_1 . '/' . $course_slug_2;
+        }else{
+            $slug = $course_slug_1;
+        }
+        $course_id = null;
         //course_addon start
         //log_message("error", "Course method slug : " . $slug . " , Course Id : " . $course_id);
 

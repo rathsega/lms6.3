@@ -30,6 +30,11 @@ $category_details = $this->crud_model->get_category_details_by_id($category_id)-
             </div>
 
             <div class="form-group">
+                <label for="slug"><?php echo get_phrase('category_slug'); ?><span class="required">*</span></label>
+                <input type="text" class="form-control" id="slug" name = "slug" value="<?php echo $category_details['slug']; ?>" required>
+            </div>
+
+            <div class="form-group">
               <label for="parent"><?php echo get_phrase('parent'); ?></label>
               <select class="form-control select2" data-toggle="select2" name="parent" id="parent">
                 <option value="0"><?php echo get_phrase('none'); ?></option>

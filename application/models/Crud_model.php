@@ -41,7 +41,7 @@ class Crud_model extends CI_Model
         $data['code']   = html_escape($this->input->post('code'));
         $data['name']   = html_escape($this->input->post('name'));
         $data['parent'] = html_escape($this->input->post('parent'));
-        $data['slug']   = slugify(html_escape($this->input->post('name')));
+        $data['slug']   = html_escape($this->input->post('slug'));
 
         // CHECK IF THE CATEGORY NAME ALREADY EXISTS
         $this->db->where('name', $data['name']);
@@ -80,7 +80,7 @@ class Crud_model extends CI_Model
     {
         $data['name']   = html_escape($this->input->post('name'));
         $data['parent'] = html_escape($this->input->post('parent'));
-        $data['slug']   = slugify(html_escape($this->input->post('name')));
+        $data['slug']   = html_escape($this->input->post('slug'));
 
         // CHECK IF THE CATEGORY NAME ALREADY EXISTS
         $this->db->where('name', $data['name']);
@@ -116,6 +116,8 @@ class Crud_model extends CI_Model
             $data['last_modified'] = strtotime(date('D, d-M-Y'));
             $this->db->where('id', $param1);
             $this->db->update('category', $data);
+            $this->update_category_slug_in_course($data['slug'], $param1);
+
 
             return true;
         }
@@ -594,6 +596,9 @@ class Crud_model extends CI_Model
         $data['sub_category_id'] = $this->input->post('sub_category_id');
         $category_details = $this->get_category_details_by_id($this->input->post('sub_category_id'))->row_array();
         $data['category_id'] = $category_details['parent'];
+        $parent_category_details = $this->get_category_details_by_id($category_details['parent'])->row_array();
+        $data['sub_category_slug'] = $category_details['slug'];
+        $data['category_slug'] = $parent_category_details['slug'];
         $data['requirements'] = $requirements;
         $data['price'] = $this->input->post('price');
         $data['discount_flag'] = $this->input->post('discount_flag');
@@ -797,6 +802,9 @@ class Crud_model extends CI_Model
         $data['sub_category_id'] = $this->input->post('sub_category_id');
         $category_details = $this->get_category_details_by_id($this->input->post('sub_category_id'))->row_array();
         $data['category_id'] = $category_details['parent'];
+        $parent_category_details = $this->get_category_details_by_id($category_details['parent'])->row_array();
+        $data['sub_category_slug'] = $category_details['slug'];
+        $data['category_slug'] = $parent_category_details['slug'];
         $data['requirements'] = $requirements;
         $data['is_free_course'] = $this->input->post('is_free_course');
 
@@ -4930,5 +4938,15 @@ class Crud_model extends CI_Model
     public function get_custom_ratings($course_id)
     {
         return $this->db->order_by('id', 'desc')->get_where('custom_reviews', array('course_id' => $course_id));
+    }
+
+    public function update_category_slug_in_course($category_slug, $category_id){
+        $data['category_slug'] = $category_slug;
+        $this->db->where('category_id', $category_id);
+        $this->db->update('course', $data);
+
+        $data['sub_category_slug'] = $category_slug;
+        $this->db->where('sub_category_id', $category_id);
+        $this->db->update('course', $data);
     }
 }

@@ -1020,7 +1020,7 @@ class Admin extends CI_Controller
                     $price_field .= '<p class="text-12">' . get_phrase('Lifetime') . '</p>';
                 }
 
-                $view_course_on_frontend_url = site_url($row['slug']);
+                $view_course_on_frontend_url = site_url($row['category_slug'] .'/' . $row['sub_category_slug'] . '/' . $row['slug']);
                 $go_to_course_playing_page = site_url('home/lesson/' . rawurlencode(slugify($row['title'])) . '/' . $row['id']);
                 $edit_this_course_url = site_url('admin/course_form/course_edit/' . $row['id']);
                 $section_and_lesson_url = site_url('admin/course_form/course_edit/' . $row['id']);

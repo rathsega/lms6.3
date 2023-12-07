@@ -28,6 +28,11 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="slug"><?php echo get_phrase('category_slug'); ?><span class="required">*</span></label>
+                        <input type="text" class="form-control" id="slug" name = "slug" required>
+                    </div>
+
+                    <div class="form-group">
                         <label for="parent"><?php echo get_phrase('parent'); ?></label>
                         <select class="form-control select2" data-toggle="select2" name="parent" id="parent" onchange="checkCategoryType(this.value)">
                           <option value="0"><?php echo get_phrase('none'); ?></option>

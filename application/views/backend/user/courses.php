@@ -218,7 +218,7 @@
                                               <i class="mdi mdi-dots-vertical"></i>
                                           </button>
                                           <ul class="dropdown-menu">
-                                              <li><a class="dropdown-item" href="<?php echo site_url('home/course/'.rawurlencode(slugify($course['title'])).'/'.$course['id']); ?>" target="_blank"><?php echo get_phrase('view_course_on_frontend');?></a></li>
+                                              <li><a class="dropdown-item" href="<?php echo site_url($course['category_slug'] .'/' . $course['sub_category_slug'] . '/' . $course['slug']); ?>" target="_blank"><?php echo get_phrase('view_course_on_frontend');?></a></li>
                                               <li><a class="dropdown-item" href="<?php echo site_url('user/course_form/course_edit/'.$course['id']); ?>"><?php echo get_phrase('edit_this_course');?></a></li>
                                               <?php if($course['course_type'] == 'general'): ?>
                                                 <li><a class="dropdown-item" href="<?php echo site_url('user/course_form/course_edit/'.$course['id']); ?>"><?php echo get_phrase('section_and_lesson');?></a></li>
