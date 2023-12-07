@@ -62,7 +62,7 @@
                           </tbody>
                       </table>
                   <?php endif; ?>
-                  <?php if (count($enrol_history->result_array()) == 0): ?>
+                  <?php if (count($user_login_history->result_array()) == 0): ?>
                       <div class="img-fluid w-100 text-center">
                         <img style="opacity: 1; width: 100px;" src="<?php echo base_url('assets/backend/images/file-search.svg'); ?>"><br>
                         <?php echo get_phrase('no_data_found'); ?>
