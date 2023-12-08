@@ -47,6 +47,7 @@ class Login extends CI_Controller
 
     public function validate_login($from = "")
     {
+        date_default_timezone_set('Asia/Kolkata');
         if ($this->crud_model->check_recaptcha() == false && get_frontend_settings('recaptcha_status') == true) {
             $this->session->set_flashdata('error_message', get_phrase('recaptcha_verification_failed'));
             redirect(site_url('login'), 'refresh');
@@ -65,7 +66,7 @@ class Login extends CI_Controller
 
         if ($query->num_rows() > 0) {
             $row = $query->row();
-            $this->user_model->new_device_login_tracker($row->id);
+            //$this->user_model->new_device_login_tracker($row->id);
             $this->user_model->set_login_userdata($row->id);
         } else {
             $this->session->set_flashdata('error_message', get_phrase('invalid_login_credentials'));

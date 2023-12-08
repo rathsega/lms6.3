@@ -707,6 +707,41 @@ class User_model extends CI_Model
             $this->session->set_userdata('name', $row->first_name . ' ' . $row->last_name);
             $this->session->set_userdata('is_instructor', $row->is_instructor);
             $this->session->set_flashdata('flash_message', get_phrase('welcome') . ' ' . $row->first_name . ' ' . $row->last_name);
+
+            if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            } elseif (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+                $ip_address = $_SERVER['HTTP_CLIENT_IP'];
+            } else {
+                $ip_address = $_SERVER['REMOTE_ADDR'];
+            }
+
+            //Get session id which has empty user id
+            if($user_id && $user_id > 1){
+                $empty_user_sessions = get_latest_ci_session_id($ip_address, $user_id);
+                if($empty_user_sessions && count($empty_user_sessions) > 0){
+                    //set user id
+                    $updated = set_user_id_in_session($empty_user_sessions[0]->id, $user_id);
+                    if($updated){
+                        $sysinfo = get_system_info();
+                        $date_time = date('Y-m-d h:i:s a', time());
+                        $this->crud_model->add_user_login_history($user_id, $sysinfo['device'], $sysinfo['os'], $sysinfo['browser'], $ip_address, $date_time);
+                        $active_sessions = get_active_sessions_of_current_user($user_id);
+                        if($active_sessions && count($active_sessions) > 1){
+                            $active_session_ids = [];
+                            for($i=1; $i<count($active_sessions); $i++){
+                                if($active_sessions[$i]){
+                                    array_push($active_session_ids, $active_sessions[$i]["id"]);
+                                }
+                            }
+                            delete_sessions($active_session_ids);
+                            //update_user_sessions([$active_sessions[0]["id"]], $user_id);
+                            update_user_sessions(json_encode([$active_sessions[0]["id"]]), $user_id);
+                        }
+                    }
+                }
+            }
+
             if ($row->role_id == 1) {
                 $this->session->set_userdata('admin_login', '1');
                 redirect(site_url('admin/dashboard'), 'refresh');
