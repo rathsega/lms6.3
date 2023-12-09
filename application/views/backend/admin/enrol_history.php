@@ -38,7 +38,8 @@
                   </div>
               </div>
               <div class="table-responsive-sm mt-4">
-                  <?php if (count($enrol_history->result_array()) > 0): ?>
+                  <?php if ($enrol_history && count($enrol_history->result_array()) > 0): ?>
+                        <label>Showing <?php echo count($enrol_history->result_array()); ?> Records. </label>
                       <table class="table table-striped table-centered mb-0">
                           <thead>
                               <tr>
@@ -53,7 +54,6 @@
                           <tbody>
                               <?php foreach ($enrol_history->result_array() as $enrol):
                                   $user_data = $this->db->get_where('users', array('id' => $enrol['user_id']))->row_array();
-                                  log_message('error', 'Enrol ID : ' . $enrol['id'] . " , User ID : " . $enrol['user_id'] . " , Email : " . $user_data['email']);
                                   $course_data = $this->db->get_where('course', array('id' => $enrol['course_id']))->row_array();?>
                                   <tr class="gradeU">
                                       <td>
@@ -74,13 +74,14 @@
                                       </td>
                                       <td>
                                           <button type="button" class="btn btn-outline-danger btn-icon btn-rounded btn-sm" onclick="confirm_modal('<?php echo site_url('admin/enrol_history_delete/'.$enrol['id']); ?>');"> <i class="dripicons-trash"></i> </button>
+                                          <a href="<?php echo site_url('admin/enrol_history_edit/'.$enrol['id']); ?>"><button type="button" class="btn btn-outline-success btn-icon btn-rounded btn-sm"> <i class="dripicons-pencil"></i> </button></a>
                                       </td>
                                   </tr>
                               <?php endforeach; ?>
                           </tbody>
                       </table>
                   <?php endif; ?>
-                  <?php if (count($enrol_history->result_array()) == 0): ?>
+                  <?php if (!$enrol_history || count($enrol_history->result_array()) == 0): ?>
                       <div class="img-fluid w-100 text-center">
                         <img style="opacity: 1; width: 100px;" src="<?php echo base_url('assets/backend/images/file-search.svg'); ?>"><br>
                         <?php echo get_phrase('no_data_found'); ?>

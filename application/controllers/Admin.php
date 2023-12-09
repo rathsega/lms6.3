@@ -521,6 +521,9 @@ class Admin extends CI_Controller
         if ($param1 == 'enrol') {
             $this->crud_model->enrol_a_student_manually();
             redirect(site_url('admin/enrol_history'), 'refresh');
+        } else if($param1 == 'edit_enrol'){
+            $this->crud_model->edit_enrol_a_student_manually();
+            redirect(site_url('admin/enrol_history'), 'refresh');
         }
         $page_data['page_name'] = 'enrol_student';
         $page_data['page_title'] = get_phrase('course_enrolment');
@@ -3006,8 +3009,19 @@ class Admin extends CI_Controller
         // redirect(site_url('admin/excel_export_view'), 'refresh');
     }
 
+    public function enrol_history_edit($param1 = "")
+    {
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
 
+        // CHECK ACCESS PERMISSION
+        check_permission('enrolment');
 
-
+        $page_data['page_name'] = 'edit_enrol_student';
+        $page_data['enrolment_data'] = $this->crud_model->get_enrol_history($param1);
+        $page_data['page_title'] = "Edit Enrolment";
+        $this->load->view('backend/index', $page_data);
+    }
 
 }

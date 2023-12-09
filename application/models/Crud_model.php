@@ -4710,13 +4710,38 @@ class Crud_model extends CI_Model
         }
         $user_id_string = implode(',',$user_id);
 
+        $this->db->like('title', $str);
+        $data =  $this->db->get('course');
+        $course_id = [];
+        foreach ($data->result_array() as $course) {
+            array_push($course_id, $course['id']);
+        }
+        $course_id_string = implode(',',$course_id);
+
         //$this->db->order_by('date_added', 'desc');
         //return $this->db->get_where_in('enrol', array('user_id' => $user_id));
-        return $this->db->query("
-     SELECT * FROM enrol 
-     WHERE user_id IN ($user_id_string) 
-     order by date_added desc
-     ");
+        if(count($user_id) > 0 && count($course_id) > 0){
+            return $this->db->query("
+                SELECT * FROM enrol 
+                WHERE user_id IN ($user_id_string) or course_id in ($course_id_string) 
+                order by date_added desc
+                ");
+        }else if(count($user_id) > 0){
+            return $this->db->query("
+                SELECT * FROM enrol 
+                WHERE user_id IN ($user_id_string) 
+                order by date_added desc
+                ");
+        }else if(count($course_id)>0){
+            return $this->db->query("
+                SELECT * FROM enrol 
+                WHERE course_id in ($course_id_string) 
+                order by date_added desc
+                ");
+        }else{
+            return [];
+        }
+        
     }
 
     function getEnrolHistory(){
@@ -4948,5 +4973,24 @@ class Crud_model extends CI_Model
         $data['sub_category_slug'] = $category_slug;
         $this->db->where('sub_category_id', $category_id);
         $this->db->update('course', $data);
+    }
+
+    function get_enrol_history($enrol_id){
+        $data =  $this->db->get_where('enrol', array('id'=>$enrol_id));
+        return $data->row_array();
+    }
+
+    public function edit_enrol_a_student_manually()
+    {
+        $courses_id = $this->input->post('course_id');
+        $users_id   = $this->input->post('user_id');
+        $enrol_id   = $this->input->post('id');
+        $data['expiry_date']   = date('Y-m-d',strtotime($this->input->post('expiry_date')));
+        
+        $this->db->where('id', $enrol_id);
+        $this->db->update('enrol', array("expiry_date"=>$data["expiry_date"]));
+
+        $this->session->set_flashdata('flash_message', "Enrolement Updated");
+
     }
 }
