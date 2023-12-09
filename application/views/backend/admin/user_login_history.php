@@ -15,12 +15,19 @@
               <h4 class="mb-3 header-title"><?php echo get_phrase('Login History'); ?></h4>
               <div class="row justify-content-md-center">
                   <div class="col-xl-12">
-                      <form class="form-inline" action="<?php echo site_url('admin/user_login_history') ?>" method="get">
+                      <form class="form-inline" action="<?php echo site_url('admin/user_login_history') ?>" method="post">
                             
                           <div class="col-xl-4">
-                              <div class="form-group">
-                              <input type="text" name="name_email" placeholder="Search with User Name or Email" class="form-control">
-                              </div>
+                            <div class="form-group">
+                                <label for="multiple_user_id"><?php echo get_phrase('users'); ?><span class="required">*</span> </label>
+                                <select class="select2 form-control" data-toggle="select2" data-placeholder="Choose ..." name="user_id" id="multiple_user_id" required>
+                                    <option value=""><?php echo get_phrase('select_a_user'); ?></option>
+                                    <?php $user_list = $this->user_model->get_user()->result_array();
+                                        foreach ($user_list as $user):?>
+                                        <option  value="<?php echo $user['id'] ?>"><?php echo $user['first_name'].' '.$user['last_name']; ?> (<?php echo $user['email']; ?>)</option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
                           </div>
                           <div class="col-xl-2">
                               <button type="submit" class="btn btn-info" id="submit-button"> <?php echo get_phrase('filter');?></button>

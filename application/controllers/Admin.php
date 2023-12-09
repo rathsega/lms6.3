@@ -2921,9 +2921,8 @@ class Admin extends CI_Controller
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
-
-        if($this->input->post('name_email')){
-            $page_data['user_login_history'] = $this->crud_model->user_login_history_by_name_email($this->input->get('name_email'));
+        if($this->input->post('user_id')){
+            $page_data['user_login_history'] = $this->crud_model->user_login_history_by_user_id($this->input->post('user_id'));
         }else{
             $page_data['user_login_history'] = $this->crud_model->user_login_history();
         }

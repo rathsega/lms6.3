@@ -4933,26 +4933,15 @@ class Crud_model extends CI_Model
         return $this->db->insert('user_login_history', $data);
     }
     
-    public function user_login_history_by_name_email($str)
+    public function user_login_history_by_user_id($user_id)
     {
-
-        $this->db->like('first_name', $str);
-        $this->db->or_like('last_name', $str);
-        $this->db->or_like('email', $str);
-        $data =  $this->db->get('users');
-        $user_id = [];
-        foreach ($data->result_array() as $user) {
-            array_push($user_id, $user['id']);
-        }
-        $user_id_string = implode(',',$user_id);
-
-        //$this->db->order_by('date_added', 'desc');
-        //return $this->db->get_where_in('enrol', array('user_id' => $user_id));
+        // $this->db->order_by('date_time', 'desc');
+        // return $this->db->get_where_in('user_login_history', array('user_id' => $user_id));
         return $this->db->query("
-     SELECT * FROM user_login_history 
-     WHERE user_id IN ($user_id_string) 
-     order by date_time desc
-     ");
+            SELECT * FROM user_login_history 
+            WHERE user_id  = $user_id 
+            order by date_time desc
+            ");
     }
 
     public function user_login_history(){
