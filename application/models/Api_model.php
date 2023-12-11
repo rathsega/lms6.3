@@ -315,7 +315,7 @@ class Api_model extends CI_Model
 		if ($query->num_rows() > 0) {
 			$row = $query->row_array();
 
-			$response = $this->new_device_login_tracker($row['id']);
+			//$response = $this->new_device_login_tracker($row['id']);
 
 			$userdata['user_id'] = $row['id'];
 			$userdata['first_name'] = $row['first_name'];
@@ -339,11 +339,12 @@ class Api_model extends CI_Model
 				$this->crud_model->add_user_login_history($user_id, $sysinfo['device'], $sysinfo['os'], $sysinfo['browser'], $ip_address, $date_time);
             }
 
-			if($response['validity'] == 1){
+			$userdata['device_verification'] = 'no-need-verification';
+			/*if($response['validity'] == 1){
                 $userdata['device_verification'] = 'no-need-verification';
 			}else{
                 $userdata['device_verification'] = 'needed-verification';
-			}
+			}*/
 		} else {
 			$userdata['validity'] = 0;
             $userdata['device_verification'] = 'invalid-login-credentials';
