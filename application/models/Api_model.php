@@ -324,6 +324,21 @@ class Api_model extends CI_Model
 			$userdata['role'] = strtolower(get_user_role('user_role', $row['id']));
 			$userdata['validity'] = 1;
 
+			//Get session id which has empty user id
+			$user_id = $row['id'];
+			if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            } elseif (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+                $ip_address = $_SERVER['HTTP_CLIENT_IP'];
+            } else {
+                $ip_address = $_SERVER['REMOTE_ADDR'];
+            }
+            if($user_id && $user_id > 1){
+				$sysinfo = get_system_info();
+				$date_time = date('Y-m-d h:i:s a', time());
+				$this->crud_model->add_user_login_history($user_id, $sysinfo['device'], $sysinfo['os'], $sysinfo['browser'], $ip_address, $date_time);
+            }
+
 			if($response['validity'] == 1){
                 $userdata['device_verification'] = 'no-need-verification';
 			}else{
