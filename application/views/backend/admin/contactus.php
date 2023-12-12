@@ -12,19 +12,13 @@
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
-              <h4 class="mb-3 header-title"><?php echo "Contact Us"; ?></h4>
-              <div class="row justify-content-md-center">
-                
-                  
-              </div>
-              <div class="table-responsive-sm mt-4">
+              <div class="table-responsive-sm">
                 
                   <?php if (count($contactus->result_array()) > 0): ?>
                       <table class="table table-striped table-centered mb-0">
                           <thead>
                               <tr>
-                                  <th>Name</th>
-                                  <th>Email</th>
+                                  <th>User</th>
                                   <th>Phone</th>
                                   <th>City</th>
                                   <th>Course</th>
@@ -38,9 +32,9 @@
                                   $user_data = $this->db->get_where('users', array('email' => $contact['email']))->row_array();?>
                                   <tr class="gradeU"  style="color: <?php echo $user_data['id'] ? 'green' : 'blue'; ?>;">
                                       <td>
-                                          <?php echo $contact['name']; ?>
+                                            <b><?php echo $contact['name']; ?></b><br>
+                                          <small><?php echo $contact['email']; ?></small>
                                       </td>
-                                      <td><?php echo $contact['email']; ?></td>
                                       <td><?php echo $contact['phone']; ?></td>
                                       <td><?php echo $contact['city']; ?></td>
                                       <td><?php echo $contact['title']; ?></td>

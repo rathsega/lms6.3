@@ -1699,7 +1699,7 @@ class Home extends CI_Controller
     function contact_us($param1 = ""){
 
         if($param1 == 'submit'){
-            if ($this->crud_model->check_recaptcha() == false && get_frontend_settings('recaptcha_status') == true) {
+            /*if ($this->crud_model->check_recaptcha() == false && get_frontend_settings('recaptcha_status') == true) {
                 $this->session->set_flashdata('error_message', get_phrase('recaptcha_verification_failed'));
                 redirect(site_url('login'), 'refresh');
             }
@@ -1723,19 +1723,63 @@ class Home extends CI_Controller
             if ($this->input->post('message') == '') {
                 $this->session->set_flashdata('error_message', site_phrase('Message can not be empty'));
                 redirect('home/contact_us', 'refresh');
+            }*/
+
+            $data['first_name'] = $first_name = $this->input->post('first_name');
+            $data['last_name'] = $last_name = $this->input->post('last_name');
+            $data['email'] = $email = $this->input->post('email');
+            $data['phone'] = $phone = $this->input->post('phone');
+            $data['city'] = $city = $this->input->post('city');
+            $data['message'] = $message = $this->input->post('message');
+            $data['course'] = $course = $this->input->post('course');
+            $data['datetime'] = time();
+
+            // Regular expressions for validation
+            $nameRegex = "/^[a-zA-Z]+$/"; // Only letters allowed
+            $emailRegex = "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/"; // Email format
+            $phoneRegex = "/^[6-9]{1}[0-9]{9}$/"; // 10 digits phone number
+            $cityRegex = "/^[a-zA-Z\s]+$/"; // Only letters and spaces allowed
+
+            // Validation with lengths and regular expressions
+            if (strlen($first_name) < 3 || !preg_match($nameRegex, $first_name)) {
+                $msg = "Invalid first name";
+                $this->session->set_flashdata('error_message', site_phrase($msg));
+                redirect('home/contact_us', 'location');
             }
 
-            $data['first_name'] = $this->input->post('first_name');
-            $data['last_name'] = $this->input->post('last_name');
-            $data['email'] = $this->input->post('email');
-            $data['phone'] = $this->input->post('phone');
-            $data['address'] = $this->input->post('address');
-            $data['message'] = $this->input->post('message');
-            $data['created_at'] = time();
+            if (strlen($last_name) < 3 || !preg_match($nameRegex, $last_name)) {
+                $msg = "Invalid last name";
+                $this->session->set_flashdata('error_message', site_phrase($msg));
+                redirect('home/contact_us', 'location');
+            }
+
+            if (!preg_match($emailRegex, $email)) {
+                $msg = "Invalid email";
+                $this->session->set_flashdata('error_message', site_phrase($msg));
+                redirect('home/contact_us', 'location');
+            }
+
+            if (!preg_match($phoneRegex, $phone)) {
+                $msg = "Invalid phone number";
+                $this->session->set_flashdata('error_message', site_phrase($msg));
+                redirect('home/contact_us', 'location');
+            }
+
+            if ($city && !preg_match($cityRegex, $city)) {
+                $msg = "Invalid city";
+                $this->session->set_flashdata('error_message', site_phrase($msg));
+                redirect('home/contact_us', 'location');
+            }
+
+            if (strlen($message) > 500) {
+                $msg = "Message should not exceeds 500 characters";
+                $this->session->set_flashdata('error_message', site_phrase($msg));
+                redirect('home/contact_us', 'location');
+            }
 
             
 
-            $this->db->insert('contact', $data);
+            $this->db->insert('contactus', $data);
             $this->session->set_flashdata('flash_message', site_phrase('Your contact request has been sent successfully'));
             redirect('home/contact_us', 'refresh');
         }
@@ -1968,7 +2012,7 @@ class Home extends CI_Controller
         $course = $_POST['course'];
         $city = $_POST['city'];
 
-      // Regular expressions for validation
+        // Regular expressions for validation
         $nameRegex = "/^[a-zA-Z]+$/"; // Only letters allowed
         $emailRegex = "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/"; // Email format
         $phoneRegex = "/^[6-9]{1}[0-9]{9}$/"; // 10 digits phone number
@@ -2020,6 +2064,34 @@ class Home extends CI_Controller
         }
     }
 
-
+    public function user_actions(){
+        date_default_timezone_set('Asia/Kolkata');
+        if($_POST['user_id']){
+            $query = $this->user_model->get_user($_POST['user_id']);
+            if ($query->num_rows() > 0) {
+                $user_details = $query->row_array();
+                $first_name = $user_details['first_name'];
+                $last_name = $user_details['last_name'];
+                $email = $user_details['email'];
+                $phone = $user_details['phone'];
+            }
+        }else{
+            $first_name = $_POST['first_name'];
+            $last_name = $_POST['last_name'];
+            $email = $_POST['email'];
+            $phone = $_POST['phone'];            
+        }
+        $course = $_POST['course'];
+        $action_from = $_POST['action_from'];
+        $details = [];
+        $details['first_name'] = $first_name;
+        $details['last_name'] = $last_name;
+        $details['email'] = $email;
+        $details['phone'] = $phone;
+        $details['course'] = $course;
+        $details['action_from'] = $action_from;
+        $details['datetime'] = time();
+        $inserted = $this->crud_model->add_user_actions($details);
+    }
 
 }

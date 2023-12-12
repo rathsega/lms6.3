@@ -738,5 +738,14 @@ $user_id = $this->session->userdata('user_id');
         </div>
     </div>
 </section>
+<script>
+    let user_id = <?php echo $this->session->userdata('user_id'); ?>
+    if(user_id){
+        localStorage.removeItem('dataSubmitted');
+        localStorage.removeItem('clickFrom');
+        localStorage.removeItem('userData');
+    }
+    
+</script>
 
 <!------------- Become Students Section End --------->

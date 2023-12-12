@@ -50,6 +50,9 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 				<li class="<?php if ($page_name == 'contactus') echo 'active'; ?>">
 					<a href="<?php echo site_url('admin/contactus'); ?>"><?php echo "Contact Us "; ?></a>
 				</li>
+				<li class="<?php if ($page_name == 'user_actions') echo 'active'; ?>">
+					<a href="<?php echo site_url('admin/user_actions'); ?>"><?php echo "User Actions "; ?></a>
+				</li>
 			</a>
 		</li>
 			</ul>

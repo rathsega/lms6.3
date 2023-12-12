@@ -577,6 +577,16 @@ if($ratings_count){
     const contactModal = document.getElementById('contactModal');
     const closeModal = document.getElementById('closeModal');
 
+    //Save user actions
+    const demoVideoButton = document.getElementById('demoVideoButton');
+    demoVideoButton.addEventListener('click', function() {
+        saveUserActions('demo_video');
+    });
+    const current_broucher_link = document.getElementById('current_broucher_link');
+    current_broucher_link.addEventListener('click', function() {
+        saveUserActions('broucher_link');
+    });
+
     openModalBtn.addEventListener('click', function() {
         contactModal.style.display = 'block';
         localStorage.setItem('clickFrom', 'video');
@@ -659,6 +669,13 @@ if($ratings_count){
                 }
             return str.join("&");
         }
+        localStorage.setItem('userData', JSON.stringify({
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            phone: phone,
+            city: city
+        }));
         var jsonData = serialize(formData);
 
         // Set up a function to handle the response
@@ -689,5 +706,36 @@ if($ratings_count){
 
         // Send the POST request with the JSON data
         xhr.send(jsonData);
+    }
+
+    function saveUserActions(from){
+        var userData = {};
+        if(user_already_loggedin){
+            if(user_already_loggedin == 1){
+                return true;
+            }
+            userData.user_id = user_already_loggedin
+        }else{
+            userData = JSON.parse(localStorage.getItem('userData'));
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '<?php echo site_url('home/user_actions'); ?>', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        userData.action_from = from;
+        userData.course = <?php echo $course_id?>;
+        serialize = function(obj) {
+            var str = [];
+            for (var p in obj)
+                if (obj.hasOwnProperty(p)) {
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            }
+            return str.join("&");
+        }
+        var jsonData = serialize(userData);
+        xhr.onload = function() {
+        };
+        xhr.send(jsonData);
+
     }
 </script>

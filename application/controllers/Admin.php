@@ -3023,4 +3023,18 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
+    public function user_actions(){
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        check_permission('enrolment');
+
+        $page_data['page_name'] = 'user_actions';
+        $page_data['user_actions'] = $this->crud_model->user_actions();
+        $page_data['page_title'] = "User Actions";
+        $this->load->view('backend/index', $page_data);
+    }
+
 }

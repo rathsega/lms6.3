@@ -4980,6 +4980,14 @@ class Crud_model extends CI_Model
         $this->db->update('enrol', array("expiry_date"=>$data["expiry_date"]));
 
         $this->session->set_flashdata('flash_message', "Enrolement Updated");
+    }
 
+    public function add_user_actions($details){
+        $this->db->insert('user_actions', $details);
+    }
+
+    public function user_actions(){
+        $this->db->order_by('datetime', 'desc');
+        return $this->db->get('user_actions');
     }
 }
