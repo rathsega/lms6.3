@@ -27,7 +27,7 @@
                 
             </div>
             <div class="col-lg-6 col-md-6">
-                <form action="<?php echo site_url('home/contact_us/submit'); ?>" method="post" class="form-section" id="actualContactForm"  onsubmit="return validateForm()">
+                <form action="<?php echo site_url('home/contact_us/submit'); ?>" method="post" class="form-section" id="actualContactForm" enctype="multipart/form-data" onsubmit="return validateForm()">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="mb-3">
@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                             <div class="mb-3">
-                                <input name="last_name" type="text" maxlength="26" class="form-control" id="last_name" required placeholder="<?php echo get_phrase('Last Name *') ?>">
+                                <input name="last_name" type="text" maxlength="26" class="form-control" id="last_name" placeholder="<?php echo get_phrase('Last Name') ?>">
                             </div>                           
                         </div>
                     </div>
@@ -122,10 +122,6 @@
 
         if (first_name === '') {
             msg = 'Please enter your first name.';
-        }
-
-        if (last_name === '') {
-            msg = 'Please enter your last name.';
         }
 
         if (email === '' || !emailRegex.test(email)) {

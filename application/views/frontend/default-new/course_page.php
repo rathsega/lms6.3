@@ -409,7 +409,6 @@ if($ratings_count){
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    overflow-y: hidden;
     }
 
     .contact_us_modal-content {
@@ -483,7 +482,7 @@ if($ratings_count){
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                    <input name="last_name" type="text" class="form-control" maxlength="26" id="last_name" required placeholder="<?php echo get_phrase('Last Name *') ?>">
+                                    <input name="last_name" type="text" class="form-control" maxlength="26" id="last_name" placeholder="<?php echo get_phrase('Last Name') ?>">
                                 </div>                           
                             </div>
                         </div>
@@ -624,11 +623,6 @@ if($ratings_count){
         // Perform validations
         if (first_name === '') {
             alert('Please enter your first name.');
-            return;
-        }
-
-        if (last_name === '') {
-            alert('Please enter your last name.');
             return;
         }
 

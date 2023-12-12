@@ -1747,12 +1747,6 @@ class Home extends CI_Controller
                 redirect('home/contact_us', 'location');
             }
 
-            if (strlen($last_name) < 3 || !preg_match($nameRegex, $last_name)) {
-                $msg = "Invalid last name";
-                $this->session->set_flashdata('error_message', site_phrase($msg));
-                redirect('home/contact_us', 'location');
-            }
-
             if (!preg_match($emailRegex, $email)) {
                 $msg = "Invalid email";
                 $this->session->set_flashdata('error_message', site_phrase($msg));
@@ -2021,11 +2015,6 @@ class Home extends CI_Controller
         // Validation with lengths and regular expressions
         if (strlen($first_name) < 3 || !preg_match($nameRegex, $first_name)) {
             echo "Invalid first name";
-            return true;
-        }
-
-        if (strlen($last_name) < 3 || !preg_match($nameRegex, $last_name)) {
-            echo "Invalid last name";
             return true;
         }
 
