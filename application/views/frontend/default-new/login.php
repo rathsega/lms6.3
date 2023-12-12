@@ -61,3 +61,7 @@
             </div>
         </div>
     </section>
+    <script>
+        localStorage.removeItem('dataSubmitted');
+        localStorage.removeItem('clickFrom');
+    </script>

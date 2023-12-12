@@ -534,9 +534,6 @@ if($ratings_count){
 <script>
     //If user
     let user_already_loggedin = '<?php echo $this->session->userdata('user_id'); ?>';
-    if(user_already_loggedin){
-        //fetch user name, email, phone number
-    }
 
     function hideShowVideoIcons(){
         /**
@@ -545,7 +542,7 @@ if($ratings_count){
          * it will show the contact form navigated icons.
          */
         let details_submitted = localStorage.getItem('dataSubmitted');
-        if(details_submitted == "true"){
+        if(details_submitted == "true" || user_already_loggedin){
             var content_button_divs = document.getElementsByClassName('content_button');
             // Loop through the selected divs and set their display property to 'block'
             for (var i = 0; i < content_button_divs.length; i++) {
