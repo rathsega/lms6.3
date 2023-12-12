@@ -24,14 +24,7 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 				<span><?php echo get_phrase('dashboard'); ?></span>
 			</a>
 		</li>
-		
-		<li class="side-nav-item <?php if ($page_name == 'contactus') echo 'active'; ?>">
-			<a href="<?php echo site_url('admin/contactus'); ?>" class="side-nav-link">
-				<i class="dripicons-view-apps"></i>
-				<span><?php echo "Contact Us"; ?></span>
-			</a>
-		</li>
-		
+			
 		<li class="side-nav-item <?php if ($page_name == 'ratings_count_form' || $page_name == 'custom_reviews' ) : ?> active <?php endif; ?>">
 			<a href="javascript: void(0);" class="side-nav-link <?php if ($page_name == 'instructors_pending_blog' || $page_name == 'custom_reviews') : ?> active <?php endif; ?>">
 				<i class="dripicons-blog"></i>
@@ -54,6 +47,11 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 				<li class="<?php if ($page_name == 'user_login_history') echo 'active'; ?>">
 					<a href="<?php echo site_url('admin/user_login_history'); ?>"><?php echo "User Login History"; ?></a>
 				</li>
+				<li class="<?php if ($page_name == 'contactus') echo 'active'; ?>">
+					<a href="<?php echo site_url('admin/contactus'); ?>"><?php echo "Contact Us "; ?></a>
+				</li>
+			</a>
+		</li>
 			</ul>
 		</li>
 

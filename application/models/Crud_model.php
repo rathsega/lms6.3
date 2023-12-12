@@ -4837,8 +4837,8 @@ class Crud_model extends CI_Model
     
     public function getAllContactUs(){
         return $this->db->query("
-            SELECT cu.name, cu.email, cu.phone, cu.message, c.title, cu.datetime from contactus as cu left join course as c on c.id = cu.course
-            ");
+            SELECT CONCAT(cu.first_name, ' ', cu.last_name) as name, cu.email, cu.phone, cu.message, c.title, cu.datetime from contactus as cu left join course as c on c.id = cu.course
+             order by cu.datetime desc ");
     }
     
     public function get_broucher($course_id)

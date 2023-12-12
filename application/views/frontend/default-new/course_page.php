@@ -67,7 +67,7 @@ if($ratings_count){
                                                 <p class="text-15px mt-1">(<?php echo $number_of_ratings.' '.get_phrase('Reviews'); ?>)</p>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div>                                   
 
                                     
                                 </div>
@@ -87,6 +87,12 @@ if($ratings_count){
                                               <?php echo date('D, d-M-Y', $course_details['date_added']); ?>
                                             <?php endif; ?>
                                         </p> 
+                                    </div>
+                                    <div class="info-tag">
+                                        <i class="fa-regular fa-file text-15px mt-7px"></i>
+                                        <p class="text-15px mt-1 content_button"> <a href="<?php echo base_url() . 'uploads/broucher/' . $course_details['broucher'] ?>" download  style="color:white;" name="current_broucher_link" id="current_broucher_link"><?php echo get_phrase('Download Broucher'); ?></a></p>
+                                        <p class="text-15px mt-1 contactus_form_button" id="openModalBtn1"> <a href="#" style="color:white;" download name="current_broucher_link"><?php echo get_phrase('Download Broucher'); ?></a></p>
+
                                     </div>
                                 </div>
                                 
@@ -180,7 +186,12 @@ if($ratings_count){
                     <div class="course-card">
                         <div class="card-img">
                             <div class="courses-card-image">
-                                <div class="card-video-icon" onclick="lesson_preview('<?php echo site_url('home/course_preview/'.$course_details['id']); ?>', '<?php echo get_phrase($course_details['title']) ?>')">
+                                
+                                <div class="card-video-icon content_button" name="demo_video_link" id="demoVideoButton" onclick="lesson_preview('<?php echo site_url('home/course_preview/'.$course_details['id']); ?>', '<?php echo get_phrase($course_details['title']) ?>')">
+                                    <i class="fa-solid fa-play"></i>
+                                </div>
+
+                                <div class="card-video-icon contactus_form_button" name="demo_video_link" id="openModalBtn">
                                     <i class="fa-solid fa-play"></i>
                                 </div>
 
@@ -387,3 +398,309 @@ if($ratings_count){
 <?php if (addon_status('affiliate_course') && $is_affiliattor==1): ?>
     <?php include 'affiliate_course_modal.php';  // course_addon  single line /adding ?>
 <?php endif; ?>
+
+<style>
+    .contact_us_modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow-y: hidden;
+    }
+
+    .contact_us_modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    max-width: 40%;
+    height: 85%;
+    }
+
+    .close {
+    color: black;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+
+    }
+
+    .close:hover,
+    .close:focus {
+    cursor: pointer;
+    text-decoration: none;
+    }
+</style>
+
+<div class="contact_us_modal" id="contactModal">
+  <div class="contact_us_modal-content">
+    <div class="row">
+        <div class="col-md-10 col-sm-10 col-md-lg-10">
+            <h2>Contact Us</h2>
+        </div>
+        <div class="col-md-2 col-sm-2 col-md-lg-2">
+            <span class="close" id="closeModal">&times;</span>
+        </div>
+    </div>
+
+    <section class="sign-up my-5 pt-1">
+    <div class="container">
+        <div class="row">
+            <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-12 text-center">
+                <img width="65%" src="<?php echo site_url('assets/frontend/default-new/image/login-security.gif') ?>">
+            </div> -->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12 ">
+                <div class="sing-up-right">
+                    <!-- <h3><?php //echo get_phrase('Contact Us '); ?><span>!</span></h3>
+                    <p><?php //echo get_phrase('Explore, learn, and grow with us. Enjoy a seamless and enriching educational journey. Lets begin!') ?></p> -->
+                    <form action="javascript:void(0);" onsubmit="contactFormSubmit()" name="contactForm" id="contactForm">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="mb-3">
+                                    <select class="select2 form-control select2-multiple" data-toggle="select2" data-placeholder="Choose ..." name="course" id="course" required>
+                                        <option value=""><?php echo get_phrase('select_a_course'); ?></option>
+                                        <?php $course_list = $this->crud_model->get_courses()->result_array();
+                                            foreach ($course_list as $course):
+                                            if ($course['status'] != 'active')
+                                                continue;?>
+                                            <option value="<?php echo $course['id'] ?>" <?php echo $course['slug'] == $slug ? 'selected' : ''; ?>><?php echo $course['title']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="mb-3">
+                                    <input name="first_name" type="text" class="form-control" id="first_name" required placeholder="<?php echo get_phrase('First Name *') ?>">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="mb-3">
+                                    <input name="last_name" type="text" class="form-control" id="last_name" required placeholder="<?php echo get_phrase('Last Name *') ?>">
+                                </div>                           
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="mb-3">
+                                    <input name="email" type="email" class="form-control" id="email" required placeholder="<?php echo get_phrase('Email *') ?>">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="mb-3">
+                                    <input name="phone" type="phone" class="form-control" id="phone" required placeholder="<?php echo get_phrase('Phone *') ?>">
+                                </div>                           
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <input name="city" type="text" class="form-control" id="city" placeholder="City">
+                                </div> 
+                                <div class="input-group comment">
+                                    <textarea name="message" class="form-control" aria-label="With textarea" id="message" placeholder="<?php echo get_phrase('Write your message'); ?>"></textarea>
+                                </div>
+                                <div class="cheack-box">
+                                    <div class="form-check">
+                                        <input name="i_agree" class="form-check-input" type="checkbox" required value="1" id="i_agree">
+                                        <label class="form-check-label" for="i_agree"> 
+                                            <p><?php echo get_phrase('I agree that my submitted data is being collected and stored.'); ?></p>
+                                        </label>
+                                    </div>                                  
+                                </div>
+                                <?php if(get_frontend_settings('recaptcha_status')): ?>
+                                    <div class="g-recaptcha" data-sitekey="<?php echo get_frontend_settings('recaptcha_sitekey'); ?>"></div>
+                                <?php endif; ?>
+                                <div class="form-btn">
+                                    <button type="submit" class="btn btn-primary"><?php echo get_phrase('Submit'); ?></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+  </div>
+</div>
+<script>
+    //If user
+    let user_already_loggedin = '<?php echo $this->session->userdata('user_id'); ?>';
+    if(user_already_loggedin){
+        //fetch user name, email, phone number
+    }
+
+    function hideShowVideoIcons(){
+        /**
+         * If the user has previously submitted details, 
+         * the system will display the original icons. Otherwise, 
+         * it will show the contact form navigated icons.
+         */
+        let details_submitted = localStorage.getItem('dataSubmitted');
+        if(details_submitted == "true"){
+            var content_button_divs = document.getElementsByClassName('content_button');
+            // Loop through the selected divs and set their display property to 'block'
+            for (var i = 0; i < content_button_divs.length; i++) {
+                content_button_divs[i].style.display = 'block';
+            }
+
+            var contactus_form_button_divs = document.getElementsByClassName('contactus_form_button');
+            // Loop through the selected divs and set their display property to 'none'
+            for (var i = 0; i < contactus_form_button_divs.length; i++) {
+                contactus_form_button_divs[i].style.display = 'none';
+            }
+        }else{
+            var content_button_divs = document.getElementsByClassName('content_button');
+            // Loop through the selected divs and set their display property to 'none'
+            for (var i = 0; i < content_button_divs.length; i++) {
+                content_button_divs[i].style.display = 'none';
+            }
+
+            var contactus_form_button_divs = document.getElementsByClassName('contactus_form_button');
+            // Loop through the selected divs and set their display property to 'block'
+            for (var i = 0; i < contactus_form_button_divs.length; i++) {
+                contactus_form_button_divs[i].style.display = 'block';
+            }
+        }
+    }
+
+    
+
+
+    const openModalBtn = document.getElementById('openModalBtn');
+    const openModalBtn1 = document.getElementById('openModalBtn1');
+    const contactModal = document.getElementById('contactModal');
+    const closeModal = document.getElementById('closeModal');
+
+    openModalBtn.addEventListener('click', function() {
+        contactModal.style.display = 'block';
+        localStorage.setItem('clickFrom', 'video');
+    });
+
+    openModalBtn1.addEventListener('click', function() {
+        contactModal.style.display = 'block';
+        localStorage.setItem('clickFrom', 'broucher');
+    });
+
+    closeModal.addEventListener('click', function() {
+        contactModal.style.display = 'none';
+    });
+
+    /*window.addEventListener('click', function(event) {
+        if (event.target === contactModal) {
+            contactModal.style.display = 'none';
+        }
+    });*/
+    hideShowVideoIcons();
+
+    function contactFormSubmit(){
+        const first_name = document.getElementById('first_name').value.trim();
+        const last_name = document.getElementById('last_name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const city = document.getElementById('city').value.trim();
+        const message = document.getElementById('message').value.trim();
+        const course = document.getElementById('course').value.trim();
+
+        // Regular expressions for email and phone number validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^\d{10}$/;
+
+        // Perform validations
+        if (first_name === '') {
+            alert('Please enter your first name.');
+            return;
+        }
+
+        if (last_name === '') {
+            alert('Please enter your last name.');
+            return;
+        }
+
+        if (email === '' || !emailRegex.test(email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+
+        if (phone !== '' && !phoneRegex.test(phone)) {
+            alert('Please enter a valid 10-digit phone number.');
+            return;
+        }
+
+        // Additional validation rules for city, if required
+        // For instance, you might want to check if the city field is not empty
+
+        if (message === '') {
+            alert('Please enter your message.');
+            return;
+        }
+
+        if (course === '') {
+            alert('Please select course.');
+            return;
+        }
+
+        var formData = {
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            phone: phone,
+            city: city,
+            message: message,
+            course: course,
+        };
+        // Create a new XMLHttpRequest object
+        var xhr = new XMLHttpRequest();
+
+        // Define the request (GET method, URL)
+        xhr.open('POST', '<?php echo site_url('home/contactus_submitted'); ?>', true);
+
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        // Convert the data object to JSON format
+        serialize = function(obj) {
+        var str = [];
+            for (var p in obj)
+                if (obj.hasOwnProperty(p)) {
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                }
+            return str.join("&");
+        }
+        var jsonData = serialize(formData);
+
+        // Set up a function to handle the response
+        xhr.onload = function() {
+        if (xhr.status === 200) {
+            // Request was successful
+            console.log('Response:', xhr.responseText);
+            alert( xhr.responseText);
+            localStorage.setItem("dataSubmitted", true);
+            // Optionally, reset the form after successful submission
+            contactForm.reset();
+            contactModal.style.display = 'none';
+            hideShowVideoIcons();
+            if(localStorage.getItem('clickFrom') == 'video'){
+                document.getElementById("demoVideoButton").click();
+            }else if(localStorage.getItem('clickFrom') == 'broucher'){
+                document.getElementById('current_broucher_link').click();
+            }
+
+            // Perform actions with the response data here
+        } else {
+            // Error handling if the request fails
+            console.error('Request failed. Status:', xhr.status);
+        }
+        };
+
+        // Send the POST request with the JSON data
+        xhr.send(jsonData);
+    }
+</script>

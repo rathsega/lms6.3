@@ -902,10 +902,10 @@ class User_model extends CI_Model
         $row = $query->row();
         $user_profile_image = $row->broucher;
         log_message('error', $this->db->last_query());
-        if (file_exists('uploads/broucher/' . $user_profile_image)){
+        if ($user_profile_image && file_exists('uploads/broucher/' . $user_profile_image)){
             return base_url() . 'uploads/broucher/' . $user_profile_image;
         }else{
-            return base_url() . 'uploads/broucher/placeholder.png';
+            return null;
         }
     }
 

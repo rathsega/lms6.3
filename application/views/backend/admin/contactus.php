@@ -32,8 +32,7 @@
                           </thead>
                           <tbody>
                               <?php foreach ($contactus->result_array() as $contact):
-                                  $user_data = $this->db->get_where('users', array('id' => $enrol['user_id']))->row_array();
-                                  $course_data = $this->db->get_where('course', array('id' => $enrol['course_id']))->row_array();?>
+                                  $user_data = $this->db->get_where('users', array('id' => $contact['email']))->row_array();?>
                                   <tr class="gradeU">
                                       <td>
                                           <?php echo $contact['name']; ?>
@@ -41,13 +40,13 @@
                                       <td><?php echo $contact['email']; ?></td>
                                       <td><?php echo $contact['phone']; ?></td>
                                       <td><?php echo $contact['title']; ?></td>
-                                      <td><?php echo date('D, d-M-Y H:i A', $enrol['date_added']); ?></td>
+                                      <td><?php echo date('D, d-M-Y H:i A', $contact['datetime']); ?></td>
                                   </tr>
                               <?php endforeach; ?>
                           </tbody>
                       </table>
                   <?php endif; ?>
-                  <?php if (count($enrol_history->result_array()) == 0): ?>
+                  <?php if (count($contactus->result_array()) == 0): ?>
                       <div class="img-fluid w-100 text-center">
                         <img style="opacity: 1; width: 100px;" src="<?php echo base_url('assets/backend/images/file-search.svg'); ?>"><br>
                         <?php echo get_phrase('no_data_found'); ?>

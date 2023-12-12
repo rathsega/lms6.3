@@ -1958,7 +1958,27 @@ class Home extends CI_Controller
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/account_disable');
     }
 
+    public function contactus_submitted(){
+      $first_name = $_POST['first_name'];
+      $last_name = $_POST['last_name'];
+      $email = $_POST['email'];
+      $phone = $_POST['phone'];
+      $message = $_POST['message'];
+      $course = $_POST['course'];
 
+      $details = [];
+      $details['first_name'] = $first_name;
+      $details['last_name'] = $last_name;
+      $details['email'] = $email;
+      $details['phone'] = $phone;
+      $details['message'] = $message;
+      $details['course'] = $course;
+      $details['datetime'] = time();
+        $inserted = $this->crud_model->add_contactus($details);
+        if($inserted){
+            echo "Thank You For Contact Us.";
+        }
+    }
 
 
 
