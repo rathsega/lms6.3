@@ -4588,14 +4588,17 @@ class Crud_model extends CI_Model
             $this->db->where('id !=', $current_course_id);
         $this->db->group_end();
 
-        $this->db->group_start();
+        if($parent_category != "" || $child_category != ""){
+            $this->db->group_start();
             if($parent_category != ""){
                 $this->db->where('category_id', $parent_category);
             }
             if($child_category != ""){
                 $this->db->or_where('sub_category_id', $child_category);
             }
-        $this->db->group_end();
+            $this->db->group_end();
+        }
+        
 
         $this->db->group_start();
             $this->db->where('course_type', 'general');

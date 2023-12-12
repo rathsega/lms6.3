@@ -88,10 +88,10 @@ if($ratings_count){
                                             <?php endif; ?>
                                         </p> 
                                     </div>
-                                    <div class="info-tag">
+                                    <div class="info-tag blink2">
                                         <i class="fa-regular fa-file text-15px mt-7px"></i>
-                                        <p class="text-15px mt-1 content_button"> <a href="<?php echo base_url() . 'uploads/broucher/' . $course_details['broucher'] ?>" download  style="color:white;" name="current_broucher_link" id="current_broucher_link"><?php echo get_phrase('Download Broucher'); ?></a></p>
-                                        <p class="text-15px mt-1 contactus_form_button" id="openModalBtn1"> <a href="#" style="color:white;" download name="current_broucher_link"><?php echo get_phrase('Download Broucher'); ?></a></p>
+                                        <p class="text-15px mt-1 content_button"> <a href="<?php echo base_url() . 'uploads/broucher/' . $course_details['broucher'] ?>" download  style="color:#F9B23A;" name="current_broucher_link" id="current_broucher_link"><b><?php echo get_phrase('Download Broucher'); ?></b></a></p>
+                                        <p class="text-15px mt-1 contactus_form_button" id="openModalBtn1"> <a href="#" style="color:#F9B23A;" download name="current_broucher_link"><b><?php echo get_phrase('Download Broucher'); ?></b></a></p>
 
                                     </div>
                                 </div>

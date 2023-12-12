@@ -8579,3 +8579,39 @@ display: none;
 .fs-16{
   font-size: 16px !important;
 }
+.blink {
+  animation: blink 1.2s infinite;
+  color: #F9B23A !important;
+}
+@keyframes blink{
+  0% {
+    opacity: 10;
+  }
+  100% {
+    opacity: 0;
+    color: #fff;
+  }
+}
+
+.blink2 {
+  animation: blink 2s infinite;
+  color: #F9B23A !important;
+}
+
+@keyframes blink2 {
+  0% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0.4;
+    transform: scale(2);
+  }
+  80% {
+    opacity: 0.4;
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
