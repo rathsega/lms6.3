@@ -14,7 +14,7 @@
             <div class="card-body">
               <h4 class="mb-3 header-title"><?php echo get_phrase('User Actions'); ?></h4>
               <div class="table-responsive-sm mt-4">
-                  <?php if (count($user_actions->result_array()) > 0): ?>
+                  <?php date_default_timezone_set('Asia/Kolkata'); if (count($user_actions->result_array()) > 0): ?>
                       <table class="table table-striped table-centered mb-0">
                           <thead>
                               <tr>
@@ -29,11 +29,11 @@
                               <?php foreach ($user_actions->result_array() as $user_action):;?>
                                   <tr class="gradeU">
                                       <td>
-                                          <b><?php echo $user_action['first_name'].' '.$user_action['last_name']; ?></b><br>
+                                          <b><?php echo $user_action['name']; ?></b><br>
                                           <small><?php echo get_phrase('email').': '.$user_action['email']; ?></small>
                                       </td>
                                       <td><?php echo $user_action['phone']; ?></td>
-                                      <td><?php echo $user_action['course']; ?></td>
+                                      <td><?php echo $user_action['title']; ?></td>
                                       <td><?php echo $user_action['action_from'] == 'demo_video'? "Demo Video" : "Broucher Link"; ?></td>
                                       <td><?php echo date('d-M-Y H:i', $user_action['datetime']); ?></td>
                                       

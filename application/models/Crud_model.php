@@ -4987,7 +4987,8 @@ class Crud_model extends CI_Model
     }
 
     public function user_actions(){
-        $this->db->order_by('datetime', 'desc');
-        return $this->db->get('user_actions');
+        return $this->db->query("
+            SELECT CONCAT(ua.first_name, ' ', ua.last_name) as name, ua.email, ua.phone, c.title, ua.action_from, ua.datetime from user_actions as ua left join course as c on c.id = ua.course
+             order by ua.datetime desc ");
     }
 }
