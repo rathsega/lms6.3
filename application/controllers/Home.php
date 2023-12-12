@@ -1959,21 +1959,61 @@ class Home extends CI_Controller
     }
 
     public function contactus_submitted(){
-      $first_name = $_POST['first_name'];
-      $last_name = $_POST['last_name'];
-      $email = $_POST['email'];
-      $phone = $_POST['phone'];
-      $message = $_POST['message'];
-      $course = $_POST['course'];
+        date_default_timezone_set('Asia/Kolkata');
+        $first_name = $_POST['first_name'];
+        $last_name = $_POST['last_name'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $message = $_POST['message'];
+        $course = $_POST['course'];
+        $city = $_POST['city'];
 
-      $details = [];
-      $details['first_name'] = $first_name;
-      $details['last_name'] = $last_name;
-      $details['email'] = $email;
-      $details['phone'] = $phone;
-      $details['message'] = $message;
-      $details['course'] = $course;
-      $details['datetime'] = time();
+      // Regular expressions for validation
+        $nameRegex = "/^[a-zA-Z]+$/"; // Only letters allowed
+        $emailRegex = "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/"; // Email format
+        $phoneRegex = "/^[6-9]{1}[0-9]{9}$/"; // 10 digits phone number
+        $cityRegex = "/^[a-zA-Z\s]+$/"; // Only letters and spaces allowed
+
+        // Validation with lengths and regular expressions
+        if (strlen($first_name) < 3 || !preg_match($nameRegex, $first_name)) {
+            echo "Invalid first name";
+            return true;
+        }
+
+        if (strlen($last_name) < 3 || !preg_match($nameRegex, $last_name)) {
+            echo "Invalid last name";
+            return true;
+        }
+
+        if (!preg_match($emailRegex, $email)) {
+            echo "Invalid email";
+            return true;
+        }
+
+        if (!preg_match($phoneRegex, $phone)) {
+            echo "Invalid phone number";
+            return true;
+        }
+
+        if ($city && !preg_match($cityRegex, $city)) {
+            echo "Invalid city";
+            return true;
+        }
+
+        if (strlen($message) > 500) {
+            echo "Message should not exceeds 500 characters";
+            return true;
+        }
+
+        $details = [];
+        $details['first_name'] = $first_name;
+        $details['last_name'] = $last_name;
+        $details['email'] = $email;
+        $details['phone'] = $phone;
+        $details['message'] = $message;
+        $details['course'] = $course;
+        $details['city'] = $city;
+        $details['datetime'] = time();
         $inserted = $this->crud_model->add_contactus($details);
         if($inserted){
             echo "Thank You For Contact Us.";

@@ -26,21 +26,26 @@
                                   <th>Name</th>
                                   <th>Email</th>
                                   <th>Phone</th>
+                                  <th>City</th>
                                   <th>Course</th>
+                                  <th>Message</th>
                                   <th>Date</th>
                               </tr>
                           </thead>
                           <tbody>
                               <?php foreach ($contactus->result_array() as $contact):
-                                  $user_data = $this->db->get_where('users', array('id' => $contact['email']))->row_array();?>
-                                  <tr class="gradeU">
+                                    date_default_timezone_set('Asia/Kolkata');
+                                  $user_data = $this->db->get_where('users', array('email' => $contact['email']))->row_array();?>
+                                  <tr class="gradeU"  style="color: <?php echo $user_data['id'] ? 'green' : 'blue'; ?>;">
                                       <td>
                                           <?php echo $contact['name']; ?>
                                       </td>
                                       <td><?php echo $contact['email']; ?></td>
                                       <td><?php echo $contact['phone']; ?></td>
+                                      <td><?php echo $contact['city']; ?></td>
                                       <td><?php echo $contact['title']; ?></td>
-                                      <td><?php echo date('D, d-M-Y H:i A', $contact['datetime']); ?></td>
+                                      <td><?php echo $contact['message']; ?></td>
+                                      <td><?php echo date('d-M-Y H:i', $contact['datetime']); ?></td>
                                   </tr>
                               <?php endforeach; ?>
                           </tbody>

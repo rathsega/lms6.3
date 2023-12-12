@@ -478,12 +478,12 @@ if($ratings_count){
                         <div class="row">
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                    <input name="first_name" type="text" class="form-control" id="first_name" required placeholder="<?php echo get_phrase('First Name *') ?>">
+                                    <input name="first_name" type="text" class="form-control" maxlength="26" id="first_name" required placeholder="<?php echo get_phrase('First Name *') ?>">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                    <input name="last_name" type="text" class="form-control" id="last_name" required placeholder="<?php echo get_phrase('Last Name *') ?>">
+                                    <input name="last_name" type="text" class="form-control" maxlength="26" id="last_name" required placeholder="<?php echo get_phrase('Last Name *') ?>">
                                 </div>                           
                             </div>
                         </div>
@@ -495,7 +495,7 @@ if($ratings_count){
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                    <input name="phone" type="phone" class="form-control" id="phone" required placeholder="<?php echo get_phrase('Phone *') ?>">
+                                    <input name="phone" type="tel" class="form-control" id="phone" required placeholder="<?php echo get_phrase('Phone *') ?>">
                                 </div>                           
                             </div>
                         </div>
@@ -505,7 +505,7 @@ if($ratings_count){
                                     <input name="city" type="text" class="form-control" id="city" placeholder="City">
                                 </div> 
                                 <div class="input-group comment">
-                                    <textarea name="message" class="form-control" aria-label="With textarea" id="message" placeholder="<?php echo get_phrase('Write your message'); ?>"></textarea>
+                                    <textarea name="message" class="form-control" aria-label="With textarea" id="message" maxlength="500" placeholder="<?php echo get_phrase('Write your message'); ?>"></textarea>
                                 </div>
                                 <div class="cheack-box">
                                     <div class="form-check">
@@ -612,7 +612,7 @@ if($ratings_count){
 
         // Regular expressions for email and phone number validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^\d{10}$/;
+        const phoneRegex = /^[6-9]{1}[0-9]{9}$/;
 
         // Perform validations
         if (first_name === '') {
@@ -635,18 +635,6 @@ if($ratings_count){
             return;
         }
 
-        // Additional validation rules for city, if required
-        // For instance, you might want to check if the city field is not empty
-
-        if (message === '') {
-            alert('Please enter your message.');
-            return;
-        }
-
-        if (course === '') {
-            alert('Please select course.');
-            return;
-        }
 
         var formData = {
             first_name: first_name,
@@ -680,18 +668,20 @@ if($ratings_count){
         xhr.onload = function() {
         if (xhr.status === 200) {
             // Request was successful
-            console.log('Response:', xhr.responseText);
             alert( xhr.responseText);
-            localStorage.setItem("dataSubmitted", true);
-            // Optionally, reset the form after successful submission
-            contactForm.reset();
-            contactModal.style.display = 'none';
-            hideShowVideoIcons();
-            if(localStorage.getItem('clickFrom') == 'video'){
-                document.getElementById("demoVideoButton").click();
-            }else if(localStorage.getItem('clickFrom') == 'broucher'){
-                document.getElementById('current_broucher_link').click();
+            if( xhr.responseText == 'Thank You For Contact Us.'){
+                localStorage.setItem("dataSubmitted", true);
+                // Optionally, reset the form after successful submission
+                contactForm.reset();
+                contactModal.style.display = 'none';
+                hideShowVideoIcons();
+                if(localStorage.getItem('clickFrom') == 'video'){
+                    document.getElementById("demoVideoButton").click();
+                }else if(localStorage.getItem('clickFrom') == 'broucher'){
+                    document.getElementById('current_broucher_link').click();
+                }
             }
+            
 
             // Perform actions with the response data here
         } else {
