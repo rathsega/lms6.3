@@ -213,7 +213,7 @@ class Home extends CI_Controller
         echo json_encode(['reload' => true]);
     }
 
-    public function course($category_slug, $sub_category_slug, $course_slug_1, $course_slug_2=null)
+    public function course($course_slug_1, $course_slug_2=null)
     {
         if($course_slug_2){
             $slug = $course_slug_1 . '/' . $course_slug_2;

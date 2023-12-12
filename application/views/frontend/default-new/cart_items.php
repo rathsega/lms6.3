@@ -5,7 +5,7 @@
 	<div class="path_pos_wish-2">
 	  <div class="path_pos_wish">
 	    <div class="menu_pro_wish-f-b">
-	      <a href="<?php echo site_url($course_details['category_slug'] .'/' . $course_details['sub_category_slug'] . '/' . $course_details['slug']); ?>" class="checkPropagation">
+	      <a href="<?php echo site_url($course_details['slug']); ?>" class="checkPropagation">
 	        <div class="menu_pro_wish-flex">
 	          <div class="img checkPropagation">
 	            <img src="<?php echo $this->crud_model->get_course_thumbnail_url($course_details['id']); ?>" />

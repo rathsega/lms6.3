@@ -183,7 +183,7 @@ $user_id = $this->session->userdata('user_id');
                     }
                     ?>
                     <div class="single-popup-course">
-                        <a href="<?php echo site_url($top_course['category_slug'] .'/' . $top_course['sub_category_slug'] . '/' . $top_course['slug']); ?>" id="top_course_<?php echo $top_course['id']; ?>" class="checkPropagation courses-card-body">
+                        <a href="<?php echo site_url($top_course['slug']); ?>" id="top_course_<?php echo $top_course['id']; ?>" class="checkPropagation courses-card-body">
                             <div class="courses-card-image">
                                 <img src="<?php echo $this->crud_model->get_course_thumbnail_url($top_course['id']); ?>">
                                 <div class="courses-icon <?php if(in_array($top_course['id'], $my_wishlist_items)) echo 'red-heart'; ?>" id="coursesWishlistIconTopCourse<?php echo $top_course['id']; ?>">
@@ -238,7 +238,7 @@ $user_id = $this->session->userdata('user_id');
                                 <p class="last-update"><?php echo site_phrase('last_updated') . ' ' . date('D, d-M-Y', $top_course['last_modified']); ?></p>
                             <?php endif; ?>
                             <div class="course-title">
-                                 <a href="<?php echo site_url($top_course['category_slug'] .'/' . $top_course['sub_category_slug'] . '/' . $top_course['slug']); ?>"><?php echo $top_course['title']; ?></a>
+                                 <a href="<?php echo site_url($top_course['slug']); ?>"><?php echo $top_course['title']; ?></a>
                             </div>
                             <div class="course-meta">
                                 <?php if ($top_course['course_type'] == 'general') : ?>
@@ -363,7 +363,7 @@ $user_id = $this->session->userdata('user_id');
                     }
                     ?>
                     <div class="single-popup-course">
-                        <a href="<?php echo site_url($latest_course['category_slug'] .'/' . $latest_course['sub_category_slug'] . '/' . $latest_course['slug']); ?>" id="latest_course_<?php echo $latest_course['id']; ?>" class="checkPropagation courses-card-body">
+                        <a href="<?php echo site_url($latest_course['slug']); ?>" id="latest_course_<?php echo $latest_course['id']; ?>" class="checkPropagation courses-card-body">
                             <div class="courses-card-image">
                                 <img src="<?php echo $this->crud_model->get_course_thumbnail_url($latest_course['id']); ?>">
                                 <div class="courses-icon <?php if(in_array($latest_course['id'], $my_wishlist_items)) echo 'red-heart'; ?>" id="coursesWishlistIconLatestCourse<?php echo $latest_course['id']; ?>">
@@ -418,7 +418,7 @@ $user_id = $this->session->userdata('user_id');
                                 <p class="last-update"><?php echo site_phrase('last_updated') . ' ' . date('D, d-M-Y', $latest_course['last_modified']); ?></p>
                             <?php endif; ?>
                             <div class="course-title">
-                                 <a href="<?php echo site_url($latest_course['category_slug'] .'/' . $latest_course['sub_category_slug'] . '/' . $latest_course['slug']); ?>"><?php echo $latest_course['title']; ?></a>
+                                 <a href="<?php echo site_url($latest_course['slug']); ?>"><?php echo $latest_course['title']; ?></a>
                             </div>
                             <div class="course-meta">
                                 <?php if ($latest_course['course_type'] == 'general') : ?>

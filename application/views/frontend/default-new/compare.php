@@ -87,7 +87,7 @@
 	                        <?php endif; ?>
 	                    </div>
 	                    <p class="ellipsis-line-2"><?php echo $course_1_details['short_description'] ?></p>
-	                    <a href="<?php echo site_url($course_1_details['category_slug'] .'/' . $course_1_details['sub_category_slug'] . '/' . $course_1_details['slug']) ?>"><?php echo get_phrase('Learn More'); ?> <i class="fa-solid fa-angle-right"></i></a>
+	                    <a href="<?php echo site_url($course_1_details['slug']) ?>"><?php echo get_phrase('Learn More'); ?> <i class="fa-solid fa-angle-right"></i></a>
 	                </div>
 	            <?php endif; ?>
             </div>
@@ -107,7 +107,7 @@
 	                        <?php endif; ?>
 	                    </div>
 	                    <p class="ellipsis-line-2"><?php echo $course_2_details['short_description'] ?></p>
-	                    <a href="<?php echo site_url($course_2_details['category_slug'] .'/' . $course_2_details['sub_category_slug'] . '/' . $course_2_details['slug']) ?>"><?php echo get_phrase('Learn More'); ?> <i class="fa-solid fa-angle-right"></i></a>
+	                    <a href="<?php echo site_url($course_2_details['slug']) ?>"><?php echo get_phrase('Learn More'); ?> <i class="fa-solid fa-angle-right"></i></a>
 	                </div>
 	            <?php endif; ?>
             </div>
@@ -127,7 +127,7 @@
 	                        <?php endif; ?>
 	                    </div>
 	                    <p class="ellipsis-line-2"><?php echo $course_3_details['short_description'] ?></p>
-	                    <a href="<?php echo site_url($course_3_details['category_slug'] .'/' . $course_3_details['sub_category_slug'] . '/' . $course_3_details['slug']); ?>"><?php echo get_phrase('Learn More'); ?> <i class="fa-solid fa-angle-right"></i></a>
+	                    <a href="<?php echo site_url($course_3_details['slug']); ?>"><?php echo get_phrase('Learn More'); ?> <i class="fa-solid fa-angle-right"></i></a>
 	                </div>
 	            <?php endif; ?>
             </div>

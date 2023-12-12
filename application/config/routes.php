@@ -100,6 +100,7 @@ $seg2 = $this->uri->segment(2);
 $seg3 = $this->uri->segment(3);
 $seg4 = $this->uri->segment(4);
 if(!in_array($seg1, $existed_segments)){
+    $route['(:any)'] =  "home/course/".$this->uri->segment(1);
     $route['(:any)/(:any)/(:any)'] =  "home/course/".$this->uri->segment(1)."/".$this->uri->segment(2)."/".$this->uri->segment(3);
     $route['(:any)/(:any)/(:any)/(:any)'] =  "home/course/".$this->uri->segment(1)."/".$this->uri->segment(2)."/".$this->uri->segment(3)."/".$this->uri->segment(4);
 }
