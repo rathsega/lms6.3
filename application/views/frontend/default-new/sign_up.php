@@ -40,7 +40,7 @@
                             <h5><?php echo get_phrase('linkedin'). " <b>(X)</b>"; ?></h5>
                             <div class="position-relative">
                                 <i class="fa-solid fa-user"></i>
-                                <input class="form-control" id="linkedin_link" type="linkedin_link" name="linkedin_link" placeholder="<?php echo get_phrase('Enter your linkedin link'); ?>" required>
+                                <input class="form-control" id="linkedin_link" type="linkedin_link" name="linkedin_link" placeholder="<?php echo get_phrase('Enter your linkedin link'); ?>">
                             </div>
                         </div>
                         <div class="mb-4">
