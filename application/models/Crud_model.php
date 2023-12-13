@@ -4863,6 +4863,17 @@ class Crud_model extends CI_Model
         //$data[$i]['course_id'] = $this->input->post('id');
         $data['broucher'] = "";
         if (isset($_FILES['broucher']) && $_FILES['broucher']['name'] != "" && $_FILES['broucher']['name'][0] != "") {
+
+            $fileName           = $_FILES['broucher']['name'];
+            $tmp                = explode('.', $fileName);
+            $fileExtension      = strtoupper(end($tmp));
+
+            $file_extensions = ['PDF', 'pdf', 'doc', 'DOC', 'docx', 'DOCX'];
+            if (!in_array($fileExtension, $file_extensions)) {
+                $this->session->set_flashdata('error_message', get_phrase('Please upload valid file'));
+                return true;
+            }
+
             //unlink('uploads/broucher/' . $this->db->get_where('users', array('id' => $this->session->userdata('user_id')))->row('image') . '.jpg');
             $file_name = time() . '.' . end((explode(".", $_FILES['broucher']['name'])));
             $this->user_model->upload_broucher_of_reviewer($file_name, $i);

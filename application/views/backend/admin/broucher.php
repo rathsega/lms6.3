@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="form-group row mb-3">
-                        <label class="col-md-5 col-form-label" for="broucher"><?php echo "Upload Broucher" ?><span class="required">*</span></label>
+                        <label class="col-md-5 col-form-label" for="broucher"><?php echo "Upload Broucher" ?><span class="required">*</span><small>(doc, docx, pdf)</small></label>
                         <div class="col-md-7">
                             <input type="file" class="form-control" name = "broucher" id="broucher" required>
                         </div>
