@@ -3037,4 +3037,38 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
+    
+    public function chapters($param1 = "", $param2 = "", $param3 = "")
+    {
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        check_permission('course');
+
+        if ($param2 == 'add') {
+            $this->crud_model->add_chapter($param1);
+            $this->session->set_flashdata('flash_message', get_phrase('chapter_has_been_added_successfully'));
+        } elseif ($param2 == 'edit') {
+            $this->crud_model->edit_chapter($param3);
+            $this->session->set_flashdata('flash_message', get_phrase('chapter_has_been_updated_successfully'));
+        } elseif ($param2 == 'delete') {
+            $this->crud_model->delete_chapter($param1, $param3);
+            $this->session->set_flashdata('flash_message', get_phrase('chapter_has_been_deleted_successfully'));
+        }
+        redirect(site_url('admin/course_form/course_edit/' . $param1));
+    }
+
+    public function getChaptersBySectionId(){
+        $data =  $this->crud_model->get_chapters('section', $_POST['section_id'])->result_array();
+        echo json_encode(array('data'=>$data));
+    }
+
+    public function ajax_sort_chapter()
+    {
+        $chapter_json = $this->input->post('itemJSON');
+        $this->crud_model->sort_chapter($chapter_json);
+    }
+
 }

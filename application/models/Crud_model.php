@@ -567,6 +567,8 @@ class Crud_model extends CI_Model
             return $this->db->get_where('lesson', array('course_id' => $id));
         } elseif ($type == "section") {
             return $this->db->get_where('lesson', array('section_id' => $id));
+        } elseif ($type == "chapter") {
+            return $this->db->get_where('lesson', array('chapter_id' => $id));
         } elseif ($type == "lesson") {
             return $this->db->get_where('lesson', array('id' => $id));
         } else {
@@ -1387,6 +1389,7 @@ class Crud_model extends CI_Model
         $data['course_id'] = html_escape($this->input->post('course_id'));
         $data['title'] = html_escape($this->input->post('title'));
         $data['section_id'] = html_escape($this->input->post('section_id'));
+        $data['chapter_id'] = html_escape($this->input->post('chapter_id'));
 
         $lesson_type_array = explode('-', $this->input->post('lesson_type'));
 
@@ -4994,4 +4997,86 @@ class Crud_model extends CI_Model
             SELECT CONCAT(ua.first_name, ' ', ua.last_name) as name, ua.email, ua.phone, c.title, ua.action_from, ua.datetime from user_actions as ua left join course as c on c.id = ua.course
              order by ua.datetime desc ");
     }
+
+    
+    public function add_chapter($course_id)
+    {
+        $data['title'] = html_escape($this->input->post('title'));
+        $data['course_id'] = $course_id;
+        $data['section_id'] = $this->input->post('section_id');
+        $this->db->insert('chapters', $data);
+        $chapter_id = $this->db->insert_id();
+        return $chapter_id;
+    }
+
+    public function edit_chapter($chapter_id)
+    {
+
+        $data['title'] = $this->input->post('title');
+        //$data['section_id'] = $this->input->post('section_id');
+        $this->db->where('id', $chapter_id);
+        $this->db->update('chapters', $data);
+    }
+
+    public function delete_chapter($course_id, $chapter_id)
+    {
+        $this->db->where('id', $chapter_id);
+        $this->db->delete('chapters');
+
+        $this->db->where('chapter_id', $chapter_id);
+        $this->db->delete('lesson');
+    }
+
+    public function get_chapters($type_by, $id)
+    {
+        $this->db->order_by("order", "asc");
+        if ($type_by == 'section') {
+            $data = $this->db->get_where('chapters', array('section_id' => $id));
+            return $data;
+        } elseif ($type_by == 'chapter') {
+            return $this->db->get_where('chapters', array('id' => $id));
+        }
+    }
+
+    public function serialize_chapter($course_id, $serialization)
+    {
+        $updater = array(
+            'chapter' => $serialization
+        );
+        $this->db->where('id', $course_id);
+        $this->db->update('course', $updater);
+    }
+
+    public function sort_chapter($chapter_json)
+    {
+        $chapters = json_decode($chapter_json);
+        foreach ($chapters as $key => $value) {
+            $updater = array(
+                'order' => $key + 1
+            );
+            $this->db->where('id', $value);
+            $this->db->update('chapters', $updater);
+        }
+    }
+
+    public function get_total_duration_of_lesson_by_chapter_id($chapter_id)
+    {
+        $total_duration = 0;
+        $lessons = $this->crud_model->get_lessons('chapter', $chapter_id)->result_array();
+        foreach ($lessons as $lesson) {
+            if ($lesson['lesson_type'] != "other" && $lesson['lesson_type'] != "text") {
+                $time_array = explode(':', $lesson['duration']);
+                $hour_to_seconds = $time_array[0] * 60 * 60;
+                $minute_to_seconds = $time_array[1] * 60;
+                $seconds = $time_array[2];
+                $total_duration += $hour_to_seconds + $minute_to_seconds + $seconds;
+            }
+        }
+        //return gmdate("H:i:s", $total_duration).' '.get_phrase('hours');
+        $hours = floor($total_duration / 3600);
+        $minutes = floor(($total_duration % 3600) / 60);
+        $seconds = $total_duration % 60;
+        return sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds) . ' ' . get_phrase('hours');
+    }
+
 }

@@ -33,10 +33,18 @@ $sections = $this->crud_model->get_section('course', $param2)->result_array();
 
     <div class="form-group">
         <label><?php echo get_phrase('section'); ?></label>
-        <select class="form-control select2" data-toggle="select2" name="section_id" required>
+        <select class="form-control select2" data-toggle="select2" name="section_id" id="section_dropdown" required>
+            <option value="">Select Section</option>
             <?php foreach ($sections as $section): ?>
                 <option value="<?php echo $section['id']; ?>"><?php echo $section['title']; ?></option>
             <?php endforeach; ?>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label><?php echo get_phrase('chapter'); ?></label>
+        <select class="form-control select2" data-toggle="select2" name="chapter_id" id="chapter_dropdown" required>
+            
         </select>
     </div>
 
@@ -79,6 +87,26 @@ $(document).ready(function() {
     // HIDING THE SEARCHBOX FROM SELECT2
     $('select').select2({
         minimumResultsForSearch: -1
+    });
+
+    //Sections and Lessons Dependable dropdown
+    $('#section_dropdown').change(function(){
+        var selectedValue = $(this).val();
+
+        // Make an AJAX call to fetch dependent options
+        $.ajax({
+            url: "<?php echo base_url('admin/getChaptersBySectionId'); ?>",
+            method: 'post',
+            data: { section_id: selectedValue },
+            dataType: 'json',
+            success: function(response){
+                var options = '<option value="">Select Chapter</option>';
+                $.each(response.data, function(key, value){
+                    options += '<option value="' + value.id + '">' + value.title + '</option>';
+                });
+                $('#chapter_dropdown').html(options);
+            }
+        });
     });
 });
 function ajax_get_video_details(video_url) {
