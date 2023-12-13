@@ -33,7 +33,7 @@
                             <div class="mb-3">
                                 <select class="select2 form-control select2-multiple" data-toggle="select2" data-placeholder="Choose ..." name="course" id="course" required>
                                     <option value=""><?php echo get_phrase('select_a_course'); ?></option>
-                                    <?php $course_list = $this->crud_model->get_courses()->result_array();
+                                    <?php $course_list = $this->crud_model->get_actual_courses()->result_array();
                                         foreach ($course_list as $course):
                                         if ($course['status'] != 'active')
                                             continue;?>

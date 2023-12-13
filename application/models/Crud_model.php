@@ -5079,4 +5079,11 @@ class Crud_model extends CI_Model
         return sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds) . ' ' . get_phrase('hours');
     }
 
+    public function get_actual_courses(){
+        $this->db->where('is_top_course', 1);
+        $this->db->or_where('is_top10_course', 1);
+        $this->db->or_where('show_it_in_category', 1);
+        return $this->db->get('course');
+    }
+
 }
