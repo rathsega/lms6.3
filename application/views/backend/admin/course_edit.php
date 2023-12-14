@@ -373,6 +373,14 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-xl-8">
+                                                    <div class="form-group row mb-3">
+                                                        <label class="col-md-3 col-form-label" for="course_duration_in_hours"><?php echo get_phrase('course_duration_in_hours'); ?> </label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" class="form-control" id="course_duration_in_hours" name = "course_duration_in_hours" value="<?php echo $course_details['course_duration_in_hours']; ?>" placeholder="HH:MM:SS" >
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div> <!-- end col -->
                                         </div> <!-- end row -->
                                     </div> <!-- end tab pane -->

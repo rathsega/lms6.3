@@ -607,6 +607,7 @@ class Crud_model extends CI_Model
         $data['discounted_price'] = $this->input->post('discounted_price');
         $data['level'] = $this->input->post('level');
         $data['is_free_course'] = $this->input->post('is_free_course');
+        $data['course_duration_in_hours'] = $this->input->post('course_duration_in_hours');
 
         //Course expiry period
         if($this->input->post('expiry_period') == 'limited_time' && is_numeric($this->input->post('number_of_month')) && $this->input->post('number_of_month') > 0){
@@ -809,6 +810,7 @@ class Crud_model extends CI_Model
         $data['category_slug'] = $parent_category_details['slug'];
         $data['requirements'] = $requirements;
         $data['is_free_course'] = $this->input->post('is_free_course');
+        $data['course_duration_in_hours'] = $this->input->post('course_duration_in_hours');
 
         //Course expiry period
         if($this->input->post('expiry_period') == 'limited_time' && is_numeric($this->input->post('number_of_month')) && $this->input->post('number_of_month') > 0){
