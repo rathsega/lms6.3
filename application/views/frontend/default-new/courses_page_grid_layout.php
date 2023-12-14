@@ -8,6 +8,11 @@
                 $lessons = $this->crud_model->get_lessons('course', $course['id']);
                 $instructor_details = $this->user_model->get_all_user($course['user_id'])->row_array();
                 $course_duration = $this->crud_model->get_total_duration_of_lesson_by_course_id($course['id']);
+                $course_duration = $course['is_top_course'] == 1 || $course['is_top10_course'] == 1 || $course['show_it_in_category'] == 1 ? $course['course_duration_in_hours'] . " Hours" : $course_duration;
+                $course_duration_in_months = $course['course_duration_in_months'] ." Months";
+                if($course['daily_class_duration_in_hours']){
+                    $course_duration_in_months = $course_duration_in_months ." (Daily " . $course['daily_class_duration_in_hours'] . " Hours)";
+                }
                 $total_rating =  $this->crud_model->get_ratings('course', $course['id'], true)->row()->rating;
                 $number_of_ratings = $this->crud_model->get_ratings('course', $course['id'])->num_rows();
                 if ($number_of_ratings > 0) {
@@ -57,6 +62,9 @@
                                     <div class="courses-price-right ">
                                         <p class="m-0"><i class="fa-regular fa-clock text-15px p-0"></i> <?php echo $course_duration; ?></p>
                                     </div>
+                                </div>
+                                <div class="courses-price">
+                                    <p class="m-0"><i class="fa-regular fa-clock text-15px p-0"></i> <?php echo $course_duration_in_months; ?></p>
                                 </div>
                             </div>
                         </div>
