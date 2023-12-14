@@ -426,9 +426,9 @@ if($ratings_count){
     /* For tablet screens */
     @media (max-width: 768px) {
         .contact_us_modal-content {
-            width: 70%; /* Adjust width for tablets */
+            width: auto; /* Adjust width for tablets */
             max-width: 90%; /* Adjust max-width for tablets */
-            height: 70%; /* Adjust height for tablets */
+            height: auto; /* Adjust height for tablets */
             padding: 15px; /* Adjust padding for tablets */
         }
     }
