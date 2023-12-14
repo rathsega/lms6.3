@@ -175,6 +175,10 @@ $user_id = $this->session->userdata('user_id');
                     $instructor_details = $this->user_model->get_all_user($top_course['creator'])->row_array();
                     $course_duration = $this->crud_model->get_total_duration_of_lesson_by_course_id($top_course['id']);
                     $course_duration = $top_course['is_top_course'] == 1 || $top_course['is_top10_course'] == 1 || $top_course['show_it_in_category'] == 1 ? $top_course['course_duration_in_hours'] . " Hours" : $course_duration;
+                    $course_duration_in_months = $top_course['course_duration_in_months'] ." Months";
+                    if($top_course['daily_class_duration_in_hours']){
+                        $course_duration_in_months = $course_duration_in_months ." (Daily " . $top_course['daily_class_duration_in_hours'] . " Hours)";
+                    }
                     $total_rating =  $this->crud_model->get_ratings('course', $top_course['id'], true)->row()->rating;
                     $number_of_ratings = $this->crud_model->get_ratings('course', $top_course['id'])->num_rows();
                     if ($number_of_ratings > 0) {
@@ -255,6 +259,11 @@ $user_id = $this->session->userdata('user_id');
                                     <span class="badge bg-light"><?= site_phrase('scorm_course'); ?></span>
                                 <?php endif; ?>
                                 <span class=""><i class="fas fa-closed-captioning"></i><?php echo ucfirst($top_course['language']); ?></span>
+                             </div>
+                             <div class="course-meta">
+                                    <span class=""><i class="far fa-clock"></i>
+                                        <?php echo $course_duration_in_months; ?>
+                                    </span>
                              </div>
                             <h6 class="text-black text-14px mb-1"><?php echo get_phrase('Outcomes') ?>:</h6>
                             <ul class="will-learn">
@@ -356,6 +365,10 @@ $user_id = $this->session->userdata('user_id');
                     $instructor_details = $this->user_model->get_all_user($latest_course['creator'])->row_array();
                     $course_duration = $this->crud_model->get_total_duration_of_lesson_by_course_id($latest_course['id']);
                     $course_duration = $latest_course['is_top_course'] == 1 || $latest_course['is_top10_course'] == 1 || $latest_course['show_it_in_category'] == 1 ? $latest_course['course_duration_in_hours'] . " Hours" : $course_duration;
+                    $course_duration_in_months = $latest_course['course_duration_in_months'] ." Months";
+                    if($latest_course['daily_class_duration_in_hours']){
+                        $course_duration_in_months = $course_duration_in_months ." (Daily " . $latest_course['daily_class_duration_in_hours'] . " Hours)";
+                    }
                     $total_rating =  $this->crud_model->get_ratings('course', $latest_course['id'], true)->row()->rating;
                     $number_of_ratings = $this->crud_model->get_ratings('course', $latest_course['id'])->num_rows();
                     if ($number_of_ratings > 0) {
@@ -436,6 +449,11 @@ $user_id = $this->session->userdata('user_id');
                                     <span class="badge bg-light"><?= site_phrase('scorm_course'); ?></span>
                                 <?php endif; ?>
                                 <span class=""><i class="fas fa-closed-captioning"></i><?php echo ucfirst($latest_course['language']); ?></span>
+                             </div>
+                             <div class="course-meta">
+                                    <span class=""><i class="far fa-clock"></i>
+                                        <?php echo $course_duration_in_months; ?>
+                                    </span>
                              </div>
                             <h6 class="text-black text-14px mb-1"><?php echo get_phrase('Outcomes') ?>:</h6>
                             <ul class="will-learn">

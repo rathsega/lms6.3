@@ -244,20 +244,19 @@ if($ratings_count){
                             </div>
                             <h5><?php echo get_phrase($course_details['level']); ?></h5>
                         </div>
-
-                        
                         <div class="enrol">
                             <div class="icon">
-                                <img src="<?php echo base_url('assets/frontend/default-new/image/c-enrold-5.png') ?>">
-                                <h4><?php echo get_phrase('Expiry period') ?></h4>
+                                <img src="<?php echo base_url('assets/frontend/default-new/image/a-s-1.png') ?>">
+                                <h4><?php echo get_phrase('Duration') ?></h4>
                             </div>
-                            <h5>
-                                <?php if($course_details['expiry_period'] <= 0): ?>
-                                    <?php echo get_phrase('Lifetime') ?>
-                                <?php else: ?>
-                                    <?php echo $course_details['expiry_period'].' '.get_phrase('Months'); ?>
-                                <?php endif; ?>
-                            </h5>
+                            <h5><?php echo $course_details['course_duration_in_months'] ." Months"; ?></h5>
+                        </div>
+                        <div class="enrol">
+                            <div class="icon">
+                                <img src="<?php echo base_url('assets/frontend/default-new/image/Group 17906.png') ?>">
+                                <h4><?php echo get_phrase('Daily') ?></h4>
+                            </div>
+                            <h5><?php echo $course_details['daily_class_duration_in_hours'] . " Hours"; ?></h5>
                         </div>
 
                         <?php if(addon_status('certificate')): ?>

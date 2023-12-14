@@ -916,4 +916,18 @@ class User_model extends CI_Model
             //$this->session->set_flashdata('flash_message', get_phrase('user_update_successfully'));
         }
     }
+
+    public function get_user_image_url_custom_review($review_id)
+    {
+        $user_profile_image = $this->db->get_where('custom_reviews', array('id' => $review_id))->row('filename');
+        if ($user_profile_image && file_exists('uploads/user_image/optimized/' . $user_profile_image)){
+            return base_url() . 'uploads/user_image/optimized/' . $user_profile_image;
+        }elseif($user_profile_image && file_exists('uploads/user_image/' . $user_profile_image)){
+            //resizeImage
+            resizeImage('uploads/user_image/' . $user_profile_image, 'uploads/user_image/optimized/', 220);
+            return base_url() . 'uploads/user_image/' . $user_profile_image;
+        }else{
+            return base_url() . 'uploads/user_image/custom_review.png';
+        }
+    }
 }

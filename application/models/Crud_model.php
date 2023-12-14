@@ -608,6 +608,8 @@ class Crud_model extends CI_Model
         $data['level'] = $this->input->post('level');
         $data['is_free_course'] = $this->input->post('is_free_course');
         $data['course_duration_in_hours'] = $this->input->post('course_duration_in_hours');
+        $data['course_duration_in_months'] = $this->input->post('course_duration_in_months');
+        $data['daily_class_duration_in_hours'] = $this->input->post('daily_class_duration_in_hours');
 
         //Course expiry period
         if($this->input->post('expiry_period') == 'limited_time' && is_numeric($this->input->post('number_of_month')) && $this->input->post('number_of_month') > 0){
@@ -811,6 +813,8 @@ class Crud_model extends CI_Model
         $data['requirements'] = $requirements;
         $data['is_free_course'] = $this->input->post('is_free_course');
         $data['course_duration_in_hours'] = $this->input->post('course_duration_in_hours');
+        $data['course_duration_in_months'] = $this->input->post('course_duration_in_months');
+        $data['daily_class_duration_in_hours'] = $this->input->post('daily_class_duration_in_hours');
 
         //Course expiry period
         if($this->input->post('expiry_period') == 'limited_time' && is_numeric($this->input->post('number_of_month')) && $this->input->post('number_of_month') > 0){
@@ -4807,7 +4811,7 @@ class Crud_model extends CI_Model
             $data[$i]['review'] = $_POST['review'][$i];
 
             $data[$i]['filename'] = "";
-            if (isset($_FILES['user_image']) && $_FILES['user_image']['name'] != "" && $_FILES['user_image']['name'][0] != "") {
+            if (isset($_FILES['user_image']) && $_FILES['user_image']['name'] != "" && $_FILES['user_image']['name'][$i] != "") {
                 //unlink('uploads/user_image/' . $this->db->get_where('users', array('id' => $this->session->userdata('user_id')))->row('image') . '.jpg');
                 $file_name = time() . $i . '.' . end((explode(".", $_FILES['user_image']['name'][$i])));
                 $this->user_model->upload_user_image_of_reviewer($file_name, $i);
