@@ -429,20 +429,6 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 		<?php endif; ?>
 
 
-		<?php if (has_permission('contact')) : ?>
-			<li class="side-nav-item">
-				<a href="<?php echo site_url('admin/contact'); ?>" class="side-nav-link <?php if ($page_name == 'contact') : ?> active <?php endif; ?>">
-					<i class="dripicons-user-id"></i>
-					<span><?php echo get_phrase('Contact'); ?></span>
-					<?php $unread_contact = $this->db->where('has_read', null)->get('contact')->num_rows(); ?>
-					<?php if($unread_contact > 0): ?>
-						<span class="badge badge-danger float-right"><?php echo $unread_contact; ?></span>
-					<?php endif; ?>
-				</a>
-			</li>
-		<?php endif; ?>
-
-
 		<?php if (has_permission('blog')) : ?>
 			<li class="side-nav-item <?php if ($page_name == 'blog' || $page_name == 'blog_add' || $page_name == 'blog_edit' || $page_name == 'blog_category' || $page_name == 'blog_settings') : ?> active <?php endif; ?>">
 				<a href="javascript: void(0);" class="side-nav-link <?php if ($page_name == 'blog' || $page_name == 'blog_add' || $page_name == 'blog_edit' || $page_name == 'blog_category' || $page_name == 'blog_settings' || $page_name == 'instructors_pending_blog') : ?> active <?php endif; ?>">
