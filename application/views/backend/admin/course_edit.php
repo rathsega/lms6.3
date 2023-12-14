@@ -385,7 +385,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                     <div class="form-group row mb-3">
                                                         <label class="col-md-3 col-form-label" for="course_duration_in_months"><?php echo get_phrase('course_duration_in_months'). " <b>(X)</b>"; ?> </label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control" id="course_duration_in_months" name = "course_duration_in_months" value="<?php echo $course_details['course_duration_in_months']; ?>" placeholder="02 Months" >
+                                                            <input type="text" class="form-control" id="course_duration_in_months" name = "course_duration_in_months" value="<?php echo $course_details['course_duration_in_months']; ?>" placeholder="2.5" >
                                                         </div>
                                                     </div>
                                                 </div>
@@ -393,7 +393,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                     <div class="form-group row mb-3">
                                                         <label class="col-md-3 col-form-label" for="daily_class_duration_in_hours"><?php echo get_phrase('daily_class_duration_in_hours'). " <b>(X)</b>"; ?> </label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control" id="daily_class_duration_in_hours" name = "daily_class_duration_in_hours" value="<?php echo $course_details['daily_class_duration_in_hours']; ?>" placeholder="02 Hours" >
+                                                            <input type="text" class="form-control" id="daily_class_duration_in_hours" name = "daily_class_duration_in_hours" value="<?php echo $course_details['daily_class_duration_in_hours']; ?>" placeholder="2" >
                                                         </div>
                                                     </div>
                                                 </div>
