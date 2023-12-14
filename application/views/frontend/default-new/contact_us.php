@@ -128,9 +128,6 @@
             msg = 'Please enter a valid email address.';
         }
 
-        if (phone !== '' && !phoneRegex.test(phone)) {
-            msg = 'Please enter a valid 10-digit phone number.';
-        }
         if(msg){
             alert(msg);
             return false;

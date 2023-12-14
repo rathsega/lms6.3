@@ -174,6 +174,7 @@ $user_id = $this->session->userdata('user_id');
                     $lessons = $this->crud_model->get_lessons('course', $top_course['id']);
                     $instructor_details = $this->user_model->get_all_user($top_course['creator'])->row_array();
                     $course_duration = $this->crud_model->get_total_duration_of_lesson_by_course_id($top_course['id']);
+                    $course_duration = $top_course['is_top_course'] == 1 || $top_course['is_top10_course'] == 1 || $top_course['show_it_in_category'] == 1 ? $top_course['course_duration_in_hours'] . " Hours" : $course_duration;
                     $total_rating =  $this->crud_model->get_ratings('course', $top_course['id'], true)->row()->rating;
                     $number_of_ratings = $this->crud_model->get_ratings('course', $top_course['id'])->num_rows();
                     if ($number_of_ratings > 0) {
@@ -354,6 +355,7 @@ $user_id = $this->session->userdata('user_id');
                     $lessons = $this->crud_model->get_lessons('course', $latest_course['id']);
                     $instructor_details = $this->user_model->get_all_user($latest_course['creator'])->row_array();
                     $course_duration = $this->crud_model->get_total_duration_of_lesson_by_course_id($latest_course['id']);
+                    $course_duration = $latest_course['is_top_course'] == 1 || $latest_course['is_top10_course'] == 1 || $latest_course['show_it_in_category'] == 1 ? $latest_course['course_duration_in_hours'] . " Hours" : $course_duration;
                     $total_rating =  $this->crud_model->get_ratings('course', $latest_course['id'], true)->row()->rating;
                     $number_of_ratings = $this->crud_model->get_ratings('course', $latest_course['id'])->num_rows();
                     if ($number_of_ratings > 0) {

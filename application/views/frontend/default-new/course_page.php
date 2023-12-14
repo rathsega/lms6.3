@@ -670,7 +670,6 @@ if($ratings_count){
 
         // Regular expressions for email and phone number validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^[6-9]{1}[0-9]{9}$/;
 
         // Perform validations
         if (first_name === '') {
@@ -682,12 +681,6 @@ if($ratings_count){
             alert('Please enter a valid email address.');
             return;
         }
-
-        if (phone !== '' && !phoneRegex.test(phone)) {
-            alert('Please enter a valid 10-digit phone number.');
-            return;
-        }
-
 
         var formData = {
             first_name: first_name,

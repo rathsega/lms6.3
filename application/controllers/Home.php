@@ -1742,25 +1742,13 @@ class Home extends CI_Controller
 
             // Validation with lengths and regular expressions
             if (strlen($first_name) < 3 || !preg_match($nameRegex, $first_name)) {
-                $msg = "Invalid first name";
+                $msg = "Invalid first name, first name should contain at least 3 characters.";
                 $this->session->set_flashdata('error_message', site_phrase($msg));
                 redirect('home/contact_us', 'location');
             }
 
             if (!preg_match($emailRegex, $email)) {
                 $msg = "Invalid email";
-                $this->session->set_flashdata('error_message', site_phrase($msg));
-                redirect('home/contact_us', 'location');
-            }
-
-            if (!preg_match($phoneRegex, $phone)) {
-                $msg = "Invalid phone number";
-                $this->session->set_flashdata('error_message', site_phrase($msg));
-                redirect('home/contact_us', 'location');
-            }
-
-            if ($city && !preg_match($cityRegex, $city)) {
-                $msg = "Invalid city";
                 $this->session->set_flashdata('error_message', site_phrase($msg));
                 redirect('home/contact_us', 'location');
             }
@@ -2014,22 +2002,12 @@ class Home extends CI_Controller
 
         // Validation with lengths and regular expressions
         if (strlen($first_name) < 3 || !preg_match($nameRegex, $first_name)) {
-            echo "Invalid first name";
+            echo "Invalid first name, First name should contain at least 3 characters.";
             return true;
         }
 
         if (!preg_match($emailRegex, $email)) {
             echo "Invalid email";
-            return true;
-        }
-
-        if (!preg_match($phoneRegex, $phone)) {
-            echo "Invalid phone number";
-            return true;
-        }
-
-        if ($city && !preg_match($cityRegex, $city)) {
-            echo "Invalid city";
             return true;
         }
 
