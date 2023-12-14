@@ -1,26 +1,28 @@
 
-
-<div class="course-description">
-    <h3 class="description-head"><?php echo get_phrase('What will i learn?') ?></h3>
-    <ul class="step-down">
-        <?php foreach (json_decode($course_details['outcomes']) as $outcome) : ?>
-            <?php if ($outcome != "") : ?>
-                <li><?php echo $outcome; ?></li>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    </ul>
-</div>
-
-<div class="course-description requirements">
-    <h3 class="description-head"><?php echo get_phrase('Requirements') ?></h3>
-    <ul>
-        <?php foreach (json_decode($course_details['requirements']) as $requirement) : ?>
-            <?php if ($requirement != "") : ?>
-                <li><?php echo $requirement; ?></li>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    </ul>
-</div>
+<?php if(count(json_decode($course_details['outcomes']) )): ?>
+    <div class="course-description">
+        <h3 class="description-head"><?php echo get_phrase('What will i learn?') ?></h3>
+        <ul class="step-down">
+            <?php foreach (json_decode($course_details['outcomes']) as $outcome) : ?>
+                <?php if ($outcome != "") : ?>
+                    <li><?php echo $outcome; ?></li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
+<?php if(count(json_decode($course_details['requirements']) )): ?>
+    <div class="course-description requirements">
+        <h3 class="description-head"><?php echo get_phrase('Requirements') ?></h3>
+        <ul>
+            <?php foreach (json_decode($course_details['requirements']) as $requirement) : ?>
+                <?php if ($requirement != "") : ?>
+                    <li><?php echo $requirement; ?></li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
 
 <div class="course-description">
     <h3 class="description-head"><?php echo get_phrase('Course Description') ?></h3>
