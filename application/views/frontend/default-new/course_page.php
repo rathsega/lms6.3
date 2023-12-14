@@ -418,8 +418,30 @@ if($ratings_count){
     padding: 20px;
     border: 1px solid #888;
     width: 40%;
-    max-width: 40%;
+    max-width: 80%;
     height: 85%;
+    }
+
+    /* For tablet screens */
+    @media (max-width: 768px) {
+        .contact_us_modal-content {
+            width: 70%; /* Adjust width for tablets */
+            max-width: 90%; /* Adjust max-width for tablets */
+            height: 70%; /* Adjust height for tablets */
+            padding: 15px; /* Adjust padding for tablets */
+        }
+    }
+
+    /* For mobile screens */
+    @media (max-width: 480px) {
+        .contact_us_modal-content {
+            width: 90%; /* Adjust width for mobile */
+            max-width: 95%; /* Adjust max-width for mobile */
+            height: auto; /* Adjust height for mobile */
+            padding: 10px; /* Adjust padding for mobile */
+            margin: 10% auto; /* Adjust margin for mobile */
+            border: none; /* Remove border for mobile */
+        }
     }
 
     .close {
