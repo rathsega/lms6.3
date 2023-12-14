@@ -229,6 +229,9 @@ $user_id = $this->session->userdata('user_id');
                                             <p class="m-0"> <i class="fa-regular fa-clock p-0 text-15px"></i> <?php echo $course_duration; ?></p>
                                         </div>
                                     </div>
+                                    <div class="courses-price">
+                                        <p class="m-0"> <i class="fa-regular fa-clock p-0 text-15px"></i> <?php echo $course_duration_in_months; ?></p>
+                                    </div>
                                 </div>
                              </div>
                         </a>
@@ -418,6 +421,9 @@ $user_id = $this->session->userdata('user_id');
                                         <div class="courses-price-right ">
                                             <p class="m-0"><i class="fa-regular fa-clock p-0 text-15px"></i> <?php echo $course_duration; ?></p>
                                         </div>
+                                    </div>
+                                    <div class="courses-price">
+                                        <p class="m-0"> <i class="fa-regular fa-clock p-0 text-15px"></i> <?php echo $course_duration_in_months; ?></p>
                                     </div>
                                 </div>
                              </div>
