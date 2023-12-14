@@ -5,7 +5,7 @@
     <div class="path_pos_wish-2">
         <div class="path_pos_wish">
           <div class="menu_pro_wish-f-b">
-            <a href="<?php echo site_url('home/course/'.slugify($course_details['title']).'/'.$course_details['id']); ?>" class="checkPropagation">
+            <a href="<?php echo site_url($course_details['slug']); ?>" class="checkPropagation">
               <div class="menu_pro_wish-flex">
                 <div class="img">
                   <img src="<?php echo $this->crud_model->get_course_thumbnail_url($course_details['id']); ?>" />

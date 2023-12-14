@@ -2409,7 +2409,7 @@ class Admin extends CI_Controller
         $this->db->where('id', $rating_id)->delete('rating');
 
         $this->session->set_flashdata('flash_message', get_phrase('user_review_deleted_successfully'));
-        redirect(site_url('home/course/' . slugify($course_details['title']) . '/' . $course_details['id']), 'refresh');
+        redirect(site_url($course_details['slug']), 'refresh');
     }
 
     //Start Notification

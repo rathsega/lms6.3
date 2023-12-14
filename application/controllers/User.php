@@ -182,7 +182,7 @@ class User extends CI_Controller
                     $price_field .= '<p class="text-12">' . get_phrase('Lifetime') . '</p>';
                 }
 
-                $view_course_on_frontend_url = site_url('home/course/' . rawurlencode(slugify($row->title)) . '/' . $row->id);
+                $view_course_on_frontend_url = site_url($row->slug);
                 $go_to_course_playing_page = site_url('home/lesson/' . rawurlencode(slugify($row->title)) . '/' . $row->id);
                 $edit_this_course_url = site_url('user/course_form/course_edit/' . $row->id);
                 $section_and_lesson_url = site_url('user/course_form/course_edit/' . $row->id);

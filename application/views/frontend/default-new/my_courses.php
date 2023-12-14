@@ -51,7 +51,7 @@
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="dropdownMenuButton2">
                                                         <li>
-                                                            <a class="dropdown-item py-2" href="<?php echo site_url('home/course/'.rawurlencode(slugify($course_details['title'])).'/'.$course_details['id']); ?>"><?php echo get_phrase('Go to course page') ?></a>
+                                                            <a class="dropdown-item py-2" href="<?php echo site_url($course_details['slug']); ?>"><?php echo get_phrase('Go to course page') ?></a>
                                                         </li>
                                                         <li>
                                                             <a class="dropdown-item py-2" href="<?php echo site_url('home/instructor_page/'.$course_details['creator']) ?>"><?php echo get_phrase('Author profile') ?></a>
@@ -104,7 +104,7 @@
                                             </div>
                                             <div class="my-course-1-btn pt-4 me-4">
                                                 <?php if($enrolment['expiry_date'] > 0 && strtotime($enrolment['expiry_date']) < time()): ?>
-                                                    <a class="btn text-14px py-1 text-white" style="background-color: var(--bs-code-color);"  href="<?php echo site_url('home/course/'.slugify($course_details['title']).'/'.$course_details['id']) ?>">
+                                                    <a class="btn text-14px py-1 text-white" style="background-color: var(--bs-code-color);"  href="<?php echo site_url($course_details['slug']) ?>">
                                                         <i class="far fa-calendar-plus"></i>
                                                         <?php echo get_phrase('View Course'); ?>
                                                     </a>

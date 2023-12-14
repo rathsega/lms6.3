@@ -35,7 +35,7 @@
                 ?>
                 <tr class="gradeU">
                   <td>
-                    <strong><a href="<?php echo site_url('home/course/' . slugify($course_data['title']) . '/' . $course_data['id']); ?>" target="_blank"><?php echo $course_data['title']; ?></a></strong><br>
+                    <strong><a href="<?php echo site_url($course_data['slug']); ?>" target="_blank"><?php echo $course_data['title']; ?></a></strong><br>
                     <small class="text-muted"><?php echo get_phrase('enrolment_date') . ': ' . date('D, d-M-Y', $payment['date_added']); ?></small>
                     <?php if ($payment['coupon']) : ?>
                       <small class="d-block">

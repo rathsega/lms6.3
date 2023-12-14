@@ -31,7 +31,7 @@ $purchase_history = $this->db->get('payment',$per_page, $this->uri->segment(3));
                                         <th scope="row">
                                             <div class="purchase-2-img align-items-center">
                                                 <img src="<?php echo $this->crud_model->get_course_thumbnail_url($course_details['id']); ?>">
-                                                <a href="<?php echo site_url('home/course/' . rawurlencode(slugify($course_details['title'])) . '/' . $course_details['id']); ?>" class="text-15px text-dark ps-3 text-wrap">
+                                                <a href="<?php echo site_url($course_details['slug']); ?>" class="text-15px text-dark ps-3 text-wrap">
                                                     <?php echo $course_details['title']; ?>
                                                 </a>
                                             </div>

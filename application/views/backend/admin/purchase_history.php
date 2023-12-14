@@ -30,7 +30,7 @@
                   <?php echo $user_data['first_name'].' '.$user_data['last_name']; ?><br>
                   <small class="badge badge-light"><?php echo $user_data['email']; ?></small>
               </td>
-              <td><a href="<?php echo site_url('home/course/' . rawurlencode(slugify($course_data['title'])) . '/' . $course_data['id']); ?>" target="_blank"><?php echo $course_data['title']; ?></a></td>
+              <td><a href="<?php echo site_url($course_data['slug']); ?>" target="_blank"><?php echo $course_data['title']; ?></a></td>
               <td>
                 <?php echo currency($purchase['amount']+$purchase['tax']); ?><br>
               </td>

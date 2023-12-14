@@ -416,7 +416,7 @@ class Home extends CI_Controller
 
     function toggleWishlistItems($course_id = "", $identifier = ""){
         if ($this->session->userdata('user_login') != 1) {
-            $url = site_url('home/course/'.slugify($this->crud_model->get_course_by_id($course_id)->row('title')).'/'.$course_id);
+            $url = site_url($this->crud_model->get_course_by_id($course_id)->row('slug'));
             set_url_history($url);
             $response['redirectTo'] = site_url('login');
         }else{
@@ -829,10 +829,10 @@ class Home extends CI_Controller
         if ($this->session->userdata('role_id') != 1 && !in_array($user_id, $course_instructor_ids)) {
             if($enroll_status == 'expired'){
                 $this->session->set_flashdata('error_message', site_phrase('Your course accessibility has expired. You need to buy it again'));
-                redirect(site_url('home/course/' . slugify($course_details['title']) . '/' . $course_details['id']), 'refresh');
+                redirect(site_url($course_details['slug']), 'refresh');
             }elseif (!$enroll_status) {
                 $this->session->set_flashdata('error_message', site_phrase('You have to buy the course first'));
-                redirect(site_url('home/course/' . slugify($course_details['title']) . '/' . $course_details['id']), 'refresh');
+                redirect(site_url($course_details['slug']), 'refresh');
             }
         }
 
@@ -1161,9 +1161,9 @@ class Home extends CI_Controller
 
         if ($this->session->userdata('user_login') == 1) {
             $this->crud_model->enrol_to_free_course($course_id, $this->session->userdata('user_id'));
-            redirect(site_url('home/course/'.slugify($course_details['title']).'/'.$course_id), 'refresh');
+            redirect(site_url($course_details['slug']), 'refresh');
         } else {
-            $url = site_url('home/course/'.slugify($this->crud_model->get_course_by_id($course_id)->row('title')).'/'.$course_id);
+            $url = site_url($this->crud_model->get_course_by_id($course_id)->row('slug'));
             set_url_history($url);
             redirect(site_url('login'), 'refresh');
         }
@@ -1872,7 +1872,7 @@ class Home extends CI_Controller
 
         if ($this->session->userdata('user_login') != 1) {
             if(isset($course_id)){
-                $url = site_url('home/course/'.slugify($this->crud_model->get_course_by_id($course_id)->row('title')).'/'.$course_id);
+                $url = site_url($this->crud_model->get_course_by_id($course_id)->row('slug'));
                 set_url_history($url);
             }
             redirect(site_url('login'), 'refresh');
