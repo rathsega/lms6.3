@@ -2049,7 +2049,7 @@ class Home extends CI_Controller
         $details['datetime'] = time();
         $inserted = $this->crud_model->add_contactus($details);
         if($inserted){
-            echo "Thank You For Contact Us.";
+            echo "Thank You For Contacting Us.";
         }
     }
 
