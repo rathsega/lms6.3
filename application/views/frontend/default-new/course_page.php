@@ -196,7 +196,7 @@ if($ratings_count){
                                     <i class="fa-solid fa-play"></i>
                                 </div>
 
-                                <img class="w-100" src="<?php echo $this->crud_model->get_course_thumbnail_url($course_details['id']); ?>">
+                                <img class="w-100" style="pointer-events: none" src="<?php echo $this->crud_model->get_course_thumbnail_url($course_details['id']); ?>">
 
                                 <div class="courses-icon <?php if(in_array($course_details['id'], $my_wishlist_items)) echo 'red-heart'; ?>" id="coursesWishlistIcon<?php echo $course_details['id']; ?>">
                                     <i class="fa-solid fa-heart me-2 cursor-pointer checkPropagation" onclick="actionTo('<?php echo site_url('home/toggleWishlistItems/'.$course_details['id']); ?>')"></i>
@@ -478,6 +478,14 @@ if($ratings_count){
             height: 95%;
         }
     }
+
+    /* Hide visual search icon in Edge */
+    input[type="search"]::-ms-clear,
+    input[type="search"]::-ms-reveal {
+        display: none;
+        width: 0;
+        height: 0;
+    }
 </style>
 
 <div class="contact_us_modal" id="contactModal">
@@ -721,7 +729,7 @@ if($ratings_count){
         if (xhr.status === 200) {
             // Request was successful
             alert( xhr.responseText);
-            if( xhr.responseText == 'Thank You For Contact Us.'){
+            if( xhr.responseText == 'Thank You For Contacting Us.'){
                 localStorage.setItem("dataSubmitted", true);
                 // Optionally, reset the form after successful submission
                 contactForm.reset();
