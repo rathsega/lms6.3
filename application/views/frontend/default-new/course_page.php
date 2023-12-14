@@ -410,6 +410,7 @@ if($ratings_count){
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
     }
 
     .contact_us_modal-content {
@@ -457,6 +458,26 @@ if($ratings_count){
     cursor: pointer;
     text-decoration: none;
     }
+
+    /* Media query for tablet screens */
+    @media (max-width: 768px) {
+        .contact_us_modal {
+            /* Adjust styles for tablet screens */
+            /* For example: */
+            width: 90%;
+            height: 90%;
+        }
+    }
+
+    /* Media query for mobile screens */
+    @media (max-width: 480px) {
+        .contact_us_modal {
+            /* Adjust styles for mobile screens */
+            /* For example: */
+            width: 95%;
+            height: 95%;
+        }
+    }
 </style>
 
 <div class="contact_us_modal" id="contactModal">
@@ -477,7 +498,7 @@ if($ratings_count){
                 <img width="65%" src="<?php echo site_url('assets/frontend/default-new/image/login-security.gif') ?>">
             </div> -->
             <div class="col-lg-12 col-md-12 col-sm-12 col-12 ">
-                <div class="sing-up-right">
+                <div class="sing-up-right" style="margin-top: 0px !important;">
                     <!-- <h3><?php //echo get_phrase('Contact Us '); ?><span>!</span></h3>
                     <p><?php //echo get_phrase('Explore, learn, and grow with us. Enjoy a seamless and enriching educational journey. Lets begin!') ?></p> -->
                     <form action="javascript:void(0);" onsubmit="contactFormSubmit()" name="contactForm" id="contactForm">
