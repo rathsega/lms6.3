@@ -1657,6 +1657,7 @@ class Crud_model extends CI_Model
         $data['course_id'] = html_escape($this->input->post('course_id'));
         $data['title'] = html_escape($this->input->post('title'));
         $data['section_id'] = html_escape($this->input->post('section_id'));
+        $data['chapter_id'] = html_escape($this->input->post('chapter_id'));
 
         $lesson_type_array = explode('-', $this->input->post('lesson_type'));
 

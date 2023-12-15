@@ -2,6 +2,7 @@
 // $param2 = lesson id and $param3 = course id
 $lesson_details = $this->crud_model->get_lessons('lesson', $param2)->row_array();
 $sections = $this->crud_model->get_section('course', $param3)->result_array();
+$chapters = $this->crud_model->get_chapters('section', $lesson_details['section_id'])->result_array();
 ?>
 <!-- SHOWING THE LESSON TYPE IN AN ALERT VIEW -->
 <div class="alert alert-info" role="alert">
@@ -51,6 +52,15 @@ $sections = $this->crud_model->get_section('course', $param3)->result_array();
             <?php endforeach; ?>
         </select>
     </div>
+    <div class="form-group">
+        <label for="chapter_id"><?php echo get_phrase('chapter'); ?></label>
+        <select class="form-control select2" data-toggle="select2" name="chapter_id" id="chapter_id">
+            <option value="">Select Chapter</option>
+            <?php foreach ($chapters as $chapter): ?>
+                <option value="<?php echo $chapter['id']; ?>" <?php if($lesson_details['chapter_id'] == $chapter['id']) echo 'selected'; ?>><?php echo $chapter['title']; ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 
     <?php if ($lesson_details['lesson_type'] == 'video' && strtolower($lesson_details['video_type']) == 'youtube'): include('youtube_type_lesson_edit.php'); endif; ?>
     <?php if ($lesson_details['lesson_type'] == 'video' && strtolower($lesson_details['video_type']) == 'academy_cloud'): include('academy_cloud_type_lesson_edit.php'); endif; ?>
@@ -90,6 +100,26 @@ $(document).ready(function() {
     // HIDING THE SEARCHBOX FROM SELECT2
     $('select').select2({
         minimumResultsForSearch: -1
+    });
+
+    //Sections and Lessons Dependable dropdown
+    $('#section_id').change(function(){
+        var selectedValue = $(this).val();
+
+        // Make an AJAX call to fetch dependent options
+        $.ajax({
+            url: "<?php echo base_url('admin/getChaptersBySectionId'); ?>",
+            method: 'post',
+            data: { section_id: selectedValue },
+            dataType: 'json',
+            success: function(response){
+                var options = '<option value="">Select Chapter</option>';
+                $.each(response.data, function(key, value){
+                    options += '<option value="' + value.id + '">' + value.title + '</option>';
+                });
+                $('#chapter_id').html(options);
+            }
+        });
     });
 });
 

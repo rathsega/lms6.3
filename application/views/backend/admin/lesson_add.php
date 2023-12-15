@@ -43,7 +43,7 @@ $sections = $this->crud_model->get_section('course', $param2)->result_array();
 
     <div class="form-group">
         <label><?php echo get_phrase('chapter'); ?></label>
-        <select class="form-control select2" data-toggle="select2" name="chapter_id" id="chapter_dropdown" required>
+        <select class="form-control select2" data-toggle="select2" name="chapter_id" id="chapter_dropdown">
             
         </select>
     </div>
