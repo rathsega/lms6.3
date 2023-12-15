@@ -7,7 +7,14 @@
         </div> <!-- end card -->
     </div><!-- end col-->
 </div>
+<?php
+function ip_details($ip) {
+    $json = file_get_contents("http://ipinfo.io/{$ip}/geo");
+    $details = json_decode($json, true);
+    return $details;
+  }
 
+  ?>
 <div class="row">
     <div class="col-xl-12">
         <div class="card">
@@ -45,6 +52,7 @@
                                   <th><?php echo get_phrase('os'); ?></th>
                                   <th><?php echo get_phrase('browser'); ?></th>
                                   <th><?php echo get_phrase('ip_address'); ?></th>
+                                  <th><?php echo get_phrase('city'); ?></th>
                                   <th><?php echo get_phrase('date_time'); ?></th>
                               </tr>
                           </thead>
@@ -62,6 +70,10 @@
                                       <td><?php echo $history['os']; ?></td>
                                       <td><?php echo $history['browser']; ?></td>
                                       <td><?php echo $history['ip_address']; ?></td>
+                                      <td><?php 
+                                          $details = ip_details($history['ip_address']);
+                                          echo $details && $details['city'] ? $details['city'] : '';
+                                      ?></td>
                                       <td><?php echo $history['date_time']; ?></td>
                                       
                                   </tr>
