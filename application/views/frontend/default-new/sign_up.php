@@ -30,14 +30,14 @@
                             </div>
                         </div>
                         <div class="mb-4">
-                            <h5><?php echo get_phrase('Your Phone Number'). " <b>(X)</b>"; ?><span class="required">*</span> </h5>
+                            <h5><?php echo get_phrase('Your Phone Number'); ?><span class="required">*</span> </h5>
                             <div class="position-relative">
                                 <i class="fa-solid fa-phone"></i>
                                 <input class="form-control" id="phone" type="phone" name="phone" placeholder="<?php echo get_phrase('Enter your Phone number'); ?>" required>
                             </div>
                         </div>
                         <div class="mb-4">
-                            <h5><?php echo get_phrase('linkedin'). " <b>(X)</b>"; ?></h5>
+                            <h5><?php echo get_phrase('linkedin'); ?></h5>
                             <div class="position-relative">
                                 <i class="fa-solid fa-user"></i>
                                 <input class="form-control" id="linkedin_link" type="linkedin_link" name="linkedin_link" placeholder="<?php echo get_phrase('Enter your linkedin link'); ?>">
