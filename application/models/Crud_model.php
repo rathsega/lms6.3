@@ -5169,6 +5169,29 @@ class Crud_model extends CI_Model
 
     }
 
+    public function delete_section_by_course_id($course_id)
+    {
+        $this->db->where('course_id', $course_id);
+        $this->db->delete('section');
+
+        $this->db->where('course_id', $course_id);
+        $this->db->delete('chapter');
+
+        $this->db->where('course_id', $course_id);
+        $this->db->delete('lesson');
+
+
+
+        $course_details = $this->get_course_by_id($course_id)->row_array();
+        $previous_sections = json_decode($course_details['section']);
+
+        if (sizeof($previous_sections) > 0) {
+            $updater['section'] = json_encode([]);
+            $this->db->where('id', $course_id);
+            $this->db->update('course', $updater);
+        }
+    }
+
     public function upload_curriculam(){
         require_once APPPATH . '/libraries/PhpSpreadsheet-master/vendor/autoload.php';
         // Load the .docx file
@@ -5183,9 +5206,13 @@ class Crud_model extends CI_Model
             $worksheet = $spreadsheet->getActiveSheet();
 
             $highestRow = $worksheet->getHighestRow();
+
+            //delete previous curriculam
+            $course_id = $this->input->post('course_id');
+            $this->crud_model->delete_section_by_course_id($course_id);
             $highestColumn = "C";
             $data = [];
-            for ($row = 1; $row <= $highestRow; ++$row) {
+            for ($row = 2; $row <= $highestRow; ++$row) {
                 $rowData = [];
                 for ($col = 'A'; $col <= $highestColumn; ++$col) {
                     $cellValue = $worksheet->getCell($col . $row)->getValue();
@@ -5197,7 +5224,6 @@ class Crud_model extends CI_Model
             $sections = [];
             $chapters = [];
             $lessons = [];
-            $course_id = $this->input->post('course_id');
 
             foreach($data as $row_data){
                 $section = $row_data[0];
