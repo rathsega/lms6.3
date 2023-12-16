@@ -5157,6 +5157,7 @@ class Crud_model extends CI_Model
         $data['attachment_type'] = 'description';
 
         $data['attachment'] = "";
+        $data['duration'] = "00:00:00";
 
         $data['date_added'] = strtotime(date('D, d-M-Y'));
         $data['summary'] = "";
