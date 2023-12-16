@@ -5104,4 +5104,121 @@ class Crud_model extends CI_Model
         return $this->db->get('course');
     }
 
+    public function add_section_manually($course_id, $title)
+    {
+
+        $data['title'] = html_escape($title);
+        $data['course_id'] = $course_id;
+        $this->db->insert('section', $data);
+        $section_id = $this->db->insert_id();
+
+        $course_details = $this->get_course_by_id($course_id)->row_array();
+        $previous_sections = $course_details['section'] ? json_decode($course_details['section']) : [];
+
+        if (sizeof($previous_sections) > 0) {
+            array_push($previous_sections, $section_id);
+            $updater['section'] = json_encode($previous_sections);
+            $this->db->where('id', $course_id);
+            $this->db->update('course', $updater);
+        } else {
+            $previous_sections = array();
+            array_push($previous_sections, $section_id);
+            $updater['section'] = json_encode($previous_sections);
+            $this->db->where('id', $course_id);
+            $this->db->update('course', $updater);
+        }
+
+        return $section_id;
+
+    }
+
+    public function add_chapter_manually($course_id, $section_id, $title)
+    {
+        $data['title'] = html_escape($title);
+        $data['course_id'] = $course_id;
+        $data['section_id'] = $section_id;
+        $this->db->insert('chapters', $data);
+        $chapter_id = $this->db->insert_id();
+        return $chapter_id;
+    }
+
+    public function add_lesson_manually($course_id, $section_id, $chapter_id, $title)
+    {
+        $data['course_id'] = html_escape($course_id);
+        $data['title'] = html_escape($title);
+        $data['section_id'] = html_escape($section_id);
+        $data['chapter_id'] = html_escape($chapter_id);
+
+        $data['lesson_type'] = 'txt';
+
+        $data['attachment_type'] = 'description';
+
+        $data['attachment'] = "";
+
+        $data['date_added'] = strtotime(date('D, d-M-Y'));
+        $data['summary'] = "";
+        $data['is_free'] = 0;
+
+
+        $this->db->insert('lesson', $data);
+        $this->db->insert_id();
+
+    }
+
+    public function upload_curriculam(){
+        require_once APPPATH . '/libraries/PhpSpreadsheet-master/vendor/autoload.php';
+        // Load the .docx file
+        //$phpWord = PhpOffice\PhpWord\IOFactory::load($docxFilePath, 'Word2007');
+        if ($_FILES['curriculam_file']['error'] == UPLOAD_ERR_OK) {
+            $inputFileName = $_FILES['curriculam_file']['tmp_name'];
+
+            // Load the Excel file using PHPSpreadsheet
+            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
+
+            // Get the first worksheet
+            $worksheet = $spreadsheet->getActiveSheet();
+
+            $highestRow = $worksheet->getHighestRow();
+            $highestColumn = "C";
+            $data = [];
+            for ($row = 1; $row <= $highestRow; ++$row) {
+                $rowData = [];
+                for ($col = 'A'; $col <= $highestColumn; ++$col) {
+                    $cellValue = $worksheet->getCell($col . $row)->getValue();
+                    $rowData[] = $cellValue;
+                }
+                $data[] = $rowData;
+            }
+
+            $sections = [];
+            $chapters = [];
+            $lessons = [];
+            $course_id = $this->input->post('course_id');
+
+            foreach($data as $row_data){
+                $section = $row_data[0];
+                $chapter = $row_data[1];
+                $lesson = $row_data[2];
+                if($section && !in_array($section, $sections)){
+                    $section_id = $this->crud_model->add_section_manually($course_id, $section);
+                    $chapters = [];
+                    $lessons = [];
+                    array_push($sections, $section);
+                } 
+                
+                if($chapter && !in_array($chapter, $chapters)){
+                    $chapter_id = $this->crud_model->add_chapter_manually($course_id, $section_id, $chapter);
+                    array_push($chapters, $chapter);
+                    $lessons = [];
+                } 
+
+                if($lesson && !in_array($lesson, $lessons)){
+                    $lesson_id = $this->crud_model->add_lesson_manually($course_id, $section_id, $chapter_id, $lesson);
+                    array_push($lessons, $lesson);
+                } 
+            }
+
+        }
+    }
+
 }

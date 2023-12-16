@@ -53,6 +53,9 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 				<li class="<?php if ($page_name == 'user_actions') echo 'active'; ?>">
 					<a href="<?php echo site_url('admin/user_actions'); ?>"><?php echo "User Actions "; ?></a>
 				</li>
+				<li class="<?php if ($page_name == 'upload_curriculam') echo 'active'; ?>">
+					<a href="<?php echo site_url('admin/upload_curriculam'); ?>"><?php echo "Upload Curriculam "; ?></a>
+				</li>
 			</a>
 		</li>
 			</ul>

@@ -2959,6 +2959,9 @@ class Admin extends CI_Controller
         } else if($param1 == "broucher_form"){
             $this->crud_model->save_broucher_form();
             redirect(site_url('admin/broucher'), 'refresh');
+        } else if($param1 == "upload_curriculam"){
+            $this->crud_model->upload_curriculam();
+            redirect(site_url('admin/upload_curriculam'), 'refresh');
         }
         // $page_data['page_name'] = 'enrol_student';
         // $page_data['page_title'] = get_phrase('course_enrolment');
@@ -3069,6 +3072,20 @@ class Admin extends CI_Controller
     {
         $chapter_json = $this->input->post('itemJSON');
         $this->crud_model->sort_chapter($chapter_json);
+    }
+
+    
+    public function upload_curriculam(){
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        check_permission('enrolment');
+
+        $page_data['page_name'] = 'upload_curriculam';
+        $page_data['page_title'] = "User Actions";
+        $this->load->view('backend/index', $page_data);
     }
 
 }
