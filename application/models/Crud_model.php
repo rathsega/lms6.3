@@ -4594,6 +4594,9 @@ class Crud_model extends CI_Model
         $scorm_status = addon_status('scorm_course');
         $h5p_status = addon_status('h5p');
 
+        $this->db->where('is_top_course', 1);
+        $this->db->or_where('is_top10_course', 1);
+        $this->db->or_where('show_it_in_category', 1);
         $this->db->group_start();
             $this->db->where('id !=', $current_course_id);
         $this->db->group_end();
