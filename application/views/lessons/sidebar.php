@@ -119,7 +119,7 @@
                               <i class="fas fa-question" title="<?php echo get_phrase('Start Now'); ?>" data-bs-toggle="tooltip"></i>
                             <?php else: ?>
                               <div class="checkbox checkbox-box">
-                                <input class="lesson_checkbox" type="checkbox" onchange="actionTo('<?php echo site_url('home/update_watch_history_manually?lesson_id='.$lesson['id'].'&course_id='.$course_details['id']); ?>', 'post', event);" <?php echo $chekbox; ?>>
+                                <input class="lesson_checkbox" disabled type="checkbox" onchange="actionTo('<?php echo site_url('home/update_watch_history_manually?lesson_id='.$lesson['id'].'&course_id='.$course_details['id']); ?>', 'post', event);" <?php echo $chekbox; ?>>
                               </div>
                             <?php endif; ?>
                           <?php endif; ?>
@@ -127,7 +127,7 @@
                       <?php else: ?>
 
                         <div class="checkbox checkbox-box">
-                          <input class="lesson_checkbox" type="checkbox" onchange="actionTo('<?php echo site_url('home/update_watch_history_manually?lesson_id='.$lesson['id'].'&course_id='.$course_details['id']); ?>', 'post', event);" <?php echo $chekbox; ?>>
+                          <input class="lesson_checkbox" disabled type="checkbox" onchange="actionTo('<?php echo site_url('home/update_watch_history_manually?lesson_id='.$lesson['id'].'&course_id='.$course_details['id']); ?>', 'post', event);" <?php echo $chekbox; ?>>
                         </div>
                       <?php endif; ?>
 
