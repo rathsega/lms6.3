@@ -4955,9 +4955,17 @@ class Crud_model extends CI_Model
         $data['os'] = $os;
         $data['browser'] = $browser;
         $data['ip_address'] = $ip_address;
+        $details = $this->ip_details($ip_address);
+        $data['city'] = $details && isset($details['city']) ? $details['city'] : '';
         $data['date_time'] = $date_time;
         log_message("error", "user details : " . json_encode($data));
         return $this->db->insert('user_login_history', $data);
+    }
+
+    public function ip_details($ip) {
+    $json = file_get_contents("http://ipinfo.io/{$ip}/geo");
+    $details = json_decode($json, true);
+    return $details;
     }
     
     public function user_login_history_by_user_id($user_id)

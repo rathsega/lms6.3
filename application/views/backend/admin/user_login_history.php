@@ -44,7 +44,7 @@ function ip_details($ip) {
               </div>
               <div class="table-responsive-sm mt-4">
                   <?php if (count($user_login_history->result_array()) > 0): ?>
-                      <table class="table table-striped table-centered mb-0">
+                      <table id="basic-datatable" class="table table-striped table-centered mb-0">
                           <thead>
                               <tr>
                                   <th><?php echo get_phrase('user_name'); ?></th>
@@ -70,11 +70,7 @@ function ip_details($ip) {
                                       <td><?php echo $history['os']; ?></td>
                                       <td><?php echo $history['browser']; ?></td>
                                       <td><?php echo $history['ip_address']; ?></td>
-                                      <td><?php 
-                                          $details = ip_details($history['ip_address']);
-                                          echo $details && $details['city'] ? $details['city'] : '';
-                                      ?></td>
-                                      <td><?php echo $history['date_time']; ?></td>
+                                      <td><?php echo $history['city']; ?></td>                                      <td><?php echo $history['date_time']; ?></td>
                                       
                                   </tr>
                               <?php endforeach; ?>
