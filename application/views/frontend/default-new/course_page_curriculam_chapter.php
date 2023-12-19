@@ -14,7 +14,7 @@
                                 <?php echo $this->crud_model->get_lessons('chapter', $chapter['id'])->num_rows() . ' ' . site_phrase('lessons'); ?>
                             </span>
                             <span class="me-0 text-14px text-muted fw-400">
-                                <?php echo $this->crud_model->get_total_duration_of_lesson_by_chapter_id($chapter['id']); ?>
+                                <?php echo $video_course ? $this->crud_model->get_total_duration_of_lesson_by_chapter_id($chapter['id']) : ""; ?>
                             </span>
                         </div>
                     </div>

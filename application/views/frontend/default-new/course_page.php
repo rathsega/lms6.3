@@ -8,7 +8,14 @@ $course_id = $course_details['id'];
 $lessons = $this->crud_model->get_lessons('course', $course_details['id']);
 $instructor_details = $this->user_model->get_all_user($course_details['creator'])->row_array();
 $course_duration = $this->crud_model->get_total_duration_of_lesson_by_course_id($course_details['id']);
-$course_duration = $course_details['is_top_course'] == 1 || $course_details['is_top10_course'] == 1 || $course_details['show_it_in_category'] == 1 ? $course_details['course_duration_in_hours'] . " Hours" : $course_duration;
+$video_course = false;
+if($course_details['is_top_course'] == 1 || $course_details['is_top10_course'] == 1 || $course_details['show_it_in_category'] == 1){
+    $video_course = false;
+    $course_duration =  $course_details['course_duration_in_hours'] . " Hours";
+}else{
+    $video_course = true;
+    $course_duration =  $course_duration;
+}
 $ratings_count = $this->crud_model->get_ratings_count($course_details['id']);
 if($ratings_count){
     $one = $ratings_count['one_rating_count'];

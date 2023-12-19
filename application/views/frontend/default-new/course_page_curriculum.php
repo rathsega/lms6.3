@@ -33,7 +33,7 @@
                                 <?php echo $this->crud_model->get_lessons('section', $section['id'])->num_rows() . ' ' . site_phrase('lessons'); ?>
                             </span>
                             <span class="me-0 text-14px text-muted fw-400">
-                                <?php echo $this->crud_model->get_total_duration_of_lesson_by_section_id($section['id']); ?>
+                                <?php echo $video_course ?  $this->crud_model->get_total_duration_of_lesson_by_section_id($section['id']) : ""; ?>
                             </span>
                         </div>
                     </div>
