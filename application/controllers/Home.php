@@ -1728,7 +1728,7 @@ class Home extends CI_Controller
             $data['first_name'] = $first_name = $this->input->post('first_name');
             $data['last_name'] = $last_name = $this->input->post('last_name');
             $data['email'] = $email = $this->input->post('email');
-            $data['phone'] = $phone = $this->input->post('phone');
+            $data['phone'] = $phone = $this->input->post('full');
             $data['city'] = $city = $this->input->post('city');
             $data['message'] = $message = $this->input->post('message');
             $data['course'] = $course = $this->input->post('course');

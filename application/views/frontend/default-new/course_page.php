@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
 <?php
 $course_details = $this->crud_model->get_course_by_slug($slug)->row_array();
 // var_dump($course_details);
@@ -666,6 +669,10 @@ if($ratings_count){
     hideShowVideoIcons();
 
     function contactFormSubmit(){
+        var full_number = phoneInput.getNumber(intlTelInputUtils.numberFormat.E164);
+        $("input[name='phone'").val(full_number);
+        var $inputs = $('#contactForm :input');
+
         const first_name = document.getElementById('first_name').value.trim();
         const last_name = document.getElementById('last_name').value.trim();
         const email = document.getElementById('email').value.trim();
@@ -673,6 +680,7 @@ if($ratings_count){
         const city = document.getElementById('city').value.trim();
         const message = document.getElementById('message').value.trim();
         const course = document.getElementById('course').value.trim();
+        // const phone = document.getElementsByName('full')[0].value.trim();
 
         // Regular expressions for email and phone number validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -783,4 +791,15 @@ if($ratings_count){
         xhr.send(jsonData);
 
     }
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        preferredCountries:["in"],
+        hiddenInput: "full",
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+    $("form").submit(function() {
+        var full_number = phoneInput.getNumber(intlTelInputUtils.numberFormat.E164);
+        $("input[name='phone'").val(full_number);
+        
+        });
 </script>
