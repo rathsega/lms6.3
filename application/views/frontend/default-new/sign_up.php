@@ -68,11 +68,11 @@
 
                         <?php if(get_settings('allow_instructor')): ?>
                             <div class="mb-4">
-                                <input id="instructor" type="checkbox" onchange="$('#become-instructor-fields').toggle()" name="instructor" value="yes" <?php echo isset($_GET['instructor']) ? 'checked':''; ?>>
+                                <input id="instructor" type="checkbox" onchange="$('#become-instructor-fields').toggle()" name="instructor" <?php echo $this->session->flashdata('become_an_instructor') ? "checked":""; ?> value="yes" <?php echo isset($_GET['instructor']) ? 'checked':''; ?>>
                                 <label for="instructor"><?php echo get_phrase('Apply to Become an instructor'); ?></label>
                             </div>
 
-                            <div id="become-instructor-fields" class="<?php echo isset($_GET['instructor']) ?  '':'d-hidden'; ?>">
+                            <div id="become-instructor-fields" class="<?php echo isset($_GET['instructor']) || $this->session->flashdata('become_an_instructor') ?  '':'d-hidden'; ?>">
                                 
                                 <div class="mb-4">
                                     <h5><?php echo get_phrase('Document'); ?> <small>(doc, docs, pdf, txt, png, jpg, jpeg)</small></h5>

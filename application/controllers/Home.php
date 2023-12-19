@@ -1854,7 +1854,7 @@ class Home extends CI_Controller
 
     function become_an_instructor(){
         $applications = $this->user_model->get_applications($this->session->userdata('user_id'), 'user');
-        if ($applications->num_rows() > 0):
+        if ($this->session->userdata('user_id') && $applications->num_rows() > 0):
             redirect('user/become_an_instructor', 'refresh');
         endif;
 
@@ -1863,7 +1863,8 @@ class Home extends CI_Controller
                 $url = site_url($this->crud_model->get_course_by_id($course_id)->row('slug'));
                 set_url_history($url);
             }
-            redirect(site_url('login'), 'refresh');
+            $this->session->set_flashdata('become_an_instructor',1);
+            redirect(site_url('sign_up'), 'refresh');
         }else{
 
             if(isset($_POST) && count($_POST) > 0):
