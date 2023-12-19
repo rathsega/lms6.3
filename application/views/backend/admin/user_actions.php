@@ -15,7 +15,7 @@
               <h4 class="mb-3 header-title"><?php echo get_phrase('User Actions'); ?></h4>
               <div class="table-responsive-sm mt-4">
                   <?php date_default_timezone_set('Asia/Kolkata'); if (count($user_actions->result_array()) > 0): ?>
-                      <table class="table table-striped table-centered mb-0">
+                      <table id="basic-datatable" class="table table-striped table-centered mb-0">
                           <thead>
                               <tr>
                                   <th><?php echo get_phrase('User'); ?></th>
