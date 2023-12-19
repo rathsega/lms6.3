@@ -8,6 +8,22 @@
     </div><!-- end col-->
 </div>
 
+<div class="row ">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+
+                <form class="form-inline" action="<?php echo base_url(); ?>excel_export/contactus" method="get">
+                    <div class="col-xl-1">
+                            <button type="submit" class="btn btn-info" id="submit-button"> <?php echo "Download";?></button>
+                    </div>
+                </form>
+
+</div> <!-- end card body-->
+        </div> <!-- end card -->
+    </div><!-- end col-->
+</div>
+
 <div class="row">
     <div class="col-xl-12">
         <div class="card">
@@ -15,7 +31,7 @@
               <div class="table-responsive-sm">
                 
                   <?php if (count($contactus->result_array()) > 0): ?>
-                      <table class="table table-striped table-centered mb-0">
+                      <table id="basic-datatable" class="table table-striped table-centered mb-0">
                           <thead>
                               <tr>
                                   <th>User</th>
@@ -30,7 +46,7 @@
                               <?php foreach ($contactus->result_array() as $contact):
                                     date_default_timezone_set('Asia/Kolkata');
                                   $user_data = $this->db->get_where('users', array('email' => $contact['email']))->row_array();?>
-                                  <tr class="gradeU"  style="color: <?php echo $user_data['id'] ? 'green' : 'blue'; ?>;">
+                                  <tr class="gradeU"  style="color: <?php echo $user_data && $user_data['id'] ? 'green' : 'blue'; ?>;">
                                       <td>
                                             <b><?php echo $contact['name']; ?></b><br>
                                           <small><?php echo $contact['email']; ?></small>

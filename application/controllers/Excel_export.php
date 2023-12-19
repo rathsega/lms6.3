@@ -88,6 +88,41 @@ class Excel_export extends CI_Controller
         }
     }
 
+    function contactus(){
+        $contactus_data = [];
+        $contactus_data = $this->crud_model->getAllContactUs();
+        // File Name & Content Header For Download
+        $file_name = "contactus_data.xls";
+        header("Content-Disposition: attachment; filename=\"$file_name\"");
+        header("Content-Type: application/vnd.ms-excel");
+
+        //To define column name in first row.
+        $column_names = false;
+        $data = [];
+        foreach ($contactus_data->result_array()  as $contactus) {
+            // generate csv lines from the inner arrays
+            $line = [];
+            $line["Name"] =  $contactus['name'];
+            $line["Email"] =  $contactus['email'];
+            $line["Phone"] =  $contactus['phone'];
+            $line["City"] =  $contactus['city'];
+            $line["Course"] =  $contactus['title'];
+            // $line["Message"] =  $contactus['message'];
+            $line["contactus Date"] =  date('d-M-Y H:i', $contactus['datetime']);
+            $data[] = $line;
+        }
+        // run loop through each row in $customers_data
+        foreach ($data  as $row) {
+            if (!$column_names) {
+                echo implode("\t", array_keys($row)) . "\n";
+                $column_names = true;
+            }
+            // The array_walk() function runs each array element in a user-defined function.
+            //array_walk($row, 'filterCustomerData');
+            echo implode("\t", array_values($row)) . "\n";
+        }
+    }
+
     // Filter Customer Data
     function filterCustomerData(&$str)
     {
