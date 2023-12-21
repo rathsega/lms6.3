@@ -171,6 +171,13 @@ $user_id = $this->session->userdata('user_id');
                 <?php
                 $top_courses = $this->crud_model->get_top_courses()->result_array();
                 foreach ($top_courses as $top_course) :
+                    if($top_course['slug_count'] == 1 || $top_course['slug_count'] == 2){
+                        $top_course_slug = $top_course['slug'];
+                    }else if($top_course['slug_count'] == 3 || $top_course['slug_count'] == 4){
+                        $top_course_slug = $top_course['category_slug'] .'/' . $top_course['sub_category_slug'] .'/' . $top_course['slug'];
+                    }else{
+                        $top_course_slug = $top_course['slug'];
+                    }
                     $lessons = $this->crud_model->get_lessons('course', $top_course['id']);
                     $instructor_details = $this->user_model->get_all_user($top_course['creator'])->row_array();
                     $course_duration = $this->crud_model->get_total_duration_of_lesson_by_course_id($top_course['id']);
@@ -188,7 +195,7 @@ $user_id = $this->session->userdata('user_id');
                     }
                     ?>
                     <div class="single-popup-course">
-                        <a href="<?php echo site_url($top_course['slug']); ?>" id="top_course_<?php echo $top_course['id']; ?>" class="checkPropagation courses-card-body">
+                        <a href="<?php echo site_url($top_course_slug); ?>" id="top_course_<?php echo $top_course['id']; ?>" class="checkPropagation courses-card-body">
                             <div class="courses-card-image">
                                 <img src="<?php echo $this->crud_model->get_course_thumbnail_url($top_course['id']); ?>">
                                 <div class="courses-icon <?php if(in_array($top_course['id'], $my_wishlist_items)) echo 'red-heart'; ?>" id="coursesWishlistIconTopCourse<?php echo $top_course['id']; ?>">
@@ -246,7 +253,7 @@ $user_id = $this->session->userdata('user_id');
                                 <p class="last-update"><?php echo site_phrase('last_updated') . ' ' . date('D, d-M-Y', $top_course['last_modified']); ?></p>
                             <?php endif; ?>
                             <div class="course-title">
-                                 <a href="<?php echo site_url($top_course['slug']); ?>"><?php echo $top_course['title']; ?></a>
+                                 <a href="<?php echo site_url($top_course_slug); ?>"><?php echo $top_course['title']; ?></a>
                             </div>
                             <div class="course-meta">
                                 <?php if ($top_course['course_type'] == 'general') : ?>
@@ -364,6 +371,13 @@ $user_id = $this->session->userdata('user_id');
                 <?php
                 $latest_courses = $this->crud_model->get_latest_10_course();
                 foreach ($latest_courses as $latest_course) :
+                    if($latest_course['slug_count'] == 1 || $latest_course['slug_count'] == 2){
+                        $latest_course_slug = $latest_course['slug'];
+                    }else if($latest_course['slug_count'] == 3 || $latest_course['slug_count'] == 4){
+                        $latest_course_slug = $latest_course['category_slug'] .'/' . $latest_course['sub_category_slug'] .'/' . $latest_course['slug'];
+                    }else{
+                        $latest_course_slug = $latest_course['slug'];
+                    }
                     $lessons = $this->crud_model->get_lessons('course', $latest_course['id']);
                     $instructor_details = $this->user_model->get_all_user($latest_course['creator'])->row_array();
                     $course_duration = $this->crud_model->get_total_duration_of_lesson_by_course_id($latest_course['id']);
@@ -381,7 +395,7 @@ $user_id = $this->session->userdata('user_id');
                     }
                     ?>
                     <div class="single-popup-course">
-                        <a href="<?php echo site_url($latest_course['slug']); ?>" id="latest_course_<?php echo $latest_course['id']; ?>" class="checkPropagation courses-card-body">
+                        <a href="<?php echo site_url($latest_course_slug); ?>" id="latest_course_<?php echo $latest_course['id']; ?>" class="checkPropagation courses-card-body">
                             <div class="courses-card-image">
                                 <img src="<?php echo $this->crud_model->get_course_thumbnail_url($latest_course['id']); ?>">
                                 <div class="courses-icon <?php if(in_array($latest_course['id'], $my_wishlist_items)) echo 'red-heart'; ?>" id="coursesWishlistIconLatestCourse<?php echo $latest_course['id']; ?>">
@@ -439,7 +453,7 @@ $user_id = $this->session->userdata('user_id');
                                 <p class="last-update"><?php echo site_phrase('last_updated') . ' ' . date('D, d-M-Y', $latest_course['last_modified']); ?></p>
                             <?php endif; ?>
                             <div class="course-title">
-                                 <a href="<?php echo site_url($latest_course['slug']); ?>"><?php echo $latest_course['title']; ?></a>
+                                 <a href="<?php echo site_url($latest_course_slug); ?>"><?php echo $latest_course['title']; ?></a>
                             </div>
                             <div class="course-meta">
                                 <?php if ($latest_course['course_type'] == 'general') : ?>
@@ -775,3 +789,91 @@ $user_id = $this->session->userdata('user_id');
 </script>
 
 <!------------- Become Students Section End --------->
+
+<script>
+        window.onload = function() {
+            getLocation();
+        };
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(successCallback,errorCallback,options);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            // You can do something with the latitude and longitude here
+            console.log("Latitude: " + latitude + " Longitude: " + longitude);
+            displayLocation(latitude, longitude);
+            // For example, you can send this data to your CodeIgniter controller using AJAX
+            // Replace 'your_controller_name' and 'your_method_name' with your actual controller and method names
+            // Example AJAX call:
+            /*
+            $.ajax({
+                url: "<?php //echo base_url('your_controller_name/your_method_name'); ?>",
+                method: 'POST',
+                data: { latitude: latitude, longitude: longitude },
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+            */
+        }
+
+        function displayLocation(latitude,longitude){
+            var request = new XMLHttpRequest();
+            console.log("Latitude: " + latitude + " Longitude: " + longitude);
+            var method = 'GET';
+            var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true&key=AIzaSyDang7y1Kz4rpPUFCftXc7-BI3sD-RN4CI';
+            var async = true;
+
+            request.open(method, url, async);
+            request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                var data = JSON.parse(request.responseText);
+                var address = data.results[0];
+                console.log(data);
+                //document.write(address.formatted_address);
+                return address.formatted_address;
+            }
+            };
+            request.send();
+        };
+
+        var successCallback = function(position){
+            var x = position.coords.latitude;
+            var y = position.coords.longitude;
+            displayLocation(x,y);
+        };
+
+        var errorCallback = function(error){
+            var errorMessage = 'Unknown error';
+            switch(error.code) {
+            case 1:
+                errorMessage = 'Permission denied';
+                break;
+            case 2:
+                errorMessage = 'Position unavailable';
+                break;
+            case 3:
+                errorMessage = 'Timeout';
+                break;
+            }
+            document.write(errorMessage);
+        };
+
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 1000,
+            maximumAge: 0
+        };
+
+      
+    </script>

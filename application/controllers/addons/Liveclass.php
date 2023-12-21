@@ -77,7 +77,14 @@ class Liveclass extends CI_Controller{
         $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
         if ($this->session->userdata('role_id') != 1 && $course_details['user_id'] != $this->session->userdata('user_id')) {
             if (!is_purchased($course_id)) {
-                redirect(site_url($course_details['slug']), 'refresh');
+                if($course_details['slug_count'] == 1 || $course_details['slug_count'] == 2){
+                    $slug = $course_details['slug'];
+                }else if($course_details['slug_count'] == 3 || $course_details['slug_count'] == 4){
+                    $slug = $course_details['category_slug'] .'/' . $course_details['sub_category_slug'] .'/' . $course_details['slug'];
+                }else{
+                    $slug = $course_details['slug'];
+                }
+                redirect(site_url($slug), 'refresh');
             }else{
                 return true;
             }

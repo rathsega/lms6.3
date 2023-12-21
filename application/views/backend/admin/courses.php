@@ -151,6 +151,13 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($courses as $key => $course) :
+                                    if($course['slug_count'] == 1 || $course['slug_count'] == 2){
+                                        $course_slug = $course['slug'];
+                                    }else if($course['slug_count'] == 3 || $course['slug_count'] == 4){
+                                        $course_slug = $course['category_slug'] .'/' . $course['sub_category_slug'] .'/' . $course['slug'];
+                                    }else{
+                                        $course_slug = $course['slug'];
+                                    }
                                     $instructor_details = $this->user_model->get_all_user($course['user_id'])->row_array();
                                     $category_details = $this->crud_model->get_category_details_by_id($course['sub_category_id'])->row_array();
                                     $sections = $this->crud_model->get_section('course', $course['id']);
@@ -205,7 +212,7 @@
                                                     <i class="mdi mdi-dots-vertical"></i>
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="<?php echo site_url($course['slug']); ?>" target="_blank"><?php echo get_phrase('view_course_on_frontend'); ?></a></li>
+                                                    <li><a class="dropdown-item" href="<?php echo site_url($course_slug); ?>" target="_blank"><?php echo get_phrase('view_course_on_frontend'); ?></a></li>
                                                     <li><a class="dropdown-item" href="<?php echo site_url('admin/course_form/course_edit/' . $course['id']); ?>"><?php echo get_phrase('edit_this_course'); ?></a></li>
                                                     <?php if ($course['course_type'] == 'general') : ?>
                                                         <li><a class="dropdown-item" href="<?php echo site_url('admin/course_form/course_edit/' . $course['id']); ?>"><?php echo get_phrase('section_and_lesson'); ?></a></li>

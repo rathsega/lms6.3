@@ -18,6 +18,30 @@
                 		$course_id_1 = isset($course_1_details['id']) ? $course_1_details['id'] : '0';
                 		$course_id_2 = isset($course_2_details['id']) ? $course_2_details['id'] : '0';
                 		$course_id_3 = isset($course_3_details['id']) ? $course_3_details['id'] : '0';
+						
+						if($course_1_details['slug_count'] == 1 || $course_1_details['slug_count'] == 2){
+							$course_1_details_slug = $course_1_details['slug'];
+						}else if($course_1_details['slug_count'] == 3 || $course_1_details['slug_count'] == 4){
+							$course_1_details_slug = $course_1_details['category_slug'] .'/' . $course_1_details['sub_category_slug'] .'/' . $course_1_details['slug'];
+						}else{
+							$course_1_details_slug = $course_1_details['slug'];
+						}
+
+						if($course_2_details['slug_count'] == 1 || $course_2_details['slug_count'] == 2){
+							$course_2_details_slug = $course_2_details['slug'];
+						}else if($course_2_details['slug_count'] == 3 || $course_2_details['slug_count'] == 4){
+							$course_2_details_slug = $course_2_details['category_slug'] .'/' . $course_2_details['sub_category_slug'] .'/' . $course_2_details['slug'];
+						}else{
+							$course_2_details_slug = $course_2_details['slug'];
+						}
+
+						if($course_3_details['slug_count'] == 1 || $course_3_details['slug_count'] == 2){
+							$course_3_details_slug = $course_3_details['slug'];
+						}else if($course_3_details['slug_count'] == 3 || $course_3_details['slug_count'] == 4){
+							$course_3_details_slug = $course_3_details['category_slug'] .'/' . $course_3_details['sub_category_slug'] .'/' . $course_3_details['slug'];
+						}else{
+							$course_3_details_slug = $course_3_details['slug'];
+						}
                 	?>
 
                     <form  id="compare_form" action="<?php echo site_url('home/compare'); ?>" method="get" class="comparison-form">
@@ -87,7 +111,7 @@
 	                        <?php endif; ?>
 	                    </div>
 	                    <p class="ellipsis-line-2"><?php echo $course_1_details['short_description'] ?></p>
-	                    <a href="<?php echo site_url($course_1_details['slug']) ?>"><?php echo get_phrase('Learn More'); ?> <i class="fa-solid fa-angle-right"></i></a>
+	                    <a href="<?php echo site_url($course_1_details_slug) ?>"><?php echo get_phrase('Learn More'); ?> <i class="fa-solid fa-angle-right"></i></a>
 	                </div>
 	            <?php endif; ?>
             </div>
@@ -107,7 +131,7 @@
 	                        <?php endif; ?>
 	                    </div>
 	                    <p class="ellipsis-line-2"><?php echo $course_2_details['short_description'] ?></p>
-	                    <a href="<?php echo site_url($course_2_details['slug']) ?>"><?php echo get_phrase('Learn More'); ?> <i class="fa-solid fa-angle-right"></i></a>
+	                    <a href="<?php echo site_url($course_2_details_slug) ?>"><?php echo get_phrase('Learn More'); ?> <i class="fa-solid fa-angle-right"></i></a>
 	                </div>
 	            <?php endif; ?>
             </div>
@@ -127,7 +151,7 @@
 	                        <?php endif; ?>
 	                    </div>
 	                    <p class="ellipsis-line-2"><?php echo $course_3_details['short_description'] ?></p>
-	                    <a href="<?php echo site_url($course_3_details['slug']); ?>"><?php echo get_phrase('Learn More'); ?> <i class="fa-solid fa-angle-right"></i></a>
+	                    <a href="<?php echo site_url($course_3_details_slug); ?>"><?php echo get_phrase('Learn More'); ?> <i class="fa-solid fa-angle-right"></i></a>
 	                </div>
 	            <?php endif; ?>
             </div>

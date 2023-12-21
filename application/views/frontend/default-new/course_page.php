@@ -329,7 +329,13 @@ if($ratings_count){
             <div class="row">
                 <?php $related_courses = $this->crud_model->get_related_courses($course_details['category_id'], $course_details['sub_category_id'], $course_details['id'], 12)->result_array(); ?>
                 <?php foreach($related_courses as $key => $course):
-
+                    if($course['slug_count'] == 1 || $course['slug_count'] == 2){
+                        $related_course_slug = $course['slug'];
+                    }else if($course['slug_count'] == 3 || $course['slug_count'] == 4){
+                        $related_course_slug = $course['category_slug'] .'/' . $course['sub_category_slug'] .'/' . $course['slug'];
+                    }else{
+                        $related_course_slug = $course['slug'];
+                    }
                     $lessons = $this->crud_model->get_lessons('course', $course['id']);
                     $instructor_details = $this->user_model->get_all_user($course['user_id'])->row_array();
                     $course_duration = $this->crud_model->get_total_duration_of_lesson_by_course_id($course['id']);
@@ -350,7 +356,7 @@ if($ratings_count){
                     }
                     ?>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                        <a href="<?php echo site_url($course['slug']); ?>" class="checkPropagation courses-card-body">
+                        <a href="<?php echo site_url($related_course_slug); ?>" class="checkPropagation courses-card-body">
                             <div class="courses-card-image">
                                 <img src="<?php echo $this->crud_model->get_course_thumbnail_url($course['id']); ?>">
                                 <div class="courses-icon <?php if(in_array($course['id'], $my_wishlist_items)) echo 'red-heart'; ?>" id="coursesWishlistIcon<?php echo $course['id']; ?>">

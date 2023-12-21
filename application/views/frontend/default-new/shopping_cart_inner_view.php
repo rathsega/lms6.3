@@ -17,12 +17,20 @@
                     <tbody>
                         <?php $total = 0; ?>
                         <?php foreach($this->session->userdata('cart_items') as $item): ?>
-                            <?php $course_details = $this->crud_model->get_course_by_id($item)->row_array(); ?>
+                            <?php $course_details = $this->crud_model->get_course_by_id($item)->row_array(); 
+                                if($course_details['slug_count'] == 1 || $course_details['slug_count'] == 2){
+                                    $course_details_slug = $course_details['slug'];
+                                }else if($course_details['slug_count'] == 3 || $course_details['slug_count'] == 4){
+                                    $course_details_slug = $course_details['category_slug'] .'/' . $course_details['sub_category_slug'] .'/' . $course_details['slug'];
+                                }else{
+                                    $course_details_slug = $course_details['slug'];
+                                }
+                            ?>
                           <tr>
                             <td>
                                 <div class="cart-table-image">
                                     <img src="<?php echo $this->crud_model->get_course_thumbnail_url($course_details['id']); ?>">
-                                    <a href="<?php echo site_url($course_details['slug']) ?>">
+                                    <a href="<?php echo site_url($course_details_slug) ?>">
                                         <h5 class="my-1"><?php echo $course_details['title']; ?></h5>
                                         <p class="ellipsis-line-2"><?php echo $course_details['short_description']; ?></p>
                                     </a>

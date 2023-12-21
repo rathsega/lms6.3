@@ -41,6 +41,13 @@
                       <?php
                           $pending_courses = 0;
                           foreach ($courses->result_array() as $course):
+                            if($course['slug_count'] == 1 || $course['slug_count'] == 2){
+                                $course_slug = $course['slug'];
+                            }else if($course['slug_count'] == 3 || $course['slug_count'] == 4){
+                                $course_slug = $course['category_slug'] .'/' . $course['sub_category_slug'] .'/' . $course['slug'];
+                            }else{
+                                $course_slug = $course['slug'];
+                            }
                           if ($course['status'] != 'pending')
                               continue;
                           else
@@ -103,7 +110,7 @@
                                   <button class="btn btn-small btn-default btn-demo-space" data-toggle="dropdown"> <i class = "fa fa-ellipsis-v"></i> </button>
                                   <ul class="dropdown-menu">
                                       <li>
-                                          <a href="<?php echo site_url($course['slug']); ?>" target="_blank">
+                                          <a href="<?php echo site_url($course_slug); ?>" target="_blank">
                                               <?php echo get_phrase('view_course_on_frontend');?>
                                           </a>
                                       </li>

@@ -5,6 +5,13 @@
     <div class="courses-card courses-list-view-card">
         <?php foreach ($courses as $course) : ?>
             <?php
+            if($course['slug_count'] == 1 || $course['slug_count'] == 2){
+                $course_slug = $course['slug'];
+            }else if($course['slug_count'] == 3 || $course['slug_count'] == 4){
+                $course_slug = $course['category_slug'] .'/' . $course['sub_category_slug'] .'/' . $course['slug'];
+            }else{
+                $course_slug = $course['slug'];
+            }
             $lessons = $this->crud_model->get_lessons('course', $course['id']);
             $instructor_details = $this->user_model->get_all_user($course['user_id'])->row_array();
             $course_duration = $this->crud_model->get_total_duration_of_lesson_by_course_id($course['id']);
@@ -22,7 +29,7 @@
             }
             ?>
             <!-- Course List Card -->
-            <a href="<?php echo site_url($course['slug']); ?>" class="courses-list-view-card-body courses-card-body checkPropagation">
+            <a href="<?php echo site_url($course_slug); ?>" class="courses-list-view-card-body courses-card-body checkPropagation">
                 <div class="courses-card-image ">
                     <img src="<?php echo $this->crud_model->get_course_thumbnail_url($course['id']); ?>">
                     <div class="courses-icon <?php if(in_array($course['id'], $my_wishlist_items)) echo 'red-heart'; ?>" id="coursesWishlistIcon<?php echo $course['id']; ?>">

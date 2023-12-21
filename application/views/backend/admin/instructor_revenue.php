@@ -32,10 +32,17 @@
                 $paypal_keys = $payment_keys['paypal'];
                 $stripe_keys = $payment_keys['stripe'];
                 $razorpay_keys = $payment_keys['razorpay'];
+                if($course_data['slug_count'] == 1 || $course_data['slug_count'] == 2){
+                  $slug = $course_data['slug'];
+                }else if($course_data['slug_count'] == 3 || $course_data['slug_count'] == 4){
+                    $slug = $course_data['category_slug'] .'/' . $course_data['sub_category_slug'] .'/' . $course_data['slug'];
+                }else{
+                    $slug = $course_data['slug'];
+                }
                 ?>
                 <tr class="gradeU">
                   <td>
-                    <strong><a href="<?php echo site_url($course_data['slug']); ?>" target="_blank"><?php echo $course_data['title']; ?></a></strong><br>
+                    <strong><a href="<?php echo site_url($slug); ?>" target="_blank"><?php echo $course_data['title']; ?></a></strong><br>
                     <small class="text-muted"><?php echo get_phrase('enrolment_date') . ': ' . date('D, d-M-Y', $payment['date_added']); ?></small>
                     <?php if ($payment['coupon']) : ?>
                       <small class="d-block">

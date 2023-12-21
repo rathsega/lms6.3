@@ -94,13 +94,14 @@ $route['schedules_bookings/(:any)'] = "addons/tutor_booking/tutor_details/$1";
 $route['my_bookings'] = "addons/tutor_booking/booked_schedules_student";
 //End tutor booking
 
-$existed_segments = ["translate_uri_dashes","addons","bundle_details","default_controller", "certificate", "404_override","home", "ebook", "ebook_manager", "course_bundles", "my_bookings", "schedules_bookings", "tutor", "tutors", "page", "blogs","login","admin","payment","sign_up","blog","modal", "install"];
+$existed_segments = ["translate_uri_dashes","addons","bundle_details","default_controller", "certificate", "404_override","home", "ebook", "ebook_manager", "course_bundles", "my_bookings", "schedules_bookings", "tutor", "tutors", "page", "blogs","login","admin","payment","sign_up","blog","modal", "install", "assets"];
 $seg1 = $this->uri->segment(1);
 $seg2 = $this->uri->segment(2);
 $seg3 = $this->uri->segment(3);
 $seg4 = $this->uri->segment(4);
 if(!in_array($seg1, $existed_segments)){
     $route['(:any)'] =  "home/course/".$this->uri->segment(1);
+    $route['(:any)/(:any)'] =  "home/course/".$this->uri->segment(1)."/".$this->uri->segment(2);
     $route['(:any)/(:any)/(:any)'] =  "home/course/".$this->uri->segment(1)."/".$this->uri->segment(2)."/".$this->uri->segment(3);
     $route['(:any)/(:any)/(:any)/(:any)'] =  "home/course/".$this->uri->segment(1)."/".$this->uri->segment(2)."/".$this->uri->segment(3)."/".$this->uri->segment(4);
 }

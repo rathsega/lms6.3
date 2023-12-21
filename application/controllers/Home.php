@@ -213,12 +213,16 @@ class Home extends CI_Controller
         echo json_encode(['reload' => true]);
     }
 
-    public function course($course_slug_1, $course_slug_2=null)
+    public function course($slug_1, $slug_2=null, $slug_3=null, $slug_4=null)
     {
-        if($course_slug_2){
-            $slug = $course_slug_1 . '/' . $course_slug_2;
-        }else{
-            $slug = $course_slug_1;
+        if($slug_1){
+            $slug = $slug_1;
+        }else if($slug_1 && $slug_2){
+            $slug = $slug_1 . "/". $slug_2;
+        }else if($slug_1 && $slug_2 && $slug_3){
+            $slug = $slug_1 . "/". $slug_2 ."/".$slug_3;
+        }else if($slug_1 && $slug_2 && $slug_3 && $slug_4){
+            $slug = $slug_1 . "/". $slug_2 ."/".$slug_3 ."/".$slug_4;
         }
         $course_id = null;
         //course_addon start
@@ -416,7 +420,15 @@ class Home extends CI_Controller
 
     function toggleWishlistItems($course_id = "", $identifier = ""){
         if ($this->session->userdata('user_login') != 1) {
-            $url = site_url($this->crud_model->get_course_by_id($course_id)->row('slug'));
+            $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
+            if($course_details['slug_count'] == 1 || $course_details['slug_count'] == 2){
+                $slug = $course_details['slug'];
+            }else if($course_details['slug_count'] == 3 || $course_details['slug_count'] == 4){
+                $slug = $course_details['category_slug'] .'/' . $course_details['sub_category_slug'] .'/' . $course_details['slug'];
+            }else{
+                $slug = $course_details['slug'];
+            }
+            $url = site_url($slug);
             set_url_history($url);
             $response['redirectTo'] = site_url('login');
         }else{

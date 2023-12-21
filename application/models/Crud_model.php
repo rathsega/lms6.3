@@ -2315,7 +2315,14 @@ class Crud_model extends CI_Model
             $this->session->set_flashdata('flash_message', get_phrase('successfully_enrolled'));
         } else {
             $this->session->set_flashdata('error_message', get_phrase('this_course_is_not_free_at_all'));
-            redirect(site_url($course_details['slug']), 'refresh');
+            if($course_details['slug_count'] == 1 || $course_details['slug_count'] == 2){
+                $slug = $course_details['slug'];
+            }else if($course_details['slug_count'] == 3 || $course_details['slug_count'] == 4){
+                $slug = $course_details['category_slug'] .'/' . $course_details['sub_category_slug'] .'/' . $course_details['slug'];
+            }else{
+                $slug = $course_details['slug'];
+            }
+            redirect(site_url($slug), 'refresh');
         }
     }
     public function course_purchase($user_id, $method, $amount_paid, $param1 = "", $param2 = "")

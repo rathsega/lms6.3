@@ -444,9 +444,17 @@
                                         </div> <!-- end col -->
                                         <div class="col-xl-8">
                                             <div class="form-group row mb-3">
-                                                <label class="col-md-2 col-form-label" for="website_keywords"><?php echo "Slug"; ?></label>
+                                                <label class="col-md-2 col-form-label" for="slug"><?php echo "Slug"; ?></label>
                                                 <div class="col-md-10">
                                                     <input type="text" class="form-control" id = "slug" name="slug" style="width: 100%;" ./>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-8">
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-2 col-form-label" for="slug_count"><?php echo "Slug Count"; ?></label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" id = "slug_count" name="slug_count" style="width: 100%;" ./>
                                                 </div>
                                             </div>
                                         </div>

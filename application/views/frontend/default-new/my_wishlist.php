@@ -26,9 +26,16 @@
 			                    } else {
 			                        $average_ceil_rating = 0;
 			                    }
+								if($row['slug_count'] == 1 || $row['slug_count'] == 2){
+									$slug = $row['slug'];
+								}else if($row['slug_count'] == 3 || $row['slug_count'] == 4){
+									$slug = $row['category_slug'] .'/' . $row['sub_category_slug'] .'/' . $row['slug'];
+								}else{
+									$slug = $row['slug'];
+								}
 			                    ?>
 			                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-			                        <a href="<?php echo site_url($course['slug']); ?>" class="checkPropagation courses-card-body">
+			                        <a href="<?php echo site_url($slug); ?>" class="checkPropagation courses-card-body">
 			                            <div class="courses-card-image">
 			                                <img src="<?php echo $this->crud_model->get_course_thumbnail_url($course['id']); ?>">
 			                                <div class="courses-icon <?php if(in_array($course['id'], $my_wishlist_items)) echo 'red-heart'; ?>" id="coursesWishlistIcon<?php echo $course['id']; ?>">

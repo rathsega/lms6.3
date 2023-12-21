@@ -1023,7 +1023,15 @@ class Admin extends CI_Controller
                     $price_field .= '<p class="text-12">' . get_phrase('Lifetime') . '</p>';
                 }
 
-                $view_course_on_frontend_url = site_url($row['slug']);
+                if($row['slug_count'] == 1 || $row['slug_count'] == 2){
+                    $row_slug = $row['slug'];
+                }else if($row['slug_count'] == 3 || $row['slug_count'] == 4){
+                    $row_slug = $row['category_slug'] .'/' . $row['sub_category_slug'] .'/' . $row['slug'];
+                }else{
+                    $row_slug = $row['slug'];
+                }
+
+                $view_course_on_frontend_url = site_url($row_slug);
                 $go_to_course_playing_page = site_url('home/lesson/' . rawurlencode(slugify($row['title'])) . '/' . $row['id']);
                 $edit_this_course_url = site_url('admin/course_form/course_edit/' . $row['id']);
                 $section_and_lesson_url = site_url('admin/course_form/course_edit/' . $row['id']);
@@ -2409,7 +2417,14 @@ class Admin extends CI_Controller
         $this->db->where('id', $rating_id)->delete('rating');
 
         $this->session->set_flashdata('flash_message', get_phrase('user_review_deleted_successfully'));
-        redirect(site_url($course_details['slug']), 'refresh');
+        if($course_details['slug_count'] == 1 || $course_details['slug_count'] == 2){
+            $course_details_slug = $course_details['slug'];
+        }else if($course_details['slug_count'] == 3 || $course_details['slug_count'] == 4){
+            $course_details_slug = $course_details['category_slug'] .'/' . $course_details['sub_category_slug'] .'/' . $course_details['slug'];
+        }else{
+            $course_details_slug = $course_details['slug'];
+        }
+        redirect(site_url($course_details_slug), 'refresh');
     }
 
     //Start Notification

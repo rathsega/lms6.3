@@ -22,6 +22,13 @@
                             $watch_history = $this->crud_model->get_watch_histories($this->session->userdata('user_id'), $course_details['id'])->row_array();
                             $course_progress = isset($watch_history['course_progress']) ? $watch_history['course_progress'] : 0;
                             $ratings_count = $this->crud_model->get_ratings_count($course_details['id']);
+                            if($course_details['slug_count'] == 1 || $course_details['slug_count'] == 2){
+                                $enrolment_slug = $course_details['slug'];
+                            }else if($course_details['slug_count'] == 3 || $course_details['slug_count'] == 4){
+                                $enrolment_slug = $course_details['category_slug'] .'/' . $course_details['sub_category_slug'] .'/' . $course_details['slug'];
+                            }else{
+                                $enrolment_slug = $course_details['slug'];
+                            }
                             if($ratings_count){
                                 $one = $ratings_count['one_rating_count'];
                                 $two = $ratings_count['two_rating_count'];
@@ -51,7 +58,7 @@
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="dropdownMenuButton2">
                                                         <li>
-                                                            <a class="dropdown-item py-2" href="<?php echo site_url($course_details['slug']); ?>"><?php echo get_phrase('Go to course page') ?></a>
+                                                            <a class="dropdown-item py-2" href="<?php echo site_url($enrolment_slug); ?>"><?php echo get_phrase('Go to course page') ?></a>
                                                         </li>
                                                         <li>
                                                             <a class="dropdown-item py-2" href="<?php echo site_url('home/instructor_page/'.$course_details['creator']) ?>"><?php echo get_phrase('Author profile') ?></a>
@@ -104,7 +111,7 @@
                                             </div>
                                             <div class="my-course-1-btn pt-4 me-4">
                                                 <?php if($enrolment['expiry_date'] > 0 && strtotime($enrolment['expiry_date']) < time()): ?>
-                                                    <a class="btn text-14px py-1 text-white" style="background-color: var(--bs-code-color);"  href="<?php echo site_url($course_details['slug']) ?>">
+                                                    <a class="btn text-14px py-1 text-white" style="background-color: var(--bs-code-color);"  href="<?php echo site_url($enrolment_slug) ?>">
                                                         <i class="far fa-calendar-plus"></i>
                                                         <?php echo get_phrase('View Course'); ?>
                                                     </a>

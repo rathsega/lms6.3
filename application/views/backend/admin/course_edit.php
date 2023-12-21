@@ -698,6 +698,14 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                             </div>
                                             <div class="col-xl-8">
                                                 <div class="form-group row mb-3">
+                                                    <label class="col-md-2 col-form-label" for="slug_count"><?php echo "Slug Count"; ?></label>
+                                                    <div class="col-md-10">
+                                                        <input type="text" class="form-control" id="slug_count" name="slug_count" style="width: 100%;" value="<?php echo $course_details['slug_count']; ?>" . />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-8">
+                                                <div class="form-group row mb-3">
                                                     <label class="col-md-2 col-form-label" for="meta_description"><?php echo get_phrase('meta_description'); ?></label>
                                                     <div class="col-md-10">
                                                         <textarea name="meta_description" class="form-control"><?php echo $course_details['meta_description']; ?></textarea>
