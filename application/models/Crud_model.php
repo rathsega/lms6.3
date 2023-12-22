@@ -640,6 +640,7 @@ class Crud_model extends CI_Model
         $data['meta_description'] = $this->input->post('meta_description');
         $data['meta_keywords'] = $this->input->post('meta_keywords');
         $data['slug'] = $this->input->post('slug');
+        $data['slug_count'] = $this->input->post('slug_count');
 
         $admin_details = $this->user_model->get_admin_details()->row_array();
         if ($admin_details['id'] == $data['user_id']) {
@@ -845,6 +846,7 @@ class Crud_model extends CI_Model
         $data['meta_description'] = $this->input->post('meta_description');
         $data['meta_keywords'] = $this->input->post('meta_keywords');
         $data['slug'] = $this->input->post('slug');
+        $data['slug_count'] = $this->input->post('slug_count');
         $data['last_modified'] = time();
 
 

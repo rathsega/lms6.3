@@ -215,14 +215,14 @@ class Home extends CI_Controller
 
     public function course($slug_1, $slug_2=null, $slug_3=null, $slug_4=null)
     {
-        if($slug_1){
-            $slug = $slug_1;
+        if($slug_1 && $slug_2 && $slug_3 && $slug_4){
+            $slug = $slug_3 ."/".$slug_4;
+        }else if($slug_1 && $slug_2 && $slug_3){
+            $slug = $slug_3;
         }else if($slug_1 && $slug_2){
             $slug = $slug_1 . "/". $slug_2;
-        }else if($slug_1 && $slug_2 && $slug_3){
-            $slug = $slug_1 . "/". $slug_2 ."/".$slug_3;
-        }else if($slug_1 && $slug_2 && $slug_3 && $slug_4){
-            $slug = $slug_1 . "/". $slug_2 ."/".$slug_3 ."/".$slug_4;
+        }else if($slug_1){
+            $slug = $slug_1;
         }
         $course_id = null;
         //course_addon start
@@ -258,7 +258,6 @@ class Home extends CI_Controller
 
 
         //course_addon end 
-
 
         $this->access_denied_courses_by_slug($slug);
         $course_data = $this->crud_model->get_course_by_slug($slug)->row_array();
