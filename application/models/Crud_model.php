@@ -5268,4 +5268,65 @@ class Crud_model extends CI_Model
         }
     }
 
+    public function get_student_active_enrolments($user_id)
+    {
+        return $this->db->query("select c.title, e.id from enrol as e left join course as c on c.id = e.course_id where e.user_id=".$user_id. " and e.expiry_date >='". date('Y-m-d')."'");
+        $this->db->order_by('expiry_date', 'desc');
+        $this->db->where('expiry_date >=', date('Y-m-d'));
+        $this->db->where('user_id >=', $user_id);
+        return $this->db->get('enrol');
+    }
+
+    public function payments_list()
+    {
+        $query = "select  mp.id, CONCAT(u.first_name, ' ', u.last_name) as name, u.email, u.phone, c.title, mp.amount, mp.datetime from manual_payments as mp left join enrol as e on e.id = mp.enrolment_id left join users as u on u.id=e.user_id left join course as c on c.id = e.course_id";
+        return $this->db->query($query);
+    }
+
+    public function get_installment_settings(){
+        return $this->db->get('installment_settings')->row_array();
+    }
+
+    public function update_installment_settings(){
+        $data = [];
+        $data['installments_count'] = $_POST['installments_count'];
+        $data['installment_percentages'] = json_encode($_POST['installment_percentages']);
+        $data['graceful_payment_duration'] = $_POST['graceful_payment_duration'];
+        $this->db->where('id',1);
+        return $this->db->update('installment_settings', $data);
+    }  
+    
+    public function add_payment(){
+        log_message("error", json_encode($_POST));
+        $data = [];
+        $data['enrolment_id'] = $_POST['enrolment_id'];
+        $data['amount'] = $_POST['amount'];
+        $data['datetime'] = date('Y-m-d H:i:s', time());
+        return $this->db->insert('manual_payments', $data);
+    }
+
+    public function manual_payment_details($id){
+        $this->db->where('id',$id);
+        return $this->db->get('manual_payments')->row_array();
+    }
+
+    public function delete_payment($id){
+        $this->db->where('id',$id);
+        return $this->db->delete('manual_payments');
+    }
+
+    public function get_active_enrol_by_course_id($course_id){
+        $this->db->select('*');
+        return $this->db->get_where('enrol', array('user_id' => $this->session->userdata('user_id'), 'course_id'=>$course_id))->row_array();
+    }
+
+    public function get_payments_list_by_by_enrolment_id($enrolment_id){
+        $this->db->where('enrolment_id',$enrolment_id);
+        return $this->db->get('manual_payments')->result_array();
+    }
+
+    public function get_active_enrol_by_user_id(){
+        $this->db->select('*');
+        return $this->db->get_where('enrol', array('user_id' => $this->session->userdata('user_id'), 'expiry_date>='=>date('Y-m-d', time())))->result_array();
+    }
 }

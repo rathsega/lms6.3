@@ -2977,7 +2977,11 @@ class Admin extends CI_Controller
         } else if($param1 == "upload_curriculam"){
             $this->crud_model->upload_curriculam();
             redirect(site_url('admin/upload_curriculam'), 'refresh');
+        } else if($param1 == "add_payment"){
+            $this->crud_model->add_payment();
+            redirect(site_url('admin/payments_list'), 'refresh');
         }
+        
         // $page_data['page_name'] = 'enrol_student';
         // $page_data['page_title'] = get_phrase('course_enrolment');
         // $this->load->view('backend/index', $page_data);
@@ -3055,6 +3059,59 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
+    public function installment_settings(){
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        check_permission('enrolment');
+
+        $page_data['page_name'] = 'installment_settings';
+        $page_data['installment_settings'] = $this->crud_model->get_installment_settings();
+        $page_data['page_title'] = "Installment Settings";
+        $this->load->view('backend/index', $page_data);
+    }
+
+    public function payments_list(){
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        check_permission('enrolment');
+
+        $page_data['page_name'] = 'payments_list';
+        $page_data['payments_list'] = $this->crud_model->payments_list();
+        $page_data['page_title'] = "Payments List";
+        $this->load->view('backend/index', $page_data);
+    }
+    public function add_payments(){
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        check_permission('enrolment');
+
+        $page_data['page_name'] = 'add_payments';
+        $page_data['page_title'] = "Add Payments";
+        $this->load->view('backend/index', $page_data);
+    }
+    public function edit_payments($id){
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        check_permission('enrolment');
+
+        $page_data['page_name'] = 'edit_payments';
+        $page_data['data'] = $this->crud_model->manual_payment_details($id);
+        $page_data['page_title'] = "Edit Payments";
+        $this->load->view('backend/index', $page_data);
+    }
+
     
     public function chapters($param1 = "", $param2 = "", $param3 = "")
     {
@@ -3101,6 +3158,40 @@ class Admin extends CI_Controller
         $page_data['page_name'] = 'upload_curriculam';
         $page_data['page_title'] = "User Actions";
         $this->load->view('backend/index', $page_data);
+    }
+
+    public function get_student_active_enrolments(){
+        $data =  $this->crud_model->get_student_active_enrolments($_POST['student_id'])->result_array();
+        echo json_encode(array('data'=>$data));
+    }
+
+    public function update_installment_settings(){
+        $response = $this->crud_model->update_installment_settings();
+        if ($response) {
+            $this->session->set_flashdata('flash_message', get_phrase('data_updated_successfully'));
+        } else {
+            $this->session->set_flashdata('error_message', get_phrase('failed_to_update_data'));
+        }
+        redirect(site_url('admin/installment_settings'), 'refresh');
+    }
+
+    public function add_payment(){
+        $response = $this->crud_model->add_payment();
+        if ($response) {
+            $this->session->set_flashdata('flash_message', get_phrase('payment_added_successfully'));
+        } else {
+            $this->session->set_flashdata('error_message', get_phrase('failed_to_add_payment'));
+        }
+        redirect(site_url('admin/payments_list'), 'refresh');
+    }
+    public function delete_payment($id){
+        $response = $this->crud_model->delete_payment($id);
+        if ($response) {
+            $this->session->set_flashdata('flash_message', get_phrase('payment_added_successfully'));
+        } else {
+            $this->session->set_flashdata('error_message', get_phrase('failed_to_add_payment'));
+        }
+        redirect(site_url('admin/payments_list'), 'refresh');
     }
 
 }

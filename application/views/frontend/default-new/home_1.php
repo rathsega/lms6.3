@@ -8,6 +8,79 @@
 $user_id = $this->session->userdata('user_id');
 
 ?>
+<?php
+#check payment due details
+$installment_settings = $this->crud_model->get_installment_settings();
+$installment_percentages = json_decode($installment_settings['installment_percentages']);
+$graceful_payment_duration = $installment_settings['graceful_payment_duration'];
+$installments_count = $installment_settings['installments_count'];
+
+$payment_pending = false;
+
+$user_active_enrolments = $this->crud_model->get_active_enrol_by_user_id();
+$notice_message = "";
+foreach($user_active_enrolments as $key => $enrol_data){
+    if(!$payment_pending){
+        //var_dump($enrol_data);
+        $course_details = $this->crud_model->get_course_by_id($enrol_data['course_id'])->row_array();
+        $course_duration_in_months = $course_details['course_duration_in_months']?$course_details['course_duration_in_months'] : 2;
+        $course_price = $course_details['price'];
+
+        $payments_list = $this->crud_model->get_payments_list_by_by_enrolment_id($enrol_data['id']);
+        $total_paid_amount = 0;
+        for ($i=0; $i < count($payments_list); $i++) { 
+            $total_paid_amount += (int)$payments_list[$i]['amount'];
+        }    
+
+        $enrolment_date = date('Y-m-d', $enrol_data['date_added']);
+
+        //calculate payment start and end dates
+        $adding_days = 30*$course_duration_in_months;
+        $installment_end_date = date('Y-m-d', strtotime("+$adding_days days", strtotime($enrolment_date))); 
+        $installment_start_date = date('Y-m-d', strtotime("+$graceful_payment_duration days", strtotime($enrolment_date))); 
+
+        //calculate installment amounts
+        $installment_amounts = [];
+        for ($i=0; $i < count($installment_percentages); $i++) { 
+            array_push($installment_amounts, ((int)$course_price/100)*$installment_percentages[$i]);
+        }
+
+        //calculate installment dates
+        $date1 = new DateTime($installment_start_date);
+        $date2 = new DateTime($installment_end_date);
+        $interval = $date1->diff($date2);
+        $diff_days = $interval->days;
+
+        $installment_dates = [];
+        $d = $installment_start_date;
+        for ($i=0; $i < $installments_count; $i++) { 
+            $adding_days = ceil($diff_days/$installments_count);
+            $d = date('Y-m-d', strtotime("+$adding_days days", strtotime($d))); 
+            array_push($installment_dates, $d);
+        }
+        //check payment done properly or not
+        $amount_to_be_paid_till_now = 0;
+        $today = date('Y-m-d', strtotime("+7 days", strtotime(date('Y-m-d')))); 
+        foreach($installment_dates as $key => $installment_date){
+            if($today > $installment_date){
+                $amount_to_be_paid_till_now += $installment_amounts[$key];
+            }
+        }
+
+        if($total_paid_amount < $amount_to_be_paid_till_now){
+            $payment_pending = true;
+            $date1 = new DateTime($installment_date);
+            $date2 = new DateTime(date('Y-m-d'));
+            $diff_days = $date1->diff($date2);            
+            $notice_message = "Payment is pending for the course " . $course_details['title'] .', due date is '. $installment_date ;
+        }
+    }
+    
+}
+if($payment_pending){
+    echo "<script>alert('".$notice_message."');</script>";
+}
+?>
 <!---------- Banner Section Start ---------------->
 <section class="h-1-banner bannar-area pt-5">
     <div class="container">

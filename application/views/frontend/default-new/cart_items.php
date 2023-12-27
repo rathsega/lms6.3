@@ -1,14 +1,16 @@
 <?php $cart_items = $this->session->userdata('cart_items'); ?>
 <?php foreach($cart_items as $cart_item): 
-		if($cart_item['slug_count'] == 1 || $cart_item['slug_count'] == 2){
-			$cart_item_slug = $cart_item['slug'];
-		}else if($cart_item['slug_count'] == 3 || $cart_item['slug_count'] == 4){
-			$cart_item_slug = $cart_item['category_slug'] .'/' . $cart_item['sub_category_slug'] .'/' . $cart_item['slug'];
+		
+	?>
+	<?php $course_details = $this->crud_model->get_course_by_id($cart_item)->row_array(); 
+		if($course_details['slug_count'] == 1 || $course_details['slug_count'] == 2){
+			$cart_item_slug = $course_details['slug'];
+		}else if($course_details['slug_count'] == 3 || $course_details['slug_count'] == 4){
+			$cart_item_slug = $course_details['category_slug'] .'/' . $course_details['sub_category_slug'] .'/' . $course_details['slug'];
 		}else{
-			$cart_item_slug = $cart_item['slug'];
+			$cart_item_slug = $course_details['slug'];
 		}
 	?>
-	<?php $course_details = $this->crud_model->get_course_by_id($cart_item)->row_array(); ?>
 	<?php $instructor = $this->user_model->get_all_user($course_details['creator'])->row_array(); ?>
 	<div class="path_pos_wish-2">
 	  <div class="path_pos_wish">

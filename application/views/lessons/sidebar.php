@@ -12,6 +12,80 @@
 
   $restricted_section_ids = [];
   $is_restricted = 1;
+  $lock_video_tooltip = 'Complete previous lesson to unlock it';
+
+  
+    /**------------------check payments-----------------------------*/
+    $course_duration_in_months = $course_details['course_duration_in_months'] ? $course_details['course_duration_in_months'] : 2;
+    $course_price = $course_details['price'];
+    //get active enrolment by course id
+    $enrol_data = $this->crud_model->get_active_enrol_by_course_id($course_id);
+    if($enrol_data){
+        $payments_list = $this->crud_model->get_payments_list_by_by_enrolment_id($enrol_data['id']);
+        $total_paid_amount = 0;
+        for ($i=0; $i < count($payments_list); $i++) { 
+            $total_paid_amount += (int)$payments_list[$i]['amount'];
+        }
+
+        $installment_settings = $this->crud_model->get_installment_settings();
+        $installment_percentages = json_decode($installment_settings['installment_percentages']);
+        $graceful_payment_duration = $installment_settings['graceful_payment_duration'];
+        $installments_count = $installment_settings['installments_count'];
+
+
+        $enrolment_date = date('Y-m-d', $enrol_data['date_added']);
+        //calculate payment start and end dates
+        $adding_days = 30*$course_duration_in_months;
+        $installment_end_date = date('Y-m-d', strtotime("+$adding_days days", strtotime($enrolment_date))); 
+        $installment_start_date = date('Y-m-d', strtotime("+$graceful_payment_duration days", strtotime($enrolment_date))); 
+
+        //calculate installment amounts
+        $installment_amounts = [];
+        for ($i=0; $i < count($installment_percentages); $i++) { 
+            array_push($installment_amounts, ((int)$course_price/100)*$installment_percentages[$i]);
+        }
+
+        //calculate installment dates
+        $date1 = new DateTime($installment_start_date);
+        $date2 = new DateTime($installment_end_date);
+        $interval = $date1->diff($date2);
+        $diff_days = $interval->days;
+
+        $installment_dates = [];
+        $d = $installment_start_date;
+        for ($i=0; $i < $installments_count; $i++) { 
+            $adding_days = ceil($diff_days/$installments_count);
+            $d = date('Y-m-d', strtotime("+$adding_days days", strtotime($d))); 
+            array_push($installment_dates, $d);
+        }
+
+        //check payment done properly or not
+        $amount_to_be_paid_till_now = 0;
+        $today = date('Y-m-d');
+        foreach($installment_dates as $key => $installment_date){
+            if($today > $installment_date){
+                $amount_to_be_paid_till_now += $installment_amounts[$key];
+            }
+        }
+
+        $lock_videos = false;
+        if($total_paid_amount < $amount_to_be_paid_till_now){
+            $lock_videos = true;
+            $is_locked = 1;
+            $course_details['enable_drip_content'] = 1;
+            $lock_video_tooltip = "Your payment is over due, please pay for watch videos";
+            $drip_content_settings['locked_lesson_message'] = htmlspecialchars_decode(stripslashes("<h3 xss='removed' style='text-align: center; '><span xss='removed'><strong>Permission denied!<\/strong><\/span><\/h3><p xss='removed' style='text-align: center; '><span xss='removed'>Your payment is over due, please pay for watch videos<\/span><\/p>"));
+        }
+
+        if($is_locked){
+          $lessons = $this->crud_model->get_lessons('course', $course_id);
+          foreach($lessons->result_array() as $lesson){
+            array_push($locked_lesson_ids, $lesson['id']);
+          }
+        }
+
+    }else{
+    }
 ?>
 <?php if(is_array($sections) && count($sections) > 0): ?>
   <div class="course-playing-sidebar">
@@ -82,15 +156,89 @@
                 </div>
               <?php endif; ?>
 
-              <?php 
-                $chapters = $this->crud_model->get_chapters('section', $section['id'])->result_array();
-                if (!$chapters || count($chapters) == 0){
-                  $lessons = $this->crud_model->get_lessons('section', $section['id'])->result_array();
-                  include "sidebar_lessons.php";
-                }else{
-                  include "sidebar_chapters.php";
-                }
-              ?>
+              <ul class="course-content-items" style="<?php if($is_restricted) echo 'filter: blur(1px);' ?>">
+
+                <?php
+                $lessons = $this->crud_model->get_lessons('section', $section['id'])->result_array();
+                foreach($lessons as $key => $lesson):
+
+                  //Check is bundle or course
+                  if(isset($bundle_id) && $bundle_id > 0):
+                    $lesson_url = site_url('addons/course_bundles/lesson/'.rawurlencode(slugify($course_details['title'])).'/'.$bundle_id.'/'.$course_id.'/'.$lesson['id']);
+                  else:
+                    $lesson_url = site_url('home/lesson/'.slugify($course_details['title']).'/'.$course_id.'/'.$lesson['id']);
+                  endif;
+                  //End check is bundle or course
+                  ?>
+                  
+
+                  <li class="item <?php if($lesson['id'] == $lesson_details['id']) echo 'active'; ?>">
+                    <a href="<?php echo $lesson_url; ?>" class="d-flex align-items-baseline w-100 checkbox-box-a">
+                      <?php if(in_array($lesson['id'], $completed_lessons)){
+                        $chekbox = 'title="'.get_phrase('Uncheck').'" data-bs-toggle="tooltip" checked';
+                      }else{
+                        $chekbox = 'title="'.get_phrase('Mark as Complete').'" data-bs-toggle="tooltip"';
+                      }?>
+
+                      <?php if($course_details['enable_drip_content']): ?>
+                        <?php if($is_locked): ?>
+                          <i class="fas fa-lock" title="<?php echo get_phrase($lock_video_tooltip); ?>" data-bs-toggle="tooltip"></i>
+                        <?php else: ?>
+                          <?php if(in_array($lesson['id'], $completed_lessons) && $lesson['lesson_type'] == 'video' ||in_array($lesson['id'], $completed_lessons) && $lesson['lesson_type'] == 'quiz'): ?>
+                            <i class="fas fa-check" title="<?php echo get_phrase('Completed'); ?>" data-bs-toggle="tooltip"></i>
+                          <?php else: ?>
+                            <?php if($lesson['lesson_type'] == 'video'): ?>
+                              <i class="fas fa-play me-2" title="<?php echo get_phrase('Play Now'); ?>" data-bs-toggle="tooltip"></i>
+                            <?php elseif($lesson['lesson_type'] == 'quiz'): ?>
+                              <i class="fas fa-question" title="<?php echo get_phrase('Start Now'); ?>" data-bs-toggle="tooltip"></i>
+                            <?php else: ?>
+                              <div class="checkbox checkbox-box">
+                                <input class="lesson_checkbox" disabled type="checkbox" onchange="actionTo('<?php echo site_url('home/update_watch_history_manually?lesson_id='.$lesson['id'].'&course_id='.$course_details['id']); ?>', 'post', event);" <?php echo $chekbox; ?>>
+                              </div>
+                            <?php endif; ?>
+                          <?php endif; ?>
+                        <?php endif; ?>
+                      <?php else: ?>
+
+                        <div class="checkbox checkbox-box">
+                          <input class="lesson_checkbox" disabled type="checkbox" onchange="actionTo('<?php echo site_url('home/update_watch_history_manually?lesson_id='.$lesson['id'].'&course_id='.$course_details['id']); ?>', 'post', event);" <?php echo $chekbox; ?>>
+                        </div>
+                      <?php endif; ?>
+
+
+                      <span class="mx-2 d-grid">
+                        <span class="m-0 p-0"><?php echo $lesson['title']; ?></span>
+                        <span class="lesson-icon">
+                          <?php if($lesson['lesson_type'] == 'other' || $lesson['lesson_type'] == 'text'): ?>
+                            <i class="far fa-file-alt me-1"></i>
+                            <?php echo get_phrase($lesson['attachment_type']); ?>
+                          <?php elseif($lesson['lesson_type'] == 'quiz'): ?>
+                            <i class="far fa-question-circle me-1"></i><?php echo get_phrase('Quiz'); ?>
+                          <?php else: ?>
+                            <i class="far fa-file-video me-1"></i><?php echo get_phrase('Video'); ?>
+                          <?php endif; ?>
+                        </span>
+                      </span>
+                      <span class="ms-auto"><?php echo $lesson['duration']; ?></span>
+                    </a>
+                  </li>
+
+
+                  <?php
+                  //check dripcontent
+                  if($is_locked) $locked_lesson_ids[] = $lesson['id'];
+                  if(
+                    !in_array($lesson['id'], $completed_lessons)
+                    && $is_locked == 0
+                    && $course_details['enable_drip_content'] == 1
+                    && $this->session->userdata('user_login') == 1
+                    && $is_course_instructor == false
+                  ):
+                    $is_locked = 1;
+                  endif; ?>
+                <?php endforeach; ?>
+                
+              </ul>
             </div>
           </div>
         </div>

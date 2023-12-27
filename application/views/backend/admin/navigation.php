@@ -28,7 +28,7 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 		<li class="side-nav-item <?php if ($page_name == 'ratings_count_form' || $page_name == 'custom_reviews' ) : ?> active <?php endif; ?>">
 			<a href="javascript: void(0);" class="side-nav-link <?php if ($page_name == 'instructors_pending_blog' || $page_name == 'custom_reviews') : ?> active <?php endif; ?>">
 				<i class="dripicons-blog"></i>
-				<span> <?php echo get_phrase('customsettings'). " <b>(X)</b>"; ?> </span>
+				<span> <?php echo get_phrase('custom_settings'). " <b>(X)</b>"; ?> </span>
 				<span class="menu-arrow"></span>
 			</a>
 			<ul class="side-nav-second-level" aria-expanded="true">
@@ -55,6 +55,12 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 				</li>
 				<li class="<?php if ($page_name == 'upload_curriculam') echo 'active'; ?>">
 					<a href="<?php echo site_url('admin/upload_curriculam'); ?>"><?php echo "Upload Curriculam "; ?></a>
+				</li>
+				<li class="<?php if ($page_name == 'installment_settings') echo 'active'; ?>">
+					<a href="<?php echo site_url('admin/installment_settings'); ?>"><?php echo "Installment Settings"; ?></a>
+				</li>
+				<li class="<?php if ($page_name == 'payments_list') echo 'active'; ?>">
+					<a href="<?php echo site_url('admin/payments_list'); ?>"><?php echo "Payments List"; ?></a>
 				</li>
 			</a>
 		</li>

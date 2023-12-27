@@ -1,14 +1,16 @@
 <?php $cart_items = $this->session->userdata('cart_items'); ?>
 <?php foreach($my_wishlist_items as $my_wishlist_item): 
-    if($my_wishlist_item['slug_count'] == 1 || $my_wishlist_item['slug_count'] == 2){
-      $my_wishlist_item_slug = $my_wishlist_item['slug'];
-    }else if($my_wishlist_item['slug_count'] == 3 || $my_wishlist_item['slug_count'] == 4){
-      $my_wishlist_item_slug = $my_wishlist_item['category_slug'] .'/' . $my_wishlist_item['sub_category_slug'] .'/' . $my_wishlist_item['slug'];
-    }else{
-      $my_wishlist_item_slug = $my_wishlist_item['slug'];
-    }
+    
   ?>
-    <?php $course_details = $this->crud_model->get_course_by_id($my_wishlist_item)->row_array(); ?>
+    <?php $course_details = $this->crud_model->get_course_by_id($my_wishlist_item)->row_array(); 
+      if($course_details['slug_count'] == 1 || $course_details['slug_count'] == 2){
+        $my_wishlist_item_slug = $course_details['slug'];
+      }else if($course_details['slug_count'] == 3 || $course_details['slug_count'] == 4){
+        $my_wishlist_item_slug = $course_details['category_slug'] .'/' . $course_details['sub_category_slug'] .'/' . $course_details['slug'];
+      }else{
+        $my_wishlist_item_slug = $course_details['slug'];
+      }
+    ?>
     <?php $instructor = $this->user_model->get_all_user($course_details['creator'])->row_array(); ?>
     <div class="path_pos_wish-2">
         <div class="path_pos_wish">
