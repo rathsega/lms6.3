@@ -26,7 +26,23 @@
 
 <div class="course-description">
     <h3 class="description-head"><?php echo get_phrase('Course Description') ?></h3>
-    <?php echo $course_details['description']; ?>
+    <?php $content = $course_details['description']; ?>
+    <div id="read_more_overview" style="display:block;">
+        <?php 
+        
+            echo substr($content, 0, 250);  
+                
+            if(strlen($content)>250){
+                echo '<div class="techleads-butn" style="color:blue;text-decoration: underline;cursor: pointer;" onclick="handleOverviewContent(\'more\')" id="myBtn" > Read more</div>'; 
+            } 	
+        ?>             
+                
+    </div>
+    <div id="show_less_overview" style="display:none;">
+        <?php echo $content; ?>
+        <div class="techleads-butn" style="color:blue;text-decoration: underline;cursor: pointer;" onclick="handleOverviewContent('less')" id="myBtn" > Show less</div>
+        
+    </div>
 </div>
 
 <?php $faqs = json_decode($course_details['faqs'], true);
@@ -56,3 +72,14 @@
         </div>
     </div>
 <?php endif; ?>
+<script>
+    function handleOverviewContent(mode){
+        if(mode=='more'){
+            document.getElementById('read_more_overview').style.display = 'none';
+            document.getElementById('show_less_overview').style.display = 'block';
+        }else{
+            document.getElementById('read_more_overview').style.display = 'block';
+            document.getElementById('show_less_overview').style.display = 'none';
+        }
+    }
+</script>
