@@ -21,10 +21,18 @@
     //get active enrolment by course id
     $enrol_data = $this->crud_model->get_active_enrol_by_course_id($course_id);
     if($enrol_data){
+
+        //Manual Payments
         $payments_list = $this->crud_model->get_payments_list_by_by_enrolment_id($enrol_data['id']);
         $total_paid_amount = 0;
         for ($i=0; $i < count($payments_list); $i++) { 
             $total_paid_amount += (int)$payments_list[$i]['amount'];
+        }
+
+        //Online Payments
+        $online_payments_list = $this->crud_model->get_online_payments_list_by_by_course_id($enrol_data['course_id']);
+        for ($i=0; $i < count($online_payments_list); $i++) { 
+          $total_paid_amount += (int)$online_payments_list[$i]['amount'];
         }
 
         $installment_settings = $this->crud_model->get_installment_settings();

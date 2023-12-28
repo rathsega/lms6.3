@@ -26,11 +26,18 @@ foreach($user_active_enrolments as $key => $enrol_data){
         $course_duration_in_months = $course_details['course_duration_in_months']?$course_details['course_duration_in_months'] : 2;
         $course_price = $course_details['price'];
 
+        //Manual Payments
         $payments_list = $this->crud_model->get_payments_list_by_by_enrolment_id($enrol_data['id']);
         $total_paid_amount = 0;
         for ($i=0; $i < count($payments_list); $i++) { 
             $total_paid_amount += (int)$payments_list[$i]['amount'];
-        }    
+        }
+
+        //Online Payments
+        $online_payments_list = $this->crud_model->get_online_payments_list_by_by_course_id($enrol_data['course_id']);
+        for ($i=0; $i < count($online_payments_list); $i++) { 
+          $total_paid_amount += (int)$online_payments_list[$i]['amount'];
+        }  
 
         $enrolment_date = date('Y-m-d', $enrol_data['date_added']);
 

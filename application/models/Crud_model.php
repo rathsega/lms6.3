@@ -5330,4 +5330,9 @@ class Crud_model extends CI_Model
         $this->db->select('*');
         return $this->db->get_where('enrol', array('user_id' => $this->session->userdata('user_id'), 'expiry_date>='=>date('Y-m-d', time())))->result_array();
     }
+
+    public function get_online_payments_list_by_by_course_id($course_id){
+        $this->db->select('*');
+        return $this->db->get_where('payment', array('user_id' => $this->session->userdata('user_id'), 'course_id'=>$course_id))->row_array();
+    }
 }
