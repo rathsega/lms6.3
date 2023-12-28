@@ -272,10 +272,10 @@ class Payment_model extends CI_Model {
     }
 
 
-    public function check_razorpay_payment($identifier = ""){
+    public function check_razorpay_payment($razorpay_order_id, $payment_id, $amount, $signature){
       //start common code of all payment gateway
       $payment_details = $this->session->userdata('payment_details');
-      $payment_gateway = $this->db->get_where('payment_gateways', ['identifier' => $identifier])->row_array();
+      $payment_gateway = $this->db->get_where('payment_gateways', ['identifier' => 'razorpay'])->row_array();
 
       if($payment_details['is_instructor_payout_user_id'] > 0){
         $instructor_details = $this->user_model->get_all_user($payment_details['is_instructor_payout_user_id'])->row_array();
@@ -299,9 +299,9 @@ class Payment_model extends CI_Model {
       
       try {
         $attributes = array(
-          'razorpay_order_id' => $_GET['order_id'],
-          'razorpay_payment_id' => $_GET['payment_id'],
-          'razorpay_signature' => $_GET['signature']
+          'razorpay_order_id' => $razorpay_order_id,
+          'razorpay_payment_id' => $payment_id,
+          'razorpay_signature' => $signature
         );
         $api->utility->verifyPaymentSignature($attributes);
       } catch(SignatureVerificationError $e) {
@@ -317,7 +317,8 @@ class Payment_model extends CI_Model {
 
     public function razorpayPrepareData($identifier = ""){
       //start common code of all payment gateway
-      $payment_gateway = $this->db->get_where('payment_gateways', ['identifier' => $identifier])->row_array();
+      log_message("error", "identifier : ". $identifier);
+      $payment_gateway = $this->db->get_where('payment_gateways', ['identifier' => 'razorpay'])->row_array();
       $user_details = $this->user_model->get_all_user($this->session->userdata('user_id'))->row_array();
       $payment_details = $this->session->userdata('payment_details');
 
@@ -342,10 +343,11 @@ class Payment_model extends CI_Model {
 
       
         $api = new Api($key_id, $secret_key);
+
         $_SESSION['payable_amount'] = $payment_details['total_payable_amount'];
 
         $razorpayOrder = $api->order->create(array(
-          'receipt'         => rand(),
+          'receipt'         => (string)rand(),
           'amount'          => $_SESSION['payable_amount'] * 100, // 2000 rupees in paise
           'currency'        => $payment_gateway['currency'],
           'payment_capture' => 1 // auto capture
@@ -372,6 +374,7 @@ class Payment_model extends CI_Model {
       ),
         "order_id" => $razorpayOrderId,
       );
+      log_message("error", "Payment data : " . json_encode($data));
       return $data;
     }
 

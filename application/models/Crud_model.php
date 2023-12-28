@@ -2199,7 +2199,8 @@ class Crud_model extends CI_Model
             $course_details = $this->get_course_by_id($purchased_course)->row_array();
             if($course_details['expiry_period'] > 0){
                 $days = $course_details['expiry_period'] * 30;
-                $data['expiry_date'] = strtotime("+".$days." days");
+                $days = $days + ($course_details['expiry_period']/2);
+                $data['expiry_date'] = date('Y-m-d',strtotime("+".$days." days"));
             }else{
                 $data['expiry_date'] = null;
             }

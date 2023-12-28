@@ -31,7 +31,7 @@ class Payment extends CI_Controller
 
     function index(){
         $page_data['page_title'] = get_phrase('payment');
-        $this->load->view('payment-global/index.php', $page_data);
+        $this->load->view('payment/index.php', $page_data);
     }
 
 

@@ -749,7 +749,7 @@ class Home extends CI_Controller
             $signature        = $_GET['signature'];
 
             //THIS IS HOW I CHECKED THE PAYPAL PAYMENT STATUS
-            $status = $this->payment_model->razorpay_payment($razorpay_order_id, $payment_id, $amount, $signature);
+            $status = $this->payment_model->check_razorpay_payment($razorpay_order_id, $payment_id, $amount, $signature);
 
             if ($status == 1) {
                 $payment_key['payment_id'] = $payment_id;
