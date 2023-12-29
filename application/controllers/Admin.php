@@ -3194,4 +3194,33 @@ class Admin extends CI_Controller
         redirect(site_url('admin/payments_list'), 'refresh');
     }
 
+    public function payment_notification_settings(){
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        check_permission('enrolment');
+
+        $page_data['page_name'] = 'payment_notification_settings';
+        $page_data['payment_notification_settings'] = $this->crud_model->get_payment_notification_settings();
+        $page_data['page_title'] = "payment_notification Settings";
+        $this->load->view('backend/index', $page_data);
+    }
+
+    public function add_payment_notification_settings(){
+        $response = $this->crud_model->add_payment_notification_settings();
+        if ($response) {
+            $this->session->set_flashdata('flash_message', get_phrase('added_successfully'));
+        } else {
+            $this->session->set_flashdata('error_message', get_phrase('failed_to_add'));
+        }
+        redirect(site_url('admin/payment_notification_settings'), 'refresh');
+    }
+
+    public function get_payment_notification_setting(){
+        $data =  $this->crud_model->get_payment_notification_setting($_POST['student_id']);
+        echo json_encode(array('data'=>$data));
+    }
+
 }

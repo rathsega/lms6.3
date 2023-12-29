@@ -2228,7 +2228,14 @@ class Crud_model extends CI_Model
     {
         $courses_id = $this->input->post('course_id');
         $users_id   = $this->input->post('user_id');
-        log_message('error', "Expiry Date" . $this->input->post('expiry_date'));
+        $installment = array(array("date"=>"", "amount"=>""), array("date"=>"", "amount"=>""), array("date"=>"", "amount"=>""));
+        $installment[0]['date']   = $this->input->post("installment_1_date");
+        $installment[1]['date']   = $this->input->post("installment_2_date");
+        $installment[2]['date']   = $this->input->post("installment_3_date");
+        $installment[0]['amount']   = $this->input->post("installment_1_amount");
+        $installment[1]['amount']   = $this->input->post("installment_2_amount");
+        $installment[2]['amount']   = $this->input->post("installment_3_amount");
+        $data['installment_details'] = json_encode($installment);
         $data['expiry_date']   = date('Y-m-d',strtotime($this->input->post('expiry_date')));
         foreach($users_id as $user_id){
 
@@ -5011,7 +5018,9 @@ class Crud_model extends CI_Model
 
     function get_enrol_history($enrol_id){
         $data =  $this->db->get_where('enrol', array('id'=>$enrol_id));
-        return $data->row_array();
+        $data =  $data->row_array();
+        $data['installment_details'] = json_decode($data['installment_details']);
+        return $data;
     }
 
     public function edit_enrol_a_student_manually()
@@ -5019,10 +5028,18 @@ class Crud_model extends CI_Model
         $courses_id = $this->input->post('course_id');
         $users_id   = $this->input->post('user_id');
         $enrol_id   = $this->input->post('id');
+        $installment = array(array("date"=>"", "amount"=>""), array("date"=>"", "amount"=>""), array("date"=>"", "amount"=>""));
+        $installment[0]['date']   = $this->input->post("installment_1_date");
+        $installment[1]['date']   = $this->input->post("installment_2_date");
+        $installment[2]['date']   = $this->input->post("installment_3_date");
+        $installment[0]['amount']   = $this->input->post("installment_1_amount");
+        $installment[1]['amount']   = $this->input->post("installment_2_amount");
+        $installment[2]['amount']   = $this->input->post("installment_3_amount");
+        $data['installment_details'] = json_encode($installment);
         $data['expiry_date']   = date('Y-m-d',strtotime($this->input->post('expiry_date')));
         
         $this->db->where('id', $enrol_id);
-        $this->db->update('enrol', array("expiry_date"=>$data["expiry_date"]));
+        $this->db->update('enrol', array("expiry_date"=>$data["expiry_date"], 'installment_details'=>$data['installment_details']));
 
         $this->session->set_flashdata('flash_message', "Enrolement Updated");
     }
@@ -5334,5 +5351,28 @@ class Crud_model extends CI_Model
     public function get_online_payments_list_by_by_course_id($course_id){
         $this->db->select('*');
         return $this->db->get_where('payment', array('user_id' => $this->session->userdata('user_id'), 'course_id'=>$course_id))->row_array();
+    }
+
+    public function get_payment_notification_settings(){
+        return $this->db->get('payment_notification_settings')->result_array();
+    }
+
+    public function add_payment_notification_settings(){
+        $data = [];
+        
+        if ($this->db->get_where('payment_notification_settings', ['user_id' => $_POST['user_id']])->num_rows() == 0) {
+            $data['user_id'] = $_POST['user_id'];
+            $data['grace_period'] = $_POST['grace_period'];
+            return $this->db->insert('payment_notification_settings', $data);
+        }else{
+            $data['grace_period'] = $_POST['grace_period'];
+            $this->db->where('user_id', $_POST['user_id']);
+            return $this->db->update('payment_notification_settings', $data);
+        }
+    }
+
+    public function get_payment_notification_setting($user_id){
+        $this->db->select('*');
+        return $this->db->get_where('payment_notification_settings',["user_id"=>$user_id])->row_array();
     }
 }

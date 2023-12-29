@@ -43,8 +43,32 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="expiry_date"><?php echo get_phrase('expiry_date'). " <b>(X)</b>"; ?><span class="required">*</span> </label>
+                        <label for="expiry_date"><?php echo get_phrase('expiry_date'). " <b>(C)</b>"; ?><span class="required">*</span> </label>
                         <input type="date" class="form-control" value="<?php echo date('Y-m-d',strtotime( "+12 month", strtotime( date('D, d-M-Y')  ) )); ?>" name="expiry_date" id="expiry_date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="installment_1"><?php echo get_phrase('installment_1'). " <b>(C)</b>"; ?><span class="required">*</span> </label>
+                        <div class="row">
+                            <input type="date" class="form-control col-md-6 col-lg-6" name="installment_1_date" id="installment_1_date" required>
+                            <input type="number" class="form-control col-md-6 col-lg-6" placeholder="First installment amount" name="installment_1_amount" id="installment_1_amount" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="installment_2"><?php echo get_phrase('installment_2'). " <b>(C)</b>"; ?><span class="required">*</span> </label>
+                        <div class="row">
+                            <input type="date" class="form-control col-md-6 col-lg-6" name="installment_2_date" id="installment_2_date" required>
+                            <input type="number" class="form-control col-md-6 col-lg-6" placeholder="Second installment amount" name="installment_2_amount" id="installment_2_amount" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="installment_3"><?php echo get_phrase('installment_3'). " <b>(C)</b>"; ?><span class="required">*</span> </label>
+                        <div class="row">
+                            <input type="date" class="form-control col-md-6 col-lg-6" name="installment_3_date" id="installment_3_date" required>
+                            <input type="number" class="form-control col-md-6 col-lg-6" placeholder="Third installment amount" name="installment_3_amount" id="installment_3_amount" required>
+                        </div>
                     </div>
 
                     <button type="button" class="btn btn-primary" onclick="checkRequiredFields()"><?php echo get_phrase('enrol_student'); ?></button>

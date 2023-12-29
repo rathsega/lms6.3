@@ -56,11 +56,14 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 				<li class="<?php if ($page_name == 'upload_curriculam') echo 'active'; ?>">
 					<a href="<?php echo site_url('admin/upload_curriculam'); ?>"><?php echo "Upload Curriculam "; ?></a>
 				</li>
-				<li class="<?php if ($page_name == 'installment_settings') echo 'active'; ?>">
+				<!-- <li class="<?php if ($page_name == 'installment_settings') echo 'active'; ?>">
 					<a href="<?php echo site_url('admin/installment_settings'); ?>"><?php echo "Installment Settings"; ?></a>
-				</li>
+				</li> -->
 				<li class="<?php if ($page_name == 'payments_list') echo 'active'; ?>">
 					<a href="<?php echo site_url('admin/payments_list'); ?>"><?php echo "Payments List"; ?></a>
+				</li>
+				<li class="<?php if ($page_name == 'payment_notification_settings') echo 'active'; ?>">
+					<a href="<?php echo site_url('admin/payment_notification_settings'); ?>"><?php echo "Payment Notification Settings"; ?></a>
 				</li>
 			</a>
 		</li>

@@ -13,17 +13,20 @@
   $restricted_section_ids = [];
   $is_restricted = 1;
   $lock_video_tooltip = 'Complete previous lesson to unlock it';
-
+  $lock_videos = false;
   
     /**------------------check payments-----------------------------*/
     $course_duration_in_months = $course_details['course_duration_in_months'] ? $course_details['course_duration_in_months'] : 2;
     $course_price = $course_details['price'];
     //get active enrolment by course id
     $enrol_data = $this->crud_model->get_active_enrol_by_course_id($course_id);
-    if($enrol_data){
-
+    $installment_settings = json_decode($enrol_data['installment_details']);
+    $installment_settings = $installment_settings ? $installment_settings : [];
+    //If there is enrolment data and installment settings then only
+    if($enrol_data && count($installment_settings)>0){
+        //calculate payments
         //Manual Payments
-        $payments_list = $this->crud_model->get_payments_list_by_by_enrolment_id($enrol_data['id']);
+        $payments_list = $this->crud_model->get_payments_list_by_by_enrolment_id($enrol_data['id'])??[];
         $total_paid_amount = 0;
         for ($i=0; $i < count($payments_list); $i++) { 
             $total_paid_amount += (int)$payments_list[$i]['amount'];
@@ -31,54 +34,55 @@
 
         //Online Payments
         $online_payments_list = $this->crud_model->get_online_payments_list_by_by_course_id($enrol_data['course_id']);
+        $online_payments_list = $online_payments_list ? $online_payments_list : [];
         for ($i=0; $i < count($online_payments_list); $i++) { 
           $total_paid_amount += (int)$online_payments_list[$i]['amount'];
         }
-
-        $installment_settings = $this->crud_model->get_installment_settings();
-        $installment_percentages = json_decode($installment_settings['installment_percentages']);
-        $graceful_payment_duration = $installment_settings['graceful_payment_duration'];
-        $installments_count = $installment_settings['installments_count'];
-
-
-        $enrolment_date = date('Y-m-d', $enrol_data['date_added']);
-        //calculate payment start and end dates
-        $adding_days = 30*$course_duration_in_months;
-        $installment_end_date = date('Y-m-d', strtotime("+$adding_days days", strtotime($enrolment_date))); 
-        $installment_start_date = date('Y-m-d', strtotime("+$graceful_payment_duration days", strtotime($enrolment_date))); 
-
-        //calculate installment amounts
-        $installment_amounts = [];
-        for ($i=0; $i < count($installment_percentages); $i++) { 
-            array_push($installment_amounts, ((int)$course_price/100)*$installment_percentages[$i]);
-        }
-
-        //calculate installment dates
-        $date1 = new DateTime($installment_start_date);
-        $date2 = new DateTime($installment_end_date);
-        $interval = $date1->diff($date2);
-        $diff_days = $interval->days;
-
-        $installment_dates = [];
-        $d = $installment_start_date;
-        for ($i=0; $i < $installments_count; $i++) { 
-            $adding_days = ceil($diff_days/$installments_count);
-            $d = date('Y-m-d', strtotime("+$adding_days days", strtotime($d))); 
-            array_push($installment_dates, $d);
-        }
-
-        //check payment done properly or not
-        $amount_to_be_paid_till_now = 0;
+        
+        //get user notification settings
+        $user_notification_settings = $this->crud_model->get_payment_notification_setting($enrol_data['user_id']);
+        $grace_period = $user_notification_settings['grace_period'];
+        
+        //calculate installment and notification dates for installment 1
         $today = date('Y-m-d');
-        foreach($installment_dates as $key => $installment_date){
-            if($today > $installment_date){
-                $amount_to_be_paid_till_now += $installment_amounts[$key];
+        if($installment_settings && $installment_settings[0] && $installment_settings[0]->date && $installment_settings[0]->amount){
+          if($grace_period){
+            $installment_date = $installment_settings[0]->date;
+            $installment_amount = (int)$installment_settings[0]->amount;
+            //$notifiction_start_date = date('Y-m-d', strtotime("-$grace_period days", strtotime($installment_date))); 
+            if($today >= $installment_date && $total_paid_amount < $installment_amount){
+              $lock_videos = true;              
             }
+          }
         }
 
-        $lock_videos = false;
-        if($total_paid_amount < $amount_to_be_paid_till_now){
-            $lock_videos = true;
+        //calculate installment and notification dates for installment 2
+        if(!$lock_videos && $installment_settings && $installment_settings[1] && $installment_settings[1]->date && $installment_settings[1]->amount){
+          if($grace_period){
+            $installment_date = $installment_settings[1]->date;
+            $installment_amount = (int)$installment_settings[1]->amount +  (int)$installment_amount;
+
+            //$notifiction_start_date = date('Y-m-d', strtotime("-$grace_period days", strtotime($installment_date))); 
+            if($today >= $installment_date && $total_paid_amount < $installment_amount){
+              $lock_videos = true;              
+            }
+          }
+        }
+
+        //calculate installment and notification dates for installment 3
+        if(!$lock_videos && $installment_settings && $installment_settings[2] && $installment_settings[1]->date && $installment_settings[1]->amount){
+          if($grace_period){
+            $installment_date = $installment_settings[2]->date;
+            $installment_amount = $installment_settings[2]->amount +  (int)$installment_amount;
+
+            //$notifiction_start_date = date('Y-m-d', strtotime("-$grace_period days", strtotime($installment_date))); 
+            if($today >= $installment_date && $total_paid_amount < $installment_amount){
+              $lock_videos = true;              
+            }
+          }
+        }
+              
+        if($lock_videos){
             $is_locked = 1;
             $course_details['enable_drip_content'] = 1;
             $lock_video_tooltip = "Your payment is over due, please pay for watch videos";
@@ -91,8 +95,6 @@
             array_push($locked_lesson_ids, $lesson['id']);
           }
         }
-
-    }else{
     }
 ?>
 <?php if(is_array($sections) && count($sections) > 0): ?>

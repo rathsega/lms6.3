@@ -15,7 +15,6 @@
             <div class="card-body">
               <div class="col-lg-12">
                 <h4 class="mb-3 header-title"><?php echo get_phrase('enrolment_form'); ?></h4>
-
                 <form class="required-form" action="<?php echo site_url('admin/enrol_student/edit_enrol'); ?>" method="post" enctype="multipart/form-data">
 
                     <div class="form-group">
@@ -45,6 +44,30 @@
                     <div class="form-group">
                         <label for="expiry_date"><?php echo get_phrase('expiry_date'); ?><span class="required">*</span> </label>
                         <input type="date" class="form-control" value="<?php echo $enrolment_data['expiry_date']; ?>" name="expiry_date" id="expiry_date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="installment_1"><?php echo get_phrase('installment_1'). " <b>(C)</b>"; ?><span class="required">*</span> </label>
+                        <div class="row">
+                            <input type="date" class="form-control col-md-6 col-lg-6" name="installment_1_date"  value="<?php echo $enrolment_data['installment_details'][0]->date; ?>" id="installment_1_date" required>
+                            <input type="number" class="form-control col-md-6 col-lg-6" placeholder="First installment amount" value="<?php echo $enrolment_data['installment_details'][0]->amount; ?>" name="installment_1_amount" id="installment_1_amount" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="installment_2"><?php echo get_phrase('installment_2'). " <b>(C)</b>"; ?><span class="required">*</span> </label>
+                        <div class="row">
+                            <input type="date" class="form-control col-md-6 col-lg-6" name="installment_2_date"  value="<?php echo $enrolment_data['installment_details'][1]->date; ?>" id="installment_2_date" required>
+                            <input type="number" class="form-control col-md-6 col-lg-6" placeholder="Second installment amount" value="<?php echo $enrolment_data['installment_details'][1]->amount; ?>" name="installment_2_amount" id="installment_2_amount" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="installment_3"><?php echo get_phrase('installment_3'). " <b>(C)</b>"; ?><span class="required">*</span> </label>
+                        <div class="row">
+                            <input type="date" class="form-control col-md-6 col-lg-6" name="installment_3_date"  value="<?php echo $enrolment_data['installment_details'][2]->date; ?>" id="installment_3_date" required>
+                            <input type="number" class="form-control col-md-6 col-lg-6" placeholder="Third installment amount" value="<?php echo $enrolment_data['installment_details'][2]->amount; ?>" name="installment_3_amount" id="installment_3_amount" required>
+                        </div>
                     </div>
                     <input type="hidden" name="id" value="<?php echo $enrolment_data['id']; ?>" />
                     <button type="button" class="btn btn-primary" onclick="checkRequiredFields()"><?php echo get_phrase('enrol_student'); ?></button>
