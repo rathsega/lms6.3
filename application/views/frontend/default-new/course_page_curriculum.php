@@ -1,7 +1,20 @@
 <div class="accordion curriculum-accordion mx-2">
     <?php
     $sections = $this->crud_model->get_section('course', $course_id)->result_array();
-    foreach ($sections as $key => $section) : ?>
+    foreach ($sections as $key => $section) : 
+        $chapter_count = $this->crud_model->get_chapter_count($section['id']);
+        if($chapter_count==0){
+            $section_lesson_count = $this->crud_model->get_lesson_count('section', $section['id']);
+        }
+        $section_right_label = "";
+        if($chapter_count == 0 && $section_lesson_count == 0){
+            $section_right_label = 0 . ' ' . site_phrase('lessons');
+        }else if($chapter_count > 0 ){
+            $section_right_label = $chapter_count . ' ' . site_phrase('chapters');
+        }else if($section_lesson_count > 0 ){
+            $section_right_label = $section_lesson_count . ' ' . site_phrase('lessons');
+        }
+    ?>
     <!-- Accordion Area -->
         <div class="accordion-item">
             <h2 class="accordion-header mx-2">
@@ -30,7 +43,7 @@
                         </div>
                         <div class="col-auto ms-auto pe-0">
                             <span class="ms-auto me-2 pe-2 border-end text-14px text-muted fw-400">
-                                <?php echo $this->crud_model->get_lessons('section', $section['id'])->num_rows() . ' ' . site_phrase('lessons'); ?>
+                                <?php echo $section_right_label; ?>
                             </span>
                             <span class="me-0 text-14px text-muted fw-400">
                                 <?php echo $video_course ?  $this->crud_model->get_total_duration_of_lesson_by_section_id($section['id']) : ""; ?>

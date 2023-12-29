@@ -5375,4 +5375,17 @@ class Crud_model extends CI_Model
         $this->db->select('*');
         return $this->db->get_where('payment_notification_settings',["user_id"=>$user_id])->row_array();
     }
+
+    public function get_chapter_count($section_id){
+        $query = $this->db->query('SELECT * FROM chapters where section_id='.$section_id);
+        return $query->num_rows();
+    }
+    public function get_lesson_count($type,$type_id){
+        if($type == 'section'){
+            $query = $this->db->query('SELECT * FROM lesson where section_id='.$type_id);
+        }else if($type == 'chapter'){
+            $query = $this->db->query('SELECT * FROM lesson where chapter_id='.$type_id);
+        }
+        return $query->num_rows();
+    }
 }
