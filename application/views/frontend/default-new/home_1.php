@@ -235,9 +235,16 @@ if($payment_pending){
             <div class="row g-3">
               <?php
                 foreach($upcoming_courses->result_array() as $upcoming_course):
+                    if($upcoming_course['slug_count'] == 1 || $upcoming_course['slug_count'] == 2){
+                        $upcoming_course_slug = $upcoming_course['slug'];
+                    }else if($upcoming_course['slug_count'] == 3 || $upcoming_course['slug_count'] == 4){
+                        $upcoming_course_slug = $upcoming_course['category_slug'] .'/' . $upcoming_course['sub_category_slug'] .'/' . $upcoming_course['slug'];
+                    }else{
+                        $upcoming_course_slug = $upcoming_course['slug'];
+                    }
                 ?>
                 <div class="col-lg-4">
-                  <a href="" class="course-item-one">
+                  <a href="<?php echo site_url($upcoming_course_slug); ?>" class="course-item-one">
                     <div class="img-rating">
                       <div class="img"><img src="<?php echo $this->crud_model->get_course_thumbnail_url($upcoming_course['id']); ?>" alt="" /></div>
                     </div>
