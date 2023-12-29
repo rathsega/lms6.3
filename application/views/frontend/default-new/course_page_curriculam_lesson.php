@@ -3,7 +3,7 @@ foreach ($lessons as $lesson) : ?>
     <li>
         <a href="#" onclick="actionTo('<?php echo site_url('home/play_lesson/'.$lesson['id']); ?>')" class="checkPropagation">
             <span class="d-flex align-items-center ellipsis-line-2">
-                <i class="fa-regular fa-circle-play"></i>
+                <i class="<?php echo $lesson['lesson_type'] == 'video' ? 'fa-regular fa-circle-play' : 'fa fa-arrow-right'; ?>"></i>
                 <?php echo $lesson['title']; ?>
             </span>
 
@@ -13,7 +13,7 @@ foreach ($lessons as $lesson) : ?>
                 </div>
             <?php endif; ?>
 
-            <div class="lecture-info" style="width: 60px"><?php echo $lesson['duration']; ?></div>
+            <div class="lecture-info" style="width: 60px"><?php echo $lesson['lesson_type'] == 'video' ? $lesson['duration'] : ''; ?></div>
         </a>
     </li>
 <?php endforeach; ?>
