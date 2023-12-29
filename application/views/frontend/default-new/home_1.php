@@ -290,11 +290,20 @@ if($payment_pending){
                         $course_duration_in_months = $course_duration_in_months ." (Daily " . $top_course['daily_class_duration_in_hours'] . " Hours)";
                     }
                     $total_rating =  $this->crud_model->get_ratings('course', $top_course['id'], true)->row()->rating;
-                    $number_of_ratings = $this->crud_model->get_ratings('course', $top_course['id'])->num_rows();
-                    if ($number_of_ratings > 0) {
-                        $average_ceil_rating = ceil($total_rating / $number_of_ratings);
-                    } else {
+                    $ratings_count = $this->crud_model->get_ratings_count($top_course['id']);
+                    if($ratings_count){
+                        $one = $ratings_count['one_rating_count'];
+                        $two = $ratings_count['two_rating_count'];
+                        $three = $ratings_count['three_rating_count'];
+                        $four = $ratings_count['four_rating_count'];
+                        $five = $ratings_count['five_rating_count'];
+                        $number_of_ratings = $ratings_count['number_of_ratings'];
+                        $number_of_enrolments = $ratings_count['number_of_students_enrolled'];
+                        $average_ceil_rating = ceil((($one*1) + ($two*2) + ($three*3)+($four*4)+($five*5))/$number_of_ratings);
+                    }else{
                         $average_ceil_rating = 0;
+                        $number_of_ratings = 0;
+                        $number_of_enrolments = 0;
                     }
                     ?>
                     <div class="single-popup-course">
@@ -317,10 +326,7 @@ if($payment_pending){
                                         <p>(<?php echo $number_of_ratings; ?> <?php echo get_phrase('Reviews') ?>)</p>
                                     </div>
                                     <div class="review-btn d-flex align-items-center">
-                                       <span class="compare-img checkPropagation" onclick="redirectTo('<?php echo base_url('home/compare?course-1='.slugify($top_course['title']).'&course-id-1='.$top_course['id']); ?>');">
-                                            <img src="<?php echo base_url('assets/frontend/default-new/image/compare.png') ?>">
-                                            <?php echo get_phrase('Compare'); ?>
-                                        </span>
+                                       
                                     </div>
                                 </div>
                                 <div class="courses-price-border">
@@ -490,11 +496,20 @@ if($payment_pending){
                         $course_duration_in_months = $course_duration_in_months ." (Daily " . $latest_course['daily_class_duration_in_hours'] . " Hours)";
                     }
                     $total_rating =  $this->crud_model->get_ratings('course', $latest_course['id'], true)->row()->rating;
-                    $number_of_ratings = $this->crud_model->get_ratings('course', $latest_course['id'])->num_rows();
-                    if ($number_of_ratings > 0) {
-                        $average_ceil_rating = ceil($total_rating / $number_of_ratings);
-                    } else {
+                    $ratings_count = $this->crud_model->get_ratings_count($latest_course['id']);
+                    if($ratings_count){
+                        $one = $ratings_count['one_rating_count'];
+                        $two = $ratings_count['two_rating_count'];
+                        $three = $ratings_count['three_rating_count'];
+                        $four = $ratings_count['four_rating_count'];
+                        $five = $ratings_count['five_rating_count'];
+                        $number_of_ratings = $ratings_count['number_of_ratings'];
+                        $number_of_enrolments = $ratings_count['number_of_students_enrolled'];
+                        $average_ceil_rating = ceil((($one*1) + ($two*2) + ($three*3)+($four*4)+($five*5))/$number_of_ratings);
+                    }else{
                         $average_ceil_rating = 0;
+                        $number_of_ratings = 0;
+                        $number_of_enrolments = 0;
                     }
                     ?>
                     <div class="single-popup-course">
@@ -517,10 +532,7 @@ if($payment_pending){
                                         <p>(<?php echo $number_of_ratings; ?> <?php echo get_phrase('Reviews') ?>)</p>
                                     </div>
                                     <div class="review-btn d-flex align-items-center">
-                                       <span class="compare-img checkPropagation" onclick="redirectTo('<?php echo base_url('home/compare?course-1='.slugify($latest_course['title']).'&course-id-1='.$latest_course['id']); ?>');">
-                                            <img src="<?php echo base_url('assets/frontend/default-new/image/compare.png') ?>">
-                                            <?php echo get_phrase('Compare'); ?>
-                                        </span>
+                                       
                                     </div>
                                 </div>
                                 <div class="courses-price-border">
