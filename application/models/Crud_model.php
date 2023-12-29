@@ -1091,6 +1091,11 @@ class Crud_model extends CI_Model
             ->group_by($category_column)
             ->order_by("course_number", "DESC")
             ->where('status', 'active')
+            ->group_start()
+            ->where('is_top_course', 1)
+            ->or_where('is_top10_course', 1)
+            ->or_where('show_it_in_category', 1)
+            ->group_end()
             ->limit($limit)
             ->get();
         return $query->result_array();
