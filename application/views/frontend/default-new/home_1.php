@@ -645,7 +645,9 @@ if($payment_pending){
 
 
 <!---------  Expert Instructor Start ---------------->
-<?php $top_instructor_ids = $this->crud_model->get_top_instructor(10); ?>
+<?php $top_instructor_ids = $this->user_model->get_instructor()->result_array(); 
+    $top_instructor_ids = array_slice($top_instructor_ids, 0, 10);
+?>
 <?php if(count($top_instructor_ids) > 0): ?>
 <section class="expert-instructor top-categories pb-3">
     <div class="container">
@@ -660,7 +662,7 @@ if($payment_pending){
         <div class="instructor-card">
             <div class="row justify-content-center">
                 <?php foreach($top_instructor_ids as $top_instructor_id):
-                    $top_instructor = $this->user_model->get_all_user($top_instructor_id['creator'])->row_array();
+                    $top_instructor = $this->user_model->get_all_user($top_instructor_id['id'])->row_array();
                     $social_links  = json_decode($instructor_details['social_links'], true); ?>
                     <div class="col-lg-3 col-md-4 col-sm-6 ">
                         <div class="instructor-card-body">
