@@ -223,9 +223,9 @@ if($ratings_count){
                                 <h1 class="fw-500"><?php echo currency($course_details['price']); ?></h1>
                             <?php endif; ?>
 
-                            <a href="<?php echo base_url('home/compare?course-1='.slugify($course_details['title']).'&course-id-1='.$course_details['id']); ?>" title="<?php echo get_phrase('Compare this course') ?>" data-bs-toggle="tooltip" class="ms-auto py-2">
+                            <!-- <a href="<?php echo base_url('home/compare?course-1='.slugify($course_details['title']).'&course-id-1='.$course_details['id']); ?>" title="<?php echo get_phrase('Compare this course') ?>" data-bs-toggle="tooltip" class="ms-auto py-2">
                                 <img width="18px" src="<?php echo base_url('assets/frontend/default-new/image/compare.png') ?>" style="filter: invert(1);">
-                            </a>
+                            </a> -->
                         </div>
                         <div class="enrol">
                             <div class="icon">
@@ -375,10 +375,10 @@ if($ratings_count){
                                         <p>(<?php echo $number_of_ratings; ?> <?php echo get_phrase('Reviews') ?>)</p>
                                     </div>
                                     <div class="review-btn">
-                                       <span class="compare-img checkPropagation" onclick="redirectTo('<?php echo base_url('home/compare?course-1='.slugify($course['title']).'&course-id-1='.$course['id']); ?>');">
+                                       <!-- <span class="compare-img checkPropagation" onclick="redirectTo('<?php echo base_url('home/compare?course-1='.slugify($course['title']).'&course-id-1='.$course['id']); ?>');">
                                             <img src="<?php echo base_url('assets/frontend/default-new/image/compare.png') ?>">
                                             <?php echo get_phrase('Compare'); ?>
-                                        </span>
+                                        </span> -->
                                     </div>
                                 </div>
                                 <p class="ellipsis-line-2 mx-0"><?php echo $course['short_description']; ?></p>
