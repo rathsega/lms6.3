@@ -809,3 +809,4 @@ if($ratings_count){
         
         });
 </script>
+<?php include "move_to_top.php"; ?>

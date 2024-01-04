@@ -33,14 +33,14 @@
             echo substr($content, 0, 250);  
                 
             if(strlen($content)>250){
-                echo '<div class="techleads-butn" style="color:blue;text-decoration: underline;cursor: pointer;" onclick="handleOverviewContent(\'more\')" id="myBtn" > Read more</div>'; 
+                echo '<div class="techleads-butn" style="color:blue;text-decoration: underline;cursor: pointer;" onclick="handleOverviewContent(\'more\')" id="myBtns" > Read more</div>'; 
             } 	
         ?>             
                 
     </div>
     <div id="show_less_overview" style="display:none;">
         <?php echo $content; ?>
-        <div class="techleads-butn" style="color:blue;text-decoration: underline;cursor: pointer;" onclick="handleOverviewContent('less')" id="myBtn" > Show less</div>
+        <div class="techleads-butn" style="color:blue;text-decoration: underline;cursor: pointer;" onclick="handleOverviewContent('less')" id="myBtns" > Show less</div>
         
     </div>
 </div>
