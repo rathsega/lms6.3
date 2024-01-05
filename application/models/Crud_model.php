@@ -2242,6 +2242,7 @@ class Crud_model extends CI_Model
         $installment[2]['amount']   = $this->input->post("installment_3_amount");
         $data['installment_details'] = json_encode($installment);
         $data['expiry_date']   = date('Y-m-d',strtotime($this->input->post('expiry_date')));
+        $payment_amount = $this->input->post('payment_amount');
         foreach($users_id as $user_id){
 
             foreach($courses_id as $course_id){
@@ -2260,17 +2261,41 @@ class Crud_model extends CI_Model
                     $data['course_id'] = $course_id;
                     $data['date_added'] = strtotime(date('D, d-M-Y'));
                     $this->db->insert('enrol', $data);
+                    $enrol_id = $this->db->insert_id();
+                    if($payment_amount){
+                        $payment_data = [];
+                        $payment_data['enrolment_id'] = $enrol_id;
+                        $payment_data['amount'] = $payment_amount;
+                        $payment_data['datetime'] = date('Y-m-d H:i:s', time());
+                        $this->db->insert('manual_payments', $payment_data);
+                    }
                 }else{
                     $data['last_modified'] = time();
                     $this->db->where('course_id', $course_id);
                     $this->db->where('user_id', $user_id);
                     $this->db->update('enrol', $data);
+
+                    if($payment_amount){
+                        $payment_data = [];
+                        $enrol_id = $this->get_enrolment_id($course_id, $user_id);
+                        $data['amount'] = $payment_amount;
+                        $this->db->where('enrolment_id', $enrol_id);
+                        $this->db->update('manual_payments', $data);
+                    }
                 }
             }
         }
 
         $this->session->set_flashdata('flash_message', get_phrase('student_has_been_enrolled'));
 
+    }
+
+    public function get_enrolment_id($course_id, $user_id){
+        $this->db->select('id');
+        $this->db->where('course_id', $course_id);
+        $this->db->where('user_id', $user_id);
+        $data = $this->db->get('enrol')->row_array();
+        return $data['id'];
     }
 
     public function shortcut_enrol_a_student_manually()

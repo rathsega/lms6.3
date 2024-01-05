@@ -48,26 +48,33 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="installment_1"><?php echo get_phrase('installment_1'). " <b>(C)</b>"; ?><span class="required">*</span> </label>
+                        <label for="payment_amount"><?php echo get_phrase('payment_amount'). " <b>(C)</b>"; ?></label>
                         <div class="row">
-                            <input type="date" class="form-control col-md-6 col-lg-6" name="installment_1_date" id="installment_1_date" required>
-                            <input type="number" class="form-control col-md-6 col-lg-6" placeholder="First installment amount" name="installment_1_amount" id="installment_1_amount" required>
+                            <input type="number" class="form-control col-md-6 col-lg-6" placeholder="Payment amount" name="payment_amount" id="payment_amount">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="installment_2"><?php echo get_phrase('installment_2'). " <b>(C)</b>"; ?><span class="required">*</span> </label>
+                        <label for="installment_1"><?php echo get_phrase('installment_1'). " <b>(C)</b>"; ?></label>
                         <div class="row">
-                            <input type="date" class="form-control col-md-6 col-lg-6" name="installment_2_date" id="installment_2_date" required>
-                            <input type="number" class="form-control col-md-6 col-lg-6" placeholder="Second installment amount" name="installment_2_amount" id="installment_2_amount" required>
+                            <input type="date" class="form-control col-md-6 col-lg-6" name="installment_1_date" id="installment_1_date">
+                            <input type="number" class="form-control col-md-6 col-lg-6" placeholder="First installment amount" name="installment_1_amount" id="installment_1_amount">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="installment_3"><?php echo get_phrase('installment_3'). " <b>(C)</b>"; ?><span class="required">*</span> </label>
+                        <label for="installment_2"><?php echo get_phrase('installment_2'). " <b>(C)</b>"; ?></label>
                         <div class="row">
-                            <input type="date" class="form-control col-md-6 col-lg-6" name="installment_3_date" id="installment_3_date" required>
-                            <input type="number" class="form-control col-md-6 col-lg-6" placeholder="Third installment amount" name="installment_3_amount" id="installment_3_amount" required>
+                            <input type="date" class="form-control col-md-6 col-lg-6" name="installment_2_date" id="installment_2_date" >
+                            <input type="number" class="form-control col-md-6 col-lg-6" placeholder="Second installment amount" name="installment_2_amount" id="installment_2_amount" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="installment_3"><?php echo get_phrase('installment_3'). " <b>(C)</b>"; ?></label>
+                        <div class="row">
+                            <input type="date" class="form-control col-md-6 col-lg-6" name="installment_3_date" id="installment_3_date" >
+                            <input type="number" class="form-control col-md-6 col-lg-6" placeholder="Third installment amount" name="installment_3_amount" id="installment_3_amount" >
                         </div>
                     </div>
 
