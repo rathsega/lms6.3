@@ -317,6 +317,11 @@ class User_model extends CI_Model
         }
     }
 
+    public function get_instructor_for_home_page()
+    {
+            return $this->db->get_where('users', array('is_instructor' => 1, 'show_in_home_page'=>1));
+    }
+
     public function get_instructor_by_email($email = null)
     {
         return $this->db->get_where('users', array('email' => $email, 'is_instructor' => 1));

@@ -155,7 +155,7 @@ if($payment_pending){
                             <img src="<?php echo base_url('assets/frontend/default-new/image/h-1-ban-st.png')?>" alt="">
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-2">
-                            <?php $all_instructor = $this->db->get_where('users', ['is_instructor' => 1]); ?>
+                            <?php $all_instructor = $this->db->get_where('users', ['is_instructor' => 1, 'show_in_home_page' => 1]); ?>
                             <h1><?php echo nice_number($all_instructor->num_rows()); ?>+</h1>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-3">
@@ -645,7 +645,7 @@ if($payment_pending){
 
 
 <!---------  Expert Instructor Start ---------------->
-<?php $top_instructor_ids = $this->user_model->get_instructor()->result_array(); 
+<?php $top_instructor_ids = $this->user_model->get_instructor_for_home_page()->result_array(); 
     $top_instructor_ids = array_slice($top_instructor_ids, 0, 10);
 ?>
 <?php if(count($top_instructor_ids) > 0): ?>
@@ -983,7 +983,7 @@ if($payment_pending){
                 errorMessage = 'Timeout';
                 break;
             }
-            document.write(errorMessage);
+            //document.write(errorMessage);
         };
 
         var options = {
