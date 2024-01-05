@@ -4,6 +4,7 @@
             <div class="card-body">
                 <h4 class="page-title"> <i class="mdi mdi-apple-keyboard-command title_icon"></i> <?php echo $page_title; ?>
                     <a href="<?php echo site_url('admin/add_payments'); ?>" class="btn btn-outline-primary btn-rounded alignToTitle"><i class="mdi mdi-plus"></i><?php echo get_phrase('add_payment'); ?></a>
+                    <a href="<?php echo base_url(); ?>excel_export/payments" class="btn btn-outline-primary btn-rounded alignToTitle"><?php echo get_phrase('download'); ?></a>
                 </h4>
             </div> <!-- end card body-->
         </div> <!-- end card -->
