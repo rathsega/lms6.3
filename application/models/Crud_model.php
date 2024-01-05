@@ -5393,4 +5393,10 @@ class Crud_model extends CI_Model
         }
         return $query->num_rows();
     }
+
+    public function manage_instructor_visibility($id, $status){
+        $status= !$status;
+        $this->db->where('id', $id);
+        return $this->db->update('users', array('show_in_home_page'=> $status));
+    }
 }

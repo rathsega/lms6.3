@@ -395,7 +395,8 @@ class Admin extends CI_Controller
                 $enrolled_courses_title .= '<li>' . $course_details['title'] . '</li>';
             endforeach;
             $enrolled_courses_title .= '</ul>';
-
+            $lable = $instructor['show_in_home_page'] ? get_phrase('hide_in_home_page') : get_phrase('show_in_home_page');
+            $status = $instructor['show_in_home_page'] ? $instructor['show_in_home_page'] : 0;
             $action = '<div class="dropright dropright">
                             <button type="button" class="btn btn-sm btn-outline-primary btn-rounded btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="mdi mdi-dots-vertical"></i>
@@ -403,6 +404,7 @@ class Admin extends CI_Controller
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="' . site_url('admin/courses?category_id=all&status=all&instructor_id=' . $instructor['id'] . '&price=all') . '">' . get_phrase('view_courses') . '</a></li>
                                 <li><a class="dropdown-item" href="' . site_url('admin/instructor_form/edit_instructor_form/' . $instructor['id']) . '">' . get_phrase('edit') . '</a></li>
+                                <li><a class="dropdown-item" href="' . site_url('admin/manage_instructor_visibility/' . $instructor['id'] . '/' . $status) . '">' . $lable  . '</a></li>
                                 <li><a class="dropdown-item" href="#" onclick="confirm_modal(&#39;' . site_url('admin/instructors/delete/' . $instructor['id']) . '&#39;);">' . get_phrase('delete') . '</a></li>
                             </ul>
                         </div>';
@@ -3221,6 +3223,17 @@ class Admin extends CI_Controller
     public function get_payment_notification_setting(){
         $data =  $this->crud_model->get_payment_notification_setting($_POST['student_id']);
         echo json_encode(array('data'=>$data));
+    }
+
+    public function manage_instructor_visibility($id, $status=0){
+        log_message("error","Id : " . $id . ", status : " . $status);
+        $response = $this->crud_model->manage_instructor_visibility($id, $status);
+        if ($response) {
+            $this->session->set_flashdata('flash_message', get_phrase('updated_successfully'));
+        } else {
+            $this->session->set_flashdata('error_message', get_phrase('failed_to_update'));
+        }
+        redirect(site_url('admin/instructors'), 'refresh');
     }
 
 }
