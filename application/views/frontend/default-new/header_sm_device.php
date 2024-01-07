@@ -154,3 +154,8 @@
     </div>
   </div>
 </div>
+<style>
+	    html {
+          touch-action: manipulation;
+        }
+	</style>

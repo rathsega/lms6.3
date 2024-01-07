@@ -76,3 +76,8 @@
   </section>
 </header>
 <!---------- Header Section End  ---------->
+<style>
+	    html {
+          touch-action: manipulation;
+        }
+	</style>
