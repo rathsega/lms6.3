@@ -31,7 +31,7 @@
               <div class="table-responsive-sm">
                 
                   <?php if (count($contactus->result_array()) > 0): ?>
-                      <table id="basic-datatable" class="table table-striped table-centered mb-0">
+                      <table id="basic-datatable" class="table table-striped table-centered mb-0" data-order="[[ 5, &quot;desc&quot; ]]">
                           <thead>
                               <tr>
                                   <th>User</th>
