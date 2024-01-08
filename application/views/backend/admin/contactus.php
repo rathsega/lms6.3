@@ -55,7 +55,7 @@
                                       <td><?php echo $contact['city']; ?></td>
                                       <td><?php echo $contact['title']; ?></td>
                                       <td><?php echo $contact['message']; ?></td>
-                                      <td><?php echo date('d-M-Y H:i', $contact['datetime']); ?></td>
+                                      <td data-sort='<?php echo $contact['datetime']; ?>'><?php echo date('d-M-Y H:i', $contact['datetime']); ?></td>
                                   </tr>
                               <?php endforeach; ?>
                           </tbody>

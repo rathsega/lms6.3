@@ -35,7 +35,7 @@
                                       <td><?php echo $user_action['phone']; ?></td>
                                       <td><?php echo $user_action['title']; ?></td>
                                       <td><?php echo $user_action['action_from'] == 'demo_video'? "Demo Video" : "Broucher Link"; ?></td>
-                                      <td><?php echo date('d-M-Y H:i', $user_action['datetime']); ?></td>
+                                      <td data-sort='<?php echo $user_action['datetime']; ?>'><?php echo date('d-M-Y H:i', $user_action['datetime']); ?></td>
                                       
                                   </tr>
                               <?php endforeach; ?>
