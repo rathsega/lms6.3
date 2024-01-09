@@ -318,7 +318,7 @@ if($payment_pending){
                                 </div> 
                             </div>
                             <div class="courses-text">
-                                <h5 class="mb-2"><?php echo $top_course['title']; ?></h5>
+                                <h5 class="mb-2 top-course-slider"><?php echo $top_course['title']; ?></h5>
                                 <div class="review-icon">
                                     <div class="review-icon-star align-items-center">
                                         <p><?php echo $average_ceil_rating; ?></p>
@@ -524,7 +524,7 @@ if($payment_pending){
                                 </div> 
                             </div>
                             <div class="courses-text">
-                                <h5 class="mb-2"><?php echo $latest_course['title']; ?></h5>
+                                <h5 class="mb-2 top-10-latest-course-title"><?php echo $latest_course['title']; ?></h5>
                                 <div class="review-icon">
                                     <div class="review-icon-star align-items-center">
                                         <p><?php echo $average_ceil_rating; ?></p>
@@ -996,3 +996,39 @@ if($payment_pending){
     </script>
 
 <?php include "move_to_top.php"; ?>
+<script>
+
+    function getSpaces(len){
+        let text = "";
+        for(let j=0; j<=len; j++){
+            text += "\xa0"; 
+        }
+        return text;
+    }
+    let top_courses = document.getElementsByClassName("top-course-slider");
+    let heights = [];
+    Array.prototype.max = function() {
+        return Math.max.apply(null, this);
+    };
+    console.log(top_courses);
+    for(let i=0; i<top_courses.length; i++){
+        heights.push((top_courses[i].innerText).length);
+    }
+    let max_height  = heights.max();
+    for(let i=0; i<top_courses.length; i++){
+        let text = getSpaces(max_height - heights[i]);
+        top_courses[i].innerText = top_courses[i].innerText + text;
+    }
+
+    let top_10_courses = document.getElementsByClassName("top-10-latest-course-title");
+    let top_10_courses_heights = [];
+    for(let i=0; i<top_10_courses.length; i++){
+        top_10_courses_heights.push((top_10_courses[i].innerText).length);
+    }
+    let max_top_10_courses_height  = top_10_courses_heights.max();
+    for(let i=0; i<top_10_courses.length; i++){
+        let text = getSpaces(max_top_10_courses_height - top_10_courses_heights[i]);
+        top_10_courses[i].innerText = top_10_courses[i].innerText + text;
+    }
+
+</script>

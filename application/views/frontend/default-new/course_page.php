@@ -367,7 +367,7 @@ if($ratings_count){
                                 </div> 
                             </div>
                             <div class="courses-text">
-                                <h5 class="mb-2"><?php echo $course['title']; ?></h5>
+                                <h5 class="mb-2 related-course-title"><?php echo $course['title']; ?></h5>
                                 <div class="review-icon">
                                     <div class="review-icon-star">
                                         <p><?php echo $average_ceil_rating; ?></p>
@@ -408,6 +408,31 @@ if($ratings_count){
         </div>
     </div>
 </section>
+<script>
+
+    function getSpaces(len){
+        let text = "";
+        for(let j=0; j<=len; j++){
+            text += "\xa0"; 
+        }
+        return text;
+    }
+    let top_courses = document.getElementsByClassName("related-course-title");
+    let heights = [];
+    Array.prototype.max = function() {
+        return Math.max.apply(null, this);
+    };
+    console.log(top_courses);
+    for(let i=0; i<top_courses.length; i++){
+        heights.push((top_courses[i].innerText).length);
+    }
+    let max_height  = heights.max();
+    for(let i=0; i<top_courses.length; i++){
+        let text = getSpaces(max_height - heights[i]);
+        top_courses[i].innerText = top_courses[i].innerText + text;
+    }
+
+</script>
  <!-------- Related course section end ----->
 
 
