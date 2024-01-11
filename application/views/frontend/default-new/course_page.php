@@ -127,14 +127,14 @@ if($ratings_count){
                 <div class="course-left-side">
                     <ul class="nav nav-tabs" id="myTab" role="tablist"  style="position: sticky; top: 50px; z-index: 2; background-color:white;">
                         <li class="nav-item" role="presentation">
-                          <a class="nav-link active" href="#course-overview" id="course-overview-tab" data-bs-toggle="tab" data-bs-target="#course-overview" type="button" role="tab" aria-controls="course-overview" aria-selected="true">
+                          <button class="nav-link active" id="course-overview-tab" data-bs-toggle="tab" data-bs-target="#course-overview" type="button" role="tab" aria-controls="course-overview" aria-selected="true" onclick="moveToStartPosition()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18.666" viewBox="0 0 14 18.666">
                               <g id="Group_8" data-name="Group 8" transform="translate(14 0) rotate(90)">
                                 <path id="Shape" d="M7,14.307l3.7,3.78c1.3,1.326,3.3.227,3.3-1.81V0H0V16.277c0,2.037,2,3.136,3.3,1.81ZM2,2.385V16.277l5-5.11,5,5.11V2.385Z" transform="translate(0 14) rotate(-90)" fill="#1e293b" fill-rule="evenodd"/>
                               </g>
                             </svg>
 
-                            <span class="ms-2"><?php echo get_phrase('Overview'); ?></a></span>
+                            <span class="ms-2"><?php echo get_phrase('Overview'); ?></button></span>
                         </li>
                         <li class="nav-item" role="presentation">
                           <button class="nav-link" id="curriculum-tab" data-bs-toggle="tab" data-bs-target="#curriculum" type="button" role="tab" aria-controls="curriculum" aria-selected="false" onclick="moveToStartPosition()">
