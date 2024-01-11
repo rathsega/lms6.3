@@ -43,7 +43,8 @@
                                 $number_of_ratings = 0;
                             }
                             ?>
-                            <div class="col-lg-12 col-md-12 col-sm-6 col-12 mb-5">
+
+                            <a  href="<?php echo ($enrolment['expiry_date'] > 0 && strtotime($enrolment['expiry_date']) < time()) ? site_url($enrolment_slug) : site_url('home/lesson/'.slugify($course_details['title']).'/'.$course_details['id']) ?>"><div class="col-lg-12 col-md-12 col-sm-6 col-12 mb-5">
                                 <div class="my-course-1-full-body-card">
                                     <div class="my-course-1-img">
                                         <img src="<?php echo $this->crud_model->get_course_thumbnail_url($course_details['id']); ?>" alt="">
@@ -125,7 +126,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div></a>
                         <?php endforeach; ?>
                     </div>
                 </div>
