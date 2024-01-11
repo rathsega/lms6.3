@@ -2,6 +2,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
 <?php
+log_message("error","The Slug is : ". $slug);
 $course_details = $this->crud_model->get_course_by_slug($slug)->row_array();
 // var_dump($course_details);
 if(!$course_details){
@@ -339,6 +340,12 @@ if($ratings_count){
                     $lessons = $this->crud_model->get_lessons('course', $course['id']);
                     $instructor_details = $this->user_model->get_all_user($course['user_id'])->row_array();
                     $course_duration = $this->crud_model->get_total_duration_of_lesson_by_course_id($course['id']);
+                    $course_duration = $course['is_top_course'] == 1 || $course['is_top10_course'] == 1 || $course['show_it_in_category'] == 1 ? $course['course_duration_in_hours'] . " Hours" : $course_duration;
+                    $course_duration_in_months = $course['course_duration_in_months'] ." Months";
+                    if($course['daily_class_duration_in_hours']){
+                        $hours_text = $course['daily_class_duration_in_hours'] > 1 ? " Hours" : " Hour";
+                        $course_duration_in_months = $course_duration_in_months ." (Daily " . $course['daily_class_duration_in_hours'] .$hours_text.")";
+                    }
                     $ratings_count = $this->crud_model->get_ratings_count($course['id']);
                     if($ratings_count){
                         $one = $ratings_count['one_rating_count'];
@@ -399,6 +406,9 @@ if($ratings_count){
                                             <p class="m-0"><?php echo $course_duration; ?></p>
                                         </div>
                                     </div>
+                                    <div class="courses-price">
+                                    <p class="m-0"><i class="fa-regular fa-clock text-15px p-0"></i> <?php echo $course_duration_in_months; ?></p>
+                                </div>
                                 </div>
                              </div>
                         </a>

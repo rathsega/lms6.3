@@ -35,13 +35,14 @@ foreach($user_active_enrolments as $key => $enrol_data){
     //Online Payments
     $online_payments_list = $this->crud_model->get_online_payments_list_by_by_course_id($enrol_data['course_id']);
     $online_payments_list = $online_payments_list ? $online_payments_list : [];
+    log_message("error", "online payments list : " . json_encode($online_payments_list));
     for ($i=0; $i < count($online_payments_list); $i++) { 
         $total_paid_amount += (int)$online_payments_list[$i]['amount'];
     }  
 
     //get user notification settings
     $user_notification_settings = $this->crud_model->get_payment_notification_setting($enrol_data['user_id']);
-    $grace_period = $user_notification_settings['grace_period'];
+    $grace_period = $user_notification_settings ? $user_notification_settings['grace_period'] : 7;
     
      //calculate installment and notification dates for installment 1
      $today = date('Y-m-d');
@@ -219,7 +220,7 @@ if($payment_pending){
 <!-- Start Upcoming Courses -->
 <?php $upcoming_courses = $this->db->order_by('id', 'desc')->limit(6)->get_where('course', ['status' => 'upcoming']); ?>
 <?php if($upcoming_courses->num_rows() > 0): ?>
-    <section class="pt-110 mt-5">
+    <section class="pt-110 mt-5 performance-hide">
       <div class="container">
         <div class="row">
           <div class="col-lg-4">
@@ -249,7 +250,7 @@ if($payment_pending){
                       <div class="img"><img src="<?php echo $this->crud_model->get_course_thumbnail_url($upcoming_course['id']); ?>" alt="" /></div>
                     </div>
                     <div class="content">
-                      <h4 class="title"><?php echo $upcoming_course['title']; ?></h4>
+                      <h4 class="title up-comoing-course-title"><?php echo $upcoming_course['title']; ?></h4>
                       <p class="info ellipsis-line-2 fw-400"><?php echo $upcoming_course['short_description']; ?></p>
                     </div>
                   </a>
@@ -287,7 +288,8 @@ if($payment_pending){
                     $course_duration = $top_course['is_top_course'] == 1 || $top_course['is_top10_course'] == 1 || $top_course['show_it_in_category'] == 1 ? $top_course['course_duration_in_hours'] . " Hours" : $course_duration;
                     $course_duration_in_months = $top_course['course_duration_in_months'] ." Months";
                     if($top_course['daily_class_duration_in_hours']){
-                        $course_duration_in_months = $course_duration_in_months ." (Daily " . $top_course['daily_class_duration_in_hours'] . " Hours)";
+                        $hours_text = $top_course['daily_class_duration_in_hours'] > 1 ? " Hours" : " Hour";
+                        $course_duration_in_months = $course_duration_in_months ." (Daily " . $top_course['daily_class_duration_in_hours'] .$hours_text.")";
                     }
                     $total_rating =  $this->crud_model->get_ratings('course', $top_course['id'], true)->row()->rating;
                     $ratings_count = $this->crud_model->get_ratings_count($top_course['id']);
@@ -438,7 +440,7 @@ if($payment_pending){
 
 
 <!---------- Top Categories Start ------------->
-<section class="top-categories">
+<section class="top-categories performance-hide">
     <div class="container">
         <div class="row">
             <div class="col-lg-3"></div>
@@ -493,7 +495,8 @@ if($payment_pending){
                     $course_duration = $latest_course['is_top_course'] == 1 || $latest_course['is_top10_course'] == 1 || $latest_course['show_it_in_category'] == 1 ? $latest_course['course_duration_in_hours'] . " Hours" : $course_duration;
                     $course_duration_in_months = $latest_course['course_duration_in_months'] ." Months";
                     if($latest_course['daily_class_duration_in_hours']){
-                        $course_duration_in_months = $course_duration_in_months ." (Daily " . $latest_course['daily_class_duration_in_hours'] . " Hours)";
+                        $hours_text = $latest_course['daily_class_duration_in_hours'] > 1 ? " Hours" : " Hour";
+                        $course_duration_in_months = $course_duration_in_months ." (Daily " . $latest_course['daily_class_duration_in_hours'] .$hours_text.")";
                     }
                     $total_rating =  $this->crud_model->get_ratings('course', $latest_course['id'], true)->row()->rating;
                     $ratings_count = $this->crud_model->get_ratings_count($latest_course['id']);
@@ -649,7 +652,7 @@ if($payment_pending){
     $top_instructor_ids = array_slice($top_instructor_ids, 0, 10);
 ?>
 <?php if(count($top_instructor_ids) > 0): ?>
-<section class="expert-instructor top-categories pb-3">
+<section class="expert-instructor top-categories pb-3 performance-hide">
     <div class="container">
         <div class="row">
             <div class="col-lg-3"></div>
@@ -707,7 +710,7 @@ if($payment_pending){
 <?php $motivational_speechs = json_decode(get_frontend_settings('motivational_speech'), true); ?>
 <?php if(count($motivational_speechs) > 0): ?>
 <!---------  Motivetional Speech Start ---------------->
-<section class="expert-instructor top-categories pb-3">
+<section class="expert-instructor top-categories pb-3 performance-hide">
   <div class="container">
     <div class="row">
       <div class="col-lg-3"></div>
@@ -755,7 +758,7 @@ if($payment_pending){
 <?php $website_faqs = json_decode(get_frontend_settings('website_faqs'), true); ?>
 <?php if(count($website_faqs) > 0): ?>
 <!---------- Questions Section Start  -------------->
-<section class="faq">
+<section class="faq performance-hide">
     <div class="container">
         <div class="row">
             <div class="col-lg-2"></div>
@@ -800,7 +803,7 @@ if($payment_pending){
 <!------------- Blog Section Start ------------>
 <?php $latest_blogs = $this->crud_model->get_latest_blogs(3); ?>
 <?php if(get_frontend_settings('blog_visibility_on_the_home_page') && $latest_blogs->num_rows() > 0): ?>
-<section class="courses blog">
+<section class="courses blog performance-hide">
     <div class="container">
         <h1 class="text-center"><span><?php echo site_phrase('Visit our latest blogs')?></span></h1>
         <p class="text-center fs-16"><?php echo site_phrase('Visit our valuable articles to get more information.')?>
@@ -849,7 +852,7 @@ if($payment_pending){
 
 
 <!------------- Become Students Section start --------->
-<section class="student">
+<section class="student performance-hide">
     <div class="container">
         <div class="row">
             <div class="col-lg-6  <?php if (get_settings('allow_instructor') != 1) echo 'w-100'; ?>">
@@ -1010,7 +1013,7 @@ if($payment_pending){
     Array.prototype.max = function() {
         return Math.max.apply(null, this);
     };
-    console.log(top_courses);
+    
     for(let i=0; i<top_courses.length; i++){
         heights.push((top_courses[i].innerText).length);
     }
@@ -1031,4 +1034,27 @@ if($payment_pending){
         top_10_courses[i].innerText = top_10_courses[i].innerText + text;
     }
 
+    let up_coming_courses = document.getElementsByClassName("up-comoing-course-title");
+    console.log(up_coming_courses);
+    let up_coming_courses_heights = [];
+    for(let i=0; i<up_coming_courses.length; i++){
+        up_coming_courses_heights.push((up_coming_courses[i].innerText).length);
+    }
+    let max_up_coming_courses_height  = up_coming_courses_heights.max();
+    for(let i=0; i<up_coming_courses.length; i++){
+        let text = getSpaces(max_up_coming_courses_height - up_coming_courses_heights[i]);
+        up_coming_courses[i].innerText = up_coming_courses[i].innerText + text;
+    }
+
+</script>
+
+<script>
+    /*window.onscroll = function() {myFunction()};
+    function myFunction(){
+        let hide_sections = document.getElementsByClassName("performance-hide");
+        for(let i=0; i<hide_sections.length; i++){
+            hide_sections[i].classList.remove('performance-hide');
+            hide_sections[i].classList.add('performance-show');
+        }
+    }*/
 </script>

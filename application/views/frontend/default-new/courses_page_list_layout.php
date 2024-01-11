@@ -18,7 +18,8 @@
             $course_duration = $course['is_top_course'] == 1 || $course['is_top10_course'] == 1 || $course['show_it_in_category'] == 1 ? $course['course_duration_in_hours'] . " Hours" : $course_duration;
             $course_duration_in_months = $course['course_duration_in_months'] ." Months";
             if($course['daily_class_duration_in_hours']){
-                $course_duration_in_months = $course_duration_in_months ." (Daily " . $course['daily_class_duration_in_hours'] . " Hours)";
+                $hours_text = $course['daily_class_duration_in_hours'] > 1 ? " Hours" : " Hour";
+                    $course_duration_in_months = $course_duration_in_months ." (Daily " . $course['daily_class_duration_in_hours'] .$hours_text.")";
             }
             $total_rating =  $this->crud_model->get_ratings('course', $course['id'], true)->row()->rating;
             $number_of_ratings = $this->crud_model->get_ratings('course', $course['id'])->num_rows();

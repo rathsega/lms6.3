@@ -5380,11 +5380,11 @@ class Crud_model extends CI_Model
 
     public function get_online_payments_list_by_by_course_id($course_id){
         $this->db->select('*');
-        return $this->db->get_where('payment', array('user_id' => $this->session->userdata('user_id'), 'course_id'=>$course_id))->row_array();
+        return $this->db->get_where('payment', array('user_id' => $this->session->userdata('user_id'), 'course_id'=>$course_id))->result_array();
     }
 
     public function get_payment_notification_settings(){
-        return $this->db->get('payment_notification_settings')->result_array();
+        return $this->db->get('payment_notification_settings')->row_array();
     }
 
     public function add_payment_notification_settings(){

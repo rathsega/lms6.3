@@ -8615,3 +8615,10 @@ display: none;
     opacity: 1;
   }
 }
+.performance-hide{
+  display: show;
+}
+
+.performance-show{
+  display: block;
+}
