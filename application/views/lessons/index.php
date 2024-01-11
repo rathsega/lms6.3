@@ -77,7 +77,7 @@ if($language_dirs){
 	</style>
 </head>
 
-<body>
+<body style="overflow-y: scroll">
 <?php $full_page = $this->session->userdata('full_page_layout'); ?>
 <nav class="navbar navbar-expand bg-dark fixed-top" style="height: 65px;">
 	<div class="container-fluid">
@@ -201,3 +201,26 @@ if($language_dirs){
     <?php include APPPATH."views/frontend/default-new/init.php"; ?>
 </body>
 </html>
+
+<style>
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    overflow: auto;
+}
+	::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+}
+
+/* For Firefox */
+scrollbar-width: thin;
+scrollbar-color: #888;
+</style>
