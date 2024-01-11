@@ -341,7 +341,7 @@ if($ratings_count){
                     $instructor_details = $this->user_model->get_all_user($course['user_id'])->row_array();
                     $course_duration = $this->crud_model->get_total_duration_of_lesson_by_course_id($course['id']);
                     $course_duration = $course['is_top_course'] == 1 || $course['is_top10_course'] == 1 || $course['show_it_in_category'] == 1 ? $course['course_duration_in_hours'] . " Hours" : $course_duration;
-                    $course_duration_in_months = $course['course_duration_in_months'] ." Months";
+                    $course_duration_in_months = $course['course_duration_in_months'] > 1 ? $course['course_duration_in_months'] ." Months" :  $course['course_duration_in_months'] . " Month";
                     if($course['daily_class_duration_in_hours']){
                         $hours_text = $course['daily_class_duration_in_hours'] > 1 ? " Hours" : " Hour";
                         $course_duration_in_months = $course_duration_in_months ." (Daily " . $course['daily_class_duration_in_hours'] .$hours_text.")";
