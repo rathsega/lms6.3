@@ -2,7 +2,7 @@
     .contact_us_modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 3;
     left: 0;
     top: 0;
     width: 100%;
@@ -117,7 +117,7 @@
                                             foreach ($course_list as $course):
                                             if ($course['status'] != 'active')
                                                 continue;?>
-                                            <option value="<?php echo $course['id'] ?>" <?php echo $course['slug'] == $slug ? 'selected' : ''; ?>><?php echo $course['title']; ?></option>
+                                            <option value="<?php echo $course['id'] ?>" <?php echo $course['slug'] == $slug ? 'selected' : ''; ?> ><?php echo $course['title']; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -185,5 +185,10 @@
     openModalBtn.addEventListener('click', function() {
         contactModal.style.display = 'block';
         localStorage.setItem('clickFrom', 'video');
+    });
+
+    const closeModal = document.getElementById('closeModal');
+    closeModal.addEventListener('click', function() {
+        contactModal.style.display = 'none';
     });
 </script>

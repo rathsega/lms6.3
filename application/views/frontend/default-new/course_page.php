@@ -100,7 +100,7 @@ if($ratings_count){
                                             <?php endif; ?>
                                         </p> 
                                     </div>
-                                    <div class="info-tag blink2">
+                                    <div class="info-tag blink2" id="links">
                                         <i class="fa-regular fa-file text-15px mt-7px"></i>
                                         <p class="text-15px mt-1 content_button"> <a href="<?php echo base_url() . 'uploads/broucher/' . $course_details['broucher'] ?>" download="<?php echo end(explode("/",$slug)); ?>"  style="color:#F9B23A;" name="current_broucher_link" id="current_broucher_link"><b><?php echo get_phrase('Download Broucher'); ?></b></a></p>
                                         <p class="text-15px mt-1 contactus_form_button" id="openModalBtn1"> <a href="#" style="color:#F9B23A;" download name="current_broucher_link"><b><?php echo get_phrase('Download Broucher'); ?></b></a></p>
@@ -125,19 +125,19 @@ if($ratings_count){
         <div class="row">
             <div class="col-lg-8 col-md-12 col-sm-12 order-2 order-lg-1">
                 <div class="course-left-side">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist"  style="position: sticky; top: 50px; z-index: 2; background-color:white;">
                         <li class="nav-item" role="presentation">
-                          <button class="nav-link active" id="course-overview-tab" data-bs-toggle="tab" data-bs-target="#course-overview" type="button" role="tab" aria-controls="course-overview" aria-selected="true">
+                          <a class="nav-link active" href="#course-overview" id="course-overview-tab" data-bs-toggle="tab" data-bs-target="#course-overview" type="button" role="tab" aria-controls="course-overview" aria-selected="true">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18.666" viewBox="0 0 14 18.666">
                               <g id="Group_8" data-name="Group 8" transform="translate(14 0) rotate(90)">
                                 <path id="Shape" d="M7,14.307l3.7,3.78c1.3,1.326,3.3.227,3.3-1.81V0H0V16.277c0,2.037,2,3.136,3.3,1.81ZM2,2.385V16.277l5-5.11,5,5.11V2.385Z" transform="translate(0 14) rotate(-90)" fill="#1e293b" fill-rule="evenodd"/>
                               </g>
                             </svg>
 
-                            <span class="ms-2"><?php echo get_phrase('Overview'); ?></button></span>
+                            <span class="ms-2"><?php echo get_phrase('Overview'); ?></a></span>
                         </li>
                         <li class="nav-item" role="presentation">
-                          <button class="nav-link" id="curriculum-tab" data-bs-toggle="tab" data-bs-target="#curriculum" type="button" role="tab" aria-controls="curriculum" aria-selected="false">
+                          <button class="nav-link" id="curriculum-tab" data-bs-toggle="tab" data-bs-target="#curriculum" type="button" role="tab" aria-controls="curriculum" aria-selected="false" onclick="moveToStartPosition()">
                             <svg id="Group_13" data-name="Group 13" xmlns="http://www.w3.org/2000/svg" width="20" height="19.692" viewBox="0 0 20 19.692">
                               <path id="Shape" d="M14,2.5a.5.5,0,0,0-.5-.5H2.5a.5.5,0,0,0-.5.5V16.028a.455.455,0,0,0,.658.407,3,3,0,0,1,2.683,0L7.553,17.54a1,1,0,0,0,.894,0l2.211-1.106a3,3,0,0,1,2.683,0A.455.455,0,0,0,14,16.028Zm2,16.691a.5.5,0,0,1-.724.447l-2.829-1.415a1,1,0,0,0-.894,0L9.342,19.329a3,3,0,0,1-2.683,0L4.447,18.224a1,1,0,0,0-.894,0L.724,19.638A.5.5,0,0,1,0,19.191V0H16Z" transform="translate(2)" fill="#1e293b" fill-rule="evenodd"/>
                               <g id="Shape-2" data-name="Shape" transform="translate(6 4)">
@@ -154,7 +154,7 @@ if($ratings_count){
                            <span class="ms-2"><?php echo get_phrase('Curriculum') ?></span></button>
                         </li>
                         <li class="nav-item" role="presentation">
-                          <button class="nav-link" id="instructor-tab" data-bs-toggle="tab" data-bs-target="#instructor" type="button" role="tab" aria-controls="contact" aria-selected="false">
+                          <button class="nav-link" id="instructor-tab" data-bs-toggle="tab" data-bs-target="#instructor" type="button" role="tab" aria-controls="contact" aria-selected="false"  onclick="moveToStartPosition()">
                             <svg id="Group_12" data-name="Group 12" xmlns="http://www.w3.org/2000/svg" width="15.582" height="19.666" viewBox="0 0 15.582 19.666">
                               <path id="Shape" d="M7.791,1.731a6.06,6.06,0,0,0-6.06,6.06V9.522A.866.866,0,1,1,0,9.522V7.791a7.791,7.791,0,0,1,15.582,0V9.522a.866.866,0,1,1-1.731,0V7.791A6.06,6.06,0,0,0,7.791,1.731Z" transform="translate(0 9.278)" fill="#1e293b"/>
                               <path id="Shape-2" data-name="Shape" d="M5.194,8.656A3.463,3.463,0,1,0,1.731,5.194,3.463,3.463,0,0,0,5.194,8.656Zm0,1.731A5.194,5.194,0,1,0,0,5.194,5.194,5.194,0,0,0,5.194,10.388Z" transform="translate(2.597)" fill="#1e293b" fill-rule="evenodd"/>
@@ -163,7 +163,7 @@ if($ratings_count){
                             <span class="ms-2"><?php echo get_phrase('Instructor') ?></span></button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">
+                            <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false"  onclick="moveToStartPosition()">
                                 <svg id="Group_14" data-name="Group 14" xmlns="http://www.w3.org/2000/svg" width="20" height="19.749" viewBox="0 0 20 19.749">
                                   <path id="Shape" d="M5,13.9V17L10.062,14,10.591,14A40.888,40.888,0,0,0,16,13.533a1.9,1.9,0,0,0,1.649-1.542A23.708,23.708,0,0,0,18,8a23.709,23.709,0,0,0-.346-3.991A1.9,1.9,0,0,0,16,2.467,40.515,40.515,0,0,0,10,2a40.514,40.514,0,0,0-6,.467A1.9,1.9,0,0,0,2.346,4.009,23.7,23.7,0,0,0,2,8a23.7,23.7,0,0,0,.346,3.991,1.859,1.859,0,0,0,1.285,1.455ZM.375,3.67A3.9,3.9,0,0,1,3.695.489,42.513,42.513,0,0,1,10,0a42.512,42.512,0,0,1,6.305.489,3.9,3.9,0,0,1,3.319,3.18A25.7,25.7,0,0,1,20,8a25.694,25.694,0,0,1-.375,4.33,3.9,3.9,0,0,1-3.319,3.18,42.9,42.9,0,0,1-5.681.484L4.509,19.608A1,1,0,0,1,3,18.748v-3.4A3.859,3.859,0,0,1,.375,12.33,25.7,25.7,0,0,1,0,8,25.7,25.7,0,0,1,.375,3.67Z" fill="#1e293b" fill-rule="evenodd"/>
                                   <path id="Shape-2" data-name="Shape" d="M1,0A1,1,0,0,0,1,2H11a1,1,0,0,0,0-2ZM1,4A1,1,0,0,0,1,6H5A1,1,0,0,0,5,4Z" transform="translate(4 5)" fill="#1e293b" fill-rule="evenodd"/>
@@ -172,7 +172,7 @@ if($ratings_count){
                                 <span class="ms-2"><?php echo get_phrase('Reviews') ?></span></button>
                           </li>
                     </ul>
-                    <div class="tab-content">
+                    <div class="tab-content" id="tab-content">
                         <div class="tab-pane fade show active" id="course-overview" role="tabpanel" aria-labelledby="course-overview-tab">
                             <?php include "course_page_info_description.php"; ?>
                         </div>
@@ -454,7 +454,7 @@ if($ratings_count){
     .contact_us_modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 3;
     left: 0;
     top: 0;
     width: 100%;
@@ -845,3 +845,8 @@ if($ratings_count){
         });
 </script>
 <?php include "move_to_top.php"; ?>
+<script>
+    function moveToStartPosition(){
+        $("#links").get(0).scrollIntoView({behavior: 'smooth'});
+    }
+</script>
