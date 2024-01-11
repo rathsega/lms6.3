@@ -34,7 +34,7 @@
 
                     <div class="form-group">
 
-                        <input id="option_<?php echo $question_number.'_'.$key; ?>" type="<?php echo $input_type; ?>" value="<?php echo $key; ?>"  disabled <?php if(in_array($key, $user_answers)) echo 'checked'; ?>>
+                        <input id="option_<?php echo $question_number.'_'.$key; ?>" type="<?php echo $input_type; ?>" value="<?php echo $key; ?>"  disabled <?php if($user_answers && in_array($key, $user_answers)) echo 'checked'; ?>>
                         <label class="<?php echo $input_type; ?> text-dark" for="option_<?php echo $question_number.'_'.$key; ?>"><?php echo $option; ?></label><br>
                     </div>
                 <?php endforeach; ?>
@@ -65,7 +65,7 @@
                 <?php endif; ?>
             </div>
         </div>
-    <?php elseif($quiz_question['type'] == 'fill_in_the_blank'): ?>
+    <?php elseif(trim($quiz_question['type']) == 'fill_in_the_blank'): ?>
         <hr class="bg-secondary">
         <div class="row justify-content-center">
             <div class="col-1 pt-1"><b><?php echo $question_number; ?>.</b></div>

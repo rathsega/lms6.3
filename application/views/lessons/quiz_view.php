@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Kolkata');
     $user_id = (isset($user_id) && $user_id > 0) ? $user_id : $this->session->userdata('user_id');
     $quiz_id = $lesson_details['id'];
     $is_course_instructor = $this->crud_model->is_course_instructor($course_details['id'], $user_id);
@@ -58,7 +59,7 @@
                     <div class="col-12">
                         <h5 class="w-100 mb-4 text-center"><?php echo get_phrase('quiz_time'); ?></h5>
                     </div>
-                    <div class="col-auto" style="position: sticky; top: -12px; z-index: 99;">
+                    <div class="col-auto" style="position: sticky; top: 50px; z-index: 99;">
                         <div class="clock"></div>
                     </div>
                 <?php endif; ?>
@@ -94,7 +95,7 @@
                         </div>
                         <div class="col-12" id="quiz_answer_sheet"></div>
                     <?php else: ?>
-                        <div class="col-12" id="quiz_answer_sheet">
+                        <div class="col-12" id="quiz_answer_sheet" style="height: 100px; overflow-y:scroll;">
                             <?php include "quiz_answer_sheet.php"; ?>
                         </div>
 
@@ -109,7 +110,10 @@
 <script type="text/javascript">
 
     var clock = $('.clock').FlipClock({
+        countdown: true,
         clockFace: 'HourlyCounter',
+        language: 'es',
+        showSeconds: true,
         autoStart: false,
         callbacks: {
           stop: function() {
@@ -117,10 +121,13 @@
           }
         }
     });
+    console.log("<?php echo $available_time; ?>");
     // set time
-    clock.setTime("<?php echo $available_time; ?>");
+    clock.setTime("<?php echo (int)$available_time; ?>");
     // countdown mode
     clock.setCountdown(true);
+    // clock.start();
+    console.log(clock);
 
     function startQuiz(e){
         $.ajax({

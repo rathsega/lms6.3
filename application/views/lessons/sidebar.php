@@ -41,7 +41,7 @@
         
         //get user notification settings
         $user_notification_settings = $this->crud_model->get_payment_notification_setting($enrol_data['user_id']);
-        $grace_period = $user_notification_settings['grace_period'];
+        $grace_period = $user_notification_settings ? $user_notification_settings['grace_period'] : 7;
         
         //calculate installment and notification dates for installment 1
         $today = date('Y-m-d');

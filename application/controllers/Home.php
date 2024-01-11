@@ -2073,4 +2073,10 @@ class Home extends CI_Controller
         $inserted = $this->crud_model->add_user_actions($details);
     }
 
+    
+    public function get_user_answers(){
+        $answer_details = $this->user_model->getUserQuizAnswers($_POST['quiz_id']);
+        echo json_encode($answer_details);
+    }
+
 }

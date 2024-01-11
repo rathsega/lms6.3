@@ -935,4 +935,11 @@ class User_model extends CI_Model
             return base_url() . 'uploads/user_image/custom_review.png';
         }
     }
+
+    public function getUserQuizAnswers($quiz_id){
+        $this->db->select("*");
+        $this->db->where('quiz_id', $quiz_id);
+        $this->db->where('user_id', $this->session->userdata('user_id'));
+        return $this->db->get('quiz_results')->row_array();
+    }
 }
