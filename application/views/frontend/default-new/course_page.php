@@ -260,14 +260,14 @@ if($ratings_count){
                                 <img src="<?php echo base_url('assets/frontend/default-new/image/a-s-1.png') ?>">
                                 <h4><?php echo get_phrase('Duration') ?></h4>
                             </div>
-                            <h5><?php echo $course_details['course_duration_in_months'] ." Months"; ?></h5>
+                            <h5><?php echo $course_details['course_duration_in_months'] > 1 ? $course_details['course_duration_in_months'] ." Months" : $course_details['course_duration_in_months'] . " Month"; ?></h5>
                         </div>
                         <div class="enrol">
                             <div class="icon">
                                 <img src="<?php echo base_url('assets/frontend/default-new/image/Group 17906.png') ?>">
                                 <h4><?php echo get_phrase('Daily') ?></h4>
                             </div>
-                            <h5><?php echo $course_details['daily_class_duration_in_hours'] . " Hours"; ?></h5>
+                            <h5><?php echo $course_details['daily_class_duration_in_hours'] > 1 ? $course_details['daily_class_duration_in_hours'] . " Hours" : $course_details['daily_class_duration_in_hours'] . " Hour"; ?></h5>
                         </div>
 
                         <?php if(addon_status('certificate')): ?>

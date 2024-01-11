@@ -286,7 +286,7 @@ if($payment_pending){
                     $instructor_details = $this->user_model->get_all_user($top_course['creator'])->row_array();
                     $course_duration = $this->crud_model->get_total_duration_of_lesson_by_course_id($top_course['id']);
                     $course_duration = $top_course['is_top_course'] == 1 || $top_course['is_top10_course'] == 1 || $top_course['show_it_in_category'] == 1 ? $top_course['course_duration_in_hours'] . " Hours" : $course_duration;
-                    $course_duration_in_months = $top_course['course_duration_in_months'] ." Months";
+                    $course_duration_in_months = $top_course['course_duration_in_months'] >1 ? $top_course['course_duration_in_months'] ." Months" : $top_course['course_duration_in_months'] . " Month";
                     if($top_course['daily_class_duration_in_hours']){
                         $hours_text = $top_course['daily_class_duration_in_hours'] > 1 ? " Hours" : " Hour";
                         $course_duration_in_months = $course_duration_in_months ." (Daily " . $top_course['daily_class_duration_in_hours'] .$hours_text.")";
@@ -493,7 +493,7 @@ if($payment_pending){
                     $instructor_details = $this->user_model->get_all_user($latest_course['creator'])->row_array();
                     $course_duration = $this->crud_model->get_total_duration_of_lesson_by_course_id($latest_course['id']);
                     $course_duration = $latest_course['is_top_course'] == 1 || $latest_course['is_top10_course'] == 1 || $latest_course['show_it_in_category'] == 1 ? $latest_course['course_duration_in_hours'] . " Hours" : $course_duration;
-                    $course_duration_in_months = $latest_course['course_duration_in_months'] ." Months";
+                    $course_duration_in_months = $top_course['course_duration_in_months'] >1 ? $latest_course['course_duration_in_months'] ." Months" : $latest_course['course_duration_in_months'] . " Month";
                     if($latest_course['daily_class_duration_in_hours']){
                         $hours_text = $latest_course['daily_class_duration_in_hours'] > 1 ? " Hours" : " Hour";
                         $course_duration_in_months = $course_duration_in_months ." (Daily " . $latest_course['daily_class_duration_in_hours'] .$hours_text.")";
