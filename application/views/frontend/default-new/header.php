@@ -21,17 +21,26 @@
           </div>
         </div>
 
-        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 blink2">
+        <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 blink2">
         <a class="btn btn-primary text-14px py-1 mt-2" href="#" id="openModalBtn">
                                                         <?php echo get_phrase('Enquire Now'); ?>
                                                     </a>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+        </div> -->
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
           <div class="icon right-icon">
             <?php $facebook = get_frontend_settings('facebook'); ?>
             <?php $twitter = get_frontend_settings('twitter'); ?>
             <?php $linkedin = get_frontend_settings('linkedin'); ?>
             <ul class="nav justify-content-end">
+
+            <li class="nav-item align-items-center d-flex blink2">
+              <a class="btn btn-primary text-14px py-1 mt-2" href="#" id="openModalBtn">
+                                                        <?php echo get_phrase('Enquire Now'); ?>
+                                                    </a>
+              </li>
+
+            <a href="#" class="invisible" onclick="actionTo('<?php echo site_url('home/dark_and_light_mode') ?>')"><i class="fas fa-moon"></i></a>
+
               <?php if($facebook): ?>
                 <li class="nav-item">
                   <a target="_blank" href="<?php echo $facebook; ?>"><i class="fa-brands fa-facebook-f"></i></a>
@@ -48,22 +57,8 @@
                 </li>
               <?php endif; ?>
 
-              <a href="#" class="invisible" onclick="actionTo('<?php echo site_url('home/dark_and_light_mode') ?>')"><i class="fas fa-moon"></i></a>
 
-              <li class="nav-item align-items-center d-flex">
-                <form action="#" method="POST" class="language-control select-box">
-                  <select onchange="actionTo(`<?php echo site_url('home/switch_language/') ?>${$(this).val()}`)" class="select-control form-select nice-select">
-                    <?php
-                    $languages = $this->crud_model->get_all_languages();
-                    $selected_language = $this->session->userdata('language');
-                    foreach ($languages as $language): ?>
-                      <?php if (trim($language) != ""): ?>
-                        <option value="<?php echo strtolower($language); ?>" <?php if ($selected_language == $language): ?>selected<?php endif; ?>><?php echo ucwords($language);?></option>
-                      <?php endif; ?>
-                    <?php endforeach; ?>
-                  </select>
-                </form>
-              </li>
+              
             </ul>
           </div>
         </div>
@@ -95,6 +90,14 @@
             <?php $twitter = get_frontend_settings('twitter'); ?>
             <?php $linkedin = get_frontend_settings('linkedin'); ?>
             <ul class="nav justify-content-end">
+            <li class="nav-item align-items-center d-flex blink2">
+              <a class="btn btn-primary text-14px py-1 mt-2" href="#" id="openModalBtn">
+                                                        <?php echo get_phrase('Enquire Now'); ?>
+                                                    </a>
+              </li>
+
+            <a href="#" class="invisible" onclick="actionTo('<?php echo site_url('home/dark_and_light_mode') ?>')"><i class="fas fa-moon"></i></a>
+
               <?php if($facebook): ?>
                 <li class="nav-item">
                   <a target="_blank" href="<?php echo $facebook; ?>"><i class="fa-brands fa-facebook-f"></i></a>
@@ -111,21 +114,6 @@
                 </li>
               <?php endif; ?>
 
-              <a href="#" class="invisible" onclick="actionTo('<?php echo site_url('home/dark_and_light_mode') ?>')"><i class="fas fa-moon"></i></a>
-
-              <li class="nav-item align-items-center d-flex">
-                <form action="#" method="POST" class="language-control select-box">
-                  <select onchange="actionTo(`<?php echo site_url('home/switch_language/') ?>${$(this).val()}`)" class="select-control form-select nice-select">
-                    <?php
-                    $languages = $this->crud_model->get_all_languages();
-                    $selected_language = $this->session->userdata('language');
-                    foreach ($languages as $language): ?>
-                      <?php if (trim($language) != ""): ?>
-                        <option value="<?php echo strtolower($language); ?>" <?php if ($selected_language == $language): ?>selected<?php endif; ?>><?php echo ucwords($language);?></option>
-                      <?php endif; ?>
-                    <?php endforeach; ?>
-                  </select>
-                </form>
               </li>
             </ul>
           </div>
