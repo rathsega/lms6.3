@@ -182,6 +182,7 @@
 </div>
 
 <script>
+    const openModalBtn = document.getElementById('openModalBtn');
     openModalBtn.addEventListener('click', function() {
         contactModal.style.display = 'block';
         localStorage.setItem('clickFrom', 'video');
