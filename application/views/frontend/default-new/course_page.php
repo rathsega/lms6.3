@@ -329,6 +329,22 @@ if($ratings_count){
         <div class="courses-card">
             <div class="row">
                 <?php $related_courses = $this->crud_model->get_related_courses($course_details['category_id'], $course_details['sub_category_id'], $course_details['id'], 12)->result_array(); ?>
+                <?php
+                //Change the order of the courses
+                $new_order = [];
+                foreach($related_courses as $key => $course){
+                    if($course['is_top_course'] != 1 && $course['is_top10_course'] != 1 && $course['show_it_in_category'] != 1){
+                        array_push($new_order, $course);
+                    }
+                }
+
+                foreach($related_courses as $key => $course){
+                    if($course['is_top_course'] == 1 || $course['is_top10_course'] == 1 || $course['show_it_in_category'] == 1){
+                        array_unshift($new_order, $course);
+                    }
+                }
+                $related_courses = $new_order;
+                ?>
                 <?php foreach($related_courses as $key => $course):
                     if($course['slug_count'] == 1 || $course['slug_count'] == 2){
                         $related_course_slug = $course['slug'];
