@@ -728,22 +728,10 @@ class User_model extends CI_Model
                     //set user id
                     $updated = set_user_id_in_session($empty_user_sessions[0]->id, $user_id);
                     if($updated){
-                        $sysinfo = get_system_info();
-                        $date_time = date('Y-m-d h:i:s a', time());
-                        $this->crud_model->add_user_login_history($user_id, $sysinfo['device'], $sysinfo['os'], $sysinfo['browser'], $ip_address, $date_time);
-                        $active_sessions = get_active_sessions_of_current_user($user_id);
-                        if($active_sessions && count($active_sessions) > 1){
-                            $active_session_ids = [];
-                            for($i=1; $i<count($active_sessions); $i++){
-                                if($active_sessions[$i]){
-                                    array_push($active_session_ids, $active_sessions[$i]["id"]);
-                                }
-                            }
-                            delete_sessions($active_session_ids);
-                            //update_user_sessions([$active_sessions[0]["id"]], $user_id);
-                            update_user_sessions(json_encode([$active_sessions[0]["id"]]), $user_id);
-                        }
+                        $this->addUserLoginHistory($user_id, $ip_address);
                     }
+                }else{
+                    $this->addUserLoginHistory($user_id, $ip_address);
                 }
             }
 
@@ -760,6 +748,24 @@ class User_model extends CI_Model
         } else {
             $this->session->set_flashdata('error_message', get_phrase('invalid_login_credentials'));
             redirect(site_url('login'), 'refresh');
+        }
+    }
+
+    function addUserLoginHistory($user_id, $ip_address){
+        $sysinfo = get_system_info();
+        $date_time = date('Y-m-d h:i:s a', time());
+        $this->crud_model->add_user_login_history($user_id, $sysinfo['device'], $sysinfo['os'], $sysinfo['browser'], $ip_address, $date_time);
+        $active_sessions = get_active_sessions_of_current_user($user_id);
+        if($active_sessions && count($active_sessions) > 1){
+            $active_session_ids = [];
+            for($i=1; $i<count($active_sessions); $i++){
+                if($active_sessions[$i]){
+                    array_push($active_session_ids, $active_sessions[$i]["id"]);
+                }
+            }
+            delete_sessions($active_session_ids);
+            //update_user_sessions([$active_sessions[0]["id"]], $user_id);
+            update_user_sessions(json_encode([$active_sessions[0]["id"]]), $user_id);
         }
     }
 

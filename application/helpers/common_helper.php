@@ -609,6 +609,7 @@ if (!function_exists('get_lesson_type')) {
             $CI->db->select('id');
             $CI->db->from('ci_sessions');
             $CI->db->where('user_id IS NULL', null, false);
+            $CI->db->or_where('user_id IS NULL', null, false);
             $CI->db->where('ip_address', $ip_address);
             $CI->db->order_by('timestamp', 'desc');
             $CI->db->limit(1);
@@ -705,9 +706,13 @@ if (!function_exists('get_lesson_type')) {
             $bname = 'Unknown';
             $os_platform = 'Unknown';
             $version = "";
-
+            
             //First get the platform?
-            if (preg_match('/linux/i', $u_agent)) {
+            if (preg_match('/iPhone/i', $u_agent)) {
+                $os_platform = 'iPhone';
+            }elseif (preg_match('/Android/i', $u_agent)) {
+                $os_platform = 'Android';
+            }elseif (preg_match('/linux/i', $u_agent)) {
                 $os_platform = 'linux';
             } elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
                 $os_platform = 'mac';
