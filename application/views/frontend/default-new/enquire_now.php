@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <style>
     .contact_us_modal {
     display: none;
@@ -107,7 +109,7 @@
                 <div class="sing-up-right" style="margin-top: 0px !important;">
                     <!-- <h3><?php //echo get_phrase('Contact Us '); ?><span>!</span></h3>
                     <p><?php //echo get_phrase('Explore, learn, and grow with us. Enjoy a seamless and enriching educational journey. Lets begin!') ?></p> -->
-                    <form action="javascript:void(0);" onsubmit="contactFormSubmit()" name="contactForm" id="contactForm">
+                    <form action="javascript:void(0);" onsubmit="contactFormSubmit1()" name="contactForm" id="contactForm">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="mb-3">
@@ -144,7 +146,7 @@
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                    <input name="phone" type="tel" class="form-control" id="phone" required placeholder="<?php echo get_phrase('Phone *') ?>">
+                                    <input name="phone" type="tel" class="form-control" id="phone1" required placeholder="<?php echo get_phrase('Phone *') ?>">
                                 </div>                           
                             </div>
                         </div>
@@ -192,4 +194,104 @@
     closeModal.addEventListener('click', function() {
         contactModal.style.display = 'none';
     });
+
+    function contactFormSubmit1(){
+        var full_number = phoneInput1.getNumber(intlTelInputUtils.numberFormat.E164);
+        $("input[name='phone'").val(full_number);
+        var $inputs = $('#contactForm :input');
+
+        const first_name = document.getElementById('first_name').value.trim();
+        const last_name = document.getElementById('last_name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone1').value.trim();
+        const city = document.getElementById('city').value.trim();
+        const message = document.getElementById('message').value.trim();
+        const course = document.getElementById('course').value.trim();
+        // const phone = document.getElementsByName('full')[0].value.trim();
+
+        // Regular expressions for email and phone number validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Perform validations
+        if (first_name === '') {
+            alert('Please enter your first name.');
+            return;
+        }
+
+        if (email === '' || !emailRegex.test(email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+
+        var formData = {
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            phone: phone,
+            city: city,
+            message: message,
+            course: course,
+        };
+        // Create a new XMLHttpRequest object
+        var xhr = new XMLHttpRequest();
+
+        // Define the request (GET method, URL)
+        xhr.open('POST', '<?php echo site_url('home/contactus_submitted'); ?>', true);
+
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        // Convert the data object to JSON format
+        serialize = function(obj) {
+        var str = [];
+            for (var p in obj)
+                if (obj.hasOwnProperty(p)) {
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                }
+            return str.join("&");
+        }
+        localStorage.setItem('userData', JSON.stringify({
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            phone: phone,
+            city: city
+        }));
+        var jsonData = serialize(formData);
+
+        // Set up a function to handle the response
+        xhr.onload = function() {
+        if (xhr.status === 200) {
+            // Request was successful
+            alert( xhr.responseText);
+            if( xhr.responseText == 'Thank You For Contacting Us.'){
+                // Optionally, reset the form after successful submission
+                contactForm.reset();
+                contactModal.style.display = 'none';
+            }
+            
+
+            // Perform actions with the response data here
+        } else {
+            // Error handling if the request fails
+            console.error('Request failed. Status:', xhr.status);
+        }
+        };
+
+        // Send the POST request with the JSON data
+        xhr.send(jsonData);
+    }
+
+    const phoneInputField1 = document.querySelector("#phone1");
+    const phoneInput1 = window.intlTelInput(phoneInputField1, {
+        preferredCountries:["in"],
+        hiddenInput: "full",
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    $("form").submit(function() {
+        var full_number = phoneInput1.getNumber(intlTelInputUtils.numberFormat.E164);
+        $("input[name='phone'").val(full_number);
+        
+        });
+
 </script>
