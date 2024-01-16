@@ -3,6 +3,21 @@
     <?php include 'courses_page_sorting_section.php'; ?>
 
     <div class="courses-card courses-list-view-card">
+         <?php
+            $new_order = [];
+            foreach($courses as $key => $course){
+                if($course['is_top_course'] != 1 && $course['is_top10_course'] != 1 && $course['show_it_in_category'] != 1){
+                    array_push($new_order, $course);
+                }
+            }
+
+            foreach($courses as $key => $course){
+                if($course['is_top_course'] == 1 || $course['is_top10_course'] == 1 || $course['show_it_in_category'] == 1){
+                    array_unshift($new_order, $course);
+                }
+            }
+            $courses = $new_order;
+        ?>
         <?php foreach ($courses as $course) : ?>
             <?php
             if($course['slug_count'] == 1 || $course['slug_count'] == 2){
