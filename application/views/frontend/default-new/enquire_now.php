@@ -88,14 +88,14 @@
     }
 </style>
 
-<div class="contact_us_modal" id="contactModal">
+<div class="contact_us_modal" id="contactModal1">
   <div class="contact_us_modal-content">
     <div class="row">
         <div class="col-md-10 col-sm-10 col-md-lg-10">
             <h2>Contact Us</h2>
         </div>
         <div class="col-md-2 col-sm-2 col-md-lg-2">
-            <span class="close" id="closeModal">&times;</span>
+            <span class="close" id="closeModal1">&times;</span>
         </div>
     </div>
 
@@ -184,15 +184,16 @@
 </div>
 
 <script>
-    const openModalBtn = document.getElementById('openModalBtn');
-    openModalBtn.addEventListener('click', function() {
-        contactModal.style.display = 'block';
+    const contactModal1 = document.getElementById('contactModal1');
+    const openModalBtn2 = document.getElementById('openModalBtn2');
+    openModalBtn2.addEventListener('click', function() {
+        contactModal1.style.display = 'block';
         localStorage.setItem('clickFrom', 'video');
     });
 
-    const closeModal = document.getElementById('closeModal');
-    closeModal.addEventListener('click', function() {
-        contactModal.style.display = 'none';
+    const closeModal1 = document.getElementById('closeModal1');
+    closeModal1.addEventListener('click', function() {
+        contactModal1.style.display = 'none';
     });
 
     function contactFormSubmit1(){
@@ -266,7 +267,7 @@
             if( xhr.responseText == 'Thank You For Contacting Us.'){
                 // Optionally, reset the form after successful submission
                 contactForm.reset();
-                contactModal.style.display = 'none';
+                contactModal1.style.display = 'none';
             }
             
 
