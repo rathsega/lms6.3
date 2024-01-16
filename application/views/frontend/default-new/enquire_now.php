@@ -119,7 +119,7 @@
                                             foreach ($course_list as $course):
                                             if ($course['status'] != 'active')
                                                 continue;?>
-                                            <option value="<?php echo $course['id'] ?>" <?php echo $course['slug'] == $slug ? 'selected' : ''; ?> ><?php echo $course['title']; ?></option>
+                                            <option value="<?php echo $course['id'] ?>" <?php echo isset($slug) && $course['slug'] == $slug ? 'selected' : ''; ?> ><?php echo $course['title']; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
