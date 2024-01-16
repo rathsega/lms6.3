@@ -220,7 +220,7 @@ if($payment_pending){
 <!-- Start Upcoming Courses -->
 <?php $upcoming_courses = $this->db->order_by('id', 'desc')->limit(6)->get_where('course', ['status' => 'upcoming']); ?>
 <?php if($upcoming_courses->num_rows() > 0): ?>
-    <section class="pt-110 mt-5 performance-hide">
+    <section class="pt-110 mt-5">
       <div class="container">
         <div class="row">
           <div class="col-lg-4">
@@ -440,7 +440,7 @@ if($payment_pending){
 
 
 <!---------- Top Categories Start ------------->
-<section class="top-categories performance-hide">
+<section class="top-categories">
     <div class="container">
         <div class="row">
             <div class="col-lg-3"></div>
@@ -652,7 +652,7 @@ if($payment_pending){
     $top_instructor_ids = array_slice($top_instructor_ids, 0, 10);
 ?>
 <?php if(count($top_instructor_ids) > 0): ?>
-<section class="expert-instructor top-categories pb-3 performance-hide">
+<section class="expert-instructor top-categories pb-3">
     <div class="container">
         <div class="row">
             <div class="col-lg-3"></div>
@@ -710,7 +710,7 @@ if($payment_pending){
 <?php $motivational_speechs = json_decode(get_frontend_settings('motivational_speech'), true); ?>
 <?php if(count($motivational_speechs) > 0): ?>
 <!---------  Motivetional Speech Start ---------------->
-<section class="expert-instructor top-categories pb-3 performance-hide">
+<section class="expert-instructor top-categories pb-3">
   <div class="container">
     <div class="row">
       <div class="col-lg-3"></div>
@@ -758,7 +758,7 @@ if($payment_pending){
 <?php $website_faqs = json_decode(get_frontend_settings('website_faqs'), true); ?>
 <?php if(count($website_faqs) > 0): ?>
 <!---------- Questions Section Start  -------------->
-<section class="faq performance-hide">
+<section class="faq">
     <div class="container">
         <div class="row">
             <div class="col-lg-2"></div>
@@ -803,7 +803,7 @@ if($payment_pending){
 <!------------- Blog Section Start ------------>
 <?php $latest_blogs = $this->crud_model->get_latest_blogs(3); ?>
 <?php if(get_frontend_settings('blog_visibility_on_the_home_page') && $latest_blogs->num_rows() > 0): ?>
-<section class="courses blog performance-hide">
+<section class="courses blog">
     <div class="container">
         <h1 class="text-center"><span><?php echo site_phrase('Visit our latest blogs')?></span></h1>
         <p class="text-center fs-16"><?php echo site_phrase('Visit our valuable articles to get more information.')?>
@@ -852,7 +852,7 @@ if($payment_pending){
 
 
 <!------------- Become Students Section start --------->
-<section class="student performance-hide">
+<section class="student">
     <div class="container">
         <div class="row">
             <div class="col-lg-6  <?php if (get_settings('allow_instructor') != 1) echo 'w-100'; ?>">
@@ -913,6 +913,7 @@ if($payment_pending){
 <script>
         window.onload = function() {
             getLocation();
+            upcomingCourseHeightAlignment();
         };
 
         function getLocation() {
@@ -1034,16 +1035,21 @@ if($payment_pending){
         top_10_courses[i].innerText = top_10_courses[i].innerText + text;
     }
 
-    let up_coming_courses = document.getElementsByClassName("up-comoing-course-title");
-    console.log(up_coming_courses);
-    let up_coming_courses_heights = [];
-    for(let i=0; i<up_coming_courses.length; i++){
-        up_coming_courses_heights.push((up_coming_courses[i].innerText).length);
-    }
-    let max_up_coming_courses_height  = up_coming_courses_heights.max();
-    for(let i=0; i<up_coming_courses.length; i++){
-        let text = getSpaces(max_up_coming_courses_height - up_coming_courses_heights[i]);
-        up_coming_courses[i].innerText = up_coming_courses[i].innerText + text;
+    function upcomingCourseHeightAlignment(){
+        let up_coming_courses = document.getElementsByClassName("title up-comoing-course-title");
+        console.log(up_coming_courses);
+        let up_coming_courses_heights = [];
+        for(let i=0; i<up_coming_courses.length; i++){
+            up_coming_courses_heights.push(up_coming_courses[i].offsetHeight);
+            console.log(up_coming_courses[0].offsetHeight);
+        }
+        let max_up_coming_courses_height  = up_coming_courses_heights.max();
+        console.log(max_up_coming_courses_height);
+        for(let i=0; i<up_coming_courses.length; i++){
+            let text = getSpaces(max_up_coming_courses_height - up_coming_courses_heights[i]);
+            up_coming_courses[i].style.height = max_up_coming_courses_height + "px";
+            console.log(up_coming_courses[i].offsetHeight);
+        }
     }
 
 </script>
