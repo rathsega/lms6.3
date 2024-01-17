@@ -2089,6 +2089,21 @@ class Admin extends CI_Controller
         $question_json = $this->input->post('itemJSON');
         $this->crud_model->sort_question($question_json);
     }
+    public function ajax_sort_top_courses()
+    {
+        $top_courses_json = $this->input->post('itemJSON');
+        $this->crud_model->sort_top_courses($top_courses_json);
+    }
+    public function ajax_sort_top_10_latest_courses()
+    {
+        $top_courses_json = $this->input->post('itemJSON');
+        $this->crud_model->sort_top_10_latest_courses($top_courses_json);
+    }
+    public function ajax_sort_category_courses()
+    {
+        $top_courses_json = $this->input->post('itemJSON');
+        $this->crud_model->sort_category_courses($top_courses_json);
+    }
 
 
 
@@ -3207,6 +3222,19 @@ class Admin extends CI_Controller
         $page_data['page_name'] = 'payment_notification_settings';
         $page_data['payment_notification_settings'] = $this->crud_model->get_payment_notification_settings();
         $page_data['page_title'] = "payment_notification Settings";
+        $this->load->view('backend/index', $page_data);
+    }
+
+    public function sort_courses(){
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        check_permission('enrolment');
+
+        $page_data['page_name'] = 'sort_courses';
+        $page_data['page_title'] = "Sort Courses";
         $this->load->view('backend/index', $page_data);
     }
 

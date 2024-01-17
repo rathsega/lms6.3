@@ -1118,6 +1118,7 @@ class Crud_model extends CI_Model
 
         $this->db->where('is_top_course', 1);
         $this->db->where('status', 'active');
+        $this->db->order_by("order", "asc");
         return $this->db->get('course');
     }
 
@@ -2188,7 +2189,7 @@ class Crud_model extends CI_Model
             }
         $this->db->group_end();
 
-        $this->db->order_by("id", "desc");
+        $this->db->order_by("order", "asc");
         $this->db->limit('10');
         $this->db->where('status', 'active');
         $this->db->where('is_top10_course', '1');
@@ -2953,6 +2954,8 @@ class Crud_model extends CI_Model
             $this->db->order_by('discount_flag DESC, price ASC');
         }elseif($selected_sorting != "" && $selected_sorting == 'highest-rating'){
             $this->db->order_by('avg_rating', 'desc');
+        }else{
+            $this->db->order_by('order', 'asc');
         }
 
         //$this->db->order_by(6, 'RANDOM');
@@ -3050,6 +3053,45 @@ class Crud_model extends CI_Model
             );
             $this->db->where('id', $value);
             $this->db->update('question', $updater);
+        }
+    }
+
+    public function sort_top_courses($top_courses_json)
+    {
+        $top_coursess = json_decode($top_courses_json);
+        log_message("error", json_encode($top_coursess));   
+        foreach ($top_coursess as $key => $value) {
+            $updater = array(
+                'order' => $key + 1
+            );
+            $this->db->where('id', $value);
+            $this->db->update('course', $updater);
+        }
+    }
+
+    public function sort_top_10_latest_courses($top_courses_json)
+    {
+        $top_coursess = json_decode($top_courses_json);
+        log_message("error", json_encode($top_coursess));   
+        foreach ($top_coursess as $key => $value) {
+            $updater = array(
+                'order' => $key + 1
+            );
+            $this->db->where('id', $value);
+            $this->db->update('course', $updater);
+        }
+    }
+
+    public function sort_category_courses($top_courses_json)
+    {
+        $top_coursess = json_decode($top_courses_json);
+        log_message("error", json_encode($top_coursess));   
+        foreach ($top_coursess as $key => $value) {
+            $updater = array(
+                'order' => $key + 1
+            );
+            $this->db->where('id', $value);
+            $this->db->update('course', $updater);
         }
     }
 
@@ -4673,7 +4715,7 @@ class Crud_model extends CI_Model
         $this->db->group_start();
             $this->db->where('status', 'active');
         $this->db->group_end();
-
+            $this->db->order_by("order", "asc");
         $this->db->limit($limit);
         return $this->db->get('course');
 
@@ -4943,9 +4985,12 @@ class Crud_model extends CI_Model
 
     function get_active_and_visible_course_by_category_id($category_id = "", $category_id_type = "category_id")
     {
-        $this->db->where($category_id_type, $category_id);
+        if($category_id){
+            $this->db->where($category_id_type, $category_id);
+        }
         $this->db->where('status', 'active');
         $this->db->where('show_it_in_category', '1');
+        $this->db->order_by("order", "asc");
         return $this->db->get('course');
     }
 
@@ -5423,5 +5468,51 @@ class Crud_model extends CI_Model
         $status= !$status;
         $this->db->where('id', $id);
         return $this->db->update('users', array('show_in_home_page'=> $status));
+    }
+
+    public function get_top_courses_with_order(){
+
+    }
+
+    public function get_show_in_category_courses(){
+        $scorm_status = addon_status('scorm_course');
+        $h5p_status = addon_status('h5p');
+        $this->db->group_start();
+                $this->db->where('course_type', 'general');
+                if ($scorm_status) {
+                    $this->db->or_where('course_type', 'scorm');
+                }
+                if ($h5p_status) {
+                    $this->db->or_where('course_type', 'h5p');
+                }
+            $this->db->group_end();
+            $this->db->where('status', 'active');
+            $this->db->where('show_it_in_category', '1');
+            $total_rows = $this->db->get('course')->num_rows();
+            $config = array();
+            $config = pagintaion($total_rows, 9);
+            $config['base_url']  = site_url('home/courses/');
+            $this->pagination->initialize($config);
+
+
+            $this->db->group_start();
+                $this->db->where('course_type', 'general');
+                if ($scorm_status) {
+                    $this->db->or_where('course_type', 'scorm');
+                }
+                if ($h5p_status) {
+                    $this->db->or_where('course_type', 'h5p');
+                }
+            $this->db->group_end();
+
+            $this->db->group_start();
+            $this->db->where('status', 'active');
+            $this->db->where('show_it_in_category', '1');
+            $this->db->group_end();
+            //sorting randomly
+            //$this->db->order_by(6, 'RANDOM');
+            $this->db->order_by('order', 'asc');
+
+            return $this->db->get('course', "", $this->uri->segment(3))->result_array();
     }
 }

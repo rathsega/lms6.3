@@ -167,7 +167,7 @@ class Home extends CI_Controller
             $this->db->group_end();
             //sorting randomly
             //$this->db->order_by(6, 'RANDOM');
-            $this->db->order_by('id', 'desc');
+            $this->db->order_by('order', 'asc');
 
             $page_data['courses'] = $this->db->get('course', $config['per_page'], $this->uri->segment(3))->result_array();
             $page_data['total_result'] = $total_rows;
