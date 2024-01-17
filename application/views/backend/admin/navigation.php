@@ -24,11 +24,12 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 				<span><?php echo get_phrase('dashboard'); ?></span>
 			</a>
 		</li>
-			
-		<li class="side-nav-item <?php if ($page_name == 'ratings_count_form' || $page_name == 'custom_reviews' ) : ?> active <?php endif; ?>">
+
+		<?php if (has_permission('custom_settings')) : ?>
+			<li class="side-nav-item <?php if ($page_name == 'ratings_count_form' || $page_name == 'custom_reviews') : ?> active <?php endif; ?>">
 			<a href="javascript: void(0);" class="side-nav-link <?php if ($page_name == 'instructors_pending_blog' || $page_name == 'custom_reviews') : ?> active <?php endif; ?>">
 				<i class="dripicons-blog"></i>
-				<span> <?php echo get_phrase('custom_settings'). " <b>(X)</b>"; ?> </span>
+				<span> <?php echo get_phrase('custom_settings') . " <b>(X)</b>"; ?> </span>
 				<span class="menu-arrow"></span>
 			</a>
 			<ul class="side-nav-second-level" aria-expanded="true">
@@ -65,13 +66,9 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 				<li class="<?php if ($page_name == 'payment_notification_settings') echo 'active'; ?>">
 					<a href="<?php echo site_url('admin/payment_notification_settings'); ?>"><?php echo "Payment Notification Settings"; ?></a>
 				</li>
-				<!-- <li class="<?php if ($page_name == 'sort_courses') echo 'active'; ?>">
-					<a href="<?php echo site_url('admin/sort_courses'); ?>"><?php echo "Sort Courses"; ?></a>
-				</li> -->
-			</a>
-		</li>
 			</ul>
 		</li>
+		<?php endif; ?>
 
 		<?php if (has_permission('course')) : ?>
 			<li class="side-nav-item <?php if ($page_name == 'courses' || $page_name == 'course_add' || $page_name == 'course_edit' || $page_name == 'categories' || $page_name == 'category_add' || $page_name == 'category_edit' || $page_name == 'coupons' || $page_name == 'coupon_add' || $page_name == 'coupon_edit' || $page_name == 'add_bundle' || $page_name == 'manage_course_bundle' || $page_name == 'edit_bundle' || $page_name == 'active_bundle_subscription_report' || $page_name == 'expire_bundle_subscription_report' || $page_name == 'bundle_invoice') echo 'active'; ?>">
@@ -130,20 +127,20 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 
 		<?php if (addon_status('tutor_booking')) : ?>
 			<li class="side-nav-item">
-				<a href="javascript: void(0);" class="side-nav-link <?php if ($page_name == 'tutor_inactive_booking_list' ||$page_name == 'tutor_schedule_list' || $page_name == 'tutor_inactive_schedule_list'  || $page_name == 'tutor_live_class_settings' || $page_name == 'booked_schedule_details' ||$page_name == 'tutor_caregories' || $page_name == 'add_schedule' || $page_name == 'tutor_booking_list') : ?> active <?php endif; ?>">
+				<a href="javascript: void(0);" class="side-nav-link <?php if ($page_name == 'tutor_inactive_booking_list' || $page_name == 'tutor_schedule_list' || $page_name == 'tutor_inactive_schedule_list'  || $page_name == 'tutor_live_class_settings' || $page_name == 'booked_schedule_details' || $page_name == 'tutor_caregories' || $page_name == 'add_schedule' || $page_name == 'tutor_booking_list') : ?> active <?php endif; ?>">
 					<i class="dripicons-document"></i>
 					<span> <?php echo get_phrase('tutor_booking'); ?> </span>
 					<span class="menu-arrow"></span>
 				</a>
-				<ul class="side-nav-second-level <?php if ($page_name == 'tutor_inactive_booking_list' ||$page_name == 'tutor_schedule_list' || $page_name == 'tutor_inactive_schedule_list'  || $page_name == 'tutor_live_class_settings' || $page_name == 'booked_schedule_details' ||$page_name == 'tutor_caregories' || $page_name == 'add_schedule' || $page_name == 'tutor_booking_list') echo 'in'; ?>" aria-expanded="false">
-					<li class="<?php if ($page_name == 'tutor_caregories' ) echo 'active'; ?>">
+				<ul class="side-nav-second-level <?php if ($page_name == 'tutor_inactive_booking_list' || $page_name == 'tutor_schedule_list' || $page_name == 'tutor_inactive_schedule_list'  || $page_name == 'tutor_live_class_settings' || $page_name == 'booked_schedule_details' || $page_name == 'tutor_caregories' || $page_name == 'add_schedule' || $page_name == 'tutor_booking_list') echo 'in'; ?>" aria-expanded="false">
+					<li class="<?php if ($page_name == 'tutor_caregories') echo 'active'; ?>">
 						<a href="<?php echo site_url('addons/tutor_booking/tutor_categories'); ?>"><?php echo get_phrase('subject_category'); ?></a>
 					</li>
 					<li class="<?php if ($page_name == 'add_schedule') echo 'active'; ?>">
 						<a href="<?php echo site_url('addons/tutor_booking/schedule'); ?>"><?php echo get_phrase('add_booking'); ?></a>
 					</li>
 
-					<li class="<?php if ($page_name == 'tutor_booking_list' || $page_name == 'tutor_inactive_booking_list' ||$page_name == 'tutor_schedule_list' || $page_name == 'tutor_inactive_schedule_list') echo 'active'; ?>">
+					<li class="<?php if ($page_name == 'tutor_booking_list' || $page_name == 'tutor_inactive_booking_list' || $page_name == 'tutor_schedule_list' || $page_name == 'tutor_inactive_schedule_list') echo 'active'; ?>">
 						<a href="<?php echo site_url('addons/tutor_booking/tutor_booking_list'); ?>"><?php echo get_phrase('all bookings'); ?></a>
 					</li>
 
@@ -236,8 +233,8 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 			$CI->load->model('addons/affiliate_course_model');
 
 		?>
-			<li class="side-nav-item <?php if ($page_name == 'active_affiliator' || $page_name == 'suspend_affiliator' || $page_name == 'pending_affiliator'|| $page_name == 'course_affiliation_history'|| $page_name == 'affiliation_course_payouts'|| $page_name == 'affiliator_add'|| $page_name == 'affiliate_addon_settings') : ?> active <?php endif; ?>">
-				<a href="javascript: void(0);" class="side-nav-link <?php if ($page_name == 'active_affiliator' || $page_name == 'suspend_affiliator' || $page_name == 'pending_affiliator'|| $page_name == 'course_affiliation_history'|| $page_name == 'affiliation_course_payouts'|| $page_name == 'affiliator_add'|| $page_name == 'affiliate_addon_settings') : ?> active <?php endif; ?>">
+			<li class="side-nav-item <?php if ($page_name == 'active_affiliator' || $page_name == 'suspend_affiliator' || $page_name == 'pending_affiliator' || $page_name == 'course_affiliation_history' || $page_name == 'affiliation_course_payouts' || $page_name == 'affiliator_add' || $page_name == 'affiliate_addon_settings') : ?> active <?php endif; ?>">
+				<a href="javascript: void(0);" class="side-nav-link <?php if ($page_name == 'active_affiliator' || $page_name == 'suspend_affiliator' || $page_name == 'pending_affiliator' || $page_name == 'course_affiliation_history' || $page_name == 'affiliation_course_payouts' || $page_name == 'affiliator_add' || $page_name == 'affiliate_addon_settings') : ?> active <?php endif; ?>">
 					<i class="dripicons-box"></i>
 					<span> <?php echo get_phrase('Affiliate'); ?> </span>
 					<span class="menu-arrow"></span>
@@ -550,13 +547,13 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 							<a href="<?php echo site_url('addons/amazons3/settings'); ?>"><?php echo get_phrase('s3_settings'); ?></a>
 						</li>
 					<?php endif; ?>
-                    
-                    <?php if (addon_status('live-class')) : ?>
+
+					<?php if (addon_status('live-class')) : ?>
 						<li class="<?php if ($page_name == 'live_class_settings') echo 'active'; ?>">
 							<a href="<?php echo site_url('addons/liveclass/settings'); ?>"><?php echo get_phrase('live_class_settings'); ?></a>
 						</li>
 					<?php endif; ?>
-					
+
 					<?php if (addon_status('course_ai')) : ?>
 						<li class="<?php if ($page_name == 'open_ai_settings') echo 'active'; ?>">
 							<a href="<?php echo site_url('admin/open_ai_settings'); ?>"><?php echo get_phrase('Open_AI_settings'); ?></a>
