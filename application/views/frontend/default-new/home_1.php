@@ -173,7 +173,7 @@ if($payment_pending){
                     <div class="banner-card-1">
                         <div class="row">
                             <div class="col-lg-2">
-                                <img src="<?php echo base_url('assets/frontend/default-new/image/h-1-bnar-c-1.png')?>">
+                                <img src="<?php echo base_url('assets/frontend/default-new/image/h-1-bnar-c-1.webp')?>">
                             </div>
                             <div class="col-lg-10">
                                 <h6><?php
@@ -189,7 +189,7 @@ if($payment_pending){
                     <div class="banner-card-1">
                         <div class="row">
                             <div class="col-lg-2">
-                            <img src="<?php echo base_url('assets/frontend/default-new/image/h-1-bnar-c-2.png')?>">
+                            <img src="<?php echo base_url('assets/frontend/default-new/image/h-1-bnar-c-2.webp')?>">
                             </div>
                             <div class="col-lg-10">
                                 <h6><?php echo site_phrase('expert_instruction'); ?></h6>
@@ -202,7 +202,7 @@ if($payment_pending){
                     <div class="banner-card-1">
                         <div class="row">
                             <div class="col-lg-2">
-                            <img src="<?php echo base_url('assets/frontend/default-new/image/h-1-bnar-c-3.png')?>">
+                            <img src="<?php echo base_url('assets/frontend/default-new/image/h-1-bnar-c-3.webp')?>">
                             </div>
                             <div class="col-lg-10">
                                 <h6><?php echo site_phrase('Smart solution'); ?></h6>
@@ -867,7 +867,7 @@ if($payment_pending){
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-                            <img class="man" src="<?php echo base_url('assets/frontend/default-new/image/student-1.png')?>">
+                            <img class="man" src="<?php echo base_url('assets/frontend/default-new/image/student-1.webp')?>">
                         </div>
                      </div>
                 </div>      
