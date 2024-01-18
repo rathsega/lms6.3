@@ -71,14 +71,14 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="text-dark fw-600" for="Education"><?php echo site_phrase('education'); ?></label>
+                                        <label class="text-dark fw-600" for="Education"><?php echo site_phrase('education'). " <b>(C)</b>"; ?></label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-school"></i></span>
                                             <input type="text" class="form-control bg-white-2 text-14px" name="education" id="Education" placeholder="<?php echo site_phrase('education'); ?>" value="<?php echo $user_details['education']; ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="text-dark fw-600" for="FristName"><?php echo site_phrase('work_experience'); ?></label>
+                                        <label class="text-dark fw-600" for="FristName"><?php echo site_phrase('work_experience'). " <b>(C)</b>"; ?></label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-work"></i></span>
                                             <input type="text" class="form-control bg-white-2 text-14px" name="work_experience" placeholder="<?php echo site_phrase('work_experience'); ?>" value="<?php echo $user_details['work_experience']; ?>">

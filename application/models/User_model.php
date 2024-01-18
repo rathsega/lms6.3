@@ -777,7 +777,7 @@ class User_model extends CI_Model
                 }
             }
             if($pcp<100){
-                $this->session->set_flashdata('flash_message', get_phrase('You have completed '.$pcp.'% of your profile only. Complete your profile 100% to download the course certificate. Please click <a href="'.site_url('home/profile/userprofile').'">here</a> to move to your profile.'));
+                $this->session->set_flashdata('flash_message', get_phrase('You have completed '.$pcp.'% of your profile only. Complete your profile 100% to download the course certificate. Please <a href="'.site_url('home/profile/userprofile').'">click here</a> to move to your profile.'));
             }
 
             if ($row->role_id == 1) {
