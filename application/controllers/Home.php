@@ -358,8 +358,7 @@ class Home extends CI_Controller
         if ($this->session->userdata('user_login') != true) {
             redirect(site_url('home'), 'refresh');
         }
-
-        if ($param1 == 'user_profile') {
+        if ($param1 == 'user_profile' || $param1 == 'userprofile') {
             $page_data['page_name'] = "user_profile";
             $page_data['page_title'] = site_phrase('user_profile');
         } elseif ($param1 == 'user_credentials') {
@@ -376,6 +375,15 @@ class Home extends CI_Controller
     public function update_profile($param1 = "", $is_profile_page = false)
     {
         if ($param1 == 'update_basics') {
+            if (isset($_FILES['resume']) && $_FILES['resume']['name'] != "" && $_FILES['resume']['tmp_name']) {
+                $accepted_ext = array('doc', 'docx', 'pdf', 'txt', 'png', 'jpg', 'jpeg');
+                $ext = pathinfo($_FILES['resume']['name'], PATHINFO_EXTENSION);
+                log_message("error","Uploaded file extension : " . $ext);
+                if (!in_array(strtolower($ext), $accepted_ext)) {
+                    $this->session->set_flashdata('error_message', get_phrase('Invalid file extension'));
+                    redirect(site_url('home/profile/user_profile'), 'refresh');
+                }
+            }
             $this->user_model->edit_user($this->session->userdata('user_id'));
             redirect(site_url('home/profile/user_profile'), 'refresh');
         } elseif ($param1 == "update_credentials") {

@@ -44,10 +44,15 @@
                             </div>
                         </div>
                         <div class="profile-input-section">
-                            <form class="" action="<?php echo site_url('home/update_profile/update_basics'); ?>" method="post">
+                            <form class="" action="<?php echo site_url('home/update_profile/update_basics'); ?>" method="post"  enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-12 border-bottom mb-3 pb-3">
                                         <h4 class="text-black"><?php echo site_phrase('Profile Info'); ?></h4>
+                                        <div class="child-text">
+                                            <p><?php echo get_phrase('Please complete your profile to download your certificate.'); ?></p> 
+                                            <b>Profile Weightage :</b> 
+                                            <ol type="1" style="text-align: left;"><li>First Name and Last Name - 20% </li><li>Social Links - 20% </li><li>Skills - 20% </li><li>Resume - 20% </li><li>Biography - 20% </li></ol> 
+                                        </div>
                                     </div>
 
                                     <div class="col-md-6">
@@ -66,7 +71,7 @@
                                     </div>
 
                                     <div class="col-12 mt-3">
-                                        <?php if ($user_details['is_instructor'] > 0) : ?>
+                                        <?php //if ($user_details['is_instructor'] > 0) : ?>
                                             <div class="form-group mb-3">
                                                 <label class="text-dark fw-600" for="Biography"><?php echo site_phrase('title'); ?></label>
                                                 <textarea class="form-control bg-white-2 text-14px" name="title" placeholder="<?php echo site_phrase('short_title_about_yourself'); ?>"><?php echo $user_details['title']; ?></textarea>
@@ -78,7 +83,15 @@
                                                 <small class="text-muted"><?php echo get_phrase('write_your_skill_and_click_the_enter_button'); ?></small>
                                             </div>
 
-                                        <?php endif; ?>
+                                        <?php //endif; ?>
+
+                                        <div class="form-group">
+                                            <label class="text-dark fw-600" for="resume"><?php echo get_phrase('Resume'); ?> <small>(doc, docx, pdf, txt, png, jpg, jpeg)</small></label>
+                                            <div class="position-relative">
+                                                <input class="form-control" id="resume" type="file" name="resume">
+                                                <small><?php $resume_path = base_url() .'uploads/resume/'.$user_details['resume']; echo $user_details['resume'] ? "<a href='$resume_path' download>Download Resume</a>" : get_phrase('Provide your resume'); ?></small>
+                                            </div>
+                                        </div>
 
                                         <div class="form-group">
                                             <label class="text-dark fw-600" for="Biography"><?php echo site_phrase('biography'); ?></label>

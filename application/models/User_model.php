@@ -205,6 +205,23 @@ class User_model extends CI_Model
                 $data['payment_keys'] = json_encode($_POST['gateways']);
             }
 
+            if (isset($_FILES['resume']) && $_FILES['resume']['name'] != "" && $_FILES['resume']['tmp_name']) {
+                if (!file_exists('uploads/resume')) {
+                    mkdir('uploads/resume', 0777, true);
+                }
+                $accepted_ext = array('doc', 'docs', 'pdf', 'txt', 'png', 'jpg', 'jpeg');
+                $path = $_FILES['resume']['name'];
+                $ext = pathinfo($path, PATHINFO_EXTENSION);
+                if (in_array(strtolower($ext), $accepted_ext)) {
+                    $document_custom_name =  random(15) . '.' . $ext;
+                    $data['resume'] = $document_custom_name;
+                    move_uploaded_file($_FILES['resume']['tmp_name'], 'uploads/resume/' . $document_custom_name);
+                } else {
+                    $this->session->set_flashdata('error_message', get_phrase('Invalide file extension'));
+                    redirect(site_url('home/profile/user_profile'), 'refresh');
+                }
+            }
+
             $this->db->where('id', $user_id);
             $this->db->update('users', $data);
             $this->session->set_flashdata('flash_message', get_phrase('user_update_successfully'));
@@ -733,6 +750,32 @@ class User_model extends CI_Model
                 }else{
                     $this->addUserLoginHistory($user_id, $ip_address);
                 }
+            }
+
+            //check user profile completeness percentage
+
+            $user_profile = $this->crud_model->get_profile_completion_percentage();
+            $pcp = 0;
+            if($user_profile['first_name'] && $user_profile['last_name']){
+                $pcp+=20;
+            }
+            if($user_profile['biography']){
+                $pcp+=20;
+            }
+            if($user_profile['skills']){
+                $pcp+=20;
+            }
+            if($user_profile['resume']){
+                $pcp+=20;
+            }
+            if($user_profile['social_links']){
+                $social_links = json_decode($user_profile['social_links']);
+                if($social_links->facebook || $social_links->twitter || $social_links->linkedin){
+                    $pcp+=20;
+                }
+            }
+            if($pcp<100){
+                $this->session->set_flashdata('flash_message', get_phrase('You have completed '.$pcp.'% of your profile only. Complete your profile 100% to download the course certificate. Please click <a href="'.site_url('home/profile/userprofile').'">here</a> to move to your profile.'));
             }
 
             if ($row->role_id == 1) {
