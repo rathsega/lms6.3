@@ -451,7 +451,7 @@ $('.clients-logo-carousel').slick({
 // Course Slider Index
 $('.course-group-slider').slick({
   rtl: is_RTL,
-  dots: false,
+  dots: true,
   arrows: true,
   autoplay: false,
   // centerPadding: '20px',
@@ -475,6 +475,20 @@ $('.course-group-slider').slick({
     },
     {
       breakpoint: 576,
+      settings: {
+        centerMode: false,
+        slidesToShow: 1,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        centerMode: false,
+        slidesToShow: 1,
+      },
+    },
+    {
+      breakpoint: 240,
       settings: {
         centerMode: false,
         slidesToShow: 1,
