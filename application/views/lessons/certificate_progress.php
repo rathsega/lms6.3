@@ -61,4 +61,4 @@
 
 <script>
     $(".progress-bar").loading();
-</script>
+</script> 
