@@ -5518,6 +5518,11 @@ class Crud_model extends CI_Model
 
     public function get_profile_completion_percentage(){
         $this->db->select("first_name, last_name, social_links, resume, skills, biography");
-        return $this->db->get_where('users', array("id"=>$this->session->userdata('user_id')))->row_array();
+        $data = $this->db->get_where('users', array("id"=>$this->session->userdata('user_id')));
+        if($data){
+            return $data->row_array();
+        }else{
+            return ["first_name"=>"", "last_name"=>"","social_links"=>json_encode(array("facebook"=>"", "twitter"=>"", "linkedin"=>"")), "resume"=>"", "skills"=>"", "biography"=>""];
+        }
     }
 }
