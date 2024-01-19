@@ -742,7 +742,7 @@ class User_model extends CI_Model
 
             //Get session id which has empty user id
             if($user_id && $user_id > 1){
-                $empty_user_sessions = get_latest_ci_session_id($ip_address, $user_id);
+                $empty_user_sessions = get_latest_ci_session_id(session_id(), $user_id);
                 if($empty_user_sessions && count($empty_user_sessions) > 0){
                     //set user id
                     $updated = set_user_id_in_session($empty_user_sessions[0]->id, $user_id);
@@ -777,7 +777,7 @@ class User_model extends CI_Model
                 }
             }
             if($pcp<100){
-                $this->session->set_flashdata('flash_message', get_phrase('You have completed '.$pcp.'% of your profile only. Complete your profile 100% to download the course certificate. Please <a href="'.site_url('home/profile/userprofile').'">click here</a> to move to your profile.'));
+                $this->session->set_flashdata('flash_message', get_phrase('You have completed '.$pcp.'% of your profile only. Complete your profile 100% to download the course certificate. Please <a style="text-decoration: underline;" href="'.site_url('home/profile/userprofile').'">click here</a> to move to your profile.'));
             }
 
             if ($row->role_id == 1) {
@@ -797,6 +797,7 @@ class User_model extends CI_Model
     }
 
     function addUserLoginHistory($user_id, $ip_address){
+        log_message("error","Session ID is : ". session_id());
         $sysinfo = get_system_info();
         $date_time = date('Y-m-d h:i:s a', time());
         $this->crud_model->add_user_login_history($user_id, $sysinfo['device'], $sysinfo['os'], $sysinfo['browser'], $ip_address, $date_time);

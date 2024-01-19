@@ -602,15 +602,13 @@ if (!function_exists('get_lesson_type')) {
     }
 
     if (!function_exists('get_latest_ci_session_id')) {
-        function get_latest_ci_session_id($ip_address, $user_id)
+        function get_latest_ci_session_id($session_id, $user_id)
         {
             $CI    = &get_instance();
             $CI->load->database();
             $CI->db->select('id');
             $CI->db->from('ci_sessions');
-            $CI->db->where('user_id IS NULL', null, false);
-            $CI->db->or_where('user_id IS NULL', null, false);
-            $CI->db->where('ip_address', $ip_address);
+            $CI->db->where('id', $session_id);
             $CI->db->order_by('timestamp', 'desc');
             $CI->db->limit(1);
             $query = $CI->db->get();
