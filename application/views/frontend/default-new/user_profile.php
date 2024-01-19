@@ -50,12 +50,12 @@
                                 <div class="row">
                                     <div class="col-12 border-bottom mb-3 pb-3">
                                         <h4 class="text-black"><?php echo site_phrase('Profile Info'); ?></h4>
-                                        <div class="child-text">
+                                        <div class="text-black">
                                             <p><?php echo get_phrase('Please complete your profile to download your certificate.'); ?></p>
-                                            <b>Profile Weightage :</b>
-                                            <ol type="1" style="text-align: left;">
-                                                <li>First Name and Last Name - 20% </li>
-                                                <li>Social Links - 20% </li>
+</br><b>Profile Weightage :</b>
+                                            <ol type="1" style="text-align: left; font-size: 15px; font-weight: 400;">
+                                                <li>First name and last name - 20% </li>
+                                                <li>Social links - 20% </li>
                                                 <li>Skills - 20% </li>
                                                 <li>Resume - 20% </li>
                                                 <li>Biography - 20% </li>
@@ -110,10 +110,10 @@
                                         <?php //endif; 
                                         ?>
 
-                                        <div class="form-group">
+                                        <div class="form-group mb-3">
                                             <label class="text-dark fw-600" for="resume"><?php echo get_phrase('Resume'); ?> <small>(doc, docx, pdf, txt, png, jpg, jpeg)</small></label>
                                             <div class="position-relative">
-                                                <input class="form-control" id="resume" type="file" name="resume">
+                                                <input class="form-control  bg-white-2 text-14px" id="resume" type="file" name="resume">
                                                 <small><?php $resume_path = base_url() . 'uploads/resume/' . $user_details['resume'];
                                                         echo $user_details['resume'] ? "<a href='$resume_path' download>Download Resume</a>" : get_phrase('Provide your resume'); ?></small>
                                             </div>

@@ -51,7 +51,7 @@
         <h4 class="alert-heading"><?php echo get_phrase('Notice'); ?></h4>
         <hr>
         <p>
-            You have completed <?php echo course_progress($course_id); ?>% of the course and <?php echo $pcp; ?>% of your personal profile. Please complete your 100% profile and course to download the certificate.
+            You have completed <?php echo course_progress($course_id); ?>% of the course and <?php echo $pcp; ?>% of your personal profile. Please complete your 100% <a style="text-decoration: underline;" href="<?php echo site_url('home/profile/userprofile');?>">profile</a> and course to download the certificate.
                      
         </p>        
 </br><ol type="1" style="text-align: left;"><li><b>Profile Weightage :</b>   </br></li><li>1. First Name and Last Name - 20% </li><li>2. Social Links - 20% </li><li>3. Skills - 20% </li><li>4. Resume - 20% </li><li>5. Biography - 20% </li></ol>

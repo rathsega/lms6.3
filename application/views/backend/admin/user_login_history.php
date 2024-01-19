@@ -70,8 +70,8 @@ function ip_details($ip) {
                                       <td><?php echo $history['os']; ?></td>
                                       <td><?php echo $history['browser']; ?></td>
                                       <td><?php echo $history['ip_address']; ?></td>
-                                      <td><?php echo $history['city']; ?></td>                                      <td><?php echo $history['date_time']; ?></td>
-                                      
+                                      <td><?php echo $history['city']; ?></td>                                      
+                                      <td><?php echo $history['date_time']; ?></td>
                                   </tr>
                               <?php endforeach; ?>
                           </tbody>
