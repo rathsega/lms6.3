@@ -19,10 +19,12 @@
                     <div class="profile-ful-body common-card">
                         <div class="profile-parrent mt-5">
                             <div class="profile-child">
-                               <a href="#"><img src="<?php echo $this->user_model->get_user_image_url($user_details['id']); ?>"></a> 
+                                <a href="#"><img src="<?php echo $this->user_model->get_user_image_url($user_details['id']); ?>"></a>
                                 <div class="child-text">
-                                    <a href="#"><h5><?php echo get_phrase('Profile Photo') ?></h5></a>
-                                    <p><?php echo get_phrase('Update your profile photo and personal details'); ?></p>  
+                                    <a href="#">
+                                        <h5><?php echo get_phrase('Profile Photo') ?></h5>
+                                    </a>
+                                    <p><?php echo get_phrase('Update your profile photo and personal details'); ?></p>
                                 </div>
                             </div>
 
@@ -44,14 +46,20 @@
                             </div>
                         </div>
                         <div class="profile-input-section">
-                            <form class="" action="<?php echo site_url('home/update_profile/update_basics'); ?>" method="post"  enctype="multipart/form-data">
+                            <form class="" action="<?php echo site_url('home/update_profile/update_basics'); ?>" method="post" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-12 border-bottom mb-3 pb-3">
                                         <h4 class="text-black"><?php echo site_phrase('Profile Info'); ?></h4>
                                         <div class="child-text">
-                                            <p><?php echo get_phrase('Please complete your profile to download your certificate.'); ?></p> 
-                                            <b>Profile Weightage :</b> 
-                                            <ol type="1" style="text-align: left;"><li>First Name and Last Name - 20% </li><li>Social Links - 20% </li><li>Skills - 20% </li><li>Resume - 20% </li><li>Biography - 20% </li></ol> 
+                                            <p><?php echo get_phrase('Please complete your profile to download your certificate.'); ?></p>
+                                            <b>Profile Weightage :</b>
+                                            <ol type="1" style="text-align: left;">
+                                                <li>First Name and Last Name - 20% </li>
+                                                <li>Social Links - 20% </li>
+                                                <li>Skills - 20% </li>
+                                                <li>Resume - 20% </li>
+                                                <li>Biography - 20% </li>
+                                            </ol>
                                         </div>
                                     </div>
 
@@ -59,7 +67,7 @@
                                         <label class="text-dark fw-600" for="FristName"><?php echo site_phrase('first_name'); ?></label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                            <input type="text" class="form-control bg-white-2 text-14px" name="first_name" id="FristName" placeholder="<?php echo site_phrase('first_name'); ?>" value="<?php echo $user_details['first_name']; ?>">
+                                            <input type="text" autofocus class="form-control bg-white-2 text-14px" name="first_name" id="FristName" placeholder="<?php echo site_phrase('first_name'); ?>" value="<?php echo $user_details['first_name']; ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -71,14 +79,14 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="text-dark fw-600" for="Education"><?php echo site_phrase('education'). " <b>(C)</b>"; ?></label>
+                                        <label class="text-dark fw-600" for="Education"><?php echo site_phrase('education') . " <b>(C)</b>"; ?></label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-school"></i></span>
                                             <input type="text" class="form-control bg-white-2 text-14px" name="education" id="Education" placeholder="<?php echo site_phrase('education'); ?>" value="<?php echo $user_details['education']; ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="text-dark fw-600" for="FristName"><?php echo site_phrase('work_experience'). " <b>(C)</b>"; ?></label>
+                                        <label class="text-dark fw-600" for="FristName"><?php echo site_phrase('work_experience') . " <b>(C)</b>"; ?></label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-work"></i></span>
                                             <input type="text" class="form-control bg-white-2 text-14px" name="work_experience" placeholder="<?php echo site_phrase('work_experience'); ?>" value="<?php echo $user_details['work_experience']; ?>">
@@ -86,31 +94,34 @@
                                     </div>
 
                                     <div class="col-12 mt-3">
-                                        <?php //if ($user_details['is_instructor'] > 0) : ?>
-                                            <div class="form-group mb-3">
-                                                <label class="text-dark fw-600" for="Biography"><?php echo site_phrase('title'); ?></label>
-                                                <textarea class="form-control bg-white-2 text-14px" name="title" placeholder="<?php echo site_phrase('short_title_about_yourself'); ?>"><?php echo $user_details['title']; ?></textarea>
-                                            </div>
+                                        <?php //if ($user_details['is_instructor'] > 0) : 
+                                        ?>
+                                        <div class="form-group mb-3">
+                                            <label class="text-dark fw-600" for="title"><?php echo site_phrase('title'); ?></label>
+                                            <textarea class="form-control bg-white-2 text-14px" name="title" placeholder="<?php echo site_phrase('short_title_about_yourself'); ?>"><?php echo $user_details['title']; ?></textarea>
+                                        </div>
 
-                                            <div class="form-group mb-3">
-                                                <label class="text-dark fw-600" for="skills"><?php echo get_phrase('your_skills'); ?></label>
-                                                <input type="text" class=" tagify" id="skills" name="skills" data-role="tagsinput" style="width: 100%;" value="<?php echo $user_details['skills'];  ?>" />
-                                                <small class="text-muted"><?php echo get_phrase('write_your_skill_and_click_the_enter_button'); ?></small>
-                                            </div>
+                                        <div class="form-group mb-3">
+                                            <label class="text-dark fw-600" for="skills"><?php echo get_phrase('your_skills'); ?></label>
+                                            <input type="text" class=" tagify" id="skills" name="skills" data-role="tagsinput" style="width: 100%;" value="<?php echo $user_details['skills'];  ?>" />
+                                            <small class="text-muted"><?php echo get_phrase('write_your_skill_and_click_the_enter_button'); ?></small>
+                                        </div>
 
-                                        <?php //endif; ?>
+                                        <?php //endif; 
+                                        ?>
 
                                         <div class="form-group">
                                             <label class="text-dark fw-600" for="resume"><?php echo get_phrase('Resume'); ?> <small>(doc, docx, pdf, txt, png, jpg, jpeg)</small></label>
                                             <div class="position-relative">
                                                 <input class="form-control" id="resume" type="file" name="resume">
-                                                <small><?php $resume_path = base_url() .'uploads/resume/'.$user_details['resume']; echo $user_details['resume'] ? "<a href='$resume_path' download>Download Resume</a>" : get_phrase('Provide your resume'); ?></small>
+                                                <small><?php $resume_path = base_url() . 'uploads/resume/' . $user_details['resume'];
+                                                        echo $user_details['resume'] ? "<a href='$resume_path' download>Download Resume</a>" : get_phrase('Provide your resume'); ?></small>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="text-dark fw-600" for="Biography"><?php echo site_phrase('biography'); ?></label>
-                                            <textarea class="form-control bg-white-2 text-14px text_editor" name="biography" id="Biography"><?php echo $user_details['biography']; ?></textarea>
+                                            <textarea class="form-control bg-white-2 text-14px text_editor" name="biography" id="Biography" autofocus="false"><?php echo $user_details['biography']; ?></textarea>
                                         </div>
 
                                         <hr class="my-5 bg-secondary">
