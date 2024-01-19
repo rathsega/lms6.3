@@ -315,6 +315,7 @@ if($ratings_count){
                         </div>
                     </div>
                 </div>
+            <div id="cart_buttons"></div>
             </div>
         </div>
     </div>
@@ -847,6 +848,11 @@ if($ratings_count){
 <?php include "move_to_top.php"; ?>
 <script>
     function moveToStartPosition(){
-        $("#links").get(0).scrollIntoView({behavior: 'smooth'});
+        if($(window).width() >= 680) {
+            $("#links").get(0).scrollIntoView({behavior: 'smooth'});
+        }else{
+            $("#cart_buttons").get(0).scrollIntoView({behavior: 'smooth'});
+            //$("#links").get(document.getElementById("instructor").getBoundingClientRect().top).scrollIntoView({behavior: 'smooth'});
+        }
     }
 </script>
