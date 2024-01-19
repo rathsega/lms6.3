@@ -799,7 +799,7 @@ class User_model extends CI_Model
     function addUserLoginHistory($user_id, $ip_address){
         log_message("error","Session ID is : ". session_id());
         $sysinfo = get_system_info();
-        $date_time = date('Y-m-d h:i:s a', time());
+        $date_time = date('Y-m-d H:i:s a', time());
         $this->crud_model->add_user_login_history($user_id, $sysinfo['device'], $sysinfo['os'], $sysinfo['browser'], $ip_address, $date_time);
         $active_sessions = get_active_sessions_of_current_user($user_id);
         if($active_sessions && count($active_sessions) > 1){
