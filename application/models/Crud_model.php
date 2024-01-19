@@ -5048,7 +5048,7 @@ class Crud_model extends CI_Model
         $data['browser'] = $browser;
         $data['ip_address'] = $ip_address;
         $details = $this->ip_details($ip_address);
-        $data['city'] = $details && isset($details['city']) ? $details['city'] : '';
+        $data['city'] = $_COOKIE['city']; ///$details && isset($details['city']) ? $details['city'] : '';
         $data['date_time'] = $date_time;
         log_message("error", "user details : " . json_encode($data));
         return $this->db->insert('user_login_history', $data);

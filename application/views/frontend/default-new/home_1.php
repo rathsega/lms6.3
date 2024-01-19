@@ -930,39 +930,23 @@ if($payment_pending){
             // You can do something with the latitude and longitude here
             console.log("Latitude: " + latitude + " Longitude: " + longitude);
             displayLocation(latitude, longitude);
-            // For example, you can send this data to your CodeIgniter controller using AJAX
-            // Replace 'your_controller_name' and 'your_method_name' with your actual controller and method names
-            // Example AJAX call:
-            /*
-            $.ajax({
-                url: "<?php //echo base_url('your_controller_name/your_method_name'); ?>",
-                method: 'POST',
-                data: { latitude: latitude, longitude: longitude },
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
-            });
-            */
         }
 
         function displayLocation(latitude,longitude){
             var request = new XMLHttpRequest();
             console.log("Latitude: " + latitude + " Longitude: " + longitude);
             var method = 'GET';
-            var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true&key=AIzaSyDang7y1Kz4rpPUFCftXc7-BI3sD-RN4CI';
+            var url = 'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+latitude+'&longitude='+longitude+'&localityLanguage=en';
             var async = true;
 
             request.open(method, url, async);
             request.onreadystatechange = function(){
             if(request.readyState == 4 && request.status == 200){
                 var data = JSON.parse(request.responseText);
-                var address = data.results[0];
                 console.log(data);
                 //document.write(address.formatted_address);
-                return address.formatted_address;
+                document.cookie = "city = "+ data.city + "";
+                return {"city":data.city, contryName:data.countryName};
             }
             };
             request.send();
