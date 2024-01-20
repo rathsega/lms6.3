@@ -113,7 +113,7 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                    <select class="select2 form-control select2-multiple" data-toggle="select2" data-placeholder="Choose ..." name="course" id="course" required>
+                                    <select class="select2 form-control select2-multiple" data-toggle="select2" data-placeholder="Choose ..." name="course" id="course1" required>
                                         <option value=""><?php echo get_phrase('select_a_course'); ?></option>
                                         <?php $course_list = $this->crud_model->get_actual_courses()->result_array();
                                             foreach ($course_list as $course):
@@ -129,19 +129,19 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                    <input name="first_name" type="text" class="form-control" maxlength="26" id="first_name" required placeholder="<?php echo get_phrase('First Name *') ?>">
+                                    <input name="first_name" type="text" class="form-control" maxlength="26" id="first_name1" required placeholder="<?php echo get_phrase('First Name *') ?>">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                    <input name="last_name" type="text" class="form-control" maxlength="26" id="last_name" placeholder="<?php echo get_phrase('Last Name') ?>">
+                                    <input name="last_name" type="text" class="form-control" maxlength="26" id="last_name1" placeholder="<?php echo get_phrase('Last Name') ?>">
                                 </div>                           
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                    <input name="email" type="email" class="form-control" id="email" required placeholder="<?php echo get_phrase('Email *') ?>">
+                                    <input name="email" type="email" class="form-control" id="email1" required placeholder="<?php echo get_phrase('Email *') ?>">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
@@ -153,14 +153,14 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <input name="city" type="text" class="form-control" id="city" placeholder="City">
+                                    <input name="city" type="text" class="form-control" id="city1" placeholder="City">
                                 </div> 
                                 <div class="input-group comment">
-                                    <textarea name="message" class="form-control" aria-label="With textarea" id="message" maxlength="500" placeholder="<?php echo get_phrase('Write your message'); ?>"></textarea>
+                                    <textarea name="message" class="form-control" aria-label="With textarea" id="message1" maxlength="500" placeholder="<?php echo get_phrase('Write your message'); ?>"></textarea>
                                 </div>
                                 <div class="cheack-box">
                                     <div class="form-check">
-                                        <input name="i_agree" class="form-check-input" type="checkbox" required value="1" id="i_agree">
+                                        <input name="i_agree" class="form-check-input" type="checkbox" required value="1" id="i_agree1">
                                         <label class="form-check-label" for="i_agree"> 
                                             <p><?php echo get_phrase('I agree that my submitted data is being collected and stored.'); ?></p>
                                         </label>
@@ -201,13 +201,13 @@
         $("input[name='phone'").val(full_number);
         var $inputs = $('#contactForm :input');
 
-        const first_name = document.getElementById('first_name').value.trim();
-        const last_name = document.getElementById('last_name').value.trim();
-        const email = document.getElementById('email').value.trim();
+        const first_name = document.getElementById('first_name1').value.trim();
+        const last_name = document.getElementById('last_name1').value.trim();
+        const email = document.getElementById('email1').value.trim();
         const phone = document.getElementById('phone1').value.trim();
-        const city = document.getElementById('city').value.trim();
-        const message = document.getElementById('message').value.trim();
-        const course = document.getElementById('course').value.trim();
+        const city = document.getElementById('city1').value.trim();
+        const message = document.getElementById('message1').value.trim();
+        const course = document.getElementById('course1').value.trim();
         // const phone = document.getElementsByName('full')[0].value.trim();
 
         // Regular expressions for email and phone number validation
