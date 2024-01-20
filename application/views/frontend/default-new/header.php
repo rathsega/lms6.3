@@ -34,7 +34,7 @@
             <ul class="nav justify-content-end">
 
             <li class="nav-item align-items-center d-flex blink2">
-              <a class="btn btn-primary text-14px py-1 mt-2" href="#" id="openModalBtn2">
+              <a class="btn btn-primary text-14px py-1 mt-2" href="#" id="openModalBtn2" style="color:white;">
                                                         <?php echo get_phrase('Enquire Now'); ?>
                                                     </a>
               </li>
