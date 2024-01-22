@@ -109,7 +109,7 @@
                 <div class="sing-up-right" style="margin-top: 0px !important;">
                     <!-- <h3><?php //echo get_phrase('Contact Us '); ?><span>!</span></h3>
                     <p><?php //echo get_phrase('Explore, learn, and grow with us. Enjoy a seamless and enriching educational journey. Lets begin!') ?></p> -->
-                    <form action="javascript:void(0);" onsubmit="contactFormSubmit1()" name="contactForm" id="contactForm">
+                    <form action="javascript:void(0);" onsubmit="contactFormSubmit1()" name="contactForm1" id="contactForm1">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="mb-3">
@@ -199,7 +199,7 @@
     function contactFormSubmit1(){
         var full_number = phoneInput1.getNumber(intlTelInputUtils.numberFormat.E164);
         $("input[name='phone'").val(full_number);
-        var $inputs = $('#contactForm :input');
+        var $inputs = $('#contactForm1 :input');
 
         const first_name = document.getElementById('first_name1').value.trim();
         const last_name = document.getElementById('last_name1').value.trim();
