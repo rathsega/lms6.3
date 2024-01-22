@@ -2149,12 +2149,12 @@ p{
     background-color: var(--bg-white);
 }
   .student .student-body-1{
-    background-image: url("../image/Group 18132.png");
+    background-image: url("../image/Group 18132.webp");
     background-size: cover;
     border-radius: 7px;
   }
   .student .student-body-2{
-    background-image: url("../image/Group 18131.png");
+    background-image: url("../image/Group 18131.webp");
     background-size: cover;
     border-radius: 15px;
   }
@@ -8616,7 +8616,7 @@ display: none;
   }
 }
 .performance-hide{
-  display: show;
+  display: block;
 }
 
 .performance-show{
