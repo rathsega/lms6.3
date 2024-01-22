@@ -231,23 +231,29 @@ class Email_model extends CI_Model
 		foreach(json_decode($notification['user_types'], true) as $user_type){
 				
 			//Editable
+			$course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
+			if($course_details['slug_count'] == 1 || $course_details['slug_count'] == 2){
+                $course_slug = $course_details['slug'];
+            }else if($course_details['slug_count'] == 3 || $course_details['slug_count'] == 4){
+                $course_slug = $course_details['category_slug'] .'/' . $course_details['sub_category_slug'] .'/' . $course_details['slug'];
+            }else{
+                $course_slug = $course_details['slug'];
+            }
 			
 			if($user_type == 'instructor'){
 				$certificate = $this->db->get_where('certificates', array('course_id' => $course_id,'student_id' => $student_id))->row_array();
-				$course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
 				$student_details = $this->user_model->get_all_user($student_id)->row_array();
 				$to_user = $this->user_model->get_all_user($course_details['creator'])->row_array();
-				$replaces['course_title'] = '<a href="'.site_url('home/course/'.slugify($course_details['title']).'/'.$course_details['id']).'" target="_blank">'.$course_details['title'].'</a>';
+				$replaces['course_title'] = '<a href="'.site_url($course_slug).'" target="_blank">'.$course_details['title'].'</a>';
 				$replaces['student_name'] = $student_details['first_name'].' '.$student_details['last_name'];
 
 				$replaces['certificate_link'] = '<a href="'.site_url('certificate/' . $certificate['shareable_url']).'" target="_blank"> Certificate link</a>';
 			}
 			if($user_type == 'student'){
 				$certificate = $this->db->get_where('certificates', array('course_id' => $course_id,'student_id' => $student_id))->row_array();
-				$course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
 				$instructor_details = $this->user_model->get_all_user($student_id)->row_array();
 				$to_user = $this->user_model->get_all_user($student_id)->row_array();
-				$replaces['course_title'] = '<a href="'.site_url('home/course/'.slugify($course_details['title']).'/'.$course_details['id']).'" target="_blank">'.$course_details['title'].'</a>';
+				$replaces['course_title'] = '<a href="'.site_url($course_slug).'" target="_blank">'.$course_details['title'].'</a>';
 				$replaces['instructor_name'] = $instructor_details['first_name'].' '.$instructor_details['last_name'];
 
 				$replaces['certificate_link'] = '<a href="'.site_url('certificate/' . $certificate['shareable_url']).'" target="_blank"> Certificate link</a>';
