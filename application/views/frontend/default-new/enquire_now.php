@@ -266,7 +266,7 @@
             alert( xhr.responseText);
             if( xhr.responseText == 'Thank You For Contacting Us.'){
                 // Optionally, reset the form after successful submission
-                contactForm.reset();
+                $('#contactForm1')[0].reset();
                 contactModal1.style.display = 'none';
             }
             

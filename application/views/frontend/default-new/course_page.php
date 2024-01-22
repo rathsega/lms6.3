@@ -781,7 +781,7 @@ if($ratings_count){
             if( xhr.responseText == 'Thank You For Contacting Us.'){
                 localStorage.setItem("dataSubmitted", true);
                 // Optionally, reset the form after successful submission
-                contactForm.reset();
+                $('#contactForm')[0].reset();
                 contactModal.style.display = 'none';
                 hideShowVideoIcons();
                 if(localStorage.getItem('clickFrom') == 'video'){
