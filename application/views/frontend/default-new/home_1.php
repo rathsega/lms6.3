@@ -88,7 +88,7 @@ foreach($user_active_enrolments as $key => $enrol_data){
         }
         if($today >= $notifiction_start_date && $total_paid_amount < $installment_amount){
             $show_notification = true;              
-            $actual_installment_amount = $installment_amount;
+            $actual_installment_amount = $installment_amount - $total_paid_amount;
             $actual_due_date = $installment_date;
         }
      }

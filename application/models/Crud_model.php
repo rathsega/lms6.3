@@ -2241,6 +2241,7 @@ class Crud_model extends CI_Model
         $installment[0]['amount']   = $this->input->post("installment_1_amount");
         $installment[1]['amount']   = $this->input->post("installment_2_amount");
         $installment[2]['amount']   = $this->input->post("installment_3_amount");
+        $data = [];
         $data['installment_details'] = json_encode($installment);
         $data['expiry_date']   = date('Y-m-d',strtotime($this->input->post('expiry_date')));
         $payment_amount = $this->input->post('payment_amount');
