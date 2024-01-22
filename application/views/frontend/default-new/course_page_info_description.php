@@ -24,7 +24,7 @@
     </div>
 <?php endif; ?>
 
-<div class="course-description">
+<div class="course-description" id="course-description-overview">
     <h3 class="description-head"><?php echo get_phrase('Course Description') ?></h3>
     <?php $content = $course_details['description']; ?>
     <div id="read_more_overview" style="display:block;">
@@ -80,6 +80,7 @@
         }else{
             document.getElementById('read_more_overview').style.display = 'block';
             document.getElementById('show_less_overview').style.display = 'none';
+            $("#course-description-overview").get(0).scrollIntoView({behavior: 'smooth'});
         }
     }
 </script>
