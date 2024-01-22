@@ -97,7 +97,7 @@ foreach($user_active_enrolments as $key => $enrol_data){
         $date1 = new DateTime($installment_date);
         $date2 = new DateTime(date('Y-m-d'));
         $diff_days = $date1->diff($date2);            
-        $notice_message .= "Payment is pending for the course " . $course_details['title'] . ', installment date is : ' . $actual_due_date . ', installment amount is : ' . $actual_installment_amount .'\n\n' ;
+        $notice_message .= "Payment is pending for the course " . $course_details['title'] . ', installment date is : ' . $actual_due_date . ', installment amount is : ' . $installment_amount - $total_paid_amount .'\n\n' ;
     }
     
 }
