@@ -1488,7 +1488,7 @@ p{
      * Adding image to the background
      * No relation to the hover effect.
      */
-   background-image: url("../image/h-banner-img.png");
+   /* background-image: url("../image/h-banner-img.png"); */
    background-size: 100%;
    background-repeat: no-repeat;
  }

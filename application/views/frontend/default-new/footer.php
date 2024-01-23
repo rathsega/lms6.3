@@ -48,7 +48,7 @@
                     <h1><?php echo get_phrase('Subscribe to our Newsletter'); ?></h1>
                     <form class="ajaxForm resetable" action="<?php echo site_url('home/subscribe_to_our_newsletter'); ?>" method="post">
                         <input type="email" class="form-control" id="subscribe_email" placeholder="<?php echo get_phrase('Enter your email address'); ?>" name="email">
-                        <button class="form-arrow" type="submit"><i class="fa-solid fa-arrow-right-long"></i></button>
+                        <button class="form-arrow" type="submit" aria-label="Subscribe to our Newsletter"><i class="fa-solid fa-arrow-right-long"></i></button>
                     </form>
                 </div>
                 

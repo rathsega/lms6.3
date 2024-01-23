@@ -312,7 +312,17 @@ if (!function_exists('get_current_banner')) {
         $result = $CI->db->get('frontend_settings')->row('value');
 
         $banner_images = json_decode($result, true);
-        return $banner_images[get_frontend_settings('home_page')];
+
+        if(!empty($_SERVER['HTTP_USER_AGENT'])){
+            $user_ag = $_SERVER['HTTP_USER_AGENT'];
+            if(preg_match('/(Mobile|Android|Tablet|GoBrowser|[0-9]x[0-9]*|uZardWeb\/|Mini|Doris\/|Skyfire\/|iPhone|Fennec\/|Maemo|Iris\/|CLDC\-|Mobi\/)/uis',$user_ag)){
+               return "home-banner-mobile.webp";
+            }else{
+                return $banner_images[get_frontend_settings('home_page')];
+            }
+         }else{
+            return $banner_images[get_frontend_settings('home_page')];
+         }
     }
 }
 
