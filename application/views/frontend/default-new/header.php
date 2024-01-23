@@ -21,11 +21,6 @@
           </div>
         </div>
 
-        <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 blink2">
-        <a class="btn btn-primary text-14px py-1 mt-2" href="#" id="openModalBtn">
-                                                        <?php echo get_phrase('Enquire Now'); ?>
-                                                    </a>
-        </div> -->
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
           <div class="icon right-icon">
             <?php $facebook = get_frontend_settings('facebook'); ?>
@@ -34,7 +29,7 @@
             <ul class="nav justify-content-end">
 
             <li class="nav-item align-items-center d-flex blink2">
-              <a class="btn btn-primary text-14px py-1 mt-2" href="#" id="openModalBtn2" style="color:white;">
+              <a class="btn btn-primary text-14px py-1 " href="#" id="openModalBtn2" style="color:white;">
                                                         <?php echo get_phrase('Enquire Now'); ?>
                                                     </a>
               </li>
@@ -91,7 +86,7 @@
             <?php $linkedin = get_frontend_settings('linkedin'); ?>
             <ul class="nav justify-content-end">
             <li class="nav-item align-items-center d-flex blink2">
-              <a class="btn btn-primary text-14px py-1 mt-2" href="#" id="openModalBtn2">
+              <a class="btn btn-primary text-14px py-1 " href="#" id="openModalBtn2">
                                                         <?php echo get_phrase('Enquire Now'); ?>
                                                     </a>
               </li>

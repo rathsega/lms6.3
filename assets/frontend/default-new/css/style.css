@@ -602,6 +602,7 @@ p{
   top: 46px;
   z-index: 999;
 }
+
 .menu_pro_cart{
   background-color: #fff;
   padding: 15px 10px 10px 10px;
@@ -3296,7 +3297,7 @@ margin-right: 8px;
   font-weight: 400;
   line-height: 1.5;
   color: var(--color-1);
-  background-color: var(--bg-white-2);
+  /* background-color: var(--bg-white-2); */
   border: 1.5px solid #6E798A30;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -3868,7 +3869,7 @@ Sign Up Page
   color: #754FFE;
 }
 .sing-up-right p{
-  margin-bottom: 51px;
+  margin-bottom: 20px;
   word-spacing: 1.5px;
 }
 .sing-up-right  h5{
@@ -3880,14 +3881,15 @@ Sign Up Page
   margin-bottom: 30px;
 }
 .sing-up-right .form-control  {
-  padding: 14px 0px 13px 48px;
-  border-radius: 11px;
+  padding: 14px 0px 13px 15px;
+  border-radius:6px;
   font-size: 14px;
   font-weight: 400;
   color: #6E798A;
   width: 100%;
   border: none;
-  background-color: #6e798a1c;
+  border: solid 1px #CAC9C9;
+  /* background-color: #6e798a1c; */
 }
 .sing-up-right form{
   position: relative;
