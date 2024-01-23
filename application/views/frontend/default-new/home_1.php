@@ -111,22 +111,9 @@ if($payment_pending){
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-12 order-md-1 order-sm-2 order-2">
                 <div class="h-1-banner-text mb-3">
-                    <?php
-                        $banner_title = site_phrase(get_frontend_settings('banner_title'));
-                        $banner_title_arr = explode(' ', $banner_title);
-                    ?>
-                    <h1>
-                        <?php
-                        foreach($banner_title_arr as $key => $value){
-                            if($key == count($banner_title_arr) - 1){
-                                echo '<span class="d-inline-block">'. strtoupper(strtolower($value)) .'</span>';
-                            }else{
-                                echo ucwords(strtolower($value)) .' ';
-                            }
-                        }
-                        ?>
-                    </h1>
-                    <p><?php echo site_phrase(get_frontend_settings('banner_sub_title')); ?></p>
+                    <h1>Tech Leads <span class="d-inline-block">IT</span></h1>
+                    
+                    <p>Study oracle fusion courses from industry experts</p>
                 </div>
                 <div class="search-option">
                     <form action="<?php echo site_url('home/courses'); ?>" method="get">
@@ -137,7 +124,8 @@ if($payment_pending){
                 
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-12 order-md-2 order-sm-1 order-1 pt-0 pt-md-5 ">
-                <div id="tilt" style="background-image: url('<?php echo base_url("uploads/system/" . get_current_banner('banner_image')); ?>');"></div>
+            <link id="tilt" rel="preload" fetchpriority="high" as="image" href="<?php echo base_url("uploads/system/" . get_current_banner('banner_image')); ?>" style="background-image: url('<?php echo base_url("uploads/system/" . get_current_banner('banner_image')); ?>'" type="image/webp">
+                <!-- <div id="tilt" style="background-image: url('<?php echo base_url("uploads/system/" . get_current_banner('banner_image')); ?>');"></div> -->
             </div>
         </div> 
         <div class="row">
