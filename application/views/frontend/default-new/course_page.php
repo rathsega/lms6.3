@@ -482,6 +482,9 @@ if($ratings_count){
             height: auto; /* Adjust height for tablets */
             padding: 15px; /* Adjust padding for tablets */
         }
+        .nav-tabs{
+            top:90px !important;
+        }
     }
 
     /* For mobile screens */
