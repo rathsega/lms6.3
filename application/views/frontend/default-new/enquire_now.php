@@ -6,21 +6,33 @@
     position: fixed;
     z-index: 3;
     left: 0;
-    top: 0;
+    top: -44px;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     overflow: auto;
     }
-
+    .Us-color{
+        color:#754FFE;
+    }
+    .c-img{
+        height:80px;
+    }
     .contact_us_modal-content {
+    border-radius: 6px;
     background-color: #fefefe;
     margin: 5% auto;
     padding: 20px;
-    border: 1px solid #888;
+    /* border: 1px solid #888; */
     width: 40%;
     max-width: 80%;
-    height: 85%;
+    box-shadow: 0px 0px 60px 30px rgb(0 0 0 / 19%);
+    /* height: 85%; */
+    }
+    .form_label{
+    color:black;
+    font-weight:500;
+    font-size:14px;
     }
 
     /* For tablet screens */
@@ -31,6 +43,16 @@
             height: auto; /* Adjust height for tablets */
             padding: 15px; /* Adjust padding for tablets */
         }
+        .c-img{
+        height:50px;
+    }
+    .c-head{
+        padding-right: 65px;
+        padding-top: 2px;
+    }
+    .close{
+        margin-top: -42px;
+    }
     }
 
     /* For mobile screens */
@@ -91,15 +113,15 @@
 <div class="contact_us_modal" id="contactModal1">
   <div class="contact_us_modal-content">
     <div class="row">
-        <div class="col-md-10 col-sm-10 col-md-lg-10">
-            <h2>Contact Us</h2>
+        <div class="col-md-10 col-sm-10 col-md-lg-10 text-center c-head">
+        <h4><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1705928818/letter_send_1_1_zete2g.png" alt="" class="c-img"> Contact <span class="Us-color">Us</span></h4>
         </div>
         <div class="col-md-2 col-sm-2 col-md-lg-2">
             <span class="close" id="closeModal1">&times;</span>
         </div>
     </div>
 
-    <section class="sign-up my-5 pt-1">
+    <section class="sign-up my-4">
     <div class="container">
         <div class="row">
             <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-12 text-center">
@@ -129,36 +151,42 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                    <input name="first_name" type="text" class="form-control" maxlength="26" id="first_name1" required placeholder="<?php echo get_phrase('First Name *') ?>">
+                                <label class="form_label">First Name *</label>
+                                    <input name="first_name" type="text" class="form-control" maxlength="26" id="first_name1" required placeholder="<?php echo get_phrase('John') ?>">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                    <input name="last_name" type="text" class="form-control" maxlength="26" id="last_name1" placeholder="<?php echo get_phrase('Last Name') ?>">
+                                <label class="form_label">Last Name</label>
+                                    <input name="last_name" type="text" class="form-control" maxlength="26" id="last_name1" placeholder="<?php echo get_phrase('Deo') ?>">
                                 </div>                           
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                    <input name="email" type="email" class="form-control" id="email1" required placeholder="<?php echo get_phrase('Email *') ?>">
+                                <label class="form_label">Email *</label>
+                                    <input name="email" type="email" class="form-control" id="email1" required placeholder="<?php echo get_phrase('JohnDeo@gmail.com') ?>">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                    <input name="phone" type="tel" class="form-control" id="phone1" required placeholder="<?php echo get_phrase('Phone *') ?>">
+                                <label class="form_label">Phone *</label>
+                                    <input name="phone" type="tel" class="form-control" id="phone1" required placeholder="<?php echo get_phrase('1234567890 ') ?>">
                                 </div>                           
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <div class="mb-3">
-                                    <input name="city" type="text" class="form-control" id="city1" placeholder="City">
+                                <div class="mb-2">
+                                <label class="form_label">City</label>
+                                    <input name="city" type="text" class="form-control" id="city1" placeholder="Hyderabad">
                                 </div> 
-                                <div class="input-group comment">
-                                    <textarea name="message" class="form-control" aria-label="With textarea" id="message1" maxlength="500" placeholder="<?php echo get_phrase('Write your message'); ?>"></textarea>
+                                <div class="input-group comment mt-3">
+                                <label class="form_label">Write your message</label>
+                                    <textarea name="message" class="form-control" aria-label="With textarea" id="message1" maxlength="500" placeholder="<?php echo get_phrase('Message'); ?>"></textarea>
                                 </div>
-                                <div class="cheack-box">
+                                <div class="cheack-box mt-3">
                                     <div class="form-check">
                                         <input name="i_agree" class="form-check-input" type="checkbox" required value="1" id="i_agree1">
                                         <label class="form-check-label" for="i_agree"> 
@@ -170,7 +198,7 @@
                                     <div class="g-recaptcha" data-sitekey="<?php echo get_frontend_settings('recaptcha_sitekey'); ?>"></div>
                                 <?php endif; ?>
                                 <div class="form-btn">
-                                    <button type="submit" class="btn btn-primary"><?php echo get_phrase('Submit'); ?></button>
+                                    <button type="submit" class="btn btn-primary col-12"><?php echo get_phrase('Submit'); ?></button>
                                 </div>
                             </div>
                         </div>

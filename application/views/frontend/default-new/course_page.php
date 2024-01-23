@@ -125,7 +125,7 @@ if($ratings_count){
         <div class="row">
             <div class="col-lg-8 col-md-12 col-sm-12 order-2 order-lg-1">
                 <div class="course-left-side">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist"  style="position: sticky; top: 50px; z-index: 2; background-color:white;">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist"  style="position: sticky; top: 50px; z-index: 1; background-color:white;">
                         <li class="nav-item" role="presentation">
                           <button class="nav-link active" id="course-overview-tab" data-bs-toggle="tab" data-bs-target="#course-overview" type="button" role="tab" aria-controls="course-overview" aria-selected="true" onclick="moveToStartPosition()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18.666" viewBox="0 0 14 18.666">
@@ -471,7 +471,7 @@ if($ratings_count){
     border: 1px solid #888;
     width: 40%;
     max-width: 80%;
-    height: 85%;
+    /* height: 85%; */
     }
 
     /* For tablet screens */
