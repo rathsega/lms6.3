@@ -4,7 +4,7 @@
 <?php $user_login = $this->session->userdata('user_login'); ?>
 <?php $admin_login = $this->session->userdata('admin_login'); ?>
 <?php if($user_id > 0){$user_details = $this->user_model->get_all_user($user_id)->row_array();} ?>
-<div class="sub-header py-0" style="position: fixed; width:100%; z-index: 2;">
+<div class="sub-header py-0" style="position: fixed; width:100%; z-index: 999;">
     <div class="container">
       <div class="row">
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
@@ -21,6 +21,7 @@
           </div>
         </div>
 
+        
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
           <div class="icon right-icon">
             <?php $facebook = get_frontend_settings('facebook'); ?>
