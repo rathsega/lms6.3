@@ -7714,7 +7714,11 @@ Privacy Policy
   .s_Sidebar_one{
     margin-bottom: 20px;
   }
+  .course-flyer{
+    width:400px;
+  }
 }
+
 .s_Sidebar_one .title{
   padding: 20px 30px;
   display: flex;
