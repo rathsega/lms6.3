@@ -21,6 +21,11 @@
           </div>
         </div>
 
+        <!-- <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 blink2">
+        <a class="btn btn-primary text-14px py-1 mt-2" href="#" id="openModalBtn">
+                                                        <?php echo get_phrase('Enquire Now'); ?>
+                                                    </a>
+        </div> -->
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
           <div class="icon right-icon">
             <?php $facebook = get_frontend_settings('facebook'); ?>
