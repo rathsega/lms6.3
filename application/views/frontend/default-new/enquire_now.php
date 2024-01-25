@@ -16,7 +16,7 @@
         color:#754FFE;
     }
     .c-img{
-        height:80px;
+        height:66px;
     }
     .contact_us_modal-content {
     border-radius: 6px;
