@@ -296,6 +296,7 @@
                 // Optionally, reset the form after successful submission
                 $('#contactForm1')[0].reset();
                 contactModal1.style.display = 'none';
+                localStorage.setItem("dataSubmitted", true);
             }
             
 
@@ -314,13 +315,25 @@
     const phoneInput1 = window.intlTelInput(phoneInputField1, {
         preferredCountries:["in"],
         hiddenInput: "full",
-        utilsScript: "<?php echo base_url("assets/frontend/default-new/js/intlTelInput.min.js"); ?>",
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
     });
 
     $("form").submit(function() {
         var full_number = phoneInput1.getNumber(intlTelInputUtils.numberFormat.E164);
         $("input[name='phone'").val(full_number);
         
+        });
+
+        $(document).ready(function(){
+            let details_submitted = localStorage.getItem('dataSubmitted');
+            let user_id = "<?php echo $this->session->userdata('user_id'); ?>";
+            if(details_submitted != "true" && !user_id){
+                setTimeout(()=>{
+                    if(details_submitted != "true" && !user_id ){
+                        openModalBtn2.click();
+                    }
+                }, 5000)
+            } // 5000 to load it after 5 seconds from page load
         });
 
 </script>
