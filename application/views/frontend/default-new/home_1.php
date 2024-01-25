@@ -231,7 +231,7 @@ if($payment_pending){
 <!-- Start Upcoming Courses -->
 <?php $upcoming_courses = $this->db->order_by('id', 'desc')->limit(6)->get_where('course', ['status' => 'upcoming']); ?>
 <?php if($upcoming_courses->num_rows() > 0): ?>
-    <section class="pt-110 mt-5 performance-hide">
+    <section class="pt-110 mt-5">
       <div class="container">
         <div class="row">
           <div class="col-lg-4">

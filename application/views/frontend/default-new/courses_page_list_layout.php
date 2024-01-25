@@ -22,11 +22,20 @@
                     $course_duration_in_months = $course_duration_in_months ." (Daily " . $course['daily_class_duration_in_hours'] .$hours_text.")";
             }
             $total_rating =  $this->crud_model->get_ratings('course', $course['id'], true)->row()->rating;
-            $number_of_ratings = $this->crud_model->get_ratings('course', $course['id'])->num_rows();
-            if ($number_of_ratings > 0) {
-                $average_ceil_rating = ceil($total_rating / $number_of_ratings);
-            } else {
+            $ratings_count = $this->crud_model->get_ratings_count($course['id']);
+            if($ratings_count){
+                $one = $ratings_count['one_rating_count'];
+                $two = $ratings_count['two_rating_count'];
+                $three = $ratings_count['three_rating_count'];
+                $four = $ratings_count['four_rating_count'];
+                $five = $ratings_count['five_rating_count'];
+                $number_of_ratings = $ratings_count['number_of_ratings'];
+                $number_of_enrolments = $ratings_count['number_of_students_enrolled'];
+                $average_ceil_rating = ceil((($one*1) + ($two*2) + ($three*3)+($four*4)+($five*5))/$number_of_ratings);
+            }else{
                 $average_ceil_rating = 0;
+                $number_of_ratings = 0;
+                $number_of_enrolments = 0;
             }
             ?>
             <!-- Course List Card -->
