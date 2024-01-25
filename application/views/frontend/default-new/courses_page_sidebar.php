@@ -107,7 +107,7 @@
                     <span class="text-13px"><?php echo get_phrase('All'); ?></span>
                 </label>
             </div>
-            <div class="webdesign webdesign-lan less">
+            <div class="webdesign webdesign-lan">
                 <?php
                 $languages = $this->crud_model->get_all_languages();
                 foreach ($languages as $language): ?>
@@ -119,38 +119,8 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-            <div class="show-more">
-                <a class="show-more-less-btn-lan" href="#" onclick="$('.course-all-category .course-category .webdesign-lan').toggleClass('less'); $('.show-more-less-btn-lan').toggleClass('d-none');"><?php echo get_phrase('Show More'); ?></a>
-                <a class="show-more-less-btn-lan d-none" href="#" onclick="$('.course-all-category .course-category .webdesign-lan').toggleClass('less'); $('.show-more-less-btn-lan').toggleClass('d-none');"><?php echo get_phrase('Show Less'); ?></a>
-            </div>
         </div>
-        <div class="course-price course-category">
-            <h3><?php echo get_phrase('Ratings'); ?></h3>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="rating" value="all" id="rating_all" onchange="filterCourse()" <?php if($selected_rating == 'all') echo 'checked'; ?>>
-                <label class="form-check-label" for="rating_all">
-                    <span class="text-13px"><?php echo get_phrase('All'); ?></span>
-                </label>
-            </div>
-            <div class="course-icon">
-                <?php for($i=1; $i<=5; $i++): ?>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" value="<?php echo $i; ?>" id="rating_<?php echo $i; ?>" onchange="filterCourse()" name="rating" <?php if($selected_rating == $i) echo 'checked'; ?>>
-                        <label class="form-check-label" for="rating_<?php echo $i; ?>">
-                            <div class="form-check-icon">
-                                <ul>
-                                    <?php for($sub_i = 1; $sub_i <= 5; $sub_i++): ?>
-                                        <li class="<?php if($i>=$sub_i) echo 'icon-color'; ?>">
-                                            <i class="fa-solid fa-star"></i>
-                                        </li>
-                                    <?php endfor; ?>
-                                </ul>
-                            </div>
-                        </label>
-                    </div>
-                <?php endfor; ?>
-            </div>
-        </div>
+        
     </div>
 
     <input id="sorting_hidden_input" type="hidden" name="sort_by" value="<?php echo $selected_sorting; ?>">
