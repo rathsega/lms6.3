@@ -1882,13 +1882,15 @@ p{
   top: 49px;
   left: 0;
   content: "";
-  background-color: var(--bg-white-6);
+  background-color: #e6e3f9;
   width: 100%;
   height: 82%;
   z-index: -1;
   border-top-left-radius: 60px;
-  border-bottom-right-radius: 33px;
-  border-bottom-left-radius: 7px;
+  border-top-right-radius: 60px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0px 0px 60px 30px rgb(195 182 243 / 9%);
 }
 .instructor-card-img a {
 	display: flex;
@@ -7714,7 +7716,12 @@ Privacy Policy
   .s_Sidebar_one{
     margin-bottom: 20px;
   }
+  .course-flyer{
+    width:400px;
+  }
 }
+
+
 .s_Sidebar_one .title{
   padding: 20px 30px;
   display: flex;
