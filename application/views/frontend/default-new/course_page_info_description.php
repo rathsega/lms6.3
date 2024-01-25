@@ -17,7 +17,10 @@
         <ul>
             <?php foreach (json_decode($course_details['requirements']) as $requirement) : ?>
                 <?php if ($requirement != "") : ?>
-                    <li><?php echo $requirement; ?></li>
+                 
+                   <li><?php echo $requirement; ?></li>
+                
+                  
                 <?php endif; ?>
             <?php endforeach; ?>
         </ul>
@@ -63,7 +66,11 @@
                       </h2>
                       <div id="panelsStayOpen-<?php echo $counter; ?>" class="accordion-collapse collapse" aria-labelledby="faq<?php echo $counter; ?>">
                         <div class="accordion-body pt-0">
-                            <?php echo $faq; ?>
+                          <ul class="faqs" style="">
+                          <li>
+                          <?php echo $faq; ?>
+                          </li></ul> 
+                            
                         </div>
                       </div>
                     </div>
