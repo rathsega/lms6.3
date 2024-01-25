@@ -4,9 +4,9 @@
         /* Hidden by default */
         position: fixed;
         /* Fixed/sticky position */
-        bottom: 20px;
+        bottom: 77px;
         /* Place the button at the bottom of the page */
-        right: 30px;
+        right: 22px;
         /* Place the button 30px from the right */
         z-index: 99;
         /* Make sure it does not overlap */
