@@ -61,7 +61,7 @@ if($language_dirs){
 		<meta property="og:image" content="<?php echo site_url('uploads/blog/page-banner/'.get_frontend_settings('blog_page_banner')); ?>">
 	<?php else: ?>
 		<meta property="og:title" content="<?php echo $page_title; ?>" />
-		<meta property="og:image" content="<?= base_url("uploads/system/".get_current_banner('banner_image')); ?>">
+		<meta property="og:image" content="<?= base_url("uploads/system/home-banner-mobile.webp"); ?>">
 	<?php endif; ?>
 	<meta property="og:url" content="<?php echo current_url(); ?>" />
 	<meta property="og:type" content="Learning management system" />
