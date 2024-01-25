@@ -949,7 +949,9 @@ class Crud_model extends CI_Model
 
         $last_modified = $this->get_course_by_id($course_id)->row('last_modified');
 
-        if (file_exists('uploads/thumbnails/course_thumbnails/optimized/' . $type . '_' . get_frontend_settings('theme') . '_' . $course_id.$last_modified . '.jpg')) {
+        if (file_exists('uploads/thumbnails/course_thumbnails/optimized/' . $type . '_' . get_frontend_settings('theme') . '_' . $course_id.$last_modified . '.webp')) {
+            return base_url() . 'uploads/thumbnails/course_thumbnails/optimized/' . $type . '_' . get_frontend_settings('theme') . '_' . $course_id.$last_modified . '.webp';
+        } elseif (file_exists('uploads/thumbnails/course_thumbnails/optimized/' . $type . '_' . get_frontend_settings('theme') . '_' . $course_id.$last_modified . '.jpg')) {
             return base_url() . 'uploads/thumbnails/course_thumbnails/optimized/' . $type . '_' . get_frontend_settings('theme') . '_' . $course_id.$last_modified . '.jpg';
         } elseif(file_exists('uploads/thumbnails/course_thumbnails/' . $type . '_' . get_frontend_settings('theme') . '_' . $course_id.$last_modified . '.jpg')) {
 

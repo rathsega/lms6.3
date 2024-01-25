@@ -114,7 +114,7 @@
   <div class="contact_us_modal-content">
     <div class="row">
         <div class="col-md-10 col-sm-10 col-md-lg-10 text-center c-head">
-        <h4><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1705928818/letter_send_1_1_zete2g.png" alt="" class="c-img"> Contact <span class="Us-color">Us</span></h4>
+        <h4><img src="<?php echo site_url("assets/frontend/default-new/image/letter_send_1_1_zete2g.webp") ?>" alt="" class="c-img"> Contact <span class="Us-color">Us</span></h4>
         </div>
         <div class="col-md-2 col-sm-2 col-md-lg-2">
             <span class="close" id="closeModal1">&times;</span>
@@ -314,7 +314,7 @@
     const phoneInput1 = window.intlTelInput(phoneInputField1, {
         preferredCountries:["in"],
         hiddenInput: "full",
-        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        utilsScript: "<?php echo base_url("assets/frontend/default-new/js/intlTelInput.min.js"); ?>",
     });
 
     $("form").submit(function() {

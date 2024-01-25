@@ -1,3 +1,26 @@
+
+<style>
+    @media all and (max-width: 500px) {
+	#tilt {
+		height: 299px;
+	  }
+}
+
+@media all and (max-width: 576px) {
+
+	#tilt {
+		display: block;
+		height: 400px;
+		width: auto;
+		margin: 0 auto;
+		transition: box-shadow 0.1s, transform 0.1s;
+		/* background-image: url("../image/h-banner-img.png"); */
+		background-size: 85%;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+}
+</style>
 <?php
 /**
  * Maintain Session here
@@ -124,7 +147,7 @@ if($payment_pending){
                 
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-12 order-md-2 order-sm-1 order-1 pt-0 pt-md-5 ">
-            <link id="tilt" rel="preload" fetchpriority="high" as="image" href="<?php echo base_url("uploads/system/" . get_current_banner('banner_image')); ?>" style="background-image: url('<?php echo base_url("uploads/system/" . get_current_banner('banner_image')); ?>'" type="image/webp">
+            <link id="tilt" rel="preload"  fetchpriority="high" as="image" href="<?php echo base_url("assets/frontend/default-new/image/menu.png"); ?>" style="background-image: url('<?php echo base_url("uploads/system/" . get_current_banner('banner_image')); ?>'" type="image/png">
                 <!-- <div id="tilt" style="background-image: url('<?php echo base_url("uploads/system/" . get_current_banner('banner_image')); ?>');"></div> -->
             </div>
         </div> 
@@ -208,7 +231,7 @@ if($payment_pending){
 <!-- Start Upcoming Courses -->
 <?php $upcoming_courses = $this->db->order_by('id', 'desc')->limit(6)->get_where('course', ['status' => 'upcoming']); ?>
 <?php if($upcoming_courses->num_rows() > 0): ?>
-    <section class="pt-110 mt-5">
+    <section class="pt-110 mt-5 performance-hide">
       <div class="container">
         <div class="row">
           <div class="col-lg-4">
@@ -235,7 +258,7 @@ if($payment_pending){
                 <div class="col-lg-4">
                   <a href="<?php echo site_url($upcoming_course_slug); ?>" class="course-item-one">
                     <div class="img-rating">
-                      <div class="img"><img src="<?php echo $this->crud_model->get_course_thumbnail_url($upcoming_course['id']); ?>" alt="" /></div>
+                      <div class="img"><img loading="lazy" src="<?php echo $this->crud_model->get_course_thumbnail_url($upcoming_course['id']); ?>" alt="" /></div>
                     </div>
                     <div class="content">
                       <h4 class="title up-comoing-course-title"><?php echo $upcoming_course['title']; ?></h4>
@@ -298,8 +321,8 @@ if($payment_pending){
                     ?>
                     <div class="single-popup-course">
                         <a href="<?php echo site_url($top_course_slug); ?>" id="top_course_<?php echo $top_course['id']; ?>" class="checkPropagation courses-card-body">
-                            <div class="courses-card-image">
-                                <img src="<?php echo $this->crud_model->get_course_thumbnail_url($top_course['id']); ?>">
+                            <div class="courses-card-image performance-hide">
+                                <img loading="lazy" src="<?php echo $this->crud_model->get_course_thumbnail_url($top_course['id']); ?>">
                                 <div class="courses-icon <?php if(in_array($top_course['id'], $my_wishlist_items)) echo 'red-heart'; ?>" id="coursesWishlistIconTopCourse<?php echo $top_course['id']; ?>">
                                     <i class="fa-solid fa-heart checkPropagation" onclick="actionTo('<?php echo site_url('home/toggleWishlistItems/'.$top_course['id'].'/TopCourse'); ?>')"></i>
                                 </div>
@@ -428,7 +451,7 @@ if($payment_pending){
 
 
 <!---------- Top Categories Start ------------->
-<section class="top-categories">
+<section class="top-categories performance-hide">
     <div class="container">
         <div class="row">
             <div class="col-lg-3"></div>
@@ -505,8 +528,8 @@ if($payment_pending){
                     ?>
                     <div class="single-popup-course">
                         <a href="<?php echo site_url($latest_course_slug); ?>" id="latest_course_<?php echo $latest_course['id']; ?>" class="checkPropagation courses-card-body">
-                            <div class="courses-card-image">
-                                <img src="<?php echo $this->crud_model->get_course_thumbnail_url($latest_course['id']); ?>">
+                            <div class="courses-card-image performance-hide">
+                                <img loading="lazy" src="<?php echo $this->crud_model->get_course_thumbnail_url($latest_course['id']); ?>">
                                 <div class="courses-icon <?php if(in_array($latest_course['id'], $my_wishlist_items)) echo 'red-heart'; ?>" id="coursesWishlistIconLatestCourse<?php echo $latest_course['id']; ?>">
                                     <i class="fa-solid fa-heart checkPropagation" onclick="actionTo('<?php echo site_url('home/toggleWishlistItems/'.$latest_course['id'].'/LatestCourse'); ?>')"></i>
                                 </div>
@@ -640,7 +663,7 @@ if($payment_pending){
     $top_instructor_ids = array_slice($top_instructor_ids, 0, 10);
 ?>
 <?php if(count($top_instructor_ids) > 0): ?>
-<section class="expert-instructor top-categories pb-3">
+<section class="expert-instructor top-categories pb-3 performance-hide">
     <div class="container">
         <div class="row">
             <div class="col-lg-3"></div>
@@ -658,7 +681,7 @@ if($payment_pending){
                     <div class="col-lg-3 col-md-4 col-sm-6 ">
                         <div class="instructor-card-body">
                             <div class="instructor-card-img">
-                                <img src="<?php echo $this->user_model->get_user_image_url($top_instructor['id']); ?>">
+                                <img loading="lazy" src="<?php echo $this->user_model->get_user_image_url($top_instructor['id']); ?>">
                             </div>
                             <div class="instructor-card-text">
                                 <div class="icon">
@@ -698,7 +721,7 @@ if($payment_pending){
 <?php $motivational_speechs = json_decode(get_frontend_settings('motivational_speech'), true); ?>
 <?php if(count($motivational_speechs) > 0): ?>
 <!---------  Motivetional Speech Start ---------------->
-<section class="expert-instructor top-categories pb-3">
+<section class="expert-instructor top-categories pb-3 performance-hide">
   <div class="container">
     <div class="row">
       <div class="col-lg-3"></div>
@@ -717,7 +740,7 @@ if($payment_pending){
                 <div class="row align-items-center">
                     <div class="col-lg-4 col-md-5">
                         <div class="speech-item-img">
-                            <img src="<?php echo site_url('uploads/system/motivations/'.$motivational_speech['image']) ?>" alt="" />
+                            <img loading="lazy" src="<?php echo site_url('uploads/system/motivations/'.$motivational_speech['image']) ?>" alt="" />
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-7">
@@ -746,7 +769,7 @@ if($payment_pending){
 <?php $website_faqs = json_decode(get_frontend_settings('website_faqs'), true); ?>
 <?php if(count($website_faqs) > 0): ?>
 <!---------- Questions Section Start  -------------->
-<section class="faq">
+<section class="faq performance-hide">
     <div class="container">
         <div class="row">
             <div class="col-lg-2"></div>
@@ -791,7 +814,7 @@ if($payment_pending){
 <!------------- Blog Section Start ------------>
 <?php $latest_blogs = $this->crud_model->get_latest_blogs(3); ?>
 <?php if(get_frontend_settings('blog_visibility_on_the_home_page') && $latest_blogs->num_rows() > 0): ?>
-<section class="courses blog">
+<section class="courses blog performance-hide">
     <div class="container">
         <h1 class="text-center"><span><?php echo site_phrase('Visit our latest blogs')?></span></h1>
         <p class="text-center fs-16"><?php echo site_phrase('Visit our valuable articles to get more information.')?>
@@ -808,7 +831,7 @@ if($payment_pending){
                                    $blog_thumbnail = base_url('uploads/blog/thumbnail/placeholder.png');
                               endif; ?>
                             <div class="courses-card-image">
-                             <img src="<?php echo $blog_thumbnail; ?>">
+                             <img loading="lazy" src="<?php echo $blog_thumbnail; ?>">
                             </div>
                             <div class="courses-card-image-text">
                                 <h3><?php echo $blog_category['title']; ?></h3>
@@ -820,7 +843,7 @@ if($payment_pending){
                             <div class="courses-price-border">
                                 <div class="courses-price">
                                     <div class="courses-price-left">
-                                        <img class="rounded-circle" src="<?php echo $this->user_model->get_user_image_url($user_details['id']); ?>">
+                                        <img loading="lazy" class="rounded-circle" src="<?php echo $this->user_model->get_user_image_url($user_details['id']); ?>">
                                         <h5><?php echo $user_details['first_name'].' '.$user_details['last_name']; ?></h5>
                                     </div>
                                     <div class="courses-price-right ">
@@ -840,7 +863,7 @@ if($payment_pending){
 
 
 <!------------- Become Students Section start --------->
-<section class="student">
+<section class="student performance-hide">
     <div class="container">
         <div class="row">
             <div class="col-lg-6  <?php if (get_settings('allow_instructor') != 1) echo 'w-100'; ?>">
@@ -848,14 +871,14 @@ if($payment_pending){
                     <div class="row">
                         <div class="col-lg-8 col-md-8 col-sm-8 col-8">
                             <div class="student-body-text">
-                                <img src="<?php echo base_url('assets/frontend/default-new/image/2.png')?>">
+                                <img loading="lazy" src="<?php echo base_url('assets/frontend/default-new/image/2.png')?>">
                                 <h1><?php echo site_phrase('join_now_to_start_learning'); ?></h1>
                                 <p><?php echo site_phrase('Learn from our quality instructors!')?> </p>
                                 <a href="<?php echo site_url('sign_up'); ?>"><?php echo site_phrase('get_started'); ?></a>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-                            <img class="man" src="<?php echo base_url('assets/frontend/default-new/image/student-1.webp')?>">
+                            <img loading="lazy" class="man" src="<?php echo base_url('assets/frontend/default-new/image/student-1.webp')?>">
                         </div>
                      </div>
                 </div>      
@@ -866,7 +889,7 @@ if($payment_pending){
                     <div class="row">
                             <div class="col-lg-8 col-md-8 col-sm-8 col-8 ">
                                 <div class="student-body-text">
-                                  <img src="<?php echo base_url('assets/frontend/default-new/image/2.png')?>">
+                                  <img loading="lazy" src="<?php echo base_url('assets/frontend/default-new/image/2.png')?>">
                                     <h1><?php echo site_phrase('become_a_new_instructor'); ?></h1>
                                     <p><?php echo site_phrase('Teach_thousands_of_students_and_earn_money!')?> </p>
                                     <?php if($this->session->userdata('user_id')): ?>
@@ -877,7 +900,7 @@ if($payment_pending){
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-                            <img class="man" src="<?php echo base_url('assets/frontend/default-new/image/student-2.png')?>">
+                            <img loading="lazy" class="man" src="<?php echo base_url('assets/frontend/default-new/image/student-2.webp')?>">
                             </div>
                         </div>  
                     </div> 
@@ -887,7 +910,7 @@ if($payment_pending){
     </div>
 </section>
 <script>
-    let user_id = <?php echo $this->session->userdata('user_id'); ?>
+    let user_id = "<?php echo $this->session->userdata('user_id') ? true : false; ?>";
     if(user_id){
         localStorage.removeItem('dataSubmitted');
         localStorage.removeItem('clickFrom');
@@ -1027,12 +1050,14 @@ if($payment_pending){
 </script>
 
 <script>
-    /*window.onscroll = function() {myFunction()};
+    window.onscroll = function() {myFunction()};
     function myFunction(){
         let hide_sections = document.getElementsByClassName("performance-hide");
         for(let i=0; i<hide_sections.length; i++){
             hide_sections[i].classList.remove('performance-hide');
-            hide_sections[i].classList.add('performance-show');
+            if(hide_sections[i] && typeof hide_sections[i].classList){
+                hide_sections[i].classList.add('performance-show');
+            }
         }
-    }*/
+    }
 </script>
