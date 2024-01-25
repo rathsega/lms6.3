@@ -136,8 +136,6 @@
 
         let sub_button = document.getElementById("sub_button");
         let err_msg = document.getElementById("err_msg");
-        alert(one_rating_count + two_rating_count + three_rating_count + four_rating_count + five_rating_count);
-        alert(number_of_ratings);
         if((one_rating_count + two_rating_count + three_rating_count + four_rating_count + five_rating_count ) != number_of_ratings){
             err_msg.innerText = "Number of raing count is mismatched with individual rating count";
             sub_button.disabled = true;
