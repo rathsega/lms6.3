@@ -81,7 +81,8 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn btn-primary" onclick="checkRequiredFields()"><?php echo get_phrase('submit'); ?></button>
+                    <button type="button" class="btn btn-primary" id="sub_button" onclick="checkRequiredFields()"><?php echo get_phrase('submit'); ?></button>
+                    <span class="error" id="err_msg"></span>
                 </form>
               </div>
             </div> <!-- end card body-->
@@ -123,5 +124,28 @@
             })
         }
     }
+
+    $("form :input").change(function() {
+        let one_rating_count = parseInt(document.getElementById("one_rating_count").value);
+        let two_rating_count = parseInt(document.getElementById("two_rating_count").value);
+        let three_rating_count = parseInt(document.getElementById("three_rating_count").value);
+        let four_rating_count = parseInt(document.getElementById("four_rating_count").value);
+        let five_rating_count = parseInt(document.getElementById("five_rating_count").value);
+        
+        let number_of_ratings = parseInt(document.getElementById("number_of_ratings").value);
+
+        let sub_button = document.getElementById("sub_button");
+        let err_msg = document.getElementById("err_msg");
+        alert(one_rating_count + two_rating_count + three_rating_count + four_rating_count + five_rating_count);
+        alert(number_of_ratings);
+        if((one_rating_count + two_rating_count + three_rating_count + four_rating_count + five_rating_count ) != number_of_ratings){
+            err_msg.innerText = "Number of raing count is mismatched with individual rating count";
+            sub_button.disabled = true;
+        }else{
+            err_msg.innerText = "";
+            sub_button.disabled = false;
+        }
+
+    });
 
 </script>
