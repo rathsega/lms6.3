@@ -87,4 +87,7 @@ if ($stripe_info[0]['active'] == 0) {
 }
 ?>
 
+<?php include "move_to_top.php"; ?>
+
+
 

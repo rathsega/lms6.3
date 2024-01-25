@@ -994,7 +994,7 @@ if($payment_pending){
       
     </script>
 
-<?php include "move_to_top.php"; ?>
+
 <script>
 
     function getSpaces(len){

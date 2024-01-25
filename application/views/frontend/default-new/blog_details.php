@@ -135,5 +135,3 @@
         </div>
     </div>
 </section>
-
-<?php include "move_to_top.php"; ?>
