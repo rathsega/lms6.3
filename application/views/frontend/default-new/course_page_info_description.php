@@ -66,7 +66,7 @@
                       </h2>
                       <div id="panelsStayOpen-<?php echo $counter; ?>" class="accordion-collapse collapse" aria-labelledby="faq<?php echo $counter; ?>">
                         <div class="accordion-body pt-0">
-                          <ul class="faqs" style="">
+                          <ul class="faqs" >
                           <li>
                           <?php echo $faq; ?>
                           </li></ul> 

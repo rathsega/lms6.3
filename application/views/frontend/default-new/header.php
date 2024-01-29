@@ -17,6 +17,10 @@
               <li class="nav-item px-2">
                 <a href="mailto:<?php echo get_settings('system_email'); ?>"><i class="fas fa-envelope"></i> <?php echo get_settings('system_email'); ?></a>
               </li>
+              <li class="pt-2 px-2">
+                <a href=""><img src='https://res.cloudinary.com/dc2uykpox/image/upload/v1706501405/Group_1000001779_tstmkl.png' alt="" class="isomark"></a>
+                <!-- assets/frontend/default-new/image/ISOmark.png -->
+              </li>
             </ul>
           </div>
         </div>
@@ -30,7 +34,7 @@
             <ul class="nav justify-content-end">
 
             <li class="nav-item align-items-center d-flex blink2">
-              <a class="btn btn-primary text-14px py-1 " href="#" id="openModalBtn2" style="color:white;">
+              <a class="btn btn-primary text-14px py-1 enquire-mbl" href="#" id="openModalBtn2" style="color:white;">
                                                         <?php echo get_phrase('Enquire Now'); ?>
                                                     </a>
               </li>

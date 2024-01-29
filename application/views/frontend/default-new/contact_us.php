@@ -14,25 +14,14 @@
 <section class="contact-page">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 col-md-12">
+            <div class="col-lg-6 col-md-6">
                 <div class="contact-heading">
                     <h3><?php //echo get_phrase('Contact Us') 
                         ?></h3>
                     <p><?php echo get_frontend_settings('contact_us'); ?></p>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-4">
-                <!-- no content -->
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6 col-md-6">
-                <div class="contact-image">
-                    <img src="<?php echo site_url('assets/frontend/default-new/'); ?>image/contact-img.png">
-                </div>
-
-
-            </div>
+    
             <div class="col-lg-6 col-md-6">
                 <form action="<?php echo site_url('home/contact_us/submit'); ?>" method="post" class="form-section" id="actualContactForm" enctype="multipart/form-data" onsubmit="return validateForm()">
                     <div class="row">
@@ -100,8 +89,27 @@
                         </div>
                     </div>
                 </form>
+                <div class="col-lg-6 col-md-6">
+                <div class="contact-image">
+                    <img src="<?php echo site_url('assets/frontend/default-new/'); ?>image/contact-img.png">
+                </div>
+
+
+            </div>
+            </div>
+            
             </div>
         </div>
+        <!-- <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="contact-image">
+                    <img src="<?php echo site_url('assets/frontend/default-new/'); ?>image/contact-img.png">
+                </div>
+
+
+            </div>
+           
+        </div> -->
     </div>
 </section>
 <!------------ Contact secton end -------->

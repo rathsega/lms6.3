@@ -43,6 +43,10 @@
             height: auto; /* Adjust height for tablets */
             padding: 15px; /* Adjust padding for tablets */
         }
+        .contact_us_modal {
+            top: 3px;
+            overflow: auto;
+        }
         .c-img{
         height:50px;
     }
@@ -97,7 +101,7 @@
             /* Adjust styles for mobile screens */
             /* For example: */
             width: 95%;
-            height: 95%;
+            height: 100%;
         }
     }
 
