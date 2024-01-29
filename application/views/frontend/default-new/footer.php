@@ -88,6 +88,29 @@ if ($stripe_info[0]['active'] == 0) {
 ?>
 
 <?php include "move_to_top.php"; ?>
+<script>
 
+(function (w, d, s, u) {
+        w.gbwawc = {
+            url: u,
+            options: {
+                waId: "918886252627",
+                siteName: "Tech Leads IT",
+                siteTag: "Online",
+                siteLogo: "https://files.gallabox.com/65261c5bc8129752ae1df6dd/a849b8a7-83b1-4e83-bbe3-bfd6ba30caa5-TechLeadsITIcon.png",
+                widgetPosition: "RIGHT",
+                welcomeMessage: "Welcome to Tech Leads IT!!!How can I help you?",
+                brandColor: "#25D366",
+                messageText: "Our Courses",
+                replyOptions: ['Oracle Fusion SCM Training','Oracle Fusion HCM Training','Oracle Fusion Financials Training','Oracle Fusion Technical Training'],
+            },
+        };
+        var h = d.getElementsByTagName(s)[0],
+            j = d.createElement(s);
+        j.async = true;
+        j.src = u + "/whatsapp-widget.min.js?_=" + Math.random();
+        h.parentNode.insertBefore(j, h);
+    })(window, document, "script", "https://waw.gallabox.com");
+</script>
 
 
