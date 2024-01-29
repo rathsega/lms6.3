@@ -332,8 +332,8 @@
                     if(details_submitted != "true" && !user_id ){
                         openModalBtn2.click();
                     }
-                }, 5000)
-            } // 5000 to load it after 5 seconds from page load
+                }, 10000)
+            } // 10000 to load it after 10 seconds from page load
         });
 
 </script>
