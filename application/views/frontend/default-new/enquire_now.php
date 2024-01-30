@@ -16,7 +16,7 @@
         color:#754FFE;
     }
     .c-img{
-        height:80px;
+        height:66px;
     }
     .contact_us_modal-content {
     border-radius: 6px;
@@ -42,6 +42,10 @@
             max-width: 90%; /* Adjust max-width for tablets */
             height: auto; /* Adjust height for tablets */
             padding: 15px; /* Adjust padding for tablets */
+        }
+        .contact_us_modal {
+            top: 3px;
+            overflow: auto;
         }
         .c-img{
         height:50px;
@@ -97,7 +101,7 @@
             /* Adjust styles for mobile screens */
             /* For example: */
             width: 95%;
-            height: 95%;
+            height: 100%;
         }
     }
 
