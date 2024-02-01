@@ -32,7 +32,7 @@
                     $five = $ratings_count['five_rating_count'];
                     $number_of_ratings = $ratings_count['number_of_ratings'];
                     $number_of_enrolments = $ratings_count['number_of_students_enrolled'];
-                    $average_ceil_rating = ceil((($one*1) + ($two*2) + ($three*3)+($four*4)+($five*5))/$number_of_ratings);
+                    $average_ceil_rating = round((($one*1) + ($two*2) + ($three*3)+($four*4)+($five*5))/$number_of_ratings, 1);
                 }else{
                     $average_ceil_rating = 0;
                     $number_of_ratings = 0;
@@ -55,7 +55,20 @@
                             <div class="review-icon">
                                 <div class="review-icon-star align-item-center">
                                     <p><?php echo $average_ceil_rating; ?></p>
-                                    <p><i class="fa-solid fa-star <?php if ($number_of_ratings > 0) echo 'filled'; ?>"></i></p>
+                                    <p><?php 
+                                            for($i=1; $i<=5; $i++){
+                                                if($average_ceil_rating < $i ) {
+                                                    if(is_float($average_ceil_rating) && (ceil($average_ceil_rating) == $i || floor($average_ceil_rating) == $i)){
+                                                        echo $i==5 ? '<i class="fa-regular fa-star-half-stroke filled"></i>' : '<i style="margin-right:-7px;" class="fa-regular fa-star-half-stroke filled"></i>';
+                                                    }else{
+                                                        echo $i==5 ? '<i class="fa-solid fa-star"></i>' : '<i style="margin-right:-7px;" class="fa-solid fa-star"></i>';
+                                                    }
+                                                 }else {
+                                                    echo $i==5 ? '<i class="fa-solid fa-star filled"></i>' : '<i style="margin-right:-7px;" class="fa-solid fa-star filled"></i>';
+                                                 }
+                                            }
+                                        ?></p>
+                                    <!-- <p><i class="fa-solid fa-star <?php if ($number_of_ratings > 0) echo 'filled'; ?>"></i></p> -->
                                     <p>(<?php echo $number_of_ratings; ?> <?php echo get_phrase('Reviews') ?>)</p>
                                 </div>
                                 <div class="review-btn d-flex align-items-center">
