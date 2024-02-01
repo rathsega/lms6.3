@@ -310,6 +310,10 @@
       position: relative;
       margin: 20px 10px;
     }
+    ul.faqs li{
+        list-style-type: disc;
+        margin-left:20px;
+    }
     ul.step-down li:after{
       content: "";
       position: absolute;
@@ -342,9 +346,8 @@
 
     .course-decription .course-right-section{
         position: sticky;
-        top: 10px;
+        top: 50px;
     }
-
 
     @media only screen and (max-width: 991px) {
         .course-decription .course-right-section{
