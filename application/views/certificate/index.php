@@ -29,7 +29,12 @@
             cursor: pointer;
             margin-top: 100px;
         }
+        
    </style>
+
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+    </style>
 </head>
 
 <body >
@@ -46,8 +51,9 @@
             $course = $this->crud_model->get_course_by_id($certificate['course_id'])->row_array();
             $student_row = $this->user_model->get_all_user($certificate['student_id'])->row_array();
             $student = $student_row['first_name'].' '.$student_row['last_name'];
-            $certificate_template= str_replace("..\..\..\uploads/certificates/template.jpg","..\uploads/certificates/template.jpg",remove_js(htmlspecialchars_decode(get_settings('certificate-text-positons'))));
-
+            $certificate_template= str_replace("..\..\uploads/certificates/template.jpg","..\uploads/certificates/template.jpg",remove_js(htmlspecialchars_decode(get_settings('certificate-text-positons'))));
+            // echo get_settings('certificate-text-positons');exit;
+            // echo get_settings('certificate-text-positons');exit;
             $certificate_template =  str_replace("{date}", date('d M Y'), $certificate_template);
             $certificate_template =  str_replace("{course}",$course['title'], $certificate_template);
             $certificate_template =  str_replace("{student}", '<span style="font-size:45px;font-family: Oleo Script, cursive;">'.$student.'</span>', $certificate_template);

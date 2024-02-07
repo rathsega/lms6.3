@@ -5528,4 +5528,16 @@ class Crud_model extends CI_Model
             return ["first_name"=>"", "last_name"=>"","social_links"=>json_encode(array("facebook"=>"", "twitter"=>"", "linkedin"=>"")), "resume"=>"", "skills"=>"", "biography"=>""];
         }
     }
+
+    public function generate_image_link(){
+        
+            $fileName           = $_FILES['image_file']['name'];
+            $tmp                = explode('.', $fileName);
+            $fileExtension      = strtoupper(end($tmp));
+            $data = md5(time()) . '.' . $fileExtension;
+            $uploaded = move_uploaded_file($_FILES['image_file']['tmp_name'], 'uploads/image_files/' . $data);
+            if($uploaded){
+                return $data;
+            }
+    }
 }

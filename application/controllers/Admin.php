@@ -2997,11 +2997,26 @@ class Admin extends CI_Controller
         } else if($param1 == "add_payment"){
             $this->crud_model->add_payment();
             redirect(site_url('admin/payments_list'), 'refresh');
+        } else if($param1 == 'generate_image_link'){
+            $file_name = $this->crud_model->generate_image_link();
+            $this->session->set_flashdata('flash_message', $file_name);
+            redirect(site_url('admin/generate_image_link'), 'refresh');
         }
         
         // $page_data['page_name'] = 'enrol_student';
         // $page_data['page_title'] = get_phrase('course_enrolment');
         // $this->load->view('backend/index', $page_data);
+    }
+
+    public function generate_image_link(){
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        $page_data['page_name'] = 'generate_image_link';
+        $page_data['page_title'] = get_phrase('generate_image_link');
+        $this->load->view('backend/index', $page_data);
     }
 
     public function fetch_review_count(){

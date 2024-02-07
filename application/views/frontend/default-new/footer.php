@@ -99,10 +99,10 @@ if ($stripe_info[0]['active'] == 0) {
                 siteTag: "Online",
                 siteLogo: "https://files.gallabox.com/65261c5bc8129752ae1df6dd/a849b8a7-83b1-4e83-bbe3-bfd6ba30caa5-TechLeadsITIcon.png",
                 widgetPosition: "RIGHT",
-                welcomeMessage: "Welcome to Tech Leads IT!!!How can I help you?",
+                welcomeMessage: "Welcome to Tech Leads IT!!!",
                 brandColor: "#25D366",
-                messageText: "Our Courses",
-                replyOptions: ['Oracle Fusion SCM Training','Oracle Fusion HCM Training','Oracle Fusion Financials Training','Oracle Fusion Technical Training'],
+                messageText: "How can I help you?",
+                replyOptions: [],
             },
         };
         var h = d.getElementsByTagName(s)[0],

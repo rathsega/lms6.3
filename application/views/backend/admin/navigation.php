@@ -66,6 +66,9 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 				<li class="<?php if ($page_name == 'payment_notification_settings') echo 'active'; ?>">
 					<a href="<?php echo site_url('admin/payment_notification_settings'); ?>"><?php echo "Payment Notification Settings"; ?></a>
 				</li>
+				<li class="<?php if ($page_name == 'generate_image_link') echo 'active'; ?>">
+					<a href="<?php echo site_url('admin/generate_image_link'); ?>"><?php echo "Generate Image Link"; ?></a>
+				</li>
 			</ul>
 		</li>
 		<?php endif; ?>
