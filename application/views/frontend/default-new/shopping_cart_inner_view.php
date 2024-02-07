@@ -108,12 +108,15 @@
                 <h6><?php echo get_phrase('Total') ?></h6>
                 <h6><?php echo currency($total); ?></h6>
             </div>
-            <form class="ajaxForm" action="<?php echo site_url('home/apply_coupon') ?>" method="post">
-                <div class="input-group mb-3">
-                    <input type="text" name="coupon_code" class="form-control text-14px" placeholder="<?php echo site_phrase('Apply coupon'); ?>" aria-label="<?php echo site_phrase('Apply coupon'); ?>">
-                    <button class="btn-primary btn-primary text-white px-2 py-2 radius-end-8 text-14px" type="submit"><?php echo get_phrase('Apply') ?></button>
-                </div>
-            </form>
+            <?php $actcive_coupons = $this->crud_model->get_active_coupons(); ?>
+            <?php if($actcive_coupons > 0): ?>
+                <form class="ajaxForm" action="<?php echo site_url('home/apply_coupon') ?>" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" name="coupon_code" class="form-control text-14px" placeholder="<?php echo site_phrase('Apply coupon'); ?>" aria-label="<?php echo site_phrase('Apply coupon'); ?>">
+                        <button class="btn-primary btn-primary text-white px-2 py-2 radius-end-8 text-14px" type="submit"><?php echo get_phrase('Apply') ?></button>
+                    </div>
+                </form>
+            <?php endif; ?>
 
             <?php if (isset($coupon_code) && !empty($coupon_code) && isset($coupon_details) && $coupon_details['discount_percentage'] == 100 && $total == 0 && $coupon_details['expiry_date'] >= time()): ?>
                 <a href="<?php echo site_url('home/coupon_offer_100_percent'); ?>" class="btn btn-primary px-2 w-100"><?php echo get_phrase('Enroll Now') ?></a>

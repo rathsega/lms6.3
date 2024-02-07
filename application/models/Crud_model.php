@@ -3815,6 +3815,12 @@ class Crud_model extends CI_Model
         return $this->db->get('coupons');
     }
 
+    public function get_active_coupons()
+    {
+        $this->db->where('expiry_date >=', strtotime(date('D, d-M-Y')));
+        return $this->db->get('coupons')->num_rows();
+    }
+
     public function get_coupon_details_by_code($code)
     {
         $this->db->where('code', $code);
