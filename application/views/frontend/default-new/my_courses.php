@@ -135,3 +135,75 @@
     </div>
 </section>
 <!-------- wish list bosy section end ------->
+<script>
+        window.onload = function() {
+            getLocation();
+            upcomingCourseHeightAlignment();
+        };
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(successCallback,errorCallback,options);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            // You can do something with the latitude and longitude here
+            console.log("Latitude: " + latitude + " Longitude: " + longitude);
+            displayLocation(latitude, longitude);
+        }
+
+        function displayLocation(latitude,longitude){
+            var request = new XMLHttpRequest();
+            console.log("Latitude: " + latitude + " Longitude: " + longitude);
+            var method = 'GET';
+            var url = 'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+latitude+'&longitude='+longitude+'&localityLanguage=en';
+            var async = true;
+
+            request.open(method, url, async);
+            request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                var data = JSON.parse(request.responseText);
+                console.log(data);
+                //document.write(address.formatted_address);
+                document.cookie = "city = "+ data.city + "";
+                return {"city":data.city, contryName:data.countryName};
+            }
+            };
+            request.send();
+        };
+
+        var successCallback = function(position){
+            var x = position.coords.latitude;
+            var y = position.coords.longitude;
+            displayLocation(x,y);
+        };
+
+        var errorCallback = function(error){
+            var errorMessage = 'Unknown error';
+            switch(error.code) {
+            case 1:
+                errorMessage = 'Permission denied';
+                break;
+            case 2:
+                errorMessage = 'Position unavailable';
+                break;
+            case 3:
+                errorMessage = 'Timeout';
+                break;
+            }
+            //document.write(errorMessage);
+        };
+
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 1000,
+            maximumAge: 0
+        };
+
+      
+    </script>

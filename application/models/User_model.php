@@ -788,7 +788,7 @@ class User_model extends CI_Model
                 if($this->session->userdata('url_history')){
                     redirect($this->session->userdata('url_history'), 'refresh');
                 }
-                redirect(site_url('home'), 'refresh');
+                redirect(site_url('home/my_courses'), 'refresh');
             }
         } else {
             $this->session->set_flashdata('error_message', get_phrase('invalid_login_credentials'));
