@@ -46,7 +46,7 @@
                                 <?php else: ?>
                                     <?php $total += $course_details['price']; ?>
                                     <h4><?php echo currency($course_details['price']); ?></h4>
-                                <?php endif; ?>
+                                <?php endif; ?>                                
                             </td>
                             <td class="text-end">
                                 <a class="ms-auto" href="#" onclick="actionTo('<?php echo site_url('home/handle_cart_items/'.$course_details['id']); ?>');"><i class="fa-solid fa-trash-can"></i></a>
@@ -90,13 +90,17 @@
             </div>
 
             <?php if(get_settings('course_selling_tax') > 0): ?>
-                <div class="sub-total">
+                <div class="tax">
                     <?php
                         $tax = round(($total/100) * get_settings('course_selling_tax'), 2);
                         $total = round($total + ($total/100) * get_settings('course_selling_tax'), 2);
                     ?>
-                    <h6><?php echo get_phrase('Tax') ?></h6>
-                    <h6><?php echo currency($tax).' <small class="fw-400">('.get_settings('course_selling_tax').'%)</small>'; ?></h6>
+                    <h6><?php echo 'CGST'.' <small class="fw-400">('.(get_settings('course_selling_tax')/2).'%)</small>' ?></h6>
+                    <h6><?php echo currency($tax/2); ?></h6>
+                </div>
+                <div class="sub-total">
+                    <h6><?php echo 'SGST'.' <small class="fw-400">('.(get_settings('course_selling_tax')/2).'%)</small>' ?></h6>
+                    <h6><?php echo currency($tax/2); ?></h6>
                 </div>
             <?php endif; ?>
             <div class="tax">

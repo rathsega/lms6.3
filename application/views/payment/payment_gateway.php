@@ -292,7 +292,7 @@ $total_price_of_checking_out = $this->session->userdata('total_price_of_checking
 				<div class="col-md-8">
 					<div class="w-100 d-grid">
 						<p class="pb-2 payment-header"><?php echo get_phrase('order'); ?> <?php echo get_phrase('summary'); ?></p>
-						<?php $counter = 0 ?>
+						<?php $counter = 0; $actual_amount = 0; ?>
 						<?php foreach ($this->session->userdata('cart_items') as $cart_item) :
 							$counter++;
 							$course_details = $this->crud_model->get_course_by_id($cart_item)->row_array();
@@ -303,18 +303,36 @@ $total_price_of_checking_out = $this->session->userdata('total_price_of_checking
 								<span class="item-title"><?php echo $course_details['title']; ?>
 									<span class="item-price">
 										<?php if ($course_details['discount_flag'] == 1) :
+											$actual_amount+=$course_details['discounted_price'];
 											echo currency($course_details['discounted_price']);
 										else :
+											$actual_amount+=$course_details['price'];
 											echo currency($course_details['price']);
 										endif; ?>
 									</span>
-								</span>
+								</span> 
 								<span class="by-owner">
 									<?php echo get_phrase('by'); ?>
 									<?php echo $instructor_details['first_name'] . ' ' . $instructor_details['last_name']; ?>
 								</span>
 							</p>
 						<?php endforeach; ?>
+						<p class="item float-start">
+								<span class="item-title">CGST<?php echo '<small class="fw-400">('.(get_settings('course_selling_tax')/2).'%)</small>' ?>
+								
+								<span class="item-price">
+										<?php echo currency(($actual_amount/100)*(get_settings('course_selling_tax')/2));?>
+									</span>
+									</span> 
+						</p>
+						<p class="item float-start">
+								<span class="item-title">SGST<?php echo '<small class="fw-400">('.(get_settings('course_selling_tax')/2).'%)</small>' ?>
+								
+								<span class="item-price">
+										<?php echo currency(($actual_amount/100)*(get_settings('course_selling_tax')/2));?>
+									</span>
+									</span> 
+						</p>
 					</div>
 					<div class="w-100 float-start mt-4 indicated-price">
 						<div class="float-end total-price"><?php echo currency($total_price_of_checking_out); ?></div>
