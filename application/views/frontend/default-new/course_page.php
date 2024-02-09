@@ -130,9 +130,9 @@ if($ratings_count){
                                                 </div>
                                             </div>
                                                     <input name="drcourse" type="hidden" class="form-control" id="drcourse" value="<?php echo $course_id; ?>">
-                                            <div class="col-lg-4 col-md-10 col-sm-10 courses-price-right">
+                                            <div class="courses-price-right d-flex justify-content-end mb-2">
                                                 <div class="form-btn">
-                                                    <button type="submit" class="btn btn-success"><?php echo get_phrase('Request Demo'); ?></button>
+                                                    <button type="submit" class="btn btn-success p-2"><?php echo get_phrase('Request Demo'); ?></button>
                                                 </div>
                                             </div>
                                     </div>
@@ -360,24 +360,24 @@ if($ratings_count){
                 <div class="row courses-price">
                         <div class="col-lg-3 col-md-10 col-sm-10">
                             <div class="mb-3">
-                                <input name="drname" type="text" maxlength="26" class="form-control" id="drname" required placeholder="<?php echo get_phrase('Full Name *') ?>">
+                                <input name="drname" type="text" maxlength="26" class="form-control shadow-lg l-form" id="drname" required placeholder="<?php echo get_phrase('Full Name *') ?>">
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-10 col-sm-10">
                             <div class="mb-3">
-                                <input name="dremail" type="email" class="form-control" id="dremail" required placeholder="<?php echo get_phrase('Email *') ?>">
+                                <input name="dremail" type="email" class="form-control shadow-lg l-form" id="dremail" required placeholder="<?php echo get_phrase('Email *') ?>">
                             </div>
                         </div>
                         
                         <div class="col-lg-3 col-md-10 col-sm-10">
                             <div class="mb-3">
-                                <input name="drphone" type="text" class="form-control" id="drphone" required placeholder="<?php echo get_phrase('Phone *') ?>">
+                                <input name="drphone" type="text" class="form-control shadow-lg l-form" id="drphone" required placeholder="<?php echo get_phrase('Phone *') ?>">
                             </div>
                         </div>
                                 <input name="drcourse" type="hidden" class="form-control" id="drcourse" value="<?php echo $course_id; ?>">
                         <div class="col-lg-3 col-md-10 col-sm-10 courses-price-right">
-                            <div class="form-btn">
-                                <button type="submit" class="btn btn-success"><?php echo get_phrase('Request Demo'); ?></button>
+                            <div class="form-btn ">
+                                <button type="submit" class="btn btn-success shadow-lg p-2 mbl-btn" style="background-color:#198754 ;color:white;"><?php echo get_phrase('Request Demo'); ?></button>
                             </div>
                         </div>
                 </div>
