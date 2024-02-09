@@ -2087,4 +2087,40 @@ class Home extends CI_Controller
         echo json_encode($answer_details);
     }
 
+    public function demorequest_submitted(){
+        date_default_timezone_set('Asia/Kolkata');
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $course = $_POST['course'];
+
+        // Regular expressions for validation
+        $nameRegex = "/^[a-zA-Z]+$/"; // Only letters allowed
+        $emailRegex = "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/"; // Email format
+        $phoneRegex = "/^[6-9]{1}[0-9]{9}$/"; // 10 digits phone number
+        $cityRegex = "/^[a-zA-Z\s]+$/"; // Only letters and spaces allowed
+
+        // Validation with lengths and regular expressions
+        if (strlen($name) < 3 || !preg_match($nameRegex, $name)) {
+            echo "Invalid name, name should contain at least 3 characters.";
+            return true;
+        }
+
+        if (!preg_match($emailRegex, $email)) {
+            echo "Invalid email";
+            return true;
+        }
+
+        $details = [];
+        $details['name'] = $name;
+        $details['email'] = $email;
+        $details['phone'] = $phone;
+        $details['course'] = $course;
+        $details['date'] = time();
+        $inserted = $this->crud_model->add_demorequest($details);
+        if($inserted){
+            echo "Thank You For Contacting Us for Demo.";
+        }
+    }
+
 }

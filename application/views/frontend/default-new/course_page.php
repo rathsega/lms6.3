@@ -108,6 +108,37 @@ if($ratings_count){
                                     </div>
                                 </div>
                                 
+                    
+                                <div class="row" >
+                                <form action="javascript:void(0);" onsubmit="demoRequestFormSubmit()" name="demoRequestForm" id="demoRequestForm">
+
+                                    <div class="row courses-price">
+                                            <div class="col-lg-4 col-md-10 col-sm-10">
+                                                <div class="mb-3">
+                                                    <input name="drname" type="text" maxlength="26" class="form-control" id="drname" required placeholder="<?php echo get_phrase('Full Name *') ?>">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-10 col-sm-10">
+                                                <div class="mb-3">
+                                                    <input name="dremail" type="email" class="form-control" id="dremail" required placeholder="<?php echo get_phrase('Email *') ?>">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-lg-4 col-md-10 col-sm-10">
+                                                <div class="mb-3">
+                                                    <input name="drphone" type="text" class="form-control" id="drphone" required placeholder="<?php echo get_phrase('Phone *') ?>">
+                                                </div>
+                                            </div>
+                                                    <input name="drcourse" type="hidden" class="form-control" id="drcourse" value="<?php echo $course_id; ?>">
+                                            <div class="col-lg-4 col-md-10 col-sm-10 courses-price-right">
+                                                <div class="form-btn">
+                                                    <button type="submit" class="btn btn-success"><?php echo get_phrase('Request Demo'); ?></button>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </form>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -321,7 +352,40 @@ if($ratings_count){
     </div>
 </section>
 <!--------- course Decription Page end ------>
+<section class="grid-view-body course-details-card">
+    <div class="container">
+        <div class="row" style="margin-top: 40px;">
+            <form action="javascript:void(0);" onsubmit="demoRequestFormSubmit()" name="demoRequestForm" id="demoRequestForm">
 
+                <div class="row courses-price">
+                        <div class="col-lg-3 col-md-10 col-sm-10">
+                            <div class="mb-3">
+                                <input name="drname" type="text" maxlength="26" class="form-control" id="drname" required placeholder="<?php echo get_phrase('Full Name *') ?>">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-10 col-sm-10">
+                            <div class="mb-3">
+                                <input name="dremail" type="email" class="form-control" id="dremail" required placeholder="<?php echo get_phrase('Email *') ?>">
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-md-10 col-sm-10">
+                            <div class="mb-3">
+                                <input name="drphone" type="text" class="form-control" id="drphone" required placeholder="<?php echo get_phrase('Phone *') ?>">
+                            </div>
+                        </div>
+                                <input name="drcourse" type="hidden" class="form-control" id="drcourse" value="<?php echo $course_id; ?>">
+                        <div class="col-lg-3 col-md-10 col-sm-10 courses-price-right">
+                            <div class="form-btn">
+                                <button type="submit" class="btn btn-success"><?php echo get_phrase('Request Demo'); ?></button>
+                            </div>
+                        </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</section>
 
 <!-------- Related course section start ----->
 <section class="courses grid-view-body course-details-card">
@@ -859,7 +923,7 @@ if($ratings_count){
         var full_number = phoneInput.getNumber(intlTelInputUtils.numberFormat.E164);
         $("input[name='phone'").val(full_number);
         
-        });
+    });
 </script>
 <script>
     function moveToStartPosition(){
@@ -870,4 +934,78 @@ if($ratings_count){
             //$("#links").get(document.getElementById("instructor").getBoundingClientRect().top).scrollIntoView({behavior: 'smooth'});
         }
     }
+</script>
+<style>
+    .iti--allow-dropdown{
+        width: 100%;
+    }
+</style>
+<script>
+    function demoRequestFormSubmit(){
+        let drfull_number = drphoneInput.getNumber(intlTelInputUtils.numberFormat.E164);
+        $("input[name='drphone'").val(drfull_number);
+
+        const name = document.getElementById('drname').value.trim();
+        const email = document.getElementById('dremail').value.trim();
+        const phone = document.getElementById('drphone').value.trim();
+        const course = document.getElementById('drcourse').value.trim();
+
+        let formData = {
+            name: name,
+            email: email,
+            phone: phone,
+            course: course,
+        };
+        // Create a new XMLHttpRequest object
+        let xhr = new XMLHttpRequest();
+
+        // Define the request (GET method, URL)
+        xhr.open('POST', '<?php echo site_url('home/demorequest_submitted'); ?>', true);
+
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        // Convert the data object to JSON format
+        serialize = function(obj) {
+        let str = [];
+            for (var p in obj)
+                if (obj.hasOwnProperty(p)) {
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                }
+            return str.join("&");
+        }
+        let jsonData = serialize(formData);
+
+        // Set up a function to handle the response
+        xhr.onload = function() {
+        if (xhr.status === 200) {
+            // Request was successful
+            alert( xhr.responseText);
+            if( xhr.responseText == 'Thank You For Contacting Us for Demo.'){
+                // Optionally, reset the form after successful submission
+                $('#demoRequestForm')[0].reset();
+            }
+            
+
+            // Perform actions with the response data here
+        } else {
+            // Error handling if the request fails
+            console.error('Request failed. Status:', xhr.status);
+        }
+        };
+
+        // Send the POST request with the JSON data
+        xhr.send(jsonData);
+    }
+
+    const drphoneInputField = document.querySelector("#drphone");
+    const drphoneInput = window.intlTelInput(drphoneInputField, {
+        preferredCountries:["in"],
+        hiddenInput: "full",
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+    $("form").submit(function() {
+        var drfull_number = drphoneInput.getNumber(intlTelInputUtils.numberFormat.E164);
+        $("input[name='drphone'").val(drfull_number);
+        
+    });
 </script>

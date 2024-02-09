@@ -123,6 +123,39 @@ class Excel_export extends CI_Controller
         }
     }
 
+    function demorequests(){
+        $demorequests_data = [];
+        $demorequests_data = $this->crud_model->getAllDemoRequests();
+        // File Name & Content Header For Download
+        $file_name = "demorequests_data.xls";
+        header("Content-Disposition: attachment; filename=\"$file_name\"");
+        header("Content-Type: application/vnd.ms-excel");
+
+        //To define column name in first row.
+        $column_names = false;
+        $data = [];
+        foreach ($demorequests_data->result_array()  as $demorequests) {
+            // generate csv lines from the inner arrays
+            $line = [];
+            $line["Name"] =  $demorequests['name'];
+            $line["Email"] =  $demorequests['email'];
+            $line["Phone"] =  $demorequests['phone'];
+            $line["Course"] =  $demorequests['title'];
+            $line["demorequest Date"] =  date('d-M-Y H:i', $demorequests['date']);
+            $data[] = $line;
+        }
+        // run loop through each row in $customers_data
+        foreach ($data  as $row) {
+            if (!$column_names) {
+                echo implode("\t", array_keys($row)) . "\n";
+                $column_names = true;
+            }
+            // The array_walk() function runs each array element in a user-defined function.
+            //array_walk($row, 'filterCustomerData');
+            echo implode("\t", array_values($row)) . "\n";
+        }
+    }
+
 
     function payments(){
         $payments_data = [];

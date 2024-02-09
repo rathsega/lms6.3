@@ -5546,4 +5546,15 @@ class Crud_model extends CI_Model
                 return $data;
             }
     }
+
+    public function add_demorequest($details){
+        return $this->db->insert('demo_requests', $details);
+        //$this->session->set_flashdata('flash_message', "Thank you for lcontacting us.");
+    }
+
+    public function getAllDemoRequests(){
+        return $this->db->query("
+            SELECT name, dr.email, dr.phone, c.title, dr.date from demo_requests as dr left join course as c on c.id = dr.course
+             order by dr.date desc ");
+    }
 }

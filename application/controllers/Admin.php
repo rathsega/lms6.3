@@ -3039,6 +3039,13 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
+    public function demorequests(){
+        $page_data['page_name'] = 'demorequests';
+        $page_data['page_title'] = "Contact Us";
+        $page_data['demorequests'] = $this->crud_model->getAllDemoRequests();
+        $this->load->view('backend/index', $page_data);
+    }
+
     public function broucher(){
         $page_data['page_name'] = 'broucher';
         $page_data['page_title'] = "Broucher";

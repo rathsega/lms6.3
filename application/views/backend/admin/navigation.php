@@ -69,6 +69,9 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 				<li class="<?php if ($page_name == 'generate_image_link') echo 'active'; ?>">
 					<a href="<?php echo site_url('admin/generate_image_link'); ?>"><?php echo "Generate Image Link"; ?></a>
 				</li>
+				<li class="<?php if ($page_name == 'demorequests') echo 'active'; ?>">
+					<a href="<?php echo site_url('admin/demorequests'); ?>"><?php echo "Demo Requests "; ?></a>
+				</li>
 			</ul>
 		</li>
 		<?php endif; ?>
