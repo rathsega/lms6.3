@@ -334,9 +334,15 @@
             if(details_submitted != "true" && !user_id){
                 setTimeout(()=>{
                     if(details_submitted != "true" && !user_id ){
-                        openModalBtn2.click();
+                        if(<?php echo isset($slug) ? "true":"false"; ?>){
+                            if(!"<?php echo $slug; ?>".includes("oracle-fusion-scm-online-training-course") && !"<?php echo $slug; ?>".includes("oracle-fusion-financials-online-training-course")){
+                                openModalBtn2.click();
+                            }
+                        }else{
+                            openModalBtn2.click();
+                        }
                     }
-                }, 10000)
+                }, 3000)
             } // 10000 to load it after 10 seconds from page load
         });
 
