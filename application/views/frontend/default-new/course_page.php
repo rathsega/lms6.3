@@ -355,26 +355,26 @@ if($ratings_count){
 <section class="grid-view-body course-details-card">
     <div class="container">
         <div class="row" style="margin-top: 40px;">
-            <form action="javascript:void(0);" onsubmit="demoRequestFormSubmit()" name="demoRequestForm" id="demoRequestForm">
+            <form action="javascript:void(0);" onsubmit="demoRequestFormSubmitTwo()" name="demoRequestFormTwo" id="demoRequestFormTwo">
 
                 <div class="row courses-price">
                         <div class="col-lg-3 col-md-10 col-sm-10">
                             <div class="mb-3">
-                                <input name="drname" type="text" maxlength="26" class="form-control shadow-lg l-form" id="drname" required placeholder="<?php echo get_phrase('Full Name *') ?>">
+                                <input name="drnametwo" type="text" maxlength="26" class="form-control shadow-lg l-form" id="drnametwo" required placeholder="<?php echo get_phrase('Full Name *') ?>">
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-10 col-sm-10">
                             <div class="mb-3">
-                                <input name="dremail" type="email" class="form-control shadow-lg l-form" id="dremail" required placeholder="<?php echo get_phrase('Email *') ?>">
+                                <input name="dremailtwo" type="email" class="form-control shadow-lg l-form" id="dremailtwo" required placeholder="<?php echo get_phrase('Email *') ?>">
                             </div>
                         </div>
                         
                         <div class="col-lg-3 col-md-10 col-sm-10">
                             <div class="mb-3">
-                                <input name="drphone" type="text" class="form-control shadow-lg l-form" id="drphone" required placeholder="<?php echo get_phrase('Phone *') ?>">
+                                <input name="drphonetwo" type="text" class="form-control shadow-lg l-form" id="drphonetwo" required placeholder="<?php echo get_phrase('Phone *') ?>">
                             </div>
                         </div>
-                                <input name="drcourse" type="hidden" class="form-control" id="drcourse" value="<?php echo $course_id; ?>">
+                                <input name="drcoursetwo" type="hidden" class="form-control" id="drcoursetwo" value="<?php echo $course_id; ?>">
                         <div class="col-lg-3 col-md-10 col-sm-10 courses-price-right">
                             <div class="form-btn ">
                                 <button type="submit" class="btn btn-success shadow-lg p-2 mbl-btn" style="background-color:#198754 ;color:white;"><?php echo get_phrase('Request Demo'); ?></button>
@@ -1006,6 +1006,74 @@ if($ratings_count){
     $("form").submit(function() {
         var drfull_number = drphoneInput.getNumber(intlTelInputUtils.numberFormat.E164);
         $("input[name='drphone'").val(drfull_number);
+        
+    });
+
+    function demoRequestFormSubmitTwo(){
+        let drfull_number_two = drphoneInputTwo.getNumber(intlTelInputUtils.numberFormat.E164);
+        $("input[name='drphone'").val(drfull_number_two);
+
+        const name = document.getElementById('drnametwo').value.trim();
+        const email = document.getElementById('dremailtwo').value.trim();
+        const phone = document.getElementById('drphonetwo').value.trim();
+        const course = document.getElementById('drcoursetwo').value.trim();
+
+        let formData = {
+            name: name,
+            email: email,
+            phone: phone,
+            course: course,
+        };
+        // Create a new XMLHttpRequest object
+        let xhr = new XMLHttpRequest();
+
+        // Define the request (GET method, URL)
+        xhr.open('POST', '<?php echo site_url('home/demorequest_submitted'); ?>', true);
+
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        // Convert the data object to JSON format
+        serialize = function(obj) {
+        let str = [];
+            for (var p in obj)
+                if (obj.hasOwnProperty(p)) {
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                }
+            return str.join("&");
+        }
+        let jsonData = serialize(formData);
+
+        // Set up a function to handle the response
+        xhr.onload = function() {
+        if (xhr.status === 200) {
+            // Request was successful
+            alert( xhr.responseText);
+            if( xhr.responseText == 'Thank You For Contacting Us for Demo.'){
+                // Optionally, reset the form after successful submission
+                $('#demoRequestFormTwo')[0].reset();
+            }
+            
+
+            // Perform actions with the response data here
+        } else {
+            // Error handling if the request fails
+            console.error('Request failed. Status:', xhr.status);
+        }
+        };
+
+        // Send the POST request with the JSON data
+        xhr.send(jsonData);
+    }
+
+    const drphoneInputFieldTwo = document.querySelector("#drphonetwo");
+    const drphoneInputTwo = window.intlTelInput(drphoneInputFieldTwo, {
+        preferredCountries:["in"],
+        hiddenInput: "full",
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+    $("form").submit(function() {
+        var drfull_number_two = drphoneInputTwo.getNumber(intlTelInputUtils.numberFormat.E164);
+        $("input[name='drphonetwo'").val(drfull_number_two);
         
     });
 </script>
