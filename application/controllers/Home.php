@@ -2095,7 +2095,7 @@ class Home extends CI_Controller
         $course = $_POST['course'];
 
         // Regular expressions for validation
-        $nameRegex = "/^[a-zA-Z]+$/"; // Only letters allowed
+        $nameRegex = "/^[a-zA-Z ]+$/"; // Only letters allowed
         $emailRegex = "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/"; // Email format
         $phoneRegex = "/^[6-9]{1}[0-9]{9}$/"; // 10 digits phone number
         $cityRegex = "/^[a-zA-Z\s]+$/"; // Only letters and spaces allowed
