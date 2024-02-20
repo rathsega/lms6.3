@@ -342,7 +342,7 @@
                             openModalBtn2.click();
                         }
                     }
-                }, 3000)
+                }, 10000)
             } // 10000 to load it after 10 seconds from page load
         });
 
