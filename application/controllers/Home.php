@@ -131,7 +131,7 @@ class Home extends CI_Controller
         }
 
 
-        if ($search_string == "" && $selected_category_id == "all" && $selected_price == "all" && $selected_level == 'all' && $selected_language == 'all' && $selected_rating == 'all' && $selected_sorting == 'newest') {
+        if ($search_string == "" && $selected_category_id == "all" && $selected_price == "all" && $selected_level == 'all' && $selected_language == 'all' && $selected_rating == 'all') {
 
             $this->db->group_start();
                 $this->db->where('course_type', 'general');
