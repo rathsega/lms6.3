@@ -149,6 +149,9 @@
                     <div class="cart-total-btn mt-3">
                         <button id="payment-button" type="submit" class="btn btn-primary px-2 w-100"><?php echo get_phrase('Continue to Payment') ?></button>
                     </div>
+                    <div class="cart-total-btn mt-3">
+                        <p id="payment-button-note" style="display: none;"><?php echo get_phrase('Reload the page and allow location access to make the payments for the course.') ?></p>
+                    </div>
                 </form>
             <?php endif; ?>
         </div>
@@ -183,15 +186,19 @@
 
     window.onload = function() {
         let continuePaymentButton = document.getElementById("payment-button");
+        let continuePaymentButtonNote = document.getElementById("payment-button-note");
         if (!getCookie('countryName')) {
             continuePaymentButton.style.display = 'none';
-            if (confirm("Please provide location access for proceed further.")) {
+            continuePaymentButtonNote.style.display = 'block';
+            if (confirm("Please provide location access to proceed further.")) {
                 getLocation();
             } else {
                 continuePaymentButton.style.display = 'none';
+                continuePaymentButtonNote.style.display = 'block';
             }
         }else{
             continuePaymentButton.style.display = 'block';
+            continuePaymentButtonNote.style.display = 'none';
         }
     };
 
@@ -228,6 +235,10 @@
                 //document.write(address.formatted_address);
                 document.cookie = "city = " + data.city + "; path=/";
                 document.cookie = "countryName = " + data.countryName + "; path=/";
+                let continuePaymentButton = document.getElementById("payment-button");
+                let continuePaymentButtonNote = document.getElementById("payment-button-note");
+                continuePaymentButton.style.display = 'block';
+                continuePaymentButtonNote.style.display = 'none';
                 location.reload();
                 return {
                     "city": data.city,
@@ -257,6 +268,7 @@
                 errorMessage = 'Timeout';
                 break;
         }
+        // alert(errorMessage);
         //document.write(errorMessage);
     };
 
