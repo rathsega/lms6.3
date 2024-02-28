@@ -317,22 +317,24 @@ $total_price_of_checking_out = $this->session->userdata('total_price_of_checking
 								</span>
 							</p>
 						<?php endforeach; ?>
-						<p class="item float-start">
-								<span class="item-title">CGST<?php echo '<small class="fw-400">('.(get_settings('course_selling_tax')/2).'%)</small>' ?>
-								
-								<span class="item-price">
-										<?php echo currency(($actual_amount/100)*(get_settings('course_selling_tax')/2));?>
-									</span>
-									</span> 
-						</p>
-						<p class="item float-start">
-								<span class="item-title">SGST<?php echo '<small class="fw-400">('.(get_settings('course_selling_tax')/2).'%)</small>' ?>
-								
-								<span class="item-price">
-										<?php echo currency(($actual_amount/100)*(get_settings('course_selling_tax')/2));?>
-									</span>
-									</span> 
-						</p>
+						<?php if(get_settings('course_selling_tax') > 0 && isset($_COOKIE["countryName"]) && $_COOKIE["countryName"] == 'India'): ?>
+							<p class="item float-start">
+									<span class="item-title">CGST<?php echo '<small class="fw-400">('.(get_settings('course_selling_tax')/2).'%)</small>' ?>
+									
+									<span class="item-price">
+											<?php echo currency(($actual_amount/100)*(get_settings('course_selling_tax')/2));?>
+										</span>
+										</span> 
+							</p>
+							<p class="item float-start">
+									<span class="item-title">SGST<?php echo '<small class="fw-400">('.(get_settings('course_selling_tax')/2).'%)</small>' ?>
+									
+									<span class="item-price">
+											<?php echo currency(($actual_amount/100)*(get_settings('course_selling_tax')/2));?>
+										</span>
+										</span> 
+							</p>
+						<?php endif; ?>
 					</div>
 					<div class="w-100 float-start mt-4 indicated-price">
 						<div class="float-end total-price"><?php echo currency($total_price_of_checking_out); ?></div>

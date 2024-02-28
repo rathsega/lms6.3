@@ -2855,7 +2855,7 @@ class Crud_model extends CI_Model
             $this->db->from('course c')->join('rating r', 'r.ratable_id = c.id', 'left');
 
             $this->db->group_by('c.id');
-            $this->db->order_by('avg_rating', 'desc');
+            $this->db->order_by('order', 'asc');
             $courses = $this->db->get()->result_array();
 
             //for join query new code
@@ -2947,9 +2947,7 @@ class Crud_model extends CI_Model
         $this->db->group_by('c.id');
 
         //sorting
-        if($selected_sorting != "" && $selected_sorting == 'newest'){
-            $this->db->order_by('c.id', 'desc');
-        }elseif($selected_sorting != "" && $selected_sorting == 'lowest-price'){
+        if($selected_sorting != "" && $selected_sorting == 'lowest-price'){
             $this->db->order_by('is_free_course ASC, price ASC, discount_flag DESC, discounted_price ASC');
         }elseif($selected_sorting != "" && $selected_sorting == 'highest-price'){
             $this->db->order_by('price DESC, discount_flag ASC, discounted_price DESC');

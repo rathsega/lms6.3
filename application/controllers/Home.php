@@ -131,7 +131,7 @@ class Home extends CI_Controller
         }
 
 
-        if ($search_string == "" && $selected_category_id == "all" && $selected_price == "all" && $selected_level == 'all' && $selected_language == 'all' && $selected_rating == 'all' && $selected_sorting == 'newest') {
+        if ($search_string == "" && $selected_category_id == "all" && $selected_price == "all" && $selected_level == 'all' && $selected_language == 'all' && $selected_rating == 'all') {
 
             $this->db->group_start();
                 $this->db->where('course_type', 'general');
@@ -2095,7 +2095,7 @@ class Home extends CI_Controller
         $course = $_POST['course'];
 
         // Regular expressions for validation
-        $nameRegex = "/^[a-zA-Z]+$/"; // Only letters allowed
+        $nameRegex = "/^[a-zA-Z ]+$/"; // Only letters allowed
         $emailRegex = "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/"; // Email format
         $phoneRegex = "/^[6-9]{1}[0-9]{9}$/"; // 10 digits phone number
         $cityRegex = "/^[a-zA-Z\s]+$/"; // Only letters and spaces allowed

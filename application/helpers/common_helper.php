@@ -223,6 +223,14 @@ if (!function_exists('get_settings')) {
         $CI->db->where('key', $key);
         $result = $CI->db->get('settings')->row('value');
 
+        if($key == 'course_selling_tax'){
+            if(isset($_COOKIE["countryName"]) && $_COOKIE["countryName"] == 'India'){
+                return $result;
+            }else{
+                return 0;
+            }
+        }
+
         if ($type) {
             return json_decode($result, true);
         } else {

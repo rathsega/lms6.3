@@ -170,7 +170,8 @@
                 var data = JSON.parse(request.responseText);
                 console.log(data);
                 //document.write(address.formatted_address);
-                document.cookie = "city = "+ data.city + "";
+                document.cookie = "city = "+ data.city + "; path=/";
+                document.cookie = "countryName = "+ data.countryName + "; path=/";
                 return {"city":data.city, contryName:data.countryName};
             }
             };
