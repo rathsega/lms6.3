@@ -88,6 +88,32 @@ if ($stripe_info[0]['active'] == 0) {
 ?>
 
 <?php include "move_to_top.php"; ?>
+
+<div class="container">
+  <div class="row">
+    <!-- Form -->
+    <div class="nb-form">
+      <p class="title">Send a message</p>
+      <div class="user-container">
+      <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1709106596/Group_1000002060_rksk9t.png"  class="user-icon" id="userIcon">
+      </div>
+      <form action="javascript:void(0);" onsubmit="footerContactFormSubmit()" name="footerContactForm" id="footerContactForm">
+        <input type="text" name="cpname" id="footerCFName" placeholder="Name:" required>
+        <input type="email" name="cpemail" id="footerCFEmail" placeholder="Email:" required>
+        <input type="tel" name="cpphone" id="footerCFPhone" placeholder="Phone:" required>
+        <textarea name="cpmessage" id="footerCFMessage" placeholder="Message:" required></textarea>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
+</div>
+<style>
+/*.rotate-on-hover:click {
+  transform: rotate(180deg); 
+  transition: transform 0.3s ease; 
+}*/
+</style>
+
 <script>
 
 (function (w, d, s, u) {
@@ -112,6 +138,133 @@ if ($stripe_info[0]['active'] == 0) {
         h.parentNode.insertBefore(j, h);
     })(window, document, "script", "https://waw.gallabox.com");
     
+    </script>
+
+    <script>
+        $(".user-icon").click(function(){
+            if($('.nb-form').css("bottom") == "0px"){
+                $('.nb-form').css("bottom", "-315px");
+            }else{
+                $('.nb-form').css("bottom", "0px");
+            }
+        });
+
+        setInterval(function(){
+            if(!localStorage.getItem("dataSubmitted")){
+                $('.nb-form').css("bottom", "0px");
+            }
+        },120000)
+
+        function footerContactFormSubmit(){
+            var full_number = CFPhoneInputField.getNumber(intlTelInputUtils.numberFormat.E164);
+            $("input[name='cpphone'").val(full_number);
+            var $inputs = $('#footerContactForm :input');
+
+            const name = document.getElementById('footerCFName').value.trim();
+            const email = document.getElementById('footerCFEmail').value.trim();
+            const phone = document.getElementById('footerCFPhone').value.trim();
+            const message = document.getElementById('footerCFMessage').value.trim();
+
+            // Regular expressions for email and phone number validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            // Perform validations
+            if (name === '') {
+                alert('Please enter your name.');
+                return;
+            }
+
+            if (email === '' || !emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            var formData = {
+                name: name,
+                email: email,
+                phone: phone,
+                message: message,
+            };
+            // Create a new XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+
+            // Define the request (GET method, URL)
+            xhr.open('POST', '<?php echo site_url('home/footer_contactus_submitted'); ?>', true);
+
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            // Convert the data object to JSON format
+            serialize = function(obj) {
+            var str = [];
+                for (var p in obj)
+                    if (obj.hasOwnProperty(p)) {
+                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
+                return str.join("&");
+            }
+            localStorage.setItem('userData', JSON.stringify({
+                first_name: name,
+                last_name: name,
+                email: email,
+                phone: phone,
+                city: ""
+            }));
+            var jsonData = serialize(formData);
+
+            // Set up a function to handle the response
+            xhr.onload = function() {
+            if (xhr.status === 200) {
+                // Request was successful
+                alert( xhr.responseText);
+                if( xhr.responseText == 'Thank You For Contacting Us.'){
+                    // Optionally, reset the form after successful submission
+                    $('#footerContactForm')[0].reset();
+                    localStorage.setItem("dataSubmitted", true);
+                    $('.nb-form').css("bottom", "-315px");
+                }
+                
+
+                // Perform actions with the response data here
+            } else {
+                // Error handling if the request fails
+                console.error('Request failed. Status:', xhr.status);
+            }
+            };
+
+            // Send the POST request with the JSON data
+            xhr.send(jsonData);
+        }
+
+    const footerCFPhoneInputField = document.querySelector("#footerCFPhone");
+    const CFPhoneInputField = window.intlTelInput(footerCFPhoneInputField, {
+        preferredCountries:["in"],
+        hiddenInput: "full",
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    $("form").submit(function() {
+        var full_number = CFPhoneInputField.getNumber(intlTelInputUtils.numberFormat.E164);
+        $("input[name='cpphone'").val(full_number);
+        
+        });
+
+        $(document).ready(function(){
+            let details_submitted = localStorage.getItem('dataSubmitted');
+            let user_id = "<?php echo $this->session->userdata('user_id'); ?>";
+            if(details_submitted != "true" && !user_id){
+                setTimeout(()=>{
+                    if(details_submitted != "true" && !user_id ){
+                        if(<?php echo isset($slug) ? "true":"false"; ?>){
+                            if(!"<?php echo $slug; ?>".includes("oracle-fusion-scm-online-training-course") && !"<?php echo $slug; ?>".includes("oracle-fusion-financials-online-training-course")){
+                                openModalBtn2.click();
+                            }
+                        }else{
+                            openModalBtn2.click();
+                        }
+                    }
+                }, 10000)
+            } // 10000 to load it after 10 seconds from page load
+        });
     </script>
 
 

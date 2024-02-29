@@ -1754,7 +1754,7 @@ class Home extends CI_Controller
             $data['datetime'] = time();
 
             // Regular expressions for validation
-            $nameRegex = "/^[a-zA-Z]+$/"; // Only letters allowed
+            $nameRegex = "/^[a-zA-Z ]+$/"; // Only letters allowed
             $emailRegex = "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/"; // Email format
             $phoneRegex = "/^[6-9]{1}[0-9]{9}$/"; // 10 digits phone number
             $cityRegex = "/^[a-zA-Z\s]+$/"; // Only letters and spaces allowed
@@ -2015,7 +2015,7 @@ class Home extends CI_Controller
         $city = $_POST['city'];
 
         // Regular expressions for validation
-        $nameRegex = "/^[a-zA-Z]+$/"; // Only letters allowed
+        $nameRegex = "/^[a-zA-Z ]+$/"; // Only letters allowed
         $emailRegex = "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/"; // Email format
         $phoneRegex = "/^[6-9]{1}[0-9]{9}$/"; // 10 digits phone number
         $cityRegex = "/^[a-zA-Z\s]+$/"; // Only letters and spaces allowed
@@ -2044,6 +2044,47 @@ class Home extends CI_Controller
         $details['message'] = $message;
         $details['course'] = $course;
         $details['city'] = $city;
+        $details['datetime'] = time();
+        $inserted = $this->crud_model->add_contactus($details);
+        if($inserted){
+            echo "Thank You For Contacting Us.";
+        }
+    }
+
+    public function footer_contactus_submitted(){
+        date_default_timezone_set('Asia/Kolkata');
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $message = $_POST['message'];
+
+        // Regular expressions for validation
+        $nameRegex = "/^[a-zA-Z ]+$/"; // Only letters allowed
+        $emailRegex = "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/"; // Email format
+        $phoneRegex = "/^[6-9]{1}[0-9]{9}$/"; // 10 digits phone number
+        $cityRegex = "/^[a-zA-Z\s]+$/"; // Only letters and spaces allowed
+
+        // Validation with lengths and regular expressions
+        if (strlen($name) < 3 || !preg_match($nameRegex, $name)) {
+            echo "Invalid name, name should contain at least 3 characters.";
+            return true;
+        }
+
+        if (!preg_match($emailRegex, $email)) {
+            echo "Invalid email";
+            return true;
+        }
+
+        if (strlen($message) > 500) {
+            echo "Message should not exceeds 500 characters";
+            return true;
+        }
+
+        $details = [];
+        $details['first_name'] = $name;
+        $details['email'] = $email;
+        $details['phone'] = $phone;
+        $details['message'] = $message;
         $details['datetime'] = time();
         $inserted = $this->crud_model->add_contactus($details);
         if($inserted){

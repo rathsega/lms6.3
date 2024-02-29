@@ -936,30 +936,7 @@ if($payment_pending){
     </div>
 </section>
 
-<div class="container">
-  <div class="row">
-    <!-- Form -->
-    <div class="nb-form">
-      <p class="title">Send a message</p>
-      <div class="user-container">
-      <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1709106596/Group_1000002060_rksk9t.png"  class="user-icon" id="userIcon">
-      </div>
-      <form>
-        <input type="text" name="cpname" placeholder="Name:" required>
-        <input type="email" name="cpemail" placeholder="Email:" required>
-        <input type="tel" name="cpphone" placeholder="Phone:" required>
-        <textarea name="cpmessage" placeholder="Course:" required></textarea>
-        <input type="submit" value="Submit">
-      </form>
-    </div>
-  </div>
-</div>
-<style>
-    .rotate-on-hover:hover {
-  transform: rotate(180deg); /* Rotate 180 degrees on hover */
-  transition: transform 0.3s ease; /* Add a smooth transition effect */
-}
-</style>
+
 
 <script>
     let user_id = "<?php echo $this->session->userdata('user_id') ? true : false; ?>";
