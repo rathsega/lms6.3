@@ -796,6 +796,60 @@ class Crud_model extends CI_Model
                 $faqs[$faq_title] = $this->input->post('faq_descriptions')[$faq_key];
             }
         endif;
+        $about = array();
+        if(!empty($this->input->post('about'))):
+            foreach(array_filter($this->input->post('about')) as $about_key => $about_title){
+                $about[$about_key] = [];
+                $about['title'] = $about_title;
+                $about['description'] = $this->input->post('about_descriptions')[$about_key];
+            }
+        endif;
+        $learn = array();
+        var_dump($_FILES);exit;
+
+        $data['last_modified'] = time();
+
+        if(!empty($this->input->post('learn'))):
+            foreach(array_filter($this->input->post('learn')) as $learn_key => $learn_title){
+                $learn[$learn_key] = [];
+                $learn[$learn_key]['title'] = $learn_title;
+                $learn[$learn_key]['description'] = $this->input->post('learn_descriptions')[$learn_key];
+                if($_FILES['learn_icon'][$learn_key]){
+                    if ($_FILES['learn_icon'][$learn_key]['name'] != "") {
+                        $fileName           = $_FILES['learn_icon'][$learn_key]['name'];
+                        $tmp                = explode('.', $fileName);
+                        $fileExtension      = end($tmp);
+                        move_uploaded_file($_FILES['learn_icon'][$learn_key]['tmp_name'], 'uploads/learn/' . $course_id .$data['last_modified']. '.'.$fileExtension);
+                        $learn[$learn_key]['icon'] = $course_id .$data['last_modified']. '.'.$fileExtension;
+                    }
+                }
+            }
+        endif;
+        $growth = array();
+        if(!empty($this->input->post('growth'))):
+            foreach(array_filter($this->input->post('growth')) as $growth_key => $growth_title){
+                $growth[$growth_key] = [];
+                $growth[$growth_key]['title'] = $growth_title;
+                $growth[$growth_key]['description'] = $this->input->post('growth_descriptions')[$growth_key];
+                if($_FILES['growth_icon'][$growth_key]){
+                    if ($_FILES['growth_icon'][$growth_key]['name'] != "") {
+                        $fileName           = $_FILES['growth_icon'][$growth_key]['name'];
+                        $tmp                = explode('.', $fileName);
+                        $fileExtension      = end($tmp);
+                        move_uploaded_file($_FILES['growth_icon'][$growth_key]['tmp_name'], 'uploads/growth/' . $course_id .$data['last_modified']. '.'.$fileExtension);
+                        $growth[$growth_key]['icon'] = $course_id .$data['last_modified']. '.'.$fileExtension;
+                    }
+                }
+            }
+        endif;
+        $future = array();
+        if(!empty($this->input->post('future'))):
+            foreach(array_filter($this->input->post('future')) as $future_key => $future_title){
+                $future[$future_key] = [];
+                $future['title'] = $future_title;
+                $future['description'] = $this->input->post('future_descriptions')[$future_key];
+            }
+        endif;
 
         $outcomes = $this->trim_and_return_json($this->input->post('outcomes'));
         $requirements = $this->trim_and_return_json($this->input->post('requirements'));
@@ -804,6 +858,10 @@ class Crud_model extends CI_Model
         $data['description'] = $this->input->post('description');
         $data['outcomes'] = $outcomes;
         $data['faqs'] = json_encode($faqs);
+        $data['about'] = json_encode($about);
+        $data['learn'] = json_encode($learn);
+        $data['growth'] = json_encode($growth);
+        $data['future'] = json_encode($future);
         $data['language'] = $this->input->post('language_made_in');
         $data['sub_category_id'] = $this->input->post('sub_category_id');
         $category_details = $this->get_category_details_by_id($this->input->post('sub_category_id'))->row_array();
@@ -813,6 +871,8 @@ class Crud_model extends CI_Model
         $data['category_slug'] = $parent_category_details['slug'];
         $data['requirements'] = $requirements;
         $data['is_free_course'] = $this->input->post('is_free_course');
+        $data['experience'] = $this->input->post('experience');
+        $data['template'] = $this->input->post('template');
         $data['course_duration_in_hours'] = $this->input->post('course_duration_in_hours');
         $data['course_duration_in_months'] = $this->input->post('course_duration_in_months');
         $data['daily_class_duration_in_hours'] = $this->input->post('daily_class_duration_in_hours');
@@ -847,7 +907,7 @@ class Crud_model extends CI_Model
         $data['meta_keywords'] = $this->input->post('meta_keywords');
         $data['slug'] = $this->input->post('slug');
         $data['slug_count'] = $this->input->post('slug_count');
-        $data['last_modified'] = time();
+        
 
 
         if ($this->session->userdata('admin_login')) {
@@ -5554,5 +5614,16 @@ class Crud_model extends CI_Model
         return $this->db->query("
             SELECT name, dr.email, dr.phone, c.title, dr.date from demo_requests as dr left join course as c on c.id = dr.course
              order by dr.date desc ");
+    }
+
+    public function getAllCartpagevisitors(){
+        return $this->db->query("SELECT CONCAT(u.first_name, u.last_name) as name, u.email, u.phone, v.course_id, c.title, v.datetime 
+        FROM users u
+        LEFT JOIN cart_page_visitors v ON u.id = v.user_id
+        LEFT JOIN course as c ON c.id = v.course_id 
+        LEFT JOIN enrol e ON u.id = e.user_id AND v.course_id = e.course_id
+        WHERE v.course_id IS NOT NULL AND e.course_id IS NULL");
+        //return $this->db->query("
+        //SELECT CONCAT(u.first_name, u.last_name) as name, u.email, u.phone, c.title, cv.datetime from cart_page_visitors as cv left join course as c on c.id = cv.course_id left join users as u on u.id = cv.user_id order by cv.datetime desc ");
     }
 }

@@ -2123,4 +2123,15 @@ class Home extends CI_Controller
         }
     }
 
+    public function logWhoVisitedCartPage(){
+        foreach ($this->session->userdata('cart_items') as $item){
+            $data = [];
+            $data['course_id'] = $item;
+            $data['user_id'] = $this->session->userdata('user_id');
+            $data['status'] = 'visited';
+            $data['datetime'] = date("Y-m-d H:i:s",time());
+            $this->db->insert('cart_page_visitors', $data);
+        }
+    }
+
 }
