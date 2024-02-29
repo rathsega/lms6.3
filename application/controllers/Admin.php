@@ -3046,6 +3046,13 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
+    public function cartpagevisitors(){
+        $page_data['page_name'] = 'cartpagevisitors';
+        $page_data['page_title'] = "Cart Page Visitors";
+        $page_data['cartpagevisitors'] = $this->crud_model->getAllCartpagevisitors();
+        $this->load->view('backend/index', $page_data);
+    }
+
     public function broucher(){
         $page_data['page_name'] = 'broucher';
         $page_data['page_title'] = "Broucher";
