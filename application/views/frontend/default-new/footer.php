@@ -98,7 +98,7 @@ if ($stripe_info[0]['active'] == 0) {
                 siteName: "Tech Leads IT",
                 siteTag: "Online",
                 siteLogo: "https://files.gallabox.com/65261c5bc8129752ae1df6dd/a849b8a7-83b1-4e83-bbe3-bfd6ba30caa5-TechLeadsITIcon.png",
-                widgetPosition: "RIGHT",
+                widgetPosition: "LEFT",
                 welcomeMessage: "Welcome to Tech Leads IT!!!",
                 brandColor: "#25D366",
                 messageText: "How can I help you?",
@@ -111,6 +111,7 @@ if ($stripe_info[0]['active'] == 0) {
         j.src = u + "/whatsapp-widget.min.js?_=" + Math.random();
         h.parentNode.insertBefore(j, h);
     })(window, document, "script", "https://waw.gallabox.com");
-</script>
+    
+    </script>
 
 
