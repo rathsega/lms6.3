@@ -277,6 +277,23 @@
         timeout: 1000,
         maximumAge: 0
     };
+
+    function logWhoVisitedCartPage(){
+        var request = new XMLHttpRequest();
+        var method = 'GET';
+        var url = 'logWhoVisitedCartPage';
+        var async = true;
+
+        request.open(method, url, async);
+        request.onreadystatechange = function() {
+            if (request.readyState == 4 && request.status == 200) {
+                var data = JSON.parse(request.responseText);
+                
+            }
+        };
+        request.send();
+    }
+    logWhoVisitedCartPage();
 </script>
 
 <?php include "init.php"; ?>
