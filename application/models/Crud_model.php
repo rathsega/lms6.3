@@ -797,59 +797,72 @@ class Crud_model extends CI_Model
             }
         endif;
         $about = array();
-        if(!empty($this->input->post('about'))):
-            foreach(array_filter($this->input->post('about')) as $about_key => $about_title){
+        if(!empty($this->input->post('about_title'))):
+            foreach(array_filter($this->input->post('about_title')) as $about_key => $about_title){
                 $about[$about_key] = [];
-                $about['title'] = $about_title;
-                $about['description'] = $this->input->post('about_descriptions')[$about_key];
+                $about[$about_key]['title'] = $about_title;
+                $about[$about_key]['description'] = $this->input->post('about_descriptions')[$about_key];
             }
         endif;
         $learn = array();
-        var_dump($_FILES);exit;
+        //var_dump($_POST);exit;
 
         $data['last_modified'] = time();
 
-        if(!empty($this->input->post('learn'))):
-            foreach(array_filter($this->input->post('learn')) as $learn_key => $learn_title){
+        if(!empty($this->input->post('learn_title'))):
+            foreach(array_filter($this->input->post('learn_title')) as $learn_key => $learn_title){
                 $learn[$learn_key] = [];
                 $learn[$learn_key]['title'] = $learn_title;
                 $learn[$learn_key]['description'] = $this->input->post('learn_descriptions')[$learn_key];
-                if($_FILES['learn_icon'][$learn_key]){
-                    if ($_FILES['learn_icon'][$learn_key]['name'] != "") {
-                        $fileName           = $_FILES['learn_icon'][$learn_key]['name'];
+                if($_FILES['learn_icon']['name'][$learn_key]){
+                    if ($_FILES['learn_icon']['name'][$learn_key] != "") {
+                        $fileName           = $_FILES['learn_icon']['name'][$learn_key];
                         $tmp                = explode('.', $fileName);
                         $fileExtension      = end($tmp);
-                        move_uploaded_file($_FILES['learn_icon'][$learn_key]['tmp_name'], 'uploads/learn/' . $course_id .$data['last_modified']. '.'.$fileExtension);
-                        $learn[$learn_key]['icon'] = $course_id .$data['last_modified']. '.'.$fileExtension;
+                        move_uploaded_file($_FILES['learn_icon']['tmp_name'][$learn_key], 'uploads/learn/' . $course_id .'_'.$learn_key.'_' .$data['last_modified']. '.'.$fileExtension);
+                        $learn[$learn_key]['icon'] = $course_id .'_'.$learn_key.'_' .$data['last_modified']. '.'.$fileExtension;
                     }
-                }
-            }
-        endif;
-        $growth = array();
-        if(!empty($this->input->post('growth'))):
-            foreach(array_filter($this->input->post('growth')) as $growth_key => $growth_title){
-                $growth[$growth_key] = [];
-                $growth[$growth_key]['title'] = $growth_title;
-                $growth[$growth_key]['description'] = $this->input->post('growth_descriptions')[$growth_key];
-                if($_FILES['growth_icon'][$growth_key]){
-                    if ($_FILES['growth_icon'][$growth_key]['name'] != "") {
-                        $fileName           = $_FILES['growth_icon'][$growth_key]['name'];
-                        $tmp                = explode('.', $fileName);
-                        $fileExtension      = end($tmp);
-                        move_uploaded_file($_FILES['growth_icon'][$growth_key]['tmp_name'], 'uploads/growth/' . $course_id .$data['last_modified']. '.'.$fileExtension);
-                        $growth[$growth_key]['icon'] = $course_id .$data['last_modified']. '.'.$fileExtension;
-                    }
+                }else{
+                    $learn[$learn_key]['icon'] = $this->input->post('learn_previous_icon')[$learn_key];
                 }
             }
         endif;
         $future = array();
-        if(!empty($this->input->post('future'))):
-            foreach(array_filter($this->input->post('future')) as $future_key => $future_title){
+        if(!empty($this->input->post('future_title'))):
+            foreach(array_filter($this->input->post('future_title')) as $future_key => $future_title){
                 $future[$future_key] = [];
-                $future['title'] = $future_title;
-                $future['description'] = $this->input->post('future_descriptions')[$future_key];
+                $future[$future_key]['title'] = $future_title;
+                $future[$future_key]['description'] = $this->input->post('future_descriptions')[$future_key];
+                //var_dump($_FILES['future_icon']);exit;
+                if($_FILES['future_icon']['name'][$future_key]){
+                    if ($_FILES['future_icon']['name'][$future_key] != "") {
+                        $fileName           = $_FILES['future_icon']['name'][$future_key];
+                        $tmp                = explode('.', $fileName);
+                        $fileExtension      = end($tmp);
+                        move_uploaded_file($_FILES['future_icon']['tmp_name'][$future_key], 'uploads/future/' . $course_id .'_'.$future_key.'_' .$data['last_modified']. '.'.$fileExtension);
+                        $future[$future_key]['icon'] = $course_id .'_'.$future_key.'_' .$data['last_modified']. '.'.$fileExtension;
+                    }
+                }else{
+                    $future[$future_key]['icon'] = $this->input->post('future_previous_icon')[$future_key];
+                }
             }
         endif;
+        $growth = array();
+        if(!empty($this->input->post('growth_title'))):
+            foreach(array_filter($this->input->post('growth_title')) as $growth_key => $growth_title){
+                $growth[$growth_key] = [];
+                $growth[$growth_key]['title'] = $growth_title;
+                $growth[$growth_key]['description'] = $this->input->post('growth_descriptions')[$growth_key];
+            }
+        endif;
+
+        if(!empty($_FILES['banner_image']['name'])){
+            $fileName           = $_FILES['banner_image']['name'];
+            $tmp                = explode('.', $fileName);
+            $fileExtension      = end($tmp);
+            move_uploaded_file($_FILES['banner_image']['tmp_name'], 'uploads/banner_image/' . $course_id .'_' .$data['last_modified']. '.'.$fileExtension);
+            $data['banner_image'] = $course_id .'_' .$data['last_modified']. '.'.$fileExtension;
+        }
 
         $outcomes = $this->trim_and_return_json($this->input->post('outcomes'));
         $requirements = $this->trim_and_return_json($this->input->post('requirements'));
@@ -876,6 +889,11 @@ class Crud_model extends CI_Model
         $data['course_duration_in_hours'] = $this->input->post('course_duration_in_hours');
         $data['course_duration_in_months'] = $this->input->post('course_duration_in_months');
         $data['daily_class_duration_in_hours'] = $this->input->post('daily_class_duration_in_hours');
+        $data['weekend_track_course_duration_in_months'] = $this->input->post('weekend_track_course_duration_in_months');
+        $data['weekend_track_daily_class_duration_in_hours'] = $this->input->post('weekend_track_daily_class_duration_in_hours');
+        $data['weekend_track_course_price'] = $this->input->post('weekend_track_course_price');
+        $data['weekend_track_sessions_count'] = $this->input->post('weekend_track_sessions_count');
+        $data['week_track_sessions_count'] = $this->input->post('week_track_sessions_count');
 
         //Course expiry period
         if($this->input->post('expiry_period') == 'limited_time' && is_numeric($this->input->post('number_of_month')) && $this->input->post('number_of_month') > 0){
@@ -5625,5 +5643,35 @@ class Crud_model extends CI_Model
         WHERE v.course_id IS NOT NULL AND e.course_id IS NULL");
         //return $this->db->query("
         //SELECT CONCAT(u.first_name, u.last_name) as name, u.email, u.phone, c.title, cv.datetime from cart_page_visitors as cv left join course as c on c.id = cv.course_id left join users as u on u.id = cv.user_id order by cv.datetime desc ");
+    }
+
+    public function get_course_banner_image_url($course_id, $type){
+        // Course media placeholder is coming from the theme config file. Which has all the placehoder for different images. Choose like course type.
+        $course_media_placeholders = themeConfiguration(get_frontend_settings('theme'), 'course_media_placeholders');
+
+        $last_modified = $this->get_course_by_id($course_id)->row('last_modified');
+        $banner_image = $this->get_course_by_id($course_id)->row('banner_image');
+        if($banner_image){
+            return base_url() . 'uploads/banner_image'. $course_id.'_'.$last_modified;
+        }else{
+           return base_url() . 'uploads/thumbnails/course_thumbnails/optimized/' . $type . '_' . get_frontend_settings('theme') . '_' . $course_id.$last_modified . '.webp';
+        }
+    }
+
+    public function getAllActiveCategories(){
+        return $this->db->query("
+                    select distinct ct.* from category as ct inner join course as c on c.category_id = ct.id where c.is_top_course = 1 or c.is_top10_course = 1 or c.show_it_in_category = 1 and c.status = 'active' order by id asc
+                ");
+    }
+
+    public function get_actual_courses_by_category($category){
+        $this->db->where('status', 'active');
+        $this->db->where('category_id', $category);
+        $this->db->group_start();
+            $this->db->where('is_top_course', 1);
+            $this->db->or_where('is_top10_course', 1);
+            $this->db->or_where('show_it_in_category', 1);
+        $this->db->group_end();
+        return $this->db->get('course');
     }
 }

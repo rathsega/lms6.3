@@ -61,3 +61,12 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function deleteCookie(cookieName) {
+            document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        }
+        deleteCookie("city");
+        deleteCookie("country");
+        deleteCookie("countryName");
+    </script>

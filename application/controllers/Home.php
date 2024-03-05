@@ -263,7 +263,7 @@ class Home extends CI_Controller
         $course_data = $this->crud_model->get_course_by_slug($slug)->row_array();
         $page_data['slug'] = $slug;
         $page_data['course_id'] = $course_data['id'];
-        $page_data['page_name'] = "course_page";
+        $page_data['page_name'] = $course_data['template'] == 'template one'  ? "template_one" : "course_page";
         $page_data['page_title'] = site_phrase('course');
 
     
@@ -488,8 +488,11 @@ class Home extends CI_Controller
             $this->load->view('frontend/' . get_frontend_settings('theme') . '/cart_items');
         }
     }
-    public function handle_cart_items($course_id = "", $identifier = "")
+    public function handle_cart_items($course_id = "", $identifier = "", $course_track = "")
     {
+        if($identifier == "null"){
+            $identifier = "";
+        }
         if (!$this->session->userdata('cart_items')) {
             $this->session->set_userdata('cart_items', array());
         }
@@ -502,6 +505,14 @@ class Home extends CI_Controller
             $response['success'] = get_phrase('Item successfully removed from cart');
             $response['hide'] = '#added_to_cart_btn_'.$identifier.$course_id;
             $response['show'] = '#add_to_cart_btn_'.$identifier.$course_id;
+            if($course_track=="weekday"){
+                $response['fee_weekday_hide'] = '#fee_weekday_added_to_cart_btn_'.$identifier.$course_id;
+                $response['fee_weekday_show'] = '#fee_weekday_add_to_cart_btn_'.$identifier.$course_id;
+            } else if($course_track=="weekend"){
+                $response['fee_weekend_hide'] = '#fee_weekend_added_to_cart_btn_'.$identifier.$course_id;
+                $response['fee_weekend_show'] = '#fee_weekend_add_to_cart_btn_'.$identifier.$course_id;
+            }
+            
             
         } else {
             array_push($previous_cart_items, $course_id);
@@ -509,9 +520,17 @@ class Home extends CI_Controller
             $response['success'] = get_phrase('Item successfully added to cart');
             $response['show'] = '#added_to_cart_btn_'.$identifier.$course_id;
             $response['hide'] = '#add_to_cart_btn_'.$identifier.$course_id;
+            if($course_track=="weekday"){
+                $response['fee_weekday_show'] = '#fee_weekday_added_to_cart_btn_'.$identifier.$course_id;
+                $response['fee_weekday_hide'] = '#fee_weekday_add_to_cart_btn_'.$identifier.$course_id;
+            } else if($course_track=="weekend"){
+                $response['fee_weekend_show'] = '#fee_weekend_added_to_cart_btn_'.$identifier.$course_id;
+                $response['fee_weekend_hide'] = '#fee_weekend_add_to_cart_btn_'.$identifier.$course_id;
+            }
+            
         }
+        $response['track'] = $course_track;
         $this->session->set_userdata('cart_items', $previous_cart_items);
-
 
         //Cart page start
         $response['html'] = [

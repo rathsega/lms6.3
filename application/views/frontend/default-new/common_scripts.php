@@ -68,6 +68,7 @@
     }
     if (isValidJson) {
       response = JSON.parse(response);
+      console.log(response);
       //For reload after submission
       if(typeof response.reload != "undefined" && response.reload != 0){
         location.reload();
@@ -76,6 +77,24 @@
       //For redirect to another url
       if(typeof response.redirectTo != "undefined" && response.redirectTo != 0){
         $(location).attr('href', response.redirectTo);
+      }
+
+      //for show a element
+      if(typeof response.fee_weekday_show != "undefined" && response.fee_weekday_show != 0 && $(response.fee_weekday_show).length){
+        $(response.fee_weekday_show).css('display', 'inline-block');
+      }
+      //for hide a element
+      if(typeof response.fee_weekday_hide != "undefined" && response.fee_weekday_hide != 0 && $(response.fee_weekday_hide).length){
+        $(response.fee_weekday_hide).hide();
+      }
+
+      //for show a element
+      if(typeof response.fee_weekend_show != "undefined" && response.fee_weekend_show != 0 && $(response.fee_weekend_show).length){
+        $(response.fee_weekend_show).css('display', 'inline-block');
+      }
+      //for hide a element
+      if(typeof response.fee_weekend_hide != "undefined" && response.fee_weekend_hide != 0 && $(response.fee_weekend_hide).length){
+        $(response.fee_weekend_hide).hide();
       }
 
       //for show a element

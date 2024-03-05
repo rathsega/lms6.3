@@ -202,7 +202,7 @@
                                                 <div class="offset-md-2 col-md-10">
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" name="is_top10_course" id="is_top_10_course" value="1">
-                                                        <label class="custom-control-label" for="is_top_course"><?php echo get_phrase('check_if_this_course_is_top10_course') . " <b>(X)</b>"; ?></label>
+                                                        <label class="custom-control-label" for="is_top_10_course"><?php echo get_phrase('check_if_this_course_is_top10_course') . " <b>(X)</b>"; ?></label>
                                                     </div>
                                                 </div>
                                             </div>
