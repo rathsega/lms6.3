@@ -15,63 +15,64 @@ class Email_model extends CI_Model
 		//End editable
 
 		$notification = $this->db->where('type', $type)->get('notification_settings')->row_array();
-		foreach(json_decode($notification['user_types'], true) as $user_type){
-			
+		foreach (json_decode($notification['user_types'], true) as $user_type) {
+
 			//Editable
-			if($user_type == 'user'){
+			if ($user_type == 'user') {
 				$to_user = $this->db->get_where('users', array('email' => $to))->row_array();
 				$replaces['email_verification_code'] = $verification_code;
 			}
 			//End editable
 
-			$template_data['replaces'] = isset($replaces) ? $replaces:array();
+			$template_data['replaces'] = isset($replaces) ? $replaces : array();
 			$template_data['to_user'] = $to_user;
 			$template_data['notification'] = $notification;
 			$template_data['user_type'] = $user_type;
 			$subject = json_decode($notification['subject'], true)[$user_type];
 			$email_template = $this->load->view('email/common_template',  $template_data, TRUE);
 
-			if(json_decode($notification['system_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['system_notification'], true)[$user_type] == 1) {
 				$this->notify($type, $to_user['id'], $subject, $email_template);
 			}
-			if(json_decode($notification['email_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['email_notification'], true)[$user_type] == 1) {
 				$this->send_smtp_mail($email_template, $subject, $to_user['email']);
 			}
 		}
 	}
 
-	function signup_mail($new_user_id = ""){
+	function signup_mail($new_user_id = "")
+	{
 		//Editable
 		$type = 'signup';
 		//End editable
 
 		$notification = $this->db->where('type', $type)->get('notification_settings')->row_array();
-		foreach(json_decode($notification['user_types'], true) as $user_type){
-			
+		foreach (json_decode($notification['user_types'], true) as $user_type) {
+
 			//Editable
-			if($user_type == 'admin'){
+			if ($user_type == 'admin') {
 				$new_user = $this->db->get_where('users', array('id' => $new_user_id))->row_array();
 				$to_user = $this->db->get_where('users', array('role_id' => 1))->row_array();
-				$replaces['user_name'] = $new_user['first_name'].' '.$new_user['last_name'];
+				$replaces['user_name'] = $new_user['first_name'] . ' ' . $new_user['last_name'];
 				$replaces['user_email'] = $new_user['email'];
 			}
-			if($user_type == 'user'){
+			if ($user_type == 'user') {
 				$to_user = $this->db->get_where('users', array('id' => $new_user_id))->row_array();
 				$replaces['system_name'] = get_settings('system_name');
 			}
 			//End editable
 
-			$template_data['replaces'] = isset($replaces) ? $replaces:array();
+			$template_data['replaces'] = isset($replaces) ? $replaces : array();
 			$template_data['to_user'] = $to_user;
 			$template_data['notification'] = $notification;
 			$template_data['user_type'] = $user_type;
 			$subject = json_decode($notification['subject'], true)[$user_type];
 			$email_template = $this->load->view('email/common_template',  $template_data, TRUE);
 
-			if(json_decode($notification['system_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['system_notification'], true)[$user_type] == 1) {
 				$this->notify($type, $to_user['id'], $subject, $email_template);
 			}
-			if(json_decode($notification['email_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['email_notification'], true)[$user_type] == 1) {
 				$this->send_smtp_mail($email_template, $subject, $to_user['email']);
 			}
 		}
@@ -86,30 +87,39 @@ class Email_model extends CI_Model
 		//End editable
 
 		$notification = $this->db->where('type', $type)->get('notification_settings')->row_array();
-		foreach(json_decode($notification['user_types'], true) as $user_type){
-			
+		foreach (json_decode($notification['user_types'], true) as $user_type) {
+
 			//Editable
-			if($user_type == 'user'){
+			if ($user_type == 'user') {
 				$query = $this->db->get_where('users', array('email' => $to));
 				$to_user = $query->row_array();
-				$replaces['verification_link'] = '<a href="'.site_url('login/change_password/'.$verification_code).'" target="_blank">Change Password</a>';
+				$replaces['verification_link'] = '<a href="' . site_url('login/change_password/' . $verification_code) . '" target="_blank">Change Password</a>';
 				$replaces['system_name'] = get_settings('system_name');
 				$replaces['minutes'] = 10;
 			}
 			//Editable
 
-			$template_data['replaces'] = isset($replaces) ? $replaces:array();
+			$template_data['replaces'] = isset($replaces) ? $replaces : array();
 			$template_data['to_user'] = $to_user;
 			$template_data['notification'] = $notification;
 			$template_data['user_type'] = $user_type;
 			$subject = json_decode($notification['subject'], true)[$user_type];
 			$email_template = $this->load->view('email/common_template',  $template_data, TRUE);
 
-			if(json_decode($notification['system_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['system_notification'], true)[$user_type] == 1) {
 				$this->notify($type, $to_user['id'], $subject, $email_template);
 			}
-			if(json_decode($notification['email_notification'], true)[$user_type] == 1){
-				$this->send_smtp_mail($email_template, $subject, $to_user['email']);
+			if (json_decode($notification['email_notification'], true)[$user_type] == 1) {
+				$sender = 'admin@techleadsit.com';
+				$headers[] = 'From:' . $sender;
+				$headers[]= "MIME-Version: 1.0";
+        		$headers[]= "Content-type:text/html;charset=UTF-8";
+				if (mail($to_user['email'], $subject, $email_template, implode("\r\n", $headers))) {
+					echo "Message accepted";
+				} else {
+					echo "Error: Message not accepted";
+				}
+				//$this->send_smtp_mail($email_template, $subject, $to_user['email']);
 			}
 		}
 	}
@@ -140,7 +150,7 @@ class Email_model extends CI_Model
 
 	public function course_purchase_notification($student_id = "", $payment_method = "", $amount_paid = "")
 	{
-		
+
 		// $purchased_courses 	= $this->session->userdata('cart_items');
 		// $student_data 		= $this->user_model->get_all_user($student_id)->row_array();
 		// $student_full_name 	= $student_data['first_name'] . ' ' . $student_data['last_name'];
@@ -162,58 +172,57 @@ class Email_model extends CI_Model
 		//End editable
 
 		$notification = $this->db->where('type', $type)->get('notification_settings')->row_array();
-		foreach($this->session->userdata('cart_items') as $course_id){
-			foreach(json_decode($notification['user_types'], true) as $user_type){
-				
+		foreach ($this->session->userdata('cart_items') as $course_id) {
+			foreach (json_decode($notification['user_types'], true) as $user_type) {
+
 				//Editable
-				if($user_type == 'admin'){
+				if ($user_type == 'admin') {
 					$course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
 					$student_details = $this->user_model->get_all_user($student_id)->row_array();
 					$instructor_details = $this->user_model->get_all_user($course_details['creator'])->row_array();
 					$to_user = $this->db->get_where('users', array('role_id' => 1))->row_array();
 
-					$replaces['course_title'] = '<a href="'.site_url('home/course/'.slugify($course_details['title']).'/'.$course_details['id']).'" target="_blank">'.$course_details['title'].'</a>';
-					$replaces['student_name'] = $student_details['first_name'].' '.$student_details['last_name'];
-					$replaces['instructor_name'] = $instructor_details['first_name'].' '.$instructor_details['last_name'];
+					$replaces['course_title'] = '<a href="' . site_url('home/course/' . slugify($course_details['title']) . '/' . $course_details['id']) . '" target="_blank">' . $course_details['title'] . '</a>';
+					$replaces['student_name'] = $student_details['first_name'] . ' ' . $student_details['last_name'];
+					$replaces['instructor_name'] = $instructor_details['first_name'] . ' ' . $instructor_details['last_name'];
 					$replaces['paid_amount'] = $amount_paid;
 
 					//If admin is owner of the course
-					if($to_user['id'] == $course_details['creator']){
+					if ($to_user['id'] == $course_details['creator']) {
 						continue;
 					}
-
 				}
 
-				if($user_type == 'instructor'){
+				if ($user_type == 'instructor') {
 					$course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
 					$student_details = $this->user_model->get_all_user($student_id)->row_array();
 					$to_user = $this->user_model->get_all_user($course_details['creator'])->row_array();
-					$replaces['course_title'] = '<a href="'.site_url('home/course/'.slugify($course_details['title']).'/'.$course_details['id']).'" target="_blank">'.$course_details['title'].'</a>';
-					$replaces['student_name'] = $student_details['first_name'].' '.$student_details['last_name'];
+					$replaces['course_title'] = '<a href="' . site_url('home/course/' . slugify($course_details['title']) . '/' . $course_details['id']) . '" target="_blank">' . $course_details['title'] . '</a>';
+					$replaces['student_name'] = $student_details['first_name'] . ' ' . $student_details['last_name'];
 					$replaces['paid_amount'] = $amount_paid;
 				}
-				if($user_type == 'student'){
+				if ($user_type == 'student') {
 					$course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
 					$instructor_details = $this->user_model->get_all_user($course_details['creator'])->row_array();
 					$to_user = $this->user_model->get_all_user($student_id)->row_array();
 
-					$replaces['course_title'] = '<a href="'.site_url('home/course/'.slugify($course_details['title']).'/'.$course_details['id']).'" target="_blank">'.$course_details['title'].'</a>';
-					$replaces['instructor_name'] = $instructor_details['first_name'].' '.$instructor_details['last_name'];
+					$replaces['course_title'] = '<a href="' . site_url('home/course/' . slugify($course_details['title']) . '/' . $course_details['id']) . '" target="_blank">' . $course_details['title'] . '</a>';
+					$replaces['instructor_name'] = $instructor_details['first_name'] . ' ' . $instructor_details['last_name'];
 					$replaces['paid_amount'] = $amount_paid;
 				}
 				//Editable
 
-				$template_data['replaces'] = isset($replaces) ? $replaces:array();
+				$template_data['replaces'] = isset($replaces) ? $replaces : array();
 				$template_data['to_user'] = $to_user;
 				$template_data['notification'] = $notification;
 				$template_data['user_type'] = $user_type;
 				$subject = json_decode($notification['subject'], true)[$user_type];
 				$email_template = $this->load->view('email/common_template',  $template_data, TRUE);
 
-				if(json_decode($notification['system_notification'], true)[$user_type] == 1){
+				if (json_decode($notification['system_notification'], true)[$user_type] == 1) {
 					$this->notify($type, $to_user['id'], $subject, $email_template);
 				}
-				if(json_decode($notification['email_notification'], true)[$user_type] == 1){
+				if (json_decode($notification['email_notification'], true)[$user_type] == 1) {
 					$this->send_smtp_mail($email_template, $subject, $to_user['email']);
 				}
 			}
@@ -228,49 +237,49 @@ class Email_model extends CI_Model
 		//End editable
 
 		$notification = $this->db->where('type', $type)->get('notification_settings')->row_array();
-		foreach(json_decode($notification['user_types'], true) as $user_type){
-				
+		foreach (json_decode($notification['user_types'], true) as $user_type) {
+
 			//Editable
 			$course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
-			if($course_details['slug_count'] == 1 || $course_details['slug_count'] == 2){
-                $course_slug = $course_details['slug'];
-            }else if($course_details['slug_count'] == 3 || $course_details['slug_count'] == 4){
-                $course_slug = $course_details['category_slug'] .'/' . $course_details['sub_category_slug'] .'/' . $course_details['slug'];
-            }else{
-                $course_slug = $course_details['slug'];
-            }
-			
-			if($user_type == 'instructor'){
-				$certificate = $this->db->get_where('certificates', array('course_id' => $course_id,'student_id' => $student_id))->row_array();
+			if ($course_details['slug_count'] == 1 || $course_details['slug_count'] == 2) {
+				$course_slug = $course_details['slug'];
+			} else if ($course_details['slug_count'] == 3 || $course_details['slug_count'] == 4) {
+				$course_slug = $course_details['category_slug'] . '/' . $course_details['sub_category_slug'] . '/' . $course_details['slug'];
+			} else {
+				$course_slug = $course_details['slug'];
+			}
+
+			if ($user_type == 'instructor') {
+				$certificate = $this->db->get_where('certificates', array('course_id' => $course_id, 'student_id' => $student_id))->row_array();
 				$student_details = $this->user_model->get_all_user($student_id)->row_array();
 				$to_user = $this->user_model->get_all_user($course_details['creator'])->row_array();
-				$replaces['course_title'] = '<a href="'.site_url($course_slug).'" target="_blank">'.$course_details['title'].'</a>';
-				$replaces['student_name'] = $student_details['first_name'].' '.$student_details['last_name'];
+				$replaces['course_title'] = '<a href="' . site_url($course_slug) . '" target="_blank">' . $course_details['title'] . '</a>';
+				$replaces['student_name'] = $student_details['first_name'] . ' ' . $student_details['last_name'];
 
-				$replaces['certificate_link'] = '<a href="'.site_url('certificate/' . $certificate['shareable_url']).'" target="_blank"> Certificate link</a>';
+				$replaces['certificate_link'] = '<a href="' . site_url('certificate/' . $certificate['shareable_url']) . '" target="_blank"> Certificate link</a>';
 			}
-			if($user_type == 'student'){
-				$certificate = $this->db->get_where('certificates', array('course_id' => $course_id,'student_id' => $student_id))->row_array();
+			if ($user_type == 'student') {
+				$certificate = $this->db->get_where('certificates', array('course_id' => $course_id, 'student_id' => $student_id))->row_array();
 				$instructor_details = $this->user_model->get_all_user($student_id)->row_array();
 				$to_user = $this->user_model->get_all_user($student_id)->row_array();
-				$replaces['course_title'] = '<a href="'.site_url($course_slug).'" target="_blank">'.$course_details['title'].'</a>';
-				$replaces['instructor_name'] = $instructor_details['first_name'].' '.$instructor_details['last_name'];
+				$replaces['course_title'] = '<a href="' . site_url($course_slug) . '" target="_blank">' . $course_details['title'] . '</a>';
+				$replaces['instructor_name'] = $instructor_details['first_name'] . ' ' . $instructor_details['last_name'];
 
-				$replaces['certificate_link'] = '<a href="'.site_url('certificate/' . $certificate['shareable_url']).'" target="_blank"> Certificate link</a>';
+				$replaces['certificate_link'] = '<a href="' . site_url('certificate/' . $certificate['shareable_url']) . '" target="_blank"> Certificate link</a>';
 			}
 			//Editable
 
-			$template_data['replaces'] = isset($replaces) ? $replaces:array();
+			$template_data['replaces'] = isset($replaces) ? $replaces : array();
 			$template_data['to_user'] = $to_user;
 			$template_data['notification'] = $notification;
 			$template_data['user_type'] = $user_type;
 			$subject = json_decode($notification['subject'], true)[$user_type];
 			$email_template = $this->load->view('email/common_template',  $template_data, TRUE);
 
-			if(json_decode($notification['system_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['system_notification'], true)[$user_type] == 1) {
 				$this->notify($type, $to_user['id'], $subject, $email_template);
 			}
-			if(json_decode($notification['email_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['email_notification'], true)[$user_type] == 1) {
 				$this->send_smtp_mail($email_template, $subject, $to_user['email']);
 			}
 		}
@@ -284,25 +293,25 @@ class Email_model extends CI_Model
 		//End editable
 
 		$notification = $this->db->where('type', $type)->get('notification_settings')->row_array();
-		foreach(json_decode($notification['user_types'], true) as $user_type){
-			
+		foreach (json_decode($notification['user_types'], true) as $user_type) {
+
 			//Editable
-			if($user_type == 'student'){
+			if ($user_type == 'student') {
 				$to_user = $this->db->get_where('users', array('email' => $to))->row_array();
 			}
 			//End editable
 
-			$template_data['replaces'] = isset($replaces) ? $replaces:array();
+			$template_data['replaces'] = isset($replaces) ? $replaces : array();
 			$template_data['to_user'] = $to_user;
 			$template_data['notification'] = $notification;
 			$template_data['user_type'] = $user_type;
 			$subject = json_decode($notification['subject'], true)[$user_type];
 			$email_template = $this->load->view('email/common_template',  $template_data, TRUE);
 
-			if(json_decode($notification['system_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['system_notification'], true)[$user_type] == 1) {
 				$this->notify($type, $to_user['id'], $subject, $email_template);
 			}
-			if(json_decode($notification['email_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['email_notification'], true)[$user_type] == 1) {
 				$this->send_smtp_mail($email_template, $subject, $to_user['email']);
 			}
 		}
@@ -323,41 +332,41 @@ class Email_model extends CI_Model
 
 
 		$notification = $this->db->where('type', $type)->get('notification_settings')->row_array();
-		foreach(json_decode($notification['user_types'], true) as $user_type){
+		foreach (json_decode($notification['user_types'], true) as $user_type) {
 			//Editable
-			if($user_type == 'admin'){
-				$replaces['bundle_title'] = '<a href="'.site_url('bundle_details/' . $bundle_details['id']).'" target="_blank"> '.$bundle_details['title'].'</a>';
-				$replaces['student_name'] = $student_details['first_name'].' '.$student_details['last_name'];
-				$replaces['instructor_name'] = $bundle_creator_details['first_name'].' '.$bundle_creator_details['last_name'];
-				if($admin_details['id'] == $bundle_creator_details['id']){
+			if ($user_type == 'admin') {
+				$replaces['bundle_title'] = '<a href="' . site_url('bundle_details/' . $bundle_details['id']) . '" target="_blank"> ' . $bundle_details['title'] . '</a>';
+				$replaces['student_name'] = $student_details['first_name'] . ' ' . $student_details['last_name'];
+				$replaces['instructor_name'] = $bundle_creator_details['first_name'] . ' ' . $bundle_creator_details['last_name'];
+				if ($admin_details['id'] == $bundle_creator_details['id']) {
 					continue;
 				}
 				$to_user = $admin_details;
 			}
 
-			if($user_type == 'instructor'){
-				$replaces['bundle_title'] = '<a href="'.site_url('bundle_details/' . $bundle_details['id']).'" target="_blank"> '.$bundle_details['title'].'</a>';
-				$replaces['student_name'] = $student_details['first_name'].' '.$student_details['last_name'];
+			if ($user_type == 'instructor') {
+				$replaces['bundle_title'] = '<a href="' . site_url('bundle_details/' . $bundle_details['id']) . '" target="_blank"> ' . $bundle_details['title'] . '</a>';
+				$replaces['student_name'] = $student_details['first_name'] . ' ' . $student_details['last_name'];
 				$to_user = $bundle_creator_details;
 			}
-			if($user_type == 'student'){
-				$replaces['bundle_title'] = '<a href="'.site_url('bundle_details/' . $bundle_details['id']).'" target="_blank"> '.$bundle_details['title'].'</a>';
-				$replaces['instructor_name'] = $bundle_creator_details['first_name'].' '.$bundle_creator_details['last_name'];
+			if ($user_type == 'student') {
+				$replaces['bundle_title'] = '<a href="' . site_url('bundle_details/' . $bundle_details['id']) . '" target="_blank"> ' . $bundle_details['title'] . '</a>';
+				$replaces['instructor_name'] = $bundle_creator_details['first_name'] . ' ' . $bundle_creator_details['last_name'];
 				$to_user = $student_details;
 			}
 			//Editable
 
-			$template_data['replaces'] = isset($replaces) ? $replaces:array();
+			$template_data['replaces'] = isset($replaces) ? $replaces : array();
 			$template_data['to_user'] = $to_user;
 			$template_data['notification'] = $notification;
 			$template_data['user_type'] = $user_type;
 			$subject = json_decode($notification['subject'], true)[$user_type];
 			$email_template = $this->load->view('email/common_template',  $template_data, TRUE);
 
-			if(json_decode($notification['system_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['system_notification'], true)[$user_type] == 1) {
 				$this->notify($type, $to_user['id'], $subject, $email_template);
 			}
-			if(json_decode($notification['email_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['email_notification'], true)[$user_type] == 1) {
 				$this->send_smtp_mail($email_template, $subject, $to_user['email']);
 			}
 		}
@@ -370,12 +379,10 @@ class Email_model extends CI_Model
 
 	function bundle_purchase_notification_bundle_creator($bundle_details = "", $admin_details = "", $bundle_creator_details = "", $student_details = "")
 	{
-		
 	}
 
 	function bundle_purchase_notification_student($bundle_details = "", $admin_details = "", $bundle_creator_details = "", $student_details = "")
 	{
-		
 	}
 
 	function send_notice($notice_id = "", $course_id = "")
@@ -435,8 +442,8 @@ class Email_model extends CI_Model
 
 		//Update new verification code
 		$this->db->where('id', $user_id)
-		->update('users', array('verification_code' => $new_device_verification_code));
-		
+			->update('users', array('verification_code' => $new_device_verification_code));
+
 		//600 seconds = 10 minutes
 		$this->session->set_userdata('new_device_code_expiration_time', (time() + 600));
 		$this->session->set_userdata('new_device_user_email', $row['email']);
@@ -450,9 +457,9 @@ class Email_model extends CI_Model
 		//End editable
 
 		$notification = $this->db->where('type', $type)->get('notification_settings')->row_array();
-		foreach(json_decode($notification['user_types'], true) as $user_type){
+		foreach (json_decode($notification['user_types'], true) as $user_type) {
 			//Editable
-			if($user_type == 'user'){
+			if ($user_type == 'user') {
 				$replaces['minutes'] = 10;
 				$replaces['user_agent'] = $browser . ' ' . $device;
 				$replaces['verification_code'] = $new_device_verification_code;
@@ -461,17 +468,17 @@ class Email_model extends CI_Model
 			//End editable
 
 
-			$template_data['replaces'] = isset($replaces) ? $replaces:array();
+			$template_data['replaces'] = isset($replaces) ? $replaces : array();
 			$template_data['to_user'] = $row;
 			$template_data['notification'] = $notification;
 			$template_data['user_type'] = $user_type;
 			$subject = json_decode($notification['subject'], true)[$user_type];
 			$email_template = $this->load->view('email/common_template',  $template_data, TRUE);
 
-			if(json_decode($notification['system_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['system_notification'], true)[$user_type] == 1) {
 				$this->notify($type, $to_user['id'], $subject, $email_template);
 			}
-			if(json_decode($notification['email_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['email_notification'], true)[$user_type] == 1) {
 				$this->send_smtp_mail($email_template, $subject, $to_user['email']);
 			}
 		}
@@ -490,26 +497,26 @@ class Email_model extends CI_Model
 		$to_user = $affiliator;
 
 		$notification = $this->db->where('type', $type)->get('notification_settings')->row_array();
-		foreach(json_decode($notification['user_types'], true) as $user_type){
+		foreach (json_decode($notification['user_types'], true) as $user_type) {
 			//Editable
-			if($user_type == 'affiliator'){
-				$replaces['website_link'] = '<a href="'.site_url().'" target="_blank">'.get_settings('system_name').'</a>';
+			if ($user_type == 'affiliator') {
+				$replaces['website_link'] = '<a href="' . site_url() . '" target="_blank">' . get_settings('system_name') . '</a>';
 				$replaces['password'] = $password;
 			}
 			//End editable
 
 
-			$template_data['replaces'] = isset($replaces) ? $replaces:array();
+			$template_data['replaces'] = isset($replaces) ? $replaces : array();
 			$template_data['to_user'] = $affiliator;
 			$template_data['notification'] = $notification;
 			$template_data['user_type'] = $user_type;
 			$subject = json_decode($notification['subject'], true)[$user_type];
 			$email_template = $this->load->view('email/common_template',  $template_data, TRUE);
 
-			if(json_decode($notification['system_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['system_notification'], true)[$user_type] == 1) {
 				$this->notify($type, $to_user['id'], $subject, $email_template);
 			}
-			if(json_decode($notification['email_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['email_notification'], true)[$user_type] == 1) {
 				$this->send_smtp_mail($email_template, $subject, $to_user['email']);
 			}
 		}
@@ -524,18 +531,18 @@ class Email_model extends CI_Model
 		$to_user = $affiliator;
 
 		$notification = $this->db->where('type', $type)->get('notification_settings')->row_array();
-		foreach(json_decode($notification['user_types'], true) as $user_type){
-			$template_data['replaces'] = isset($replaces) ? $replaces:array();
+		foreach (json_decode($notification['user_types'], true) as $user_type) {
+			$template_data['replaces'] = isset($replaces) ? $replaces : array();
 			$template_data['to_user'] = $affiliator;
 			$template_data['notification'] = $notification;
 			$template_data['user_type'] = $user_type;
 			$subject = json_decode($notification['subject'], true)[$user_type];
 			$email_template = $this->load->view('email/common_template',  $template_data, TRUE);
 
-			if(json_decode($notification['system_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['system_notification'], true)[$user_type] == 1) {
 				$this->notify($type, $to_user['id'], $subject, $email_template);
 			}
-			if(json_decode($notification['email_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['email_notification'], true)[$user_type] == 1) {
 				$this->send_smtp_mail($email_template, $subject, $to_user['email']);
 			}
 		}
@@ -550,19 +557,19 @@ class Email_model extends CI_Model
 		$to_user = $affiliator;
 
 		$notification = $this->db->where('type', $type)->get('notification_settings')->row_array();
-		foreach(json_decode($notification['user_types'], true) as $user_type){
+		foreach (json_decode($notification['user_types'], true) as $user_type) {
 
-			$template_data['replaces'] = isset($replaces) ? $replaces:array();
+			$template_data['replaces'] = isset($replaces) ? $replaces : array();
 			$template_data['to_user'] = $affiliator;
 			$template_data['notification'] = $notification;
 			$template_data['user_type'] = $user_type;
 			$subject = json_decode($notification['subject'], true)[$user_type];
 			$email_template = $this->load->view('email/common_template',  $template_data, TRUE);
 
-			if(json_decode($notification['system_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['system_notification'], true)[$user_type] == 1) {
 				$this->notify($type, $to_user['id'], $subject, $email_template);
 			}
-			if(json_decode($notification['email_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['email_notification'], true)[$user_type] == 1) {
 				$this->send_smtp_mail($email_template, $subject, $to_user['email']);
 			}
 		}
@@ -573,7 +580,7 @@ class Email_model extends CI_Model
 		$this->send_email_when_delete_an_affiliator_request($email, $name);
 	}
 
-	
+
 	public function send_email_when_reactove_an_affiliator_request($email = "", $name = "")
 	{
 		$this->send_email_when_approed_an_affiliator($email, $name);
@@ -589,61 +596,61 @@ class Email_model extends CI_Model
 		$to_user = $affiliator;
 
 		$notification = $this->db->where('type', $type)->get('notification_settings')->row_array();
-		foreach(json_decode($notification['user_types'], true) as $user_type){
-			$template_data['replaces'] = isset($replaces) ? $replaces:array();
+		foreach (json_decode($notification['user_types'], true) as $user_type) {
+			$template_data['replaces'] = isset($replaces) ? $replaces : array();
 			$template_data['to_user'] = $affiliator;
 			$template_data['notification'] = $notification;
 			$template_data['user_type'] = $user_type;
 			$subject = json_decode($notification['subject'], true)[$user_type];
 			$email_template = $this->load->view('email/common_template',  $template_data, TRUE);
 
-			if(json_decode($notification['system_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['system_notification'], true)[$user_type] == 1) {
 				$this->notify($type, $to_user['id'], $subject, $email_template);
 			}
-			if(json_decode($notification['email_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['email_notification'], true)[$user_type] == 1) {
 				$this->send_smtp_mail($email_template, $subject, $to_user['email']);
 			}
 		}
 	}
 
-	public function send_email_when_make_withdrawl_request($email = "", $name = "",$amount="")
+	public function send_email_when_make_withdrawl_request($email = "", $name = "", $amount = "")
 	{
 		//Editable
 		$type = 'affiliation_amount_withdrawal_request';
 		//End editable
 
 		$notification = $this->db->where('type', $type)->get('notification_settings')->row_array();
-		foreach(json_decode($notification['user_types'], true) as $user_type){
-			if($user_type == 'admin'){
+		foreach (json_decode($notification['user_types'], true) as $user_type) {
+			if ($user_type == 'admin') {
 				$replaces['user_name'] = $name;
 				$replaces['amount'] = currency($amount);
 				$to_user = $this->user_model->get_admin_details()->row_array();
 			}
-			if($user_type == 'affiliator'){
+			if ($user_type == 'affiliator') {
 				$replaces['amount'] = currency($amount);
 				$to_user = $this->db->get_where('users', array('email' => $email))->row_array();
 			}
-			$template_data['replaces'] = isset($replaces) ? $replaces:array();
+			$template_data['replaces'] = isset($replaces) ? $replaces : array();
 			$template_data['to_user'] = $affiliator;
 			$template_data['notification'] = $notification;
 			$template_data['user_type'] = $user_type;
 			$subject = json_decode($notification['subject'], true)[$user_type];
 			$email_template = $this->load->view('email/common_template',  $template_data, TRUE);
 
-			if(json_decode($notification['system_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['system_notification'], true)[$user_type] == 1) {
 				$this->notify($type, $to_user['id'], $subject, $email_template);
 			}
-			if(json_decode($notification['email_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['email_notification'], true)[$user_type] == 1) {
 				$this->send_smtp_mail($email_template, $subject, $to_user['email']);
 			}
 		}
 	}
 
-	public function send_email_to_admin_when_withdrawl_request_made_by_affiliator ($email = "", $name = "",$user="",$amount="")
+	public function send_email_to_admin_when_withdrawl_request_made_by_affiliator($email = "", $name = "", $user = "", $amount = "")
 	{
 	}
 
-	public function send_email_to_admin_when_withdrawl_pending_request_cancle($email = "", $name = "",$user="")
+	public function send_email_to_admin_when_withdrawl_pending_request_cancle($email = "", $name = "", $user = "")
 	{
 	}
 
@@ -654,10 +661,10 @@ class Email_model extends CI_Model
 	//course gift notification
 
 	//notify the sender/payer of the gift success
-	public function course_gift_notification($enrol_student_id="", $payer_user_id = "")
+	public function course_gift_notification($enrol_student_id = "", $payer_user_id = "")
 	{
 		//{"payer":"You have gift a course to [user_name] [course_title]","receiver":"You have received a course gift by [user_name] [course_title]"}
-		foreach($this->session->userdata('cart_items') as $course_id){
+		foreach ($this->session->userdata('cart_items') as $course_id) {
 			$course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
 			$payer_details = $this->user_model->get_all_user($payer_user_id)->row_array();
 			$enrol_student_details = $this->user_model->get_all_user($enrol_student_id)->row_array();
@@ -669,30 +676,30 @@ class Email_model extends CI_Model
 			//End editable
 
 			$notification = $this->db->where('type', $type)->get('notification_settings')->row_array();
-			foreach(json_decode($notification['user_types'], true) as $user_type){
-				if($user_type == 'payer'){
-					$replaces['user_name'] = $enrol_student_details['first_name'].' '.$enrol_student_details['last_name'];
-					$replaces['instructor'] = $instructor_details['first_name'].' '.$instructor_details['last_name'];
-					$replaces['course_title'] = '<a href="'.site_url('home/course/'.slugify($course_details['title'])).'/'.$course_details['id'].'" target="_blank">'.$course_details['title'].'</a>';
+			foreach (json_decode($notification['user_types'], true) as $user_type) {
+				if ($user_type == 'payer') {
+					$replaces['user_name'] = $enrol_student_details['first_name'] . ' ' . $enrol_student_details['last_name'];
+					$replaces['instructor'] = $instructor_details['first_name'] . ' ' . $instructor_details['last_name'];
+					$replaces['course_title'] = '<a href="' . site_url('home/course/' . slugify($course_details['title'])) . '/' . $course_details['id'] . '" target="_blank">' . $course_details['title'] . '</a>';
 					$to_user = $this->user_model->get_all_user($payer_user_id)->row_array();
 				}
-				if($user_type == 'receiver'){
-					$replaces['payer'] = $instructor_details['first_name'].' '.$payer_details['last_name'];
-					$replaces['instructor'] = $instructor_details['first_name'].' '.$instructor_details['last_name'];
-					$replaces['course_title'] = '<a href="'.site_url('home/course/'.slugify($course_details['title'])).'/'.$course_details['id'].'" target="_blank">'.$course_details['title'].'</a>';
+				if ($user_type == 'receiver') {
+					$replaces['payer'] = $instructor_details['first_name'] . ' ' . $payer_details['last_name'];
+					$replaces['instructor'] = $instructor_details['first_name'] . ' ' . $instructor_details['last_name'];
+					$replaces['course_title'] = '<a href="' . site_url('home/course/' . slugify($course_details['title'])) . '/' . $course_details['id'] . '" target="_blank">' . $course_details['title'] . '</a>';
 					$to_user = $this->user_model->get_all_user($enrol_student_id)->row_array();
 				}
-				$template_data['replaces'] = isset($replaces) ? $replaces:array();
+				$template_data['replaces'] = isset($replaces) ? $replaces : array();
 				$template_data['to_user'] = $to_user;
 				$template_data['notification'] = $notification;
 				$template_data['user_type'] = $user_type;
 				$subject = json_decode($notification['subject'], true)[$user_type];
 				$email_template = $this->load->view('email/common_template',  $template_data, TRUE);
 
-				if(json_decode($notification['system_notification'], true)[$user_type] == 1){
+				if (json_decode($notification['system_notification'], true)[$user_type] == 1) {
 					$this->notify($type, $to_user['id'], $subject, $email_template);
 				}
-				if(json_decode($notification['email_notification'], true)[$user_type] == 1){
+				if (json_decode($notification['email_notification'], true)[$user_type] == 1) {
 					$this->send_smtp_mail($email_template, $subject, $to_user['email']);
 				}
 			}
@@ -700,12 +707,12 @@ class Email_model extends CI_Model
 	}
 
 	//notify the reciever/ enrolled student of the gift success
-	public function course_gift_notification_enrol_student($course_id = "", $payer_user_id = "", $enrol_student_id="")
+	public function course_gift_notification_enrol_student($course_id = "", $payer_user_id = "", $enrol_student_id = "")
 	{
-		
 	}
 
-	function course_completion($user_id = "", $course_id = ""){
+	function course_completion($user_id = "", $course_id = "")
+	{
 		$user_details = $this->user_model->get_all_user($user_id)->row_array();
 		$course_details = $this->db->get_where('course', ['id' => $course_id])->row_array();
 		$instructor = $this->user_model->get_all_user($course_details['creator'])->row_array();
@@ -715,28 +722,28 @@ class Email_model extends CI_Model
 		//End editable
 
 		$notification = $this->db->where('type', $type)->get('notification_settings')->row_array();
-		foreach(json_decode($notification['user_types'], true) as $user_type){
-			if($user_type == 'student'){
-				$replaces['course_title'] = '<a href="'.site_url('home/course/'.slugify($course_details['title'])).'/'.$course_details['id'].'" target="_blank">'.$course_details['title'].'</a>';
-				$replaces['instructor_name'] = $instructor['first_name'].' '.$instructor['last_name'];
+		foreach (json_decode($notification['user_types'], true) as $user_type) {
+			if ($user_type == 'student') {
+				$replaces['course_title'] = '<a href="' . site_url('home/course/' . slugify($course_details['title'])) . '/' . $course_details['id'] . '" target="_blank">' . $course_details['title'] . '</a>';
+				$replaces['instructor_name'] = $instructor['first_name'] . ' ' . $instructor['last_name'];
 				$to_user = $this->user_model->get_all_user($user_id)->row_array();
 			}
-			if($user_type == 'instructor'){
-				$replaces['course_title'] = '<a href="'.site_url('home/course/'.slugify($course_details['title'])).'/'.$course_details['id'].'" target="_blank">'.$course_details['title'].'</a>';
-				$replaces['student_name'] = $user_details['first_name'].' '.$user_details['last_name'];
+			if ($user_type == 'instructor') {
+				$replaces['course_title'] = '<a href="' . site_url('home/course/' . slugify($course_details['title'])) . '/' . $course_details['id'] . '" target="_blank">' . $course_details['title'] . '</a>';
+				$replaces['student_name'] = $user_details['first_name'] . ' ' . $user_details['last_name'];
 				$to_user = $this->user_model->get_all_user($instructor['id'])->row_array();
 			}
-			$template_data['replaces'] = isset($replaces) ? $replaces:array();
+			$template_data['replaces'] = isset($replaces) ? $replaces : array();
 			$template_data['to_user'] = $affiliator;
 			$template_data['notification'] = $notification;
 			$template_data['user_type'] = $user_type;
 			$subject = json_decode($notification['subject'], true)[$user_type];
 			$email_template = $this->load->view('email/common_template',  $template_data, TRUE);
 
-			if(json_decode($notification['system_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['system_notification'], true)[$user_type] == 1) {
 				$this->notify($type, $to_user['id'], $subject, $email_template);
 			}
-			if(json_decode($notification['email_notification'], true)[$user_type] == 1){
+			if (json_decode($notification['email_notification'], true)[$user_type] == 1) {
 				$this->send_smtp_mail($email_template, $subject, $to_user['email']);
 			}
 		}
@@ -764,32 +771,33 @@ class Email_model extends CI_Model
 
 
 	//System notification
-	function notify($type = "", $user_id = "", $subject = "", $description = "", $from_user = ""){
-        if($from_user == "" && $this->session->userdata('user_id') > 0){
-            $from_user = $this->session->userdata('user_id');
-        }else{
-        	$from_user = $this->db->get_where('users', ['role_id' => 1])->row('id');
-        }
+	function notify($type = "", $user_id = "", $subject = "", $description = "", $from_user = "")
+	{
+		if ($from_user == "" && $this->session->userdata('user_id') > 0) {
+			$from_user = $this->session->userdata('user_id');
+		} else {
+			$from_user = $this->db->get_where('users', ['role_id' => 1])->row('id');
+		}
 
-        $preg_match = '/<div class="system_notification_start" style="display: none;"><\/div>(.*?)<div class="system_notification_end" style="display: none;"><\/div>/s';
-        if (preg_match($preg_match,$description, $matches)) {
+		$preg_match = '/<div class="system_notification_start" style="display: none;"><\/div>(.*?)<div class="system_notification_end" style="display: none;"><\/div>/s';
+		if (preg_match($preg_match, $description, $matches)) {
 			$description = $matches[1];
 		}
 
-        $data['status'] = 0;
-        $data['type'] = $type;
-        $data['from_user'] = $from_user;
-        $data['to_user'] = $user_id;
-        $data['title'] = $subject;
-        $data['description'] = $description;
-        $data['created_at'] = time();
+		$data['status'] = 0;
+		$data['type'] = $type;
+		$data['from_user'] = $from_user;
+		$data['to_user'] = $user_id;
+		$data['title'] = $subject;
+		$data['description'] = $description;
+		$data['created_at'] = time();
 
-        $this->db->insert('notifications', $data);
-    }
+		$this->db->insert('notifications', $data);
+	}
 
 	public function send_smtp_mail($msg = NULL, $sub = NULL, $to = NULL, $from = NULL)
 	{
-		if(!is_array($to)){
+		if (!is_array($to)) {
 			$to = array($to);
 		}
 		//Load email library
@@ -818,26 +826,19 @@ class Email_model extends CI_Model
 
 
 		//for showing "to me" in gmail inbox To: users own email
-		
+
 		$this->email->from($from, get_settings('system_name'));
 		$this->email->subject($sub);
 		$this->email->message($msg);
 
-		if(count($to) == 1){
+		if (count($to) == 1) {
 			$this->email->to($to[0]);
 			$this->email->send();
-		}else{
+		} else {
 			$this->email->bcc($to);
 			$this->email->send();
 		}
 		// echo $this->email->print_debugger();
 		// die();
 	}
-
-
-
-
-
-	
-	
 }
