@@ -7,7 +7,7 @@
 <div class="sub-header py-0" style="position: fixed; width:100%; z-index: 999;">
     <div class="container">
       <div class="row">
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
           <div class="icon icon-left">
             <ul class="nav">
               <li class="nav-item px-2">
@@ -17,6 +17,28 @@
               <li class="nav-item px-2">
                 <a href="mailto:<?php echo get_settings('system_email'); ?>"><i class="fas fa-envelope"></i> <?php echo get_settings('system_email'); ?></a>
               </li>
+              <button class="feedback-btn" onclick="openFeedbackForm()">Feedback</button>
+
+                <div class="popup-form" id="feedbackForm">
+                  <span class="close-btn" onclick="closeFeedbackForm()">&times;</span>
+                  <div class="form-container">
+                  <form>
+                    <!-- <label for="name">Name:</label> -->
+                    <input type="text" id="name" name="name"  required placeholder="Name">
+
+                    <!-- <label for="email">Email:</label> -->
+                    <input type="email" id="email" name="email" required placeholder="email">
+
+                    <!-- <label for="phone">Phone:</label> -->
+                    <input type="tel" id="phone" name="phone" required placeholder="Phone:">
+
+                    <!-- <label for="message">Message:</label> -->
+                      <textarea id="message" name="message" rows="4" required placeholder="Message:"></textarea>
+
+                    <button class="button-sub" type="submit">Submit</button>
+                  </form>
+                  </div>
+                </div>
               <li class="pt-2 px-2">
                 <a href=""><img src='https://res.cloudinary.com/dc2uykpox/image/upload/v1706501405/Group_1000001779_tstmkl.png' alt="" class="isomark"></a>
                 <!-- assets/frontend/default-new/image/ISOmark.png -->
@@ -26,7 +48,7 @@
         </div>
 
         
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
           <div class="icon right-icon">
             <?php $facebook = get_frontend_settings('facebook'); ?>
             <?php $twitter = get_frontend_settings('twitter'); ?>
@@ -134,5 +156,83 @@
 	    html {
           touch-action: manipulation;
         }
+        .popup-form {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border-radius: 10px;
+    width: 35%;
+}
+
+.close-btn {
+  position: absolute;
+    top: 15px;
+    right: 23px;
+    cursor: pointer;
+    /* height: 53px; */
+    font-size: 35px;
+}
+.form-container {
+  max-width: 400px;
+    margin: 0 auto;
+    padding: 38px;
+    background-color: #e0d7ff6b;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 31%);
+  }
+  input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+ 
+  label {
+    display: block;
+    margin-bottom: 0px;
+    font-weight: 500;
+  }
+
+
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+
+  .button-sub {
+    background-color: #754ffe;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  
+  button:hover {
+    background-color: #45a049;
+  }
 	</style>
   <?php include "enquire_now.php" ?>
+  <script>
+    function openFeedbackForm() {
+    document.getElementById("feedbackForm").style.display = "block";
+}
+
+function closeFeedbackForm() {
+    document.getElementById("feedbackForm").style.display = "none";
+}
+  </script>

@@ -30,7 +30,7 @@
                                     <input class="form-control" id="password" type="password" name="password" placeholder="<?php echo get_phrase('Enter your valid password'); ?>">
                                 </div>
                                 <small class="w-100">
-                                    <!-- <a class="text-end w-100 text-muted" href="<?php //echo site_url('login/forgot_password_request'); ?>"><?php //echo get_phrase('Forgot password?'); ?></a> -->
+                                    <a class="text-end w-100 text-muted" href="<?php echo site_url('login/forgot_password_request'); ?>"><?php echo get_phrase('Forgot password?'); ?></a>
                                 </small>
                             </div>
                             <?php if(get_frontend_settings('recaptcha_status')): ?>

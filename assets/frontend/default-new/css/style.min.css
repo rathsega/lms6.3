@@ -390,7 +390,7 @@ Last Updated: 27 Aug 2023
     width: 300px;
     background: #FFF;
     right: 20px;
-    bottom: -315px;
+    bottom: -350px;
     transition: all .8s cubic-bezier(.22, .67, .43, 1.22) .2s;
     border-radius: 10px 10px 0 0;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12),0 3px 1px -2px rgba(0,0,0,0.2);
@@ -413,10 +413,10 @@ Last Updated: 27 Aug 2023
 } */
 .nb-form .user-icon {
     position: absolute;
-    top: -14px;
-    right: 16px;
+    top: -10px;
+    right: 20px;
     display: block;
-    width: 37px;
+    width: 27px;
     margin: 20px auto 15px;
     border-radius: 100%;
 }
@@ -436,11 +436,31 @@ Last Updated: 27 Aug 2023
 .nb-form p.message {
     margin-left: 7px;
 }
-
-
+.feedback-btn {
+  padding-right: 22px;
+  /* padding: 10px; */
+  color: #754ffe;
+  border: 1.5px solid #754ffe;
+  background: none;
+  border-radius:6px;
+  /* padding: 5px 27px 2px 23px; */
+  font-size: 15px;
+  font-weight: 500;
+  padding-left: 22px;
+  padding-top: 0px;
+  margin-top: 11px;
+  margin-bottom: 11px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.feedback-btn:hover {
+  background-color: #754ffe;
+  color: white;
+}
 
 .nb-form form {
     padding: 0 15px 15px 15px;
+    padding-top: 16px;
 }
 
 .nb-form input,
@@ -494,6 +514,7 @@ Last Updated: 27 Aug 2023
 .nb-form textarea {
     min-height: 83px;
     border: 1px solid #cbc3f1;
+    margin-top: 30px;
 }
 
 

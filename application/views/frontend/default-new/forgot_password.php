@@ -1,3 +1,7 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-xv4fTQPh9MlW7xjFO5FxuLgtQGg4ggzgGVkNqI8KDkQQUpVTl8r+pp9y9aX4ScWH" crossorigin="anonymous"></script>
+ 
+
 <?php if(get_frontend_settings('recaptcha_status')): ?>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <?php endif; ?>
@@ -30,8 +34,30 @@
                                 <?php echo get_phrase('Send Request') ?>
                             </button>
                         </div>
+                         
                     </form>
+                    <div class="container mt-5">
+                             <button class="btn btn-secondary" onclick="showToast()">Forget Password</button>
+                    </div>
 
+                                <!-- Toast Container -->
+                    <div class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999">
+                    <div id="customToast" class="toast hide bg-white" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">Please Wait</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body ">
+                        
+                        Your request is in process. Please wait Some time.
+                        <div class="spinner-grow" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1709712486/Search_1_zlg5v4.png" alt="" class="vect-img float-right">
+                    
+                    </div>
+                    </div>
+                    </div>
                     <div class="log-in">
                         <a href="<?php echo site_url('login') ?>" class="btn btn-primary my-0">
                             <span class="fas fa-angle-left"></span>
@@ -43,3 +69,15 @@
         </div>
     </div>
 </section>
+<style>
+    .vect-img{
+        height:120px;
+    }
+</style>
+<script>
+  function showToast() {
+    var toastElement = document.getElementById('customToast');
+    var toast = new bootstrap.Toast(toastElement);
+    toast.show();
+  }
+</script>
