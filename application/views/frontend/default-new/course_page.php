@@ -264,7 +264,7 @@ if($ratings_count){
                                 <img src="<?php echo base_url('assets/frontend/default-new/image/c-enrold-1.png') ?>">
                                 <h4><?php echo get_phrase('Lectures') ?></h4>
                             </div>
-                            <h5><?php echo $this->db->get_where('lesson', ['course_id' => $course_details['id'], 'lesson_type !=' => 'quiz'])->num_rows(); ?></h5>
+                            <h5><?php echo $course_details["number_of_lectures"]; //$this->db->get_where('lesson', ['course_id' => $course_details['id'], 'lesson_type !=' => 'quiz'])->num_rows(); ?></h5>
                         </div>
 
                         <?php $number_of_quiz = $this->db->get_where('lesson', ['course_id' => $course_details['id'], 'lesson_type' => 'quiz'])->num_rows(); ?>

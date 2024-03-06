@@ -894,6 +894,7 @@ class Crud_model extends CI_Model
         $data['weekend_track_course_price'] = $this->input->post('weekend_track_course_price');
         $data['weekend_track_sessions_count'] = $this->input->post('weekend_track_sessions_count');
         $data['week_track_sessions_count'] = $this->input->post('week_track_sessions_count');
+        $data['number_of_lectures'] = $this->input->post('number_of_lectures');
 
         //Course expiry period
         if($this->input->post('expiry_period') == 'limited_time' && is_numeric($this->input->post('number_of_month')) && $this->input->post('number_of_month') > 0){

@@ -1041,7 +1041,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-3 col-form-label" for="weekend_track_course_price"><?php echo get_phrase('weekend_track_course_price'); ?> </label>
                                                     <div class="col-md-9">
-                                                        <input type="text" class="form-control" id="weekend_track_course_price" name = "weekend_track_course_price" value="<?php echo $course_details['weekend_track_course_duration_in_months']; ?>" placeholder="28000" >
+                                                        <input type="text" class="form-control" id="weekend_track_course_price" name = "weekend_track_course_price" value="<?php echo $course_details['weekend_track_course_price']; ?>" placeholder="28000" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group row mb-3">
@@ -1054,6 +1054,12 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                     <label class="col-md-3 col-form-label" for="weekend_track_sessions_count"><?php echo get_phrase('weekend_track_sessions_count'); ?> </label>
                                                     <div class="col-md-9">
                                                         <input type="text" class="form-control" id="weekend_track_sessions_count" name = "weekend_track_sessions_count" value="<?php echo $course_details['weekend_track_sessions_count']; ?>" placeholder="25" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-md-3 col-form-label" for="number_of_lectures"><?php echo get_phrase('number_of_lectures'); ?> </label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" id="number_of_lectures" name = "number_of_lectures" value="<?php echo $course_details['number_of_lectures']; ?>" placeholder="25" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group row mb-3">

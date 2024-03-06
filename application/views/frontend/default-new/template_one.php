@@ -94,7 +94,7 @@ $cart_items = $this->session->userdata('cart_items');
     <div class="about-para-container container mt-4 pb-4">
 
         <div class="">
-            <p class="about-para "><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184444/video-presentation_1_h0y5eb.png" alt="" class="icon-log"> Lectures - <?php echo $this->db->get_where('lesson', ['course_id' => $course_details['id'], 'lesson_type !=' => 'quiz'])->num_rows(); ?></p>
+            <p class="about-para "><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184444/video-presentation_1_h0y5eb.png" alt="" class="icon-log"> Lectures - <?php echo $course_details["number_of_lectures"];//$this->db->get_where('lesson', ['course_id' => $course_details['id'], 'lesson_type !=' => 'quiz'])->num_rows(); ?></p>
         </div>
         <div class=" ">
             <p class="about-para "><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184442/team-skills_1_xusaxy.png" alt="" class="icon-log"> Skill level - <?php echo get_phrase($course_details['level']); ?></p>
@@ -227,7 +227,7 @@ $cart_items = $this->session->userdata('cart_items');
         <div class="about-para-container  mt-4 pb-4">
 
             <div class="">
-                <p class="about-para "><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184444/video-presentation_1_h0y5eb.png" alt="" class="icon-log"> Lectures - <?php echo $this->db->get_where('lesson', ['course_id' => $course_details['id'], 'lesson_type !=' => 'quiz'])->num_rows(); ?></p>
+                <p class="about-para "><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184444/video-presentation_1_h0y5eb.png" alt="" class="icon-log"> Lectures - <?php echo $course_details["number_of_lectures"]; //$this->db->get_where('lesson', ['course_id' => $course_details['id'], 'lesson_type !=' => 'quiz'])->num_rows(); ?></p>
             </div>
             <div class=" ">
                 <p class="about-para "><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184442/team-skills_1_xusaxy.png" alt="" class="icon-log"> Skill level - <?php echo get_phrase($course_details['level']); ?></p>
