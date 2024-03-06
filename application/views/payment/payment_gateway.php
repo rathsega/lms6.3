@@ -293,11 +293,12 @@ $total_price_of_checking_out = $this->session->userdata('total_price_of_checking
 					<div class="w-100 d-grid">
 						<p class="pb-2 payment-header"><?php echo get_phrase('order'); ?> <?php echo get_phrase('summary'); ?></p>
 						<?php $counter = 0; $actual_amount = 0; ?>
+						<?php $track_data = $this->session->userdata('track'); ?>
 						<?php foreach ($this->session->userdata('cart_items') as $cart_item) :
 							$counter++;
 							$course_details = $this->crud_model->get_course_by_id($cart_item)->row_array();
 							$instructor_details = $this->user_model->get_all_user($course_details['user_id'])->row_array(); ?>
-
+							    <?php $course_details['price'] = $track_data[$course_details["id"]] == "weekday" ? $course_details['price'] : $course_details["weekend_track_course_price"]; ?>
 							<p class="item float-start">
 								<span class="count-item"><?php echo $counter; ?></span>
 								<span class="item-title"><?php echo $course_details['title']; ?>

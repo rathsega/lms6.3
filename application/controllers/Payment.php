@@ -67,6 +67,7 @@ class Payment extends CI_Controller
 
             $this->session->unset_userdata('gift_to_user_id');
             $this->session->set_userdata('cart_items', array());
+            $this->session->set_userdata('track', array());
             $this->session->set_userdata('payment_details', '');
             $this->session->set_userdata('applied_coupon', '');
 

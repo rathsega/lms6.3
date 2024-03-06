@@ -488,7 +488,7 @@ class Home extends CI_Controller
             $this->load->view('frontend/' . get_frontend_settings('theme') . '/cart_items');
         }
     }
-    public function handle_cart_items($course_id = "", $identifier = "", $course_track = "")
+    public function handle_cart_items($course_id = "", $identifier = "", $course_track = "weekday")
     {
         if($identifier == "null"){
             $identifier = "";
@@ -496,11 +496,16 @@ class Home extends CI_Controller
         if (!$this->session->userdata('cart_items')) {
             $this->session->set_userdata('cart_items', array());
         }
+        if (!$this->session->userdata('track')) {
+            $this->session->set_userdata('track', array());
+        }
 
         $previous_cart_items = $this->session->userdata('cart_items');
+        $previous_track = $this->session->userdata('track');
         if (in_array($course_id, $previous_cart_items)) {
             $key = array_search($course_id, $previous_cart_items);
             unset($previous_cart_items[$key]);
+            unset($previous_track[$course_id]);
 
             $response['success'] = get_phrase('Item successfully removed from cart');
             $response['hide'] = '#added_to_cart_btn_'.$identifier.$course_id;
@@ -516,6 +521,7 @@ class Home extends CI_Controller
             
         } else {
             array_push($previous_cart_items, $course_id);
+            $previous_track[$course_id] = $course_track;
 
             $response['success'] = get_phrase('Item successfully added to cart');
             $response['show'] = '#added_to_cart_btn_'.$identifier.$course_id;
@@ -531,6 +537,7 @@ class Home extends CI_Controller
         }
         $response['track'] = $course_track;
         $this->session->set_userdata('cart_items', $previous_cart_items);
+        $this->session->set_userdata('track', $previous_track);
 
         //Cart page start
         $response['html'] = [

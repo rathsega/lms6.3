@@ -19,6 +19,7 @@
                     </thead>
                     <tbody>
                         <?php $total = 0; ?>
+                        <?php $track_data = $this->session->userdata('track'); ?>
                         <?php foreach ($this->session->userdata('cart_items') as $item) : ?>
                             <?php $course_details = $this->crud_model->get_course_by_id($item)->row_array();
                             if ($course_details['slug_count'] == 1 || $course_details['slug_count'] == 2) {
@@ -40,11 +41,12 @@
                                     </div>
                                 </td>
                                 <td class="d-flex">
+                                    <?php $course_details['price'] = $track_data[$course_details["id"]] == "weekday" ? $course_details['price'] : $course_details["weekend_track_course_price"]; ?>
                                     <?php if ($course_details['is_free_course']) : ?>
                                         <h4><?php echo get_phrase('Free'); ?></h4>
                                     <?php elseif ($course_details['discount_flag']) : ?>
                                         <?php $total += $course_details['discounted_price']; ?>
-                                        <h4><?php echo currency($course_details['discounted_price']); ?></h4>
+                                        <h4><?php echo currency($course_details['discounted_price']); ?></h4>                                        
                                         <h6 class="mt-2 ms-2"><del><?php echo currency($course_details['price']); ?></del></h6>
                                     <?php else : ?>
                                         <?php $total += $course_details['price']; ?>
