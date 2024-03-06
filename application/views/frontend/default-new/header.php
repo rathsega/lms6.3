@@ -23,6 +23,7 @@
                   <span class="close-btn" onclick="closeFeedbackForm()">&times;</span>
                   <div class="form-container">
                   <form>
+                    <h4 class="pb-3">Feedback</h4>
                     <!-- <label for="name">Name:</label> -->
                     <input type="text" id="name" name="name"  required placeholder="Name">
 
@@ -157,41 +158,46 @@
           touch-action: manipulation;
         }
         .popup-form {
-    display: none;
+          display: none;
     position: fixed;
-    top: 50%;
+    top: 54%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 50px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #fff0;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
     z-index: 1000;
     border-radius: 10px;
     width: 35%;
+
 }
 
 .close-btn {
   position: absolute;
-    top: 15px;
+    top: 25px;
     right: 23px;
     cursor: pointer;
+    color: white;
     /* height: 53px; */
-    font-size: 35px;
+    font-size: 37px;
+    background: #754ffe;
+    border-radius: 38px;
+    padding: 10px;
 }
 .form-container {
   max-width: 400px;
     margin: 0 auto;
     padding: 38px;
-    background-color: #e0d7ff6b;
+    background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgb(0 0 0 / 31%);
-  }
+    box-shadow: 0 0 10px rgb(0 0 0 / 41%);
+}
   input, textarea {
     width: 100%;
     padding: 8px;
     margin-bottom: 16px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
+    border: 1px solid #0000007d;
     border-radius: 4px;
   }
  
@@ -207,8 +213,9 @@
     padding: 8px;
     margin-bottom: 16px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #0000007d;
+    border-radius: 5px;
+
   }
 
 
