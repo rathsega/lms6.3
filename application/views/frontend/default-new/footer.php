@@ -255,9 +255,9 @@ if ($stripe_info[0]['active'] == 0) {
                 setTimeout(()=>{
                     if(details_submitted != "true" && !user_id ){
                         if(<?php echo isset($slug) ? "true":"false"; ?>){
-                            if(!"<?php echo $slug; ?>".includes("oracle-fusion-scm-online-training-course") && !"<?php echo $slug; ?>".includes("oracle-fusion-financials-online-training-course")){
+                            //if(!"<?php echo $slug; ?>".includes("oracle-fusion-scm-online-training-course") && !"<?php echo $slug; ?>".includes("oracle-fusion-financials-online-training-course")){
                                 openModalBtn2.click();
-                            }
+                            //}
                         }else{
                             openModalBtn2.click();
                         }
