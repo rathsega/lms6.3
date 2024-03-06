@@ -115,8 +115,10 @@ class Email_model extends CI_Model
 				$headers[]= "MIME-Version: 1.0";
         		$headers[]= "Content-type:text/html;charset=UTF-8";
 				if (mail($to_user['email'], $subject, $email_template, implode("\r\n", $headers))) {
+					sleep(90);
 					echo "Message accepted";
 				} else {
+					sleep(90);
 					echo "Error: Message not accepted";
 				}
 				//$this->send_smtp_mail($email_template, $subject, $to_user['email']);
