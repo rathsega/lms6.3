@@ -78,6 +78,9 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 				<li class="<?php if ($page_name == 'copycoursedata') echo 'active'; ?>">
 					<a href="<?php echo site_url('admin/copycoursedata'); ?>"><?php echo "Copy Course Data"; ?></a>
 				</li>
+				<li class="<?php if ($page_name == 'feedback') echo 'active'; ?>">
+					<a href="<?php echo site_url('admin/feedback'); ?>"><?php echo "Feedback"; ?></a>
+				</li>
 			</ul>
 		</li>
 		<?php endif; ?>

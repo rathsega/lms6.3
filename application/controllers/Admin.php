@@ -3039,6 +3039,13 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
+    public function feedback(){
+        $page_data['page_name'] = 'feedback';
+        $page_data['page_title'] = "Contact Us";
+        $page_data['feedbacks'] = $this->crud_model->getAllFeedback();
+        $this->load->view('backend/index', $page_data);
+    }
+
     public function demorequests(){
         $page_data['page_name'] = 'demorequests';
         $page_data['page_title'] = "Contact Us";

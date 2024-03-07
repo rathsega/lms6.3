@@ -5066,11 +5066,20 @@ class Crud_model extends CI_Model
         return $this->db->insert('contactus', $details);
         //$this->session->set_flashdata('flash_message', "Thank you for lcontacting us.");
     }
+
+    public function add_feedback($details){
+        return $this->db->insert('feedback', $details);
+        //$this->session->set_flashdata('flash_message', "Thank you for lcontacting us.");
+    }
     
     public function getAllContactUs(){
         return $this->db->query("
             SELECT CONCAT(cu.first_name, ' ', cu.last_name) as name, cu.email, cu.city, cu.phone, cu.message, c.title, cu.datetime from contactus as cu left join course as c on c.id = cu.course
              order by cu.datetime desc ");
+    }
+    
+    public function getAllFeedback(){
+        return $this->db->query("SELECT * from feedback order by datetime desc ");
     }
     
     public function get_broucher($course_id)

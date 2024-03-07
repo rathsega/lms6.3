@@ -17,29 +17,9 @@
               <li class="nav-item px-2">
                 <a href="mailto:<?php echo get_settings('system_email'); ?>"><i class="fas fa-envelope"></i> <?php echo get_settings('system_email'); ?></a>
               </li>
-              <button class="feedback-btn" onclick="openFeedbackForm()">Feedback</button>
+              <button class="feedback-btn" id="feedback_form_button" onclick="openFeedbackForm()">Feedback</button>
 
-                <div class="popup-form" id="feedbackForm">
-                  <span class="close-btn" onclick="closeFeedbackForm()">&times;</span>
-                  <div class="form-container">
-                  <form>
-                    <h4 class="pb-3">Feedback</h4>
-                    <!-- <label for="name">Name:</label> -->
-                    <input type="text" id="name" name="name"  required placeholder="Name">
-
-                    <!-- <label for="email">Email:</label> -->
-                    <input type="email" id="email" name="email" required placeholder="email">
-
-                    <!-- <label for="phone">Phone:</label> -->
-                    <input type="tel" id="phone" name="phone" required placeholder="Phone:">
-
-                    <!-- <label for="message">Message:</label> -->
-                      <textarea id="message" name="message" rows="4" required placeholder="Message:"></textarea>
-
-                    <button class="button-sub" type="submit">Submit</button>
-                  </form>
-                  </div>
-                </div>
+                
               <li class="pt-2 px-2">
                 <a href=""><img src='https://res.cloudinary.com/dc2uykpox/image/upload/v1706501405/Group_1000001779_tstmkl.png' alt="" class="isomark"></a>
                 <!-- assets/frontend/default-new/image/ISOmark.png -->
@@ -234,12 +214,13 @@
   }
 	</style>
   <?php include "enquire_now.php" ?>
+  <?php include "feedback.php" ?>
   <script>
     function openFeedbackForm() {
-    document.getElementById("feedbackForm").style.display = "block";
-}
+        document.getElementById("feedbackForm").style.display = "block";
+    }
 
-function closeFeedbackForm() {
-    document.getElementById("feedbackForm").style.display = "none";
-}
+    function closeFeedbackForm() {
+        document.getElementById("feedbackForm").style.display = "none";
+    }
   </script>
