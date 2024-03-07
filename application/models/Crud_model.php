@@ -705,6 +705,47 @@ class Crud_model extends CI_Model
         return $course_id;
     }
 
+    public function copy_curriculum(){
+        $from_course_id = $this->input->post('from_course');
+        $to_course_id = $this->input->post('to_course');
+
+        //sections
+        $this->db->select('*');
+        $query = $this->db->get('section');
+        $this->db->where("course_id", $from_course_id);
+        $sections = $query->result_array();
+
+        foreach ($sections as $row) {
+            unset($row['id']);
+            $row['course_id'] = $to_course_id;
+            $this->db->insert('section', $row);
+        }
+
+        //chapters
+        $this->db->select('*');
+        $this->db->where("course_id", $from_course_id);
+        $query = $this->db->get('chapters');
+        $chapters = $query->result_array();
+        foreach ($chapters as $row) {
+            unset($row['id']);
+            $row['course_id'] = $to_course_id;
+            $this->db->insert('chapters', $row);
+        }
+
+        //lessons
+        $this->db->select('*');
+        $query = $this->db->get('lesson');
+        $this->db->where("course_id", $from_course_id);
+        $lessons = $query->result_array();
+        foreach ($lessons as $row) {
+            unset($row['id']);
+            $row['course_id'] = $to_course_id;
+            $this->db->insert('lesson', $row);
+        }
+
+        $this->session->set_flashdata('flash_message', get_phrase('courriculum_copied_successfully'));
+    }
+
     function add_shortcut_course($param1 = "")
     {
         $data['course_type'] = html_escape($this->input->post('course_type'));

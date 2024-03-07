@@ -3293,4 +3293,10 @@ class Admin extends CI_Controller
         redirect(site_url('admin/instructors'), 'refresh');
     }
 
+    public function copycoursedata(){
+        $page_data['page_name'] = 'copycoursedata';
+        $page_data['page_title'] = "Cart Page Visitors";
+        $this->load->view('backend/index', $page_data);
+    }
+
 }
