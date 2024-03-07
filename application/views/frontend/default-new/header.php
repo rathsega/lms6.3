@@ -140,7 +140,7 @@
         .popup-form {
           display: none;
     position: fixed;
-    top: 54%;
+    top: 53%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 50px;
@@ -148,7 +148,7 @@
     /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
     z-index: 1000;
     border-radius: 10px;
-    width: 35%;
+    width: 66%;
 
 }
 .email-ip{
@@ -159,8 +159,8 @@
 }
 .close-btn {
   position: absolute;
-    top: 25px;
-    right: 23px;
+    top: 55px;
+    right: 50px;
     cursor: pointer;
     color: white;
     /* height: 53px; */
@@ -170,13 +170,22 @@
     padding: 10px;
 }
 .form-container {
-  max-width: 400px;
+  /* max-width: 400px; */
     margin: 0 auto;
-    padding: 38px;
-    background-color: #ffffff;
-    border-radius: 10px;
+     background-color: #ffffff;
+    border-radius:5px;
     box-shadow: 0 0 10px rgb(0 0 0 / 41%);
 }
+.forms-ips{
+  padding: 7px 26px 16px 26px;
+  width: 44%;
+}
+/* .header-card{
+  p{
+    font-size:13px;
+    line-height:16px;
+  }
+} */
   input, textarea {
     width: 100%;
     padding: 8px;
@@ -223,10 +232,17 @@
       width: 290px !important;
     margin-left: -133px;
 }
+.forms-ips{
+width: 100%;
+}
+.form-container {
+    margin-left: -73px;
+}
+
 .close-btn {
     position: absolute;
     top: 25px;
-    right: 46px;
+    right: -17px;
     cursor: pointer;
     color: white;
     /* height: 53px; */

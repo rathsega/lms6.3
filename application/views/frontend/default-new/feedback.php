@@ -2,7 +2,15 @@
     <span class="close-btn" id="feedback_form_close_button">&times;</span>
     <div class="form-container">
         <form action="javascript:void(0);" onsubmit="feedbackFormSubmit()" id="feedback_form" name="feedback_form">
-            <h4 class="pb-3">Feedback</h4>
+        <div class="header-card">
+            <h4 class="pb-2">Send us your feedback!</h4>
+            <p>Please let us know if you have any suggestions or feedback</p>
+        </div>
+        <div class="d-flex flex-row">
+        <div class="col-md-6 col-12 d-none d-md-block">
+    <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1709807445/image-reviews_dtput6.png" alt="" class="feedback-img">
+</div>
+        <div class="forms-ips col-md-6 col-12">
             <!-- <label for="name">Name:</label> -->
             <input type="text" id="feedback_form_name" required name="feedback_form_name" required placeholder="Name">
 
@@ -14,8 +22,13 @@
 
             <!-- <label for="message">Message:</label> -->
             <textarea id="feedback_form_message" required name="feedback_form_message" rows="4" required placeholder="Message:"></textarea>
+            
+            <button class="button-sub w-100" type="submit">Submit</button>
+        </div>
+        </div>
+        
+            
 
-            <button class="button-sub" type="submit">Submit</button>
         </form>
     </div>
 </div>
@@ -117,3 +130,15 @@
         $("input[name='feedback_form_phone'").val(full_number);
     });
 </script>
+<style>
+    .header-card{
+     background: #754ffe;
+    color: white;
+    padding: 24px 15px 24px 15px;
+    }
+    .feedback-img{
+        height: 246px;
+    margin-top: 66px;
+    margin-left: 20px;
+}
+</style>

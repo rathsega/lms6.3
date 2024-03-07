@@ -6,6 +6,42 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <?php endif; ?>
 
+<style>
+    .btn-close {
+        width: 2em;
+    height: 2em;
+    padding: 1.2em 1.2em;
+    }
+    .toast-header{
+        margin-bottom: -32px;
+        padding-left: 23px;
+
+    } 
+    .timmer-img{
+        height:50px;
+    }
+    .toast-body{
+        padding: 16px;
+    }
+    .toast-box{
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 41%);
+    width: 55%;
+    }
+    #loadingProgress {
+        width: 100%;
+    background-color: #ddd;
+    height: 4px;
+    margin-bottom: 8px;
+    margin-top: -16px;
+}
+
+#loadingBar {
+  width: 1%;
+  height: 4px;
+  background-color: #754ffe;
+}
+</style>
 <!---------- Header Section End  ---------->
 <section class="sign-up my-5 pt-5">
     <div class="container">
@@ -39,18 +75,25 @@
 
                     <!-- Toast Container -->
                     <div class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999">
-                        <div id="mail_timer" class="toast hide bg-white" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div id="mail_timer" class=" bg-white toast-box " role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="toast-header">
-                                <strong class="me-auto">Please Wait</strong>
+                                <h6 class=""> Your request is in process</h6>
                                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                             </div>
+                            <hr>
+                            <div id="loadingProgress">
+                                <div id="loadingBar"></div>
+                            </div>
+                            <button onclick="move()">Move it</button> 
                             <div class="toast-body ">
-
-                                Your request is in process. Please wait <span id="timer">01:30</span> Minutes.
-                                <div class="spinner-grow" role="status">
+                            <div class="d-flex flex-column align-items-center">
+                            <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1709804013/work-in-progress_gi7j5z.png" alt="" class="timmer-img">
+                            <p class="text-center">Please check your email: <span class="text-danger"> Inbox, spam, updates folder</span> <span id="timer">01:30</span> Minutes.</p>
+                            </div>
+                                <!-- <div class="spinner-grow" role="status">
                                     <span class="visually-hidden">Loading...</span>
-                                </div>
-                                <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1709712486/Search_1_zlg5v4.png" alt="" class="vect-img float-right">
+                                </div> -->
+                                <!-- <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1709712486/Search_1_zlg5v4.png" alt="" class="vect-img float-right"> -->
 
                             </div>
                         </div>
@@ -103,4 +146,24 @@
         }, 1000);
     }
 
+</script>
+<script>
+var i = 0;
+function move() {
+  if (i == 0) {
+    i = 1;
+    var elem = document.getElementById("loadingBar");
+    var width = 1;
+    var id = setInterval(frame, 10);
+    function frame() {
+      if (width >= 100) {
+        clearInterval(id);
+        i = 0;
+      } else {
+        width++;
+        elem.style.width = width + "%";
+      }
+    }
+  }
+}
 </script>
