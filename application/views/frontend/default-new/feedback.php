@@ -7,10 +7,10 @@
             <input type="text" id="feedback_form_name" required name="feedback_form_name" required placeholder="Name">
 
             <!-- <label for="email">Email:</label> -->
-            <input type="email" id="feedback_form_email" required name="feedback_form_email" required placeholder="email">
+            <input type="email" class="email-ip" id="feedback_form_email" required name="feedback_form_email" required placeholder="email">
 
             <!-- <label for="phone">Phone:</label> -->
-            <input type="tel" id="feedback_form_phone" required name="feedback_form_phone" required placeholder="Phone:">
+            <input type="tel" id="feedback_form_phone" required name="feedback_form_phone"  required placeholder="Phone:">
 
             <!-- <label for="message">Message:</label> -->
             <textarea id="feedback_form_message" required name="feedback_form_message" rows="4" required placeholder="Message:"></textarea>

@@ -151,7 +151,12 @@
     width: 35%;
 
 }
-
+.email-ip{
+  margin-top: 1px !important;
+}
+.iti--allow-dropdown input, .iti--allow-dropdown input[type=text], .iti--allow-dropdown input[type=tel], .iti--separate-dial-code input, .iti--separate-dial-code input[type=text], .iti--separate-dial-code input[type=tel] {
+    padding-right: 44px !important;
+}
 .close-btn {
   position: absolute;
     top: 25px;
@@ -179,6 +184,7 @@
     box-sizing: border-box;
     border: 1px solid #0000007d;
     border-radius: 4px;
+    margin-top:20px;
   }
  
   label {
@@ -211,6 +217,24 @@
   
   button:hover {
     background-color: #45a049;
+  }
+  @media screen and (max-width: 767px) {
+    .form-container {
+      width: 290px !important;
+    margin-left: -133px;
+}
+.close-btn {
+    position: absolute;
+    top: 25px;
+    right: 46px;
+    cursor: pointer;
+    color: white;
+    /* height: 53px; */
+    font-size: 40px;
+    background: #754ffe;
+    border-radius: 38px;
+    padding: 14px;
+}
   }
 	</style>
   <?php include "enquire_now.php" ?>
