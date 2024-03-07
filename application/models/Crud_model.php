@@ -711,37 +711,78 @@ class Crud_model extends CI_Model
 
         //sections
         $this->db->select('*');
-        $query = $this->db->get('section');
         $this->db->where("course_id", $from_course_id);
-        $sections = $query->result_array();
+        $sections = $this->db->get('section')->result_array();
 
-        foreach ($sections as $row) {
-            unset($row['id']);
-            $row['course_id'] = $to_course_id;
-            $this->db->insert('section', $row);
+
+        foreach ($sections as $section) {
+            $from_section_id = $section['id'];
+            unset($section['id']);
+            $section['course_id'] = $to_course_id;
+            $this->db->insert('section', $section);
+            $new_section_id = $this->db->insert_id();
+            //Chapters
+            $this->db->select('*');
+            $this->db->where("course_id", $from_course_id);
+            $this->db->where("section_id", $from_section_id);
+            $chapters = $this->db->get('chapters')->result_array();
+            foreach ($chapters as $chapter) {
+                $from_chapter_id = $chapter['id'];
+                unset($chapter['id']);
+                unset($chapter['section_id']);
+                $chapter['course_id'] = $to_course_id;
+                $chapter['section_id'] = $new_section_id;
+                $this->db->insert('chapters', $chapter);
+                $new_chapter_id = $this->db->insert_id();
+
+                //lessons
+                $this->db->select('*');
+                $this->db->where("course_id", $from_course_id);
+                $this->db->where("section_id", $from_section_id);
+                $this->db->where("chapter_id", $from_chapter_id);
+                $lessons = $this->db->get('lesson')->result_array();
+                foreach ($lessons as $lesson) {
+                    unset($lesson['id']);
+                    $lesson['course_id'] = $to_course_id;
+                    $lesson['section_id'] = $new_section_id;
+                    $lesson['chapter_id'] = $new_chapter_id;
+                    $this->db->insert('lesson', $lesson);
+                }
+            }
+
+            $this->db->select('*');
+            $this->db->where("course_id", $from_course_id);
+            $this->db->where("section_id", $from_section_id);
+            $this->db->where("chapter_id is NULL");
+            $lessons = $this->db->get('lesson')->result_array();
+            foreach ($lessons as $lesson) {
+                unset($lesson['id']);
+                $lesson['course_id'] = $to_course_id;
+                $lesson['section_id'] = $new_section_id;
+                $this->db->insert('lesson', $lesson);
+            }
         }
 
         //chapters
-        $this->db->select('*');
+        /*$this->db->select('*');
         $this->db->where("course_id", $from_course_id);
-        $query = $this->db->get('chapters');
-        $chapters = $query->result_array();
-        foreach ($chapters as $row) {
-            unset($row['id']);
-            $row['course_id'] = $to_course_id;
-            $this->db->insert('chapters', $row);
-        }
+        $chapters = $this->db->get('chapters')->result_array();
+        foreach ($chapters as $chapter) {
+            unset($chapter['id']);
+            $chapter['course_id'] = $to_course_id;
+            $this->db->insert('chapters', $chapter);
+        }*/
 
         //lessons
-        $this->db->select('*');
-        $query = $this->db->get('lesson');
+        /*$this->db->select('*');
         $this->db->where("course_id", $from_course_id);
-        $lessons = $query->result_array();
-        foreach ($lessons as $row) {
-            unset($row['id']);
-            $row['course_id'] = $to_course_id;
-            $this->db->insert('lesson', $row);
-        }
+        $this->db->where("chapter_id", null);
+        $lessons = $this->db->get('lesson')->result_array();
+        foreach ($lessons as $lesson) {
+            unset($lesson['id']);
+            $lesson['course_id'] = $to_course_id;
+            $this->db->insert('lesson', $lesson);
+        }*/
 
         $this->session->set_flashdata('flash_message', get_phrase('courriculum_copied_successfully'));
     }

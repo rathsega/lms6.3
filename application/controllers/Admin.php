@@ -3001,6 +3001,10 @@ class Admin extends CI_Controller
             $file_name = $this->crud_model->generate_image_link();
             $this->session->set_flashdata('flash_message', $file_name);
             redirect(site_url('admin/generate_image_link'), 'refresh');
+        } else if($param1 == 'copy_course_data'){
+            $file_name = $this->crud_model->copy_curriculum();
+            $this->session->set_flashdata('flash_message', $file_name);
+            redirect(site_url('admin/copycoursedata'), 'refresh');
         }
         
         // $page_data['page_name'] = 'enrol_student';

@@ -16,12 +16,12 @@
             <div class="col-lg-12">
                 <h4 class="mb-3 header-title"><?php echo get_phrase('copy_course_data'); ?></h4>
 
-                <form class="required-form" id="custom_reviews_form" action="<?php echo site_url('admin/customsettings/custom_reviews_form'); ?>" method="post" enctype="multipart/form-data">
+                <form class="required-form" id="copy_course_data" action="<?php echo site_url('admin/customsettings/copy_course_data'); ?>" method="post" enctype="multipart/form-data">
 
                     
                     <div class="form-group">
                         <label for="multiple_course_id"><?php echo get_phrase('from_course'); ?><span class="required">*</span> </label>
-                        <select class="select2 form-control select2-multiple" data-toggle="select2" data-placeholder="Choose ..." name="id" id="multiple_from_course_id" required>
+                        <select class="select2 form-control select2-multiple" data-toggle="select2" data-placeholder="Choose ..." name="from_course" id="from_course" required>
                             <option value=""><?php echo get_phrase('select_a_course'); ?></option>
                             <?php $course_list = $this->crud_model->get_courses()->result_array();
                                 foreach ($course_list as $course):
@@ -33,7 +33,7 @@
                     </div>
                     <div class="form-group">
                         <label for="multiple_course_id"><?php echo get_phrase('to_course'); ?><span class="required">*</span> </label>
-                        <select class="select2 form-control select2-multiple" data-toggle="select2" data-placeholder="Choose ..." name="id" id="multiple_to_course_id" required>
+                        <select class="select2 form-control select2-multiple" data-toggle="select2" data-placeholder="Choose ..." name="to_course" id="to_course" required>
                             <option value=""><?php echo get_phrase('select_a_course'); ?></option>
                             <?php $course_list = $this->crud_model->get_courses()->result_array();
                                 foreach ($course_list as $course):
