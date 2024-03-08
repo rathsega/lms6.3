@@ -36,12 +36,12 @@
 <script>
     const feedback_form_modal = document.getElementById('feedback_form_modal');
     const feedback_form_button = document.getElementById('feedback_form_button');
-    feedback_form_button.addEventListener('click', function() {
+    feedback_form_button && feedback_form_button.addEventListener('click', function() {
         feedback_form_modal.style.display = 'block';
     });
 
     const feedback_form_close_button = document.getElementById('feedback_form_close_button');
-    feedback_form_close_button.addEventListener('click', function() {
+    feedback_form_close_button && feedback_form_close_button.addEventListener('click', function() {
         feedback_form_modal.style.display = 'none';
     });
 
@@ -119,7 +119,7 @@
     }
 
     const feedback_form_phone = document.querySelector("#feedback_form_phone");
-    const feedback_form_phone_input = window.intlTelInput(feedback_form_phone, {
+    const feedback_form_phone_input = feedback_form_phone && window.intlTelInput(feedback_form_phone, {
         preferredCountries: ["in"],
         hiddenInput: "full",
         utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",

@@ -259,7 +259,7 @@ class Login extends CI_Controller
             redirect(site_url('login'), 'refresh');
         } else {
             $this->session->set_flashdata('error_message', get_phrase('user_not_found'));
-            redirect(site_url('login'), 'refresh');
+            redirect(site_url('login/forgot_password_request'), 'refresh');
         }
     }
 
