@@ -23,6 +23,13 @@ if($language_dirs){
 	<meta name="keywords" content="<?php echo $course_details['meta_keywords']; ?>"/>
 	<meta name="description" content="<?php echo $course_details['meta_description']; ?>" />
 	<link name="favicon" type="image/x-icon" href="<?php echo base_url('uploads/system/'.get_frontend_settings('favicon')); ?>" rel="shortcut icon" />
+	<link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+   />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+   <script src="<?php echo base_url('assets/backend/js/jquery-3.3.1.min.js'); ?>" charset="utf-8"></script>
+   <script src="<?php echo base_url('assets/global/jquery-form/jquery.form.min.js'); ?>"></script>
 
 	<?php include 'includes_top.php';?>
 
@@ -99,7 +106,7 @@ if($language_dirs){
 				</li>
 			</ul>
 			<!-----fedback-btn----------- -->
-			<button class="btn btn btn-light btn-outline-secondary mx-1" id="feedback_form_button" onclick="openFeedbackForm()">Feedback</button> 
+			<button class="btn btn btn-light btn-outline-secondary mx-1" id="lesson_feedback_form_button">Feedback</button> 
 			<!-- ---fedback-btn----------- -->
 			<?php if($full_page): ?>
 				
@@ -132,10 +139,10 @@ if($language_dirs){
 
 <!-- ----------------pop-up-------------- -->
 
-<div class="popup-form" id="feedback_form_modal">
-    <span class="close-btn" id="feedback_form_close_button">&times;</span>
+<div class="popup-form" id="lesson_feedback_form_modal">
+    <span class="close-btn" id="lesson_feedback_form_close_button">&times;</span>
     <div class="form-container">
-        <form action="javascript:void(0);" onsubmit="feedbackFormSubmit()" id="feedback_form" name="feedback_form">
+        <form action="javascript:void(0);" onsubmit="feedbackFormSubmit()" id="lesson_feedback_form" name="lesson_feedback_form">
         <div class="header-card">
             <h4 class="pb-2">Send us your feedback!</h4>
             <p>Please let us know if you have any suggestions or feedback</p>
@@ -146,16 +153,16 @@ if($language_dirs){
 </div>
         <div class="forms-ips col-md-6 col-12">
             <!-- <label for="name">Name:</label> -->
-            <input type="text" id="feedback_form_name" required name="feedback_form_name" required placeholder="Name">
+            <input type="text" id="lesson_feedback_form_name" required name="lesson_feedback_form_name" required placeholder="Name">
 
             <!-- <label for="email">Email:</label> -->
-            <input type="email" class="email-ip" id="feedback_form_email" required name="feedback_form_email" required placeholder="email">
+            <input type="email" class="email-ip" id="lesson_feedback_form_email" required name="lesson_feedback_form_email" required placeholder="email">
 
             <!-- <label for="phone">Phone:</label> -->
-            <input type="tel" id="feedback_form_phone" required name="feedback_form_phone"  required placeholder="Phone:">
+            <input type="tel" id="lesson_feedback_form_phone" required name="lesson_feedback_form_phone"  required placeholder="Phone:">
 
             <!-- <label for="message">Message:</label> -->
-            <textarea id="feedback_form_message" required name="feedback_form_message" rows="4" required placeholder="Message:"></textarea>
+            <textarea id="lesson_feedback_form_message" required name="lesson_feedback_form_message" rows="4" required placeholder="Message:"></textarea>
             
             <button class="button-sub w-100" type="submit">Submit</button>
         </div>
@@ -168,26 +175,26 @@ if($language_dirs){
 </div>
 
 <script>
-    const feedback_form_modal = document.getElementById('feedback_form_modal');
-    const feedback_form_button = document.getElementById('feedback_form_button');
-    feedback_form_button.addEventListener('click', function() {
-        feedback_form_modal.style.display = 'block';
+    const lesson_feedback_form_modal = document.getElementById('lesson_feedback_form_modal');
+    const lesson_feedback_form_button = document.getElementById('lesson_feedback_form_button');
+    lesson_feedback_form_button.addEventListener('click', function() {
+        lesson_feedback_form_modal.style.display = 'block';
     });
 
-    const feedback_form_close_button = document.getElementById('feedback_form_close_button');
-    feedback_form_close_button.addEventListener('click', function() {
-        feedback_form_modal.style.display = 'none';
+    const lesson_feedback_form_close_button = document.getElementById('lesson_feedback_form_close_button');
+    lesson_feedback_form_close_button.addEventListener('click', function() {
+        lesson_feedback_form_modal.style.display = 'none';
     });
 
     function feedbackFormSubmit() {
-        var full_number = feedback_form_phone_input.getNumber(intlTelInputUtils.numberFormat.E164);
-        $("input[name='feedback_form_phone'").val(full_number);
-        var $inputs = $('#feedback_form :input');
+        var full_number = lesson_feedback_form_phone_input.getNumber(intlTelInputUtils.numberFormat.E164);
+        document.getElementById("lesson_feedback_form_phone").value = full_number;
+        var $inputs = $('#lesson_feedback_form :input');
 
-        const name = document.getElementById('feedback_form_name').value.trim();
-        const email = document.getElementById('feedback_form_email').value.trim();
-        const phone = document.getElementById('feedback_form_phone').value.trim();
-        const message = document.getElementById('feedback_form_message').value.trim();
+        const name = document.getElementById('lesson_feedback_form_name').value.trim();
+        const email = document.getElementById('lesson_feedback_form_email').value.trim();
+        const phone = document.getElementById('lesson_feedback_form_phone').value.trim();
+        const message = document.getElementById('lesson_feedback_form_message').value.trim();
 
         // Regular expressions for email and phone number validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -236,8 +243,8 @@ if($language_dirs){
                 alert(xhr.responseText);
                 if (xhr.responseText == 'Thank You For Providing Your Feedback.') {
                     // Optionally, reset the form after successful submission
-                    $('#feedback_form')[0].reset();
-                    feedback_form_modal.style.display = 'none';
+                    $('#lesson_feedback_form')[0].reset();
+                    lesson_feedback_form_modal.style.display = 'none';
                 }
 
 
@@ -252,16 +259,16 @@ if($language_dirs){
         xhr.send(jsonData);
     }
 
-    const feedback_form_phone = document.querySelector("#feedback_form_phone");
-    const feedback_form_phone_input = window.intlTelInput(feedback_form_phone, {
+    const lesson_feedback_form_phone = document.querySelector("#lesson_feedback_form_phone");
+    const lesson_feedback_form_phone_input = window.intlTelInput(lesson_feedback_form_phone, {
         preferredCountries: ["in"],
         hiddenInput: "full",
         utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
     });
 
     $("form").submit(function() {
-        var full_number = feedback_form_phone_input.getNumber(intlTelInputUtils.numberFormat.E164);
-        $("input[name='feedback_form_phone'").val(full_number);
+        var full_number = lesson_feedback_form_phone_input.getNumber(intlTelInputUtils.numberFormat.E164);
+        document.getElementById("lesson_feedback_form_phone").value = full_number;
     });
 </script>
 
@@ -419,14 +426,6 @@ width: 100%;
 </style>
 <script>
 	<?php include "enquire_now.php" ?>
-  <?php include "feedback.php" ?>
-    function openFeedbackForm() {
-        document.getElementById("feedbackForm").style.display = "block";
-    }
-
-    function closeFeedbackForm() {
-        document.getElementById("feedbackForm").style.display = "none";
-    }
   </script>
 
 <!-- ----------popu-up- script-end------------- -->
