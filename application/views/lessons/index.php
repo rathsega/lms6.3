@@ -98,7 +98,7 @@ if($language_dirs){
 					</a>
 				</li>
 			</ul>
-			<!-- ---fedback-btn----------- -->
+			<!-----fedback-btn----------- -->
 			<button class="btn btn btn-light btn-outline-secondary mx-1" id="feedback_form_button" onclick="openFeedbackForm()">Feedback</button> 
 			<!-- ---fedback-btn----------- -->
 			<?php if($full_page): ?>
