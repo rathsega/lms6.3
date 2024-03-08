@@ -763,26 +763,20 @@ class Crud_model extends CI_Model
             }
         }
 
-        //chapters
-        /*$this->db->select('*');
-        $this->db->where("course_id", $from_course_id);
-        $chapters = $this->db->get('chapters')->result_array();
-        foreach ($chapters as $chapter) {
-            unset($chapter['id']);
-            $chapter['course_id'] = $to_course_id;
-            $this->db->insert('chapters', $chapter);
-        }*/
+        //FAQ
+        $this->db->select('*');
+        $this->db->where("id", $from_course_id);
+        $course_details = $this->db->get('course')->row_array();
 
-        //lessons
-        /*$this->db->select('*');
-        $this->db->where("course_id", $from_course_id);
-        $this->db->where("chapter_id", null);
-        $lessons = $this->db->get('lesson')->result_array();
-        foreach ($lessons as $lesson) {
-            unset($lesson['id']);
-            $lesson['course_id'] = $to_course_id;
-            $this->db->insert('lesson', $lesson);
-        }*/
+        $data = [];
+        $data['faqs'] = $course_details['faqs'];
+        $data['about'] = $course_details['about'];
+        $data['learn'] = $course_details['learn'];
+        $data['growth'] = $course_details['growth'];
+        $data['future'] = $course_details['future'];
+
+        $this->db->where('id', $to_course_id);
+        $this->db->update('course', $data);
 
         $this->session->set_flashdata('flash_message', get_phrase('courriculum_copied_successfully'));
     }
