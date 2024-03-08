@@ -251,16 +251,11 @@ if ($stripe_info[0]['active'] == 0) {
         $(document).ready(function(){
             let details_submitted = localStorage.getItem('dataSubmitted');
             let user_id = "<?php echo $this->session->userdata('user_id'); ?>";
-            if(details_submitted != "true" && !user_id){
+            let contactPopUpClosed = localStorage.getItem("contactPopUpClosed") ? parseInt(localStorage.getItem("contactPopUpClosed")) : 0;
+            if(details_submitted != "true" && !user_id && contactPopUpClosed < 2){
                 setTimeout(()=>{
-                    if(details_submitted != "true" && !user_id ){
-                        if(<?php echo isset($slug) ? "true":"false"; ?>){
-                            //if(!"<?php //echo $slug; ?>".includes("oracle-fusion-scm-online-training-course") && !"<?php //echo $slug; ?>".includes("oracle-fusion-financials-online-training-course")){
-                                openModalBtn2.click();
-                            //}
-                        }else{
-                            openModalBtn2.click();
-                        }
+                    if((details_submitted != "true" && !user_id) && contactPopUpClosed < 2 ){
+                       openModalBtn2.click();
                     }
                 }, 10000)
             } // 10000 to load it after 10 seconds from page load
