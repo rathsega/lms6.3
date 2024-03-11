@@ -392,7 +392,7 @@ if($payment_pending){
                             <div class="course-meta">
                                 <?php if ($top_course['course_type'] == 'general') : ?>
                                     <span class=""><i class="fas fa-play-circle"></i>
-                                        <?php echo $this->crud_model->get_lessons('course', $top_course['id'])->num_rows() . ' ' . site_phrase('lessons'); ?>
+                                        <?php echo $top_course["number_of_lectures"]/*$this->crud_model->get_lessons('course', $top_course['id'])->num_rows()*/ . ' ' . site_phrase('lessons'); ?>
                                     </span>
                                     <span class=""><i class="far fa-clock"></i>
                                         <?php echo $course_duration; ?>
@@ -612,7 +612,7 @@ if($payment_pending){
                             <div class="course-meta">
                                 <?php if ($latest_course['course_type'] == 'general') : ?>
                                     <span class=""><i class="fas fa-play-circle"></i>
-                                        <?php echo $this->crud_model->get_lessons('course', $latest_course['id'])->num_rows() . ' ' . site_phrase('lessons'); ?>
+                                        <?php echo $latest_course["number_of_lectures"]/*$this->crud_model->get_lessons('course', $latest_course['id'])->num_rows()*/ . ' ' . site_phrase('lessons'); ?>
                                     </span>
                                     <span class=""><i class="far fa-clock"></i>
                                         <?php echo $course_duration; ?>
