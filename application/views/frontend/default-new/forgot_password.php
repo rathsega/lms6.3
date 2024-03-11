@@ -11,15 +11,27 @@
         width: 2em;
     height: 2em;
     padding: 1.2em 1.2em;
+    margin-left: 136px !important;
     }
     .toast-header{
         margin-bottom: -32px;
         padding-left: 23px;
 
     } 
-    .timmer-img{
-        height:50px;
+    .timmer-img {
+    height:60px;
+    animation: moveUpDown 2s ease-in-out infinite alternate; /* Adjust the duration and timing function as needed */
+}
+
+@keyframes moveUpDown {
+    0% {
+        transform: translateY(0);
     }
+
+    100% {
+        transform: translateY(-10px); /* Adjust the vertical movement distance as needed */
+    }
+}
     .toast-body{
         padding: 16px;
     }
@@ -74,21 +86,23 @@
                     </form>
 
                     <!-- Toast Container -->
-                    <div class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999">
+                    <div class="position-fixed top-50 start-50 translate-middle " style="z-index: 9999; width: 65%; margin-left: 17%;">
                         <div id="mail_timer" class=" bg-white toast-box " role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="toast-header">
-                                <h6 class=""> Your request is in process</h6>
+                                <h6 class="text-center fw-bold" style="color:#754ffe;" >We are sending  you an email</h6>
                                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                             </div>
                             <hr>
-                            <div id="loadingProgress">
+                            <!-- <div id="loadingProgress">
                                 <div id="loadingBar"></div>
-                            </div>
-                            <button onclick="move()">Move it</button> 
+                            </div> -->
+                            <!-- <button onclick="move()">Move it</button>  -->
                             <div class="toast-body ">
                             <div class="d-flex flex-column align-items-center">
-                            <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1709804013/work-in-progress_gi7j5z.png" alt="" class="timmer-img">
-                            <p class="text-center">Please check your email: <span class="text-danger"> Inbox, spam, updates folder</span> <span id="timer">01:30</span> Minutes.</p>
+                            <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1710156850/Group_1000002114_naekcf.png" alt="" class="timmer-img">
+                            <p class="text-center pt-3" style="color:black;">Please check your email after <span id="timer">01:30</span> Minutes to get your reset password link. <span class="text-success fw-bold">Give it few minutes, and don't forget to check your spam folder</span></p>
+                             <p class="text-center">Didn't receive the email?<br><a href="http://localhost/lms/home/contact_us">Contact Techleads IT support</a></p>
+                              
                             </div>
                                 <!-- <div class="spinner-grow" role="status">
                                     <span class="visually-hidden">Loading...</span>

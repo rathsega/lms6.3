@@ -40,6 +40,12 @@
       </button>
     </li>
   <?php endif ?>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="feedback-tab" onclick="actionTo('<?php echo site_url('addons/feedback/feedback/'.$course_details['id']); ?>')" data-bs-toggle="tab" data-bs-target="#feedback-content" type="button" role="tab" aria-controls="Feedback-content" aria-selected="true">
+        <?php echo get_phrase('Course Feedback'); ?>
+        <span></span>
+      </button>
+    </li>
 </ul>
 
 <div class="tab-content ct-tabs-content">
@@ -108,6 +114,7 @@
   <?php if (addon_status('certificate')): ?>
     <div class="tab-pane fade" id="certificate-content" role="tabpanel" aria-labelledby="certificate-tab"></div>
   <?php endif; ?>
+  <div class="tab-pane fade" id="feedback-content" role="tabpanel" aria-labelledby="feedback-tab"></div>
 </div>
 
 

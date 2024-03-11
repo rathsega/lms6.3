@@ -125,7 +125,7 @@ if($ratings_count){
                                             </div>
                                             
                                             <div class="col-lg-4 col-md-10 col-sm-10">
-                                                <div class="mb-3">
+                                                <div class="mb-3" style="margin-top:20px;">
                                                     <input name="drphone" type="text" class="form-control" id="drphone" required placeholder="<?php echo get_phrase('Phone *') ?>">
                                                 </div>
                                             </div>
@@ -370,14 +370,14 @@ if($ratings_count){
                         </div>
                         
                         <div class="col-lg-3 col-md-10 col-sm-10">
-                            <div class="mb-3">
+                            <div class="mb-3" style="margin-top:20px;">
                                 <input name="drphonetwo" type="text" class="form-control shadow-lg l-form" id="drphonetwo" required placeholder="<?php echo get_phrase('Phone *') ?>">
                             </div>
                         </div>
                                 <input name="drcoursetwo" type="hidden" class="form-control" id="drcoursetwo" value="<?php echo $course_id; ?>">
                         <div class="col-lg-3 col-md-10 col-sm-10 courses-price-right">
                             <div class="form-btn ">
-                                <button type="submit" class="btn btn-success shadow-lg p-2 mbl-btn" style="background-color:#198754 ;color:white;"><?php echo get_phrase('Request Demo'); ?></button>
+                                <button type="submit" class="btn btn-success shadow-lg p-2 mbl-btn" style="background-color:#198754 ;color:white;margin-top:20px;"><?php echo get_phrase('Request Demo'); ?></button>
                             </div>
                         </div>
                 </div>

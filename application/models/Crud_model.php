@@ -5116,6 +5116,10 @@ class Crud_model extends CI_Model
     public function getAllFeedback(){
         return $this->db->query("SELECT * from feedback order by datetime desc ");
     }
+
+    public function getUserFeedback($user_id){
+        return $this->db->query("SELECT * from feedback where user_id=".$user_id." order by datetime desc ");
+    }
     
     public function get_broucher($course_id)
     {
