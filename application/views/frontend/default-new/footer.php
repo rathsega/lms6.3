@@ -143,7 +143,7 @@ if ($stripe_info[0]['active'] == 0) {
     <script>
         $(".user-icon").click(function(){
             if($('.nb-form').css("bottom") == "0px"){
-                $('.nb-form').css("bottom", "-315px");
+                $('.nb-form').css("bottom", "-335px");
             }else{
                 $('.nb-form').css("bottom", "0px");
             }
