@@ -825,6 +825,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
                                                                             <input type="file" name="future_icon[]" class="form-control"  accept="image/*" placeholder="<?php echo get_phrase('icon'); ?>">
+                                                                            Note : File size should be 92*75 px and format should be .webp only
                                                                             <input type="hidden" name="future_previous_icon[]" value="<?php if($future_val['icon']){ echo $future_val['icon'];} ?>">
 
                                                                             <input type="text" class="form-control" value="<?php echo $future_title; ?>" name="future_title[]" id="future" placeholder="<?php echo get_phrase('future_title'); ?>">
@@ -847,6 +848,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
                                                                             <input type="file" name="future_icon[]" class="form-control"  accept="image/*" placeholder="<?php echo get_phrase('icon'); ?>">
+                                                                            Note : File size should be 92*75 px and format should be .webp only
                                                                             <input type="text" class="form-control" name="future_title[]" id="future" placeholder="<?php echo get_phrase('future_title'); ?>">
                                                                             <textarea name="future_descriptions[]" class="form-control mt-2" placeholder="<?php echo get_phrase('answer'); ?>"></textarea>
                                                                         </div>
@@ -862,6 +864,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
                                                                             <input type="file" name="future_icon[]" class="form-control"  accept="image/*" placeholder="<?php echo get_phrase('icon'); ?>">
+                                                                            Note : File size should be 92*75 px and format should be .webp only
                                                                             <input type="text" class="form-control" name="future_title[]" id="future" placeholder="<?php echo get_phrase('future_title'); ?>">
                                                                             <textarea name="future_descriptions[]" class="form-control mt-2" placeholder="<?php echo get_phrase('answer'); ?>"></textarea>
                                                                         </div>
@@ -895,6 +898,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
                                                                             <input type="file" name="learn_icon[]" class="form-control"  accept="image/*"  placeholder="<?php echo get_phrase('icon'); ?>">
+                                                                            Note : File size should be 94*92 px and format should be .webp only
                                                                             <input type="hidden" name="learn_previous_icon[]" value="<?php if($learn_val['icon']){ echo $learn_val['icon'];} ?>">
                                                                             <input type="text" class="form-control" value="<?php echo $learn_title; ?>" name="learn_title[]" id="learn" placeholder="<?php echo get_phrase('learn_title'); ?>">
                                                                             <textarea name="learn_descriptions[]" class="form-control mt-2" placeholder="<?php echo get_phrase('answer'); ?>"><?php echo $learn_description; ?></textarea>
@@ -916,6 +920,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
                                                                             <input type="file" name="learn_icon[]" class="form-control"  accept="image/*" placeholder="<?php echo get_phrase('icon'); ?>">
+                                                                            Note : File size should be 94*92 px and format should be .webp only
                                                                             <input type="text" class="form-control" name="learn_title[]" id="learn" placeholder="<?php echo get_phrase('learn_title'); ?>">
                                                                             <textarea name="learn_descriptions[]" class="form-control mt-2" placeholder="<?php echo get_phrase('description'); ?>"></textarea>
                                                                         </div>
@@ -931,6 +936,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
                                                                             <input type="file" name="learn_icon[]" class="form-control"  accept="image/*" placeholder="<?php echo get_phrase('icon'); ?>">
+                                                                            Note : File size should be 94*92 px and format should be .webp only
                                                                             <input type="text" class="form-control" name="learn_title[]" id="learn" placeholder="<?php echo get_phrase('learn_title'); ?>">
                                                                             <textarea name="learn_descriptions[]" class="form-control mt-2" placeholder="<?php echo get_phrase('description'); ?>"></textarea>
                                                                         </div>
