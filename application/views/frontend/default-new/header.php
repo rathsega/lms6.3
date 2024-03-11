@@ -17,9 +17,6 @@
               <li class="nav-item px-2">
                 <a href="mailto:<?php echo get_settings('system_email'); ?>"><i class="fas fa-envelope"></i> <?php echo get_settings('system_email'); ?></a>
               </li>
-              <?php if($this->session->userdata('user_id')) : ?>
-                <button class="feedback-btn" id="feedback_form_button" onclick="openFeedbackForm()">Feedback</button>
-              <?php endif; ?>
 
                 
               <li class="pt-2 px-2">
