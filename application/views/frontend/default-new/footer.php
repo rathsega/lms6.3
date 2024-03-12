@@ -4,7 +4,13 @@
         <div class="row">
             <div class="col-lg-5 col-md-12 col-sm-12 col-12 mb-5">
                 <img src="<?php echo base_url('uploads/system/'.get_frontend_settings('light_logo')); ?>">
-                <p><?php echo get_settings('website_description'); ?></p>
+                <div class="col-lg-9 col-md-12 col-sm-12 col-12 lattest-news">
+                    <h1><?php echo get_phrase('Subscribe to our Newsletter'); ?></h1>
+                    <form class="ajaxForm resetable" action="<?php echo site_url('home/subscribe_to_our_newsletter'); ?>" method="post">
+                        <input type="email" class="form-control" id="subscribe_email" placeholder="<?php echo get_phrase('Enter your email address'); ?>" name="email">
+                        <button class="form-arrow" type="submit" aria-label="Subscribe to our Newsletter"><i class="fa-solid fa-arrow-right-long"></i></button>
+                    </form>
+                </div>
             </div>
             <div class="col-lg-2 col-md-4 col-sm-4 col-4 mb-5">
                 <h1><?php echo site_phrase('top_categories'); ?></h1>
@@ -44,13 +50,13 @@
         </div>
         <div class="lattest-news">
             <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                    <h1><?php echo get_phrase('Subscribe to our Newsletter'); ?></h1>
-                    <form class="ajaxForm resetable" action="<?php echo site_url('home/subscribe_to_our_newsletter'); ?>" method="post">
-                        <input type="email" class="form-control" id="subscribe_email" placeholder="<?php echo get_phrase('Enter your email address'); ?>" name="email">
-                        <button class="form-arrow" type="submit" aria-label="Subscribe to our Newsletter"><i class="fa-solid fa-arrow-right-long"></i></button>
-                    </form>
-                </div>
+               <div class="col-lg-4 col-md-6 col-sm-12 com-12">
+                <!-- TrustBox widget - Review Collector -->
+<div class="trustpilot-widget" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="65eae6a9fca37546b09273d9" data-style-height="52px" data-style-width="100%">
+  <a href="https://www.trustpilot.com/review/techleadsit.com" target="_blank" rel="noopener">Trustpilot</a>
+</div>
+<!-- End TrustBox widget -->
+               </div>
                 
                 <div class="col-lg-8 col-md-6  col-sm-12 col-12">
                     <div class="icon right-icon">

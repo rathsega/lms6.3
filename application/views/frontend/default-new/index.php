@@ -72,6 +72,10 @@ if($language_dirs){
 
 	<?php include 'includes_top.php';?>
 
+	<!-- TrustBox script -->
+	<script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+	<!-- End TrustBox script -->
+
 </head>
 <body class="<?php echo $this->session->userdata('theme_mode'); ?>">
 	<?php
