@@ -29,6 +29,9 @@
     box-shadow: 0px 0px 60px 30px rgb(0 0 0 / 19%);
     /* height: 85%; */
     }
+    .contact-p-label{
+        margin-bottom:20px;
+    }
     .form_label{
     color:black;
     font-weight:500;
@@ -175,8 +178,8 @@
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                <label class="form_label">Phone *</label>
-                                    <input name="phone" type="tel" class="form-control" id="phone1" required placeholder="<?php echo get_phrase('1234567890 ') ?>">
+                                <label class="form_label contact-p-label">Phone *</label>
+                                    <input name="phone" type="tel" class="form-control " id="phone1" required placeholder="<?php echo get_phrase('1234567890 ') ?>">
                                 </div>                           
                             </div>
                         </div>

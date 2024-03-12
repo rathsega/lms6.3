@@ -20,16 +20,22 @@
     } 
     .timmer-img {
     height:60px;
-    animation: moveUpDown 2s ease-in-out infinite alternate; /* Adjust the duration and timing function as needed */
+    animation: moveUpDown 2s ease-in-out infinite alternate; / Adjust the duration and timing function as needed /
 }
-
+.mbl-heading{
+    color:#754ffe;
+    font-weight:bold;
+}
+.btn-close:hover{
+    background-color:transparent;
+}
 @keyframes moveUpDown {
     0% {
         transform: translateY(0);
     }
 
     100% {
-        transform: translateY(-10px); /* Adjust the vertical movement distance as needed */
+        transform: translateY(-10px); / Adjust the vertical movement distance as needed /
     }
 }
     .toast-body{
@@ -53,6 +59,27 @@
   height: 4px;
   background-color: #754ffe;
 }
+
+.btn-close:hover{
+    background-color:transparent;
+}
+
+@media screen and (max-width: 767px) {
+      .toast-mbl{
+        width:140% !important;
+        margin-left: 34% !important;
+
+      }
+      .mbl-heading{
+        font-size: 14px;
+    width: 135%;
+    position: absolute;
+      }
+      .btn-close{
+        margin-left: 205px !important;
+        margin-top: -4px;
+      } 
+    }
 </style>
 <!---------- Header Section End  ---------->
 <section class="sign-up my-5 pt-5">
@@ -86,11 +113,11 @@
                     </form>
 
                     <!-- Toast Container -->
-                    <div class="position-fixed top-50 start-50 translate-middle " style="z-index: 9999; width: 65%; margin-left: 17%;">
-                        <div id="mail_timer" class=" bg-white toast-box " role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-mbl position-fixed top-50 start-50 translate-middle " style="z-index: 9999; width: 65%; margin-left: 17%;">
+                        <div id="mail_timer" style="display:none;" class=" bg-white toast-box " role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="toast-header">
-                                <h6 class="text-center fw-bold" style="color:#754ffe;" >We are sending  you an email</h6>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                <h6 class="mbl-heading fw-bold" style="color:#754ffe;" >We are sending  you an email</h6>
+                                <button type="button" class="btn-close" id="timer_toast_close" data-bs-dismiss="toast" aria-label="Close"></button>
                             </div>
                             <hr>
                             <!-- <div id="loadingProgress">
@@ -100,8 +127,7 @@
                             <div class="toast-body ">
                             <div class="d-flex flex-column align-items-center">
                             <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1710156850/Group_1000002114_naekcf.png" alt="" class="timmer-img">
-                            <p class="text-center pt-3" style="color:black;">Please check your email after <span id="timer">01:30</span> Minutes to get your reset password link. <span class="text-success fw-bold">Give it few minutes, and don't forget to check your spam folder</span></p>
-                             <p class="text-center">Didn't receive the email?<br><a href="http://localhost/lms/home/contact_us">Contact Techleads IT support</a></p>
+                            <p class="text-center pt-3" style="color:black;">You will receive an email with in <span id="timer">90</span> seconds . please check your inbox, spam, update folders </p>
                               
                             </div>
                                 <!-- <div class="spinner-grow" role="status">
@@ -136,9 +162,25 @@
             $('#mail_timer').show();
             var twoMinutes = 60 * 1.5,
             display = document.querySelector('#timer');
-            startTimer(twoMinutes, display);
+            showTimerinSeconds(90, display);
+            //startTimer(twoMinutes, display);
         }
         
+    }
+
+    document.getElementById("timer_toast_close").addEventListener('click',function(){
+        $('#mail_timer').hide();
+    })
+
+    function showTimerinSeconds(duration, display){
+        var timer = duration;
+        setInterval(function() {
+            display.textContent = timer;
+            if (--timer < 0) {
+                $('#mail_timer').hide();
+                timer = duration;
+            }
+        }, 1000)
     }
 
     function startTimer(duration, display) {
