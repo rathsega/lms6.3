@@ -76,7 +76,7 @@ height: 90px;
 }
 
   .accordion-button:not(.collapsed)::after {
-    background-image: url("https://res.cloudinary.com/dc2uykpox/image/upload/v1708595240/Group_1000002001_hgy7t1.png");
+    background-image: url("../image/templateone/drop_down_up.png");
     transform: none;
     background-size: 47px 45px;
     width: 52px;
@@ -88,7 +88,7 @@ height: 90px;
     flex-shrink: 0;
   
   
-    background-image: url("https://res.cloudinary.com/dc2uykpox/image/upload/v1708596332/Group_1000002001_2_xsjre1.png");
+    background-image: url("../image/templateone/drop_down_right.png");
     background-repeat: no-repeat;
     /* background-size: var(--bs-accordion-btn-icon-width);
     transition: var(--bs-accordion-btn-icon-transition); */
@@ -682,7 +682,7 @@ li{
     padding-right: 10px;
 }
 .expert-img{
-    background-image: url("https://res.cloudinary.com/dc2uykpox/image/upload/v1708314971/Group_1000001984_gvpduh.png");
+    background-image: url("../image/templateone/expert_i.png");
     background-size: cover;
     height:495px;
 }
@@ -710,7 +710,7 @@ li{
     height: 365px;
 }
 .new-img{
-    background-image: url("https://res.cloudinary.com/dc2uykpox/image/upload/v1708321629/Group_1000001983_1_gk9lp9.png");
+    background-image: url("../image/templateone/news_letter.png");
     background-size: cover;
     /* height:200px;  */
 }

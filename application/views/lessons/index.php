@@ -149,7 +149,7 @@ if($language_dirs){
         </div>
         <div class="d-flex flex-row">
         <div class="col-md-6 col-12 d-none d-md-block pt-5 pb-5">
-    <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1709807445/image-reviews_dtput6.png" alt="" class="feedback-img">
+    <img src="<?php echo base_url() . "assets/frontend/default-new/image/feedback_ratings.png"; ?>" alt="" class="feedback-img">
 </div>
         <div class="forms-ips col-md-6 col-12 mt-4 pb-5 pt-5">
             

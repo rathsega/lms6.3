@@ -20,7 +20,7 @@
 
                 
               <li class="pt-2 px-2">
-                <a href=""><img src='https://res.cloudinary.com/dc2uykpox/image/upload/v1706501405/Group_1000001779_tstmkl.png' alt="" class="isomark"></a>
+             
                 <!-- assets/frontend/default-new/image/ISOmark.png -->
               </li>
             </ul>
@@ -223,9 +223,9 @@
   }
 
   
-  button:hover {
+  /* button:hover {
     background-color: #45a049;
-  }
+  } */
   @media screen and (max-width: 767px) {
     .form-container {
       width: 290px !important;

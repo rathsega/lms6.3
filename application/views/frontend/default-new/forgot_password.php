@@ -126,14 +126,14 @@
                             <!-- <button onclick="move()">Move it</button>  -->
                             <div class="toast-body ">
                             <div class="d-flex flex-column align-items-center">
-                            <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1710156850/Group_1000002114_naekcf.png" alt="" class="timmer-img">
-                            <p class="text-center pt-3" style="color:black;">You will receive an email with in <span id="timer">90</span> seconds . please check your inbox, spam, update folders </p>
+                            <img src="<?php echo base_url() . "assets/frontend/default-new/image/reset_password_mail.png"; ?>" alt="" class="timmer-img">
+                            <p class="text-center pt-3" style="color:black;">You will receive an email with in <span id="timer" class="text-danger fw-bold">90</span> seconds. please check your inbox, spam, update folders </p>
                               
                             </div>
                                 <!-- <div class="spinner-grow" role="status">
                                     <span class="visually-hidden">Loading...</span>
                                 </div> -->
-                                <!-- <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1709712486/Search_1_zlg5v4.png" alt="" class="vect-img float-right"> -->
+                              
 
                             </div>
                         </div>

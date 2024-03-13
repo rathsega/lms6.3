@@ -707,7 +707,7 @@ if($payment_pending){
                         <div class="instructor-card-body">
                             <div class="instructor-card-img">
                                 <!-- <img loading="lazy" src="<?php echo $this->user_model->get_user_image_url($top_instructor['id']); ?>"> -->
-                                <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1706508861/a-happy-3d-business-man-crossed-arms-on-transparent-3d_973886-3883_tl5zvi.jpg" alt="">
+                                <img src="<?php echo base_url() . "assets/frontend/default-new/image/professor_i.png"; ?>" alt="">
                             </div>
                             <div class="instructor-card-text">
                                 <div class="icon">

@@ -401,7 +401,7 @@ Last Updated: 27 Aug 2023
 }*/
 
 .nb-form:hover #userIcon {
-    content: url('https://res.cloudinary.com/dc2uykpox/image/upload/v1709106699/Group_1000002062_xw39ma.png'); /* Change the source for the hover state */
+    content: url('../image/minimize-img.png');
 }
 /* .nb-form .user-icon {
     position: absolute;
@@ -565,7 +565,9 @@ Last Updated: 27 Aug 2023
 
 
   .isomark{
-    height:30px;
+    margin-top: -24px;
+    width: 124px;
+    height: 71px;
   }
   @media only screen and (max-width: 767px) {
     .isomark{

@@ -76,11 +76,11 @@ $cart_items = $this->session->userdata('cart_items');
 
                             <!-- Cart button -->
                             <button class="hero-btn-2 px-3 ms-3"><a id="added_to_cart_btn_<?php echo $course_details['id']; ?>" class="<?php if(!in_array($course_details['id'], $cart_items)) echo 'd-hidden'; ?> active" href="#" onclick="actionTo('<?php echo site_url('home/handle_cart_items/' . $course_details['id']); ?>');"><i class="fas fa-minus"></i> <?php echo get_phrase('Remove from cart'); ?></a>
-                            <a id="add_to_cart_btn_<?php echo $course_details['id']; ?>" class=" <?php if(in_array($course_details['id'], $cart_items)) echo 'd-hidden'; ?>" href="#" onclick="actionTo('<?php echo site_url('home/handle_cart_items/' . $course_details['id']); ?>');; "><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708414132/trolley_1_geedvl.png" alt="" class="btn-log"> <?php echo get_phrase('Add to cart'); ?></a></button>
+                            <a id="add_to_cart_btn_<?php echo $course_details['id']; ?>" class=" <?php if(in_array($course_details['id'], $cart_items)) echo 'd-hidden'; ?>" href="#" onclick="actionTo('<?php echo site_url('home/handle_cart_items/' . $course_details['id']); ?>');; "><img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/trolley_cart.png"; ?>" alt="" class="btn-log"> <?php echo get_phrase('Add to cart'); ?></a></button>
                             
                             <!-- Cart button ended-->
 
-                            <button class="hero-btn-2 px-3 ms-3"><a href="#" onclick="actionTo('<?php echo site_url('home/handle_buy_now/' . $course_details['id']); ?>')"><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708413641/credit-card_1_lnyzwa.png" alt="" class="btn-log"> <?php echo get_phrase('Buy Now'); ?></a></button>
+                            <button class="hero-btn-2 px-3 ms-3"><a href="#" onclick="actionTo('<?php echo site_url('home/handle_buy_now/' . $course_details['id']); ?>')"><img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/credit-card_i.png"; ?>" alt="" class="btn-log"> <?php echo get_phrase('Buy Now'); ?></a></button>
                         <?php endif; ?>
                     <?php endif; ?>
                 </div>
@@ -94,22 +94,24 @@ $cart_items = $this->session->userdata('cart_items');
     <div class="about-para-container container mt-4 pb-4">
 
         <div class="">
-            <p class="about-para "><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184444/video-presentation_1_h0y5eb.png" alt="" class="icon-log"> Lectures - <?php echo $course_details["number_of_lectures"];//$this->db->get_where('lesson', ['course_id' => $course_details['id'], 'lesson_type !=' => 'quiz'])->num_rows(); ?></p>
+            <p class="about-para "><img src="
+<?php echo base_url() . "assets/frontend/default-new/image/templateone/video-presentation_icon.png"; ?>
+" alt="" class="icon-log"> Lectures - <?php echo $course_details["number_of_lectures"];//$this->db->get_where('lesson', ['course_id' => $course_details['id'], 'lesson_type !=' => 'quiz'])->num_rows(); ?></p>
         </div>
         <div class=" ">
-            <p class="about-para "><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184442/team-skills_1_xusaxy.png" alt="" class="icon-log"> Skill level - <?php echo get_phrase($course_details['level']); ?></p>
+            <p class="about-para "><img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/team-skills_icon.png"; ?>" alt="" class="icon-log"> Skill level - <?php echo get_phrase($course_details['level']); ?></p>
         </div>
         <div class="">
-            <p class="about-para"><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184443/calendar_4_1_rihlr7.png" alt="" class="icon-log"> Duration - <?php echo $course_details['course_duration_in_months'] > 1 ? $course_details['course_duration_in_months'] . " Months" : $course_details['course_duration_in_months'] . " Month"; ?></p>
+            <p class="about-para"><img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/calendar-icon.png"; ?>" alt="" class="icon-log"> Duration - <?php echo $course_details['course_duration_in_months'] > 1 ? $course_details['course_duration_in_months'] . " Months" : $course_details['course_duration_in_months'] . " Month"; ?></p>
         </div>
         <div class="">
-            <p class="about-para"><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184437/clock_1_1_rsls5b.png" alt="" class="icon-log"> Daily - <?php echo $course_details['daily_class_duration_in_hours'] > 1 ? $course_details['daily_class_duration_in_hours'] . " Hours" : $course_details['daily_class_duration_in_hours'] . " Hour"; ?></p>
+            <p class="about-para"><img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/clock_icon.png"; ?>" alt="" class="icon-log"> Daily - <?php echo $course_details['daily_class_duration_in_hours'] > 1 ? $course_details['daily_class_duration_in_hours'] . " Hours" : $course_details['daily_class_duration_in_hours'] . " Hour"; ?></p>
         </div>
         <div class="">
-            <p class="about-para"><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184438/certificate_1_k0hgii.png" alt="" class="icon-log"> Certificate - <?php echo get_phrase('Yes'); ?></p>
+            <p class="about-para"><img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/certificate_icon.png"; ?>" alt="" class="icon-log"> Certificate - <?php echo get_phrase('Yes'); ?></p>
         </div>
         <div class="">
-            <p class="about-para deflect-para"><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184436/rating_1_1_x0jj8y.png" alt="" class="icon-log"> (<?php echo $number_of_ratings; ?>)</p>
+            <p class="about-para deflect-para"><img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/rating_icon.png"; ?>" alt="" class="icon-log"> (<?php echo $number_of_ratings; ?>)</p>
         </div>
     </div>
 
@@ -122,15 +124,15 @@ $cart_items = $this->session->userdata('cart_items');
         <h1 class="text-center fw-bold">About Course</h1>
         <div class="row ">
             <div class="col-lg-5  col-sm-12 col-12 mt-4 mbl-ui">
-                <!-- <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708507021/Group_1000001980_1_rqzgsz.webp" alt="" class="hero-img-2"> -->
+               
                 <div class="experience-card">
                     <span class="y-o-e"><?php echo $course_details["experience"]; ?> Years of</span>
                     <p class="t-e-p">Teaching Experience</p>
                 </div>
-                <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708919689/Group_1000002023_edplao.png" alt="" class="hero-img-2">
+                <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/abou_course.png"; ?>" alt="" class="hero-img-2">
                 <div class="course-card d-flex flex-row">
                     <div>
-                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708920660/rating_2_t9z9fm.png" alt="" class="star-logo">
+                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/rating_course.png"; ?>" alt="" class="star-logo">
                     </div>
                     <div>
                         <span class="y-o-e text-dark" style="font-weight: 600;"><?php echo $number_of_ratings; ?></span>
@@ -150,7 +152,7 @@ $cart_items = $this->session->userdata('cart_items');
                     <div class="container ">
                         <div class="row">
                             <div class="col-lg-2 mb-3">
-                                <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708161086/Group_1000001981_hyr7vr.png" alt="" class="sec-icon">
+                                <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/student_course.png"; ?>" alt="" class="sec-icon">
                             </div>
                             <div class="col-lg-10">
                                 <h6 class="fw-bold">Learn From Experts</h6>
@@ -161,7 +163,7 @@ $cart_items = $this->session->userdata('cart_items');
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-2 mb-3">
-                                <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708161079/Group_1000001982_kghon1.png" alt="" class="sec-icon">
+                                <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/book_course.png"; ?>" alt="" class="sec-icon">
                             </div>
                             <div class="col-lg-10">
                                 <h6 class="fw-bold">Video Tutorialss</h6>
@@ -227,22 +229,23 @@ $cart_items = $this->session->userdata('cart_items');
         <div class="about-para-container  mt-4 pb-4">
 
             <div class="">
-                <p class="about-para "><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184444/video-presentation_1_h0y5eb.png" alt="" class="icon-log"> Lectures - <?php echo $course_details["number_of_lectures"]; //$this->db->get_where('lesson', ['course_id' => $course_details['id'], 'lesson_type !=' => 'quiz'])->num_rows(); ?></p>
+                <p class="about-para "><img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/video-presentation_icon.png"; ?>
+" alt="" class="icon-log" alt="" class="icon-log"> Lectures - <?php echo $course_details["number_of_lectures"]; //$this->db->get_where('lesson', ['course_id' => $course_details['id'], 'lesson_type !=' => 'quiz'])->num_rows(); ?></p>
             </div>
             <div class=" ">
-                <p class="about-para "><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184442/team-skills_1_xusaxy.png" alt="" class="icon-log"> Skill level - <?php echo get_phrase($course_details['level']); ?></p>
+                <p class="about-para "><img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/team-skills_icon.png"; ?>" alt="" class="icon-log"> Skill level - <?php echo get_phrase($course_details['level']); ?></p>
             </div>
             <div class="">
-                <p class="about-para"><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184443/calendar_4_1_rihlr7.png" alt="" class="icon-log"> Duration - <?php echo $course_details['course_duration_in_months'] > 1 ? $course_details['course_duration_in_months'] . " Months" : $course_details['course_duration_in_months'] . " Month"; ?></p>
+                <p class="about-para"><img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/calendar-icon.png"; ?>" alt="" class="icon-log"> Duration - <?php echo $course_details['course_duration_in_months'] > 1 ? $course_details['course_duration_in_months'] . " Months" : $course_details['course_duration_in_months'] . " Month"; ?></p>
             </div>
             <div class="">
-                <p class="about-para"><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184437/clock_1_1_rsls5b.png" alt="" class="icon-log"> Daily - <?php echo $course_details['daily_class_duration_in_hours'] > 1 ? $course_details['daily_class_duration_in_hours'] . " Hours" : $course_details['daily_class_duration_in_hours'] . " Hour"; ?></p>
+                <p class="about-para"><img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/clock_icon.png"; ?>" alt="" class="icon-log"> Daily - <?php echo $course_details['daily_class_duration_in_hours'] > 1 ? $course_details['daily_class_duration_in_hours'] . " Hours" : $course_details['daily_class_duration_in_hours'] . " Hour"; ?></p>
             </div>
             <div class="">
-                <p class="about-para"><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184438/certificate_1_k0hgii.png" alt="" class="icon-log"> Certificate - <?php echo get_phrase('Yes'); ?></p>
+                <p class="about-para"><img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/certificate_icon.png"; ?>" alt="" class="icon-log"> Certificate - <?php echo get_phrase('Yes'); ?></p>
             </div>
             <div class="">
-                <p class="about-para deflect-para"><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708184436/rating_1_1_x0jj8y.png" alt="" class="icon-log"> (<?php echo $number_of_ratings; ?>)</p>
+                <p class="about-para deflect-para"><img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/rating_icon.png"; ?>" alt="" class="icon-log"> (<?php echo $number_of_ratings; ?>)</p>
             </div>
         </div>
         <div class="d-none d-md-block">
@@ -317,7 +320,7 @@ $cart_items = $this->session->userdata('cart_items');
         <?php for ($i = 0; $i < count($learn_data); $i += 2) : ?>
             <div class="container info-container">
                 <?php if($i==2) : ?>
-                    <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708420083/b8628384-6949-4480-b225-ad57c7c6b4d7.png" alt="" class="info-img">
+                    <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/info_cb.png"; ?>" alt="" class="info-img">
                 <?php endif; ?>
                 <div class="section-<?php echo $alphabet[$i]; ?>">
                     <div class="row">
@@ -392,7 +395,9 @@ $cart_items = $this->session->userdata('cart_items');
                 Evaluate programs that offer specialized tracks aligned with your career goals
             </p>
         </div>
-        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708429958/image-removebg-preview_1_hjxkxc.png" alt="" class="rocket-img">
+        <img src="
+<?php echo base_url() . "assets/frontend/default-new/image/templateone/rocket_info.png"; ?>
+" alt="" class="rocket-img">
         <?php
             $growth_data = (array)json_decode($course_details['growth']);
             //var_dump($growth_data);
@@ -491,7 +496,7 @@ $cart_items = $this->session->userdata('cart_items');
     <div class="container">
         <div class="row ">
             <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-5 ">
-                <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708320025/Rectangle_3885_blombo.png" alt="" class="hero-img-3">
+                <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/why-student.png"; ?>" alt="" class="hero-img-3">
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-5">
                 <div class=" mb-4">
@@ -501,7 +506,7 @@ $cart_items = $this->session->userdata('cart_items');
                     <div class="container ">
                         <div class="row">
                             <div class="col-lg-2 mb-4">
-                                <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708320342/idea_1_1_quluqp.png" alt="" class="sec-icon">
+                                <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/why_computer_1.png"; ?>" alt="" class="sec-icon">
                             </div>
                             <div class="col-lg-10">
                                 <h6 class="fw-bold text-dark">Easily Manage your trainings</h6>
@@ -512,7 +517,7 @@ $cart_items = $this->session->userdata('cart_items');
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-2 mb-4">
-                                <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708320343/online-course_1_1_tulu53.png" alt="" class="sec-icon">
+                                <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/why_computer_2.png"; ?>" alt="" class="sec-icon">
                             </div>
                             <div class="col-lg-10">
                                 <h6 class="fw-bold text-dark">Interactive Learning</h6>
@@ -523,7 +528,7 @@ $cart_items = $this->session->userdata('cart_items');
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-2 mb-3">
-                                <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708320404/tracking_1_1_f9hy1k.png" alt="" class="sec-icon">
+                                <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/why-couse_3.png"; ?>" alt="" class="sec-icon">
                             </div>
                             <div class="col-lg-10">
                                 <h6 class="fw-bold text-dark">Progress Tracking</h6>
@@ -557,43 +562,43 @@ $cart_items = $this->session->userdata('cart_items');
                             <div class="container">
                                 <div class="row pt-3 price-cont container mt-3">
                                     <div class="col-2">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708603079/graduation-cap_xrn3n5.png" alt="" class="price-icon-m">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/graduation-cap.png"; ?>" alt="" class="price-icon-m">
                                     </div>
                                     <div class="col-8">
                                         <h6 class="card-text text-dark"><?php echo $course_details['course_duration_in_months'] > 1 ? $course_details['course_duration_in_months'] . "- Months" : $course_details['course_duration_in_months'] . "- Month"; ?></h6>
                                         <p class="price-para">Course Duration</p>
                                     </div>
                                     <div class="col-2 ">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708496169/check_zxsskb.png" alt="" class="price-icon-2">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/check.png"; ?>" alt="" class="price-icon-2">
                                     </div>
                                 </div>
                                 <div class="row pt-3 price-cont container">
                                     <div class="col-2 mt-2">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708601787/clock_2_viidlc.png" alt="" class="price-icon">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/blackboard.png"; ?>" alt="" class="price-icon">
                                     </div>
                                     <div class="col-8">
                                         <h6 class="card-text text-dark"><?php echo $course_details['daily_class_duration_in_hours'] > 1 ? $course_details['daily_class_duration_in_hours'] . "- Hours" : $course_details['daily_class_duration_in_hours'] . "- Hour"; ?></h6>
                                         <p class="price-para">Session Duration</p>
                                     </div>
                                     <div class="col-2">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708496169/check_zxsskb.png" alt="" class="price-icon-2">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/check.png"; ?>" alt="" class="price-icon-2">
                                     </div>
                                 </div>
                                 <div class="row pt-3 price-cont container">
                                     <div class="col-2 mt-2">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708602888/Group_1000002005_sbp3nn.png" alt="" class="price-icon">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/part_time.png"; ?>" alt="" class="price-icon">
                                     </div>
                                     <div class="col-8">
                                         <h6 class="card-text text-dark">Part - Time</h6>
                                         <p class="price-para">Alternative Days</p>
                                     </div>
                                     <div class="col-2 ">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708496169/check_zxsskb.png" alt="" class="price-icon-2">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/check.png"; ?>" alt="" class="price-icon-2">
                                     </div>
                                 </div>
                                 <div class="row pt-3 price-cont container">
                                     <div class="col-2 mt-2">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708601784/blackboard_rtmpkx.png" alt="" class="price-icon">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/growth.png"; ?>" alt="" class="price-icon">
                                     </div>
                                     <div class="col-8">
                                         <h6 class="card-text text-dark"><?php echo $course_details['week_track_sessions_count']; ?> Sessions</h6>
@@ -601,24 +606,24 @@ $cart_items = $this->session->userdata('cart_items');
                                         </p>
                                     </div>
                                     <div class="col-2">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708496169/check_zxsskb.png" alt="" class="price-icon-2">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/check.png"; ?>" alt="" class="price-icon-2">
                                     </div>
                                 </div>
                                 <div class="row pt-3 price-cont container">
                                     <div class="col-2 mt-2">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708601785/wallet_3_ywevfg.png" alt="" class="price-icon">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/wallet.png"; ?>" alt="" class="price-icon">
                                     </div>
                                     <div class="col-8">
                                         <h6 class="card-text text-dark">Rs <?php echo $course_details['price']; ?>/-</h6>
                                         <p class="price-para">Course fees</p>
                                     </div>
                                     <div class="col-2">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708496169/check_zxsskb.png" alt="" class="price-icon-2">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/check.png"; ?>" alt="" class="price-icon-2">
                                     </div>
                                 </div>
                                 <div class="container pt-4 pb-4">
                                     <div class="button-container">
-                                        <button class="price-btn"><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708497000/wallet_1_stp0sn.png" alt="" class="wallet-icon"> Buy Now</button>
+                                        <button class="price-btn"><img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/buy_n.png"; ?>" alt="" class="wallet-icon"> Buy Now</button>
                                         
                                         <!-- <button class="hero-btn-2 px-3 ms-3"></button> -->
                             
@@ -643,43 +648,43 @@ $cart_items = $this->session->userdata('cart_items');
                             <div class="container">
                                 <div class="row pt-3 price-cont container mt-3">
                                     <div class="col-2 ">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708603079/graduation-cap_xrn3n5.png" alt="" class="price-icon-m">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/graduation-cap.png"; ?>" alt="" class="price-icon-m">
                                     </div>
                                     <div class="col-8">
                                         <h6 class="card-text text-dark"><?php echo $course_details['weekend_course_duration_in_months'] > 1 ? $course_details['course_duration_in_months'] . "- Months" : $course_details['course_duration_in_months'] . "- Month"; ?></h6>
                                         <p class="price-para">Course Duration</p>
                                     </div>
                                     <div class="col-2">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708496169/check_zxsskb.png" alt="" class="price-icon-2">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/check.png"; ?>" alt="" class="price-icon-2">
                                     </div>
                                 </div>
                                 <div class="row pt-3 price-cont container">
                                     <div class="col-2 mt-2">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708601787/clock_2_viidlc.png" alt="" class="price-icon">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/blackboard.png"; ?>" alt="" class="price-icon">
                                     </div>
                                     <div class="col-8">
                                         <h6 class="card-text text-dark"><?php echo $course_details['weekend_track_daily_class_duration_in_hours'] > 1 ? $course_details['weekend_track_daily_class_duration_in_hours'] . "- Hours" : $course_details['weekend_track_daily_class_duration_in_hours'] . "- Hour"; ?></h6>
                                         <p class="price-para">Session Duration</p>
                                     </div>
                                     <div class="col-2">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708496169/check_zxsskb.png" alt="" class="price-icon-2">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/check.png"; ?>" alt="" class="price-icon-2">
                                     </div>
                                 </div>
                                 <div class="row pt-3 price-cont container">
                                     <div class="col-2 mt-2">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708602888/Group_1000002005_sbp3nn.png" alt="" class="price-icon">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/part_time.png"; ?>" alt="" class="price-icon">
                                     </div>
                                     <div class="col-8">
                                         <h6 class="card-text text-dark">Part - Time</h6>
                                         <p class="price-para">Alternative Days</p>
                                     </div>
                                     <div class="col-2">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708496169/check_zxsskb.png" alt="" class="price-icon-2">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/check.png"; ?>" alt="" class="price-icon-2">
                                     </div>
                                 </div>
                                 <div class="row pt-3 price-cont container">
                                     <div class="col-2 mt-2">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708601784/blackboard_rtmpkx.png" alt="" class="price-icon">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/growth.png"; ?>" alt="" class="price-icon">
                                     </div>
                                     <div class="col-8">
                                         <h6 class="card-text text-dark"><?php echo $course_details['weekend_track_sessions_count']; ?> Sessions</h6>
@@ -687,24 +692,24 @@ $cart_items = $this->session->userdata('cart_items');
                                         </p>
                                     </div>
                                     <div class="col-2">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708496169/check_zxsskb.png" alt="" class="price-icon-2">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/check.png"; ?>" alt="" class="price-icon-2">
                                     </div>
                                 </div>
                                 <div class="row pt-3 price-cont container">
                                     <div class="col-2 mt-2">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708601785/wallet_3_ywevfg.png" alt="" class="price-icon">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/wallet.png"; ?>" alt="" class="price-icon">
                                     </div>
                                     <div class="col-8">
                                         <h6 class="card-text text-dark">Rs <?php echo $course_details['weekend_track_course_price']; ?>/-</h6>
                                         <p class="price-para">Course fees</p>
                                     </div>
                                     <div class="col-2">
-                                        <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708496169/check_zxsskb.png" alt="" class="price-icon-2">
+                                        <img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/check.png"; ?>" alt="" class="price-icon-2">
                                     </div>
                                 </div>
                                 <div class="container pt-4 pb-4">
                                     <div class="button-container">
-                                        <button class="price-btn"><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708497000/wallet_1_stp0sn.png" alt="" class="wallet-icon"> Buy Now</button>
+                                        <button class="price-btn"><img src="<?php echo base_url() . "assets/frontend/default-new/image/templateone/buy_n.png"; ?>" alt="" class="wallet-icon"> Buy Now</button>
                                         <button class="price-btn ms-3">
                                         <a id="fee_weekend_added_to_cart_btn_<?php echo $course_details['id']; ?>" class="<?php if(!in_array($course_details['id'], $cart_items)) echo 'd-hidden'; ?> active" href="#" onclick="actionTo('<?php echo site_url('home/handle_cart_items/' . $course_details['id'] .'/null/weekend'); ?>');"><i class="fas fa-minus"></i> <?php echo get_phrase('Remove from cart'); ?></a>
                                             <a id="fee_weekend_add_to_cart_btn_<?php echo $course_details['id']; ?>" class=" <?php if(in_array($course_details['id'], $cart_items)) echo 'd-hidden'; ?>" href="#" onclick="actionTo('<?php echo site_url('home/handle_cart_items/' . $course_details['id'] .'/null/weekend'); ?>');; "><img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708414132/trolley_1_geedvl.png" alt="" class="btn-log"> <?php echo get_phrase('Add to cart'); ?></a>
@@ -775,7 +780,6 @@ $cart_items = $this->session->userdata('cart_items');
     <p class="text-center">Choose from hundreds of courses from specialist organizations.</p>
     <div class="container mt-5">
         <ul class="nav nav-tabs justify-content-center" id="myTabs">
-            <!-- <img src="https://res.cloudinary.com/dc2uykpox/image/upload/v1708511992/right-arrow_becjt4.png" alt="" class="arrow-icon"> -->
             <?php $active_categories = $this->crud_model->getAllActiveCategories()->result_array(); ?>
             <?php if (count($active_categories) > 0): ?>
                 <?php foreach($active_categories as $ackey => $active_category) : ?>
