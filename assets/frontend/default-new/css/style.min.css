@@ -542,17 +542,17 @@ Last Updated: 27 Aug 2023
 }
 
 @media screen and (max-width: 676px) {
-    .nb-form:hover .user-icon {
+    /* .nb-form:hover .user-icon {
         display: none;
-    }
+    } */
 
-    .nb-form .message {
+    /* .nb-form .message {
         display: none;
-    }
+    } */
 
-    .nb-form form {
+    /* .nb-form form {
         padding-top: 15px;
-    }
+    } */
     .nb-form{
         right: 50%;
         bottom: -320px;
@@ -577,11 +577,11 @@ Last Updated: 27 Aug 2023
     .menubar {
       padding-top: 35px !important;
   }
-  .enquire-mbl{
+  /* .enquire-mbl{
     margin-top: -75px;
     margin-left: 98px;
     position: fixed;
-  }
+  } */
   .course-details-card{
     background: linear-gradient(to bottom, #5e4aea, #8b6fdd);
     padding: 5px 0px 37px 2px;
