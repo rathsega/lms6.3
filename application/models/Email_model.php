@@ -93,9 +93,7 @@ class Email_model extends CI_Model
 			if ($user_type == 'user') {
 				$query = $this->db->get_where('users', array('email' => $to));
 				$to_user = $query->row_array();
-				$replaces['verification_link'] = '<a href="' . site_url('login/change_password/' . $verification_code) . '" target="_blank">Change Password</a>';
-				$replaces['system_name'] = get_settings('system_name');
-				$replaces['minutes'] = 10;
+				$replaces['verification_link'] = '<a href="' . site_url('login/change_password/' . $verification_code) . '" target="_blank">here</a>';
 			}
 			//Editable
 
@@ -116,10 +114,10 @@ class Email_model extends CI_Model
         		$headers[]= "Content-type:text/html;charset=UTF-8";
 				if (mail($to_user['email'], $subject, $email_template, implode("\r\n", $headers))) {
 					sleep(90);
-					echo "Message accepted";
+					$this->session->set_flashdata('flash_message', get_phrase('email_sent_successfully'));
 				} else {
 					sleep(90);
-					echo "Error: Message not accepted";
+					$this->session->set_flashdata('error_message', get_phrase('failed_to_send_email'));
 				}
 				//$this->send_smtp_mail($email_template, $subject, $to_user['email']);
 			}

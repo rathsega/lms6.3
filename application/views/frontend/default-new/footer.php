@@ -226,7 +226,7 @@ if ($stripe_info[0]['active'] == 0) {
                     // Optionally, reset the form after successful submission
                     $('#footerContactForm')[0].reset();
                     localStorage.setItem("dataSubmitted", true);
-                    $('.nb-form').css("bottom", "-315px");
+                    $('.nb-form').css("bottom", "-335px");
                 }
                 
 
