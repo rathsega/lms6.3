@@ -117,13 +117,14 @@
                         <div id="mail_timer" style="display:none;" class=" bg-white toast-box " role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="toast-header">
                                 <h6 class="mbl-heading fw-bold" style="color:#754ffe;" >We are sending  you an email</h6>
+                                <!-- <span class="close btn-close" id="timer_toast_close" data-bs-dismiss="toast" aria-label="Close">×</span> -->
                                 <button type="button" class="btn-close" id="timer_toast_close" data-bs-dismiss="toast" aria-label="Close"></button>
                             </div>
                             <hr>
-                            <!-- <div id="loadingProgress">
+                            <div id="loadingProgress">
                                 <div id="loadingBar"></div>
-                            </div> -->
-                            <!-- <button onclick="move()">Move it</button>  -->
+                            </div>
+                            <button onclick="move()">Move it</button> 
                             <div class="toast-body ">
                             <div class="d-flex flex-column align-items-center">
                             <img src="<?php echo base_url() . "assets/frontend/default-new/image/reset_password_mail.png"; ?>" alt="" class="timmer-img">
