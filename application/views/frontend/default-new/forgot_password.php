@@ -7,12 +7,14 @@
 <?php endif; ?>
 
 <style>
-    .btn-close {
-        width: 2em;
-    height: 2em;
-    padding: 1.2em 1.2em;
+    .close_btn {
+    padding: 1em 1em;
     margin-left: 136px !important;
-    }
+    font-size: 2rem;
+    cursor: pointer;
+    float: right;
+    /* font-weight:bold; */
+}
     .toast-header{
         margin-bottom: -32px;
         padding-left: 23px;
@@ -75,7 +77,7 @@
     width: 135%;
     position: absolute;
       }
-      .btn-close{
+      .close_btn{
         margin-left: 205px !important;
         margin-top: -4px;
       } 
@@ -113,12 +115,12 @@
                     </form>
 
                     <!-- Toast Container -->
-                    <div class="toast-mbl position-fixed top-50 start-50 translate-middle " style="z-index: 9999; width: 65%; margin-left: 17%;">
-                        <div id="mail_timer" style="display:none;" class=" bg-white toast-box " role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-mbl  position-fixed top-50 start-50 translate-middle " style="z-index: 9999; width: 65%; margin-left: 17%;">
+                        <div id="mail_timer" style="display:none;"  class=" bg-white toast-box " role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="toast-header">
                                 <h6 class="mbl-heading fw-bold" style="color:#754ffe;" >We are sending  you an email</h6>
-                                <!-- <span class="close btn-close" id="timer_toast_close" data-bs-dismiss="toast" aria-label="Close">×</span> -->
-                                <button type="button" class="btn-close" id="timer_toast_close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                <span class="close_btn " id="timer_toast_close" data-bs-dismiss="toast" aria-label="Close">×</span>
+                                <!-- <button type="button" class="btn-close" id="timer_toast_close" data-bs-dismiss="toast" aria-label="Close"></button> -->
                             </div>
                             <hr>
                             <div id="loadingProgress">
