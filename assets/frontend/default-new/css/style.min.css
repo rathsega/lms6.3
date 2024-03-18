@@ -542,20 +542,10 @@ Last Updated: 27 Aug 2023
 }
 
 @media screen and (max-width: 676px) {
-    /* .nb-form:hover .user-icon {
-        display: none;
-    } */
-
-    /* .nb-form .message {
-        display: none;
-    } */
-
-    /* .nb-form form {
-        padding-top: 15px;
-    } */
+  
     .nb-form{
         right: 50%;
-        bottom: -320px;
+        bottom: -336px;
         left: 50%;
         transform: translateX(-50%);
     }

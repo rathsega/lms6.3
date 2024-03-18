@@ -532,7 +532,7 @@ if($ratings_count){
     .contact_us_modal {
     display: none;
     position: fixed;
-    z-index: 3;
+    z-index:999;
     left: 0;
     top: 0;
     width: 100%;
