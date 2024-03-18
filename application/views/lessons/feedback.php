@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href= 
 "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> 
 	<link rel="stylesheet" href="index.css"> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head> 
 <style>
     body { 
@@ -47,14 +48,14 @@ i {
     margin: 31px auto;
 } 
   
-.radio-group { 
+/* .radio-group { 
     display: flex; 
     margin-bottom: 16px; 
 } 
   
 input[type="radio"] { 
     margin-right: 8px; 
-} 
+}  */
   
 label { 
     display: block; 
@@ -68,7 +69,7 @@ label {
 .feed-bk {
     width: 100%;
     padding: 8px;
-    margin: -3px 0 21px; /* Shorthand for margin-top, margin-right, margin-bottom, margin-left */
+    margin: -3px 0 21px; 
     box-sizing: border-box;
     border-radius: 6px;
     border: 1px solid #6666665e;
@@ -102,60 +103,75 @@ h1 {
     color: #754ffe;
     font-weight: 500;
     font-size: 19px;
+    /* width: 95%; */
 
 }
-/* -ratings----------- */
-.rate {
-    float: left;
-    height: 46px;
-    padding: 0 10px;
-}
-.rate:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
-}
-.rate:not(:checked) > label {
-    float:right;
-    width:1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:30px;
-    color:#ccc;
-}
-.rate:not(:checked) > label:before {
-    content: '★ ';
+.comment-stars {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
-.rate > input:checked ~ label {
-    color: #ffc700;    
+.comment-stars-input {
+  display: none;
 }
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-    color: #deb217;  
+
+.comment-stars-input:checked ~ .comment-stars-view svg {
+  fill:#f29300;
 }
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
-    color: #c59b08;
+
+.comment-stars-input:checked ~ .comment-stars-view:hover svg,
+.comment-stars-input:checked
+  ~ .comment-stars-view:hover
+  ~ .comment-stars-view
+  svg {
+  fill: #f29300;
 }
-.rating-container{
+
+.comment-stars-view {
+  cursor: pointer;
+}
+
+.comment-stars-view svg {
+  fill: #ededef;
+  width: 1.39306640625em;
+  height: 1.5em;
+}
+
+.comment-stars-view.is-half {
+  transform: translateX(100%);
+  margin-left: -0.69580078125em;
+}
+
+.comment-stars-view.is-half svg {
+  width: 0.69580078125em;
+}
+
+.comment-stars-view:hover svg,
+.comment-stars-view:hover ~ .comment-stars-view svg {
+  fill:#f29300;
+}
+.content-rating{
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
 }
-/* -ratings-end----------- */
-@media only screen and (max-width: 768px) {
-    .rating-container {
+.comment-stars {
     display: flex;
-    justify-content:flex-start !important;
-}
-.rating-para{
-    width:260px;
+    align-items: center; /* Align items vertically */
+    margin-left: auto;
 }
 
+.comment-stars-icons {
+    margin-left: auto; /* Push icons to the right */
 }
+@media (max-width: 768px) {
+    .rating-para {
+    font-size: 15px !important;
+}
+.comment-stars {
+    margin-right: -12px;
+    margin-top:8px;
+}
+    }
 </style>
 <body> 
     <div class="d-flex justify-content-center">
@@ -163,84 +179,279 @@ h1 {
 	<div class="form-box"> 
 		 
 		<form class="form-var-tab"> 
-        <div class="row">
-  <div class="col-9 col-sm-6">
-    <p class="mt-2 rating-para">Please give ratings of our online Classes Ratings training of techleads IT Lms :</p>
-  </div>
-  <div class="col rating-container">
-    <div class="rate">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#deb217" class="bi bi-star-half mt-1" viewBox="0 0 16 16">
-       <path d="M5.354 5.119 7.538.792A.52.52 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.54.54 0 0 1 16 6.32a.55.55 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.5.5 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.6.6 0 0 1 .085-.302.51.51 0 0 1 .37-.245zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.56.56 0 0 1 .162-.505l2.907-2.77-4.052-.576a.53.53 0 0 1-.393-.288L8.001 2.223 8 2.226z"/>
-      </svg>
-      <input type="radio" id="star4" name="rate" value="4" />
-      <label for="star4" title="text">4 stars</label>
-      <input type="radio" id="star3" name="rate" value="3" />
-      <label for="star3" title="text">3 stars</label>
-      <input type="radio" id="star2" name="rate" value="2" />
-      <label for="star2" title="text">2 stars</label>
-      <input type="radio" id="star2" name="rate" value="2" />
-      <input type="radio" id="star1" name="rate" value="1" />
-      <label for="star1" title="text">1 star</label>
-    </div>
-  </div>
-</div>    
-<div class="row">
-  <div class="col-9">
-    <p class="mt-2 rating-para">Course Ratings:</p>
-  </div>
-  <div class="col rating-container">
-    <div class="rate">
-      <input type="radio" id="star5" name="rate" value="5" />
-      <label for="star5" title="text">5 stars</label>
-      <input type="radio" id="star4" name="rate" value="4" />
-      <label for="star4" title="text">4 stars</label>
-      <input type="radio" id="star3" name="rate" value="3" />
-      <label for="star3" title="text">3 stars</label>
-      <input type="radio" id="star2" name="rate" value="2" />
-      <label for="star2" title="text">2 stars</label>
-      <input type="radio" id="star1" name="rate" value="1" />
-      <label for="star1" title="text">1 star</label>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-9">
-    <p class="mt-2 rating-para">Please rate of our online Classes Ratings training of techleads</p>
-  </div>
-  <div class="col rating-container">
-    <div class="rate">
-      <input type="radio" id="star5" name="rate" value="5" />
-      <label for="star5" title="text">5 stars</label>
-      <input type="radio" id="star4" name="rate" value="4" />
-      <label for="star4" title="text">4 stars</label>
-      <input type="radio" id="star3" name="rate" value="3" />
-      <label for="star3" title="text">3 stars</label>
-      <input type="radio" id="star2" name="rate" value="2" />
-      <label for="star2" title="text">2 stars</label>
-      <input type="radio" id="star1" name="rate" value="1" />
-      <label for="star1" title="text">1 star</label>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-9">
-    <p class="mt-2 rating-para">Projects Ratings:</p>
-  </div>
-  <div class="col rating-container">
-    <div class="rate">
-      <input type="radio" id="star5" name="rate" value="5" />
-      <label for="star5" title="text">5 stars</label>
-      <input type="radio" id="star4" name="rate" value="4" />
-      <label for="star4" title="text">4 stars</label>
-      <input type="radio" id="star3" name="rate" value="3" />
-      <label for="star3" title="text">3 stars</label>
-      <input type="radio" id="star2" name="rate" value="2" />
-      <label for="star2" title="text">2 stars</label>
-      <input type="radio" id="star1" name="rate" value="1" />
-      <label for="star1" title="text">1 star</label>
-    </div>
-  </div>
-</div>
+            <div class="content-rating">
+            <div class="col-md-10 mt-2 rating-para">
+            <p >Please give ratings us a rating for our lms student portal or for any feedback please drop us a message:</p>
+            </div>
+            <div class="comment-stars">
+            <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <defs>
+                        <symbol id="icon-star" viewBox="0 0 26 28">
+                            <path d="M26 10.109c0 0.281-0.203 0.547-0.406 0.75l-5.672 5.531 1.344 7.812c0.016 0.109 0.016 0.203 0.016 0.313 0 0.406-0.187 0.781-0.641 0.781-0.219 0-0.438-0.078-0.625-0.187l-7.016-3.687-7.016 3.687c-0.203 0.109-0.406 0.187-0.625 0.187-0.453 0-0.656-0.375-0.656-0.781 0-0.109 0.016-0.203 0.031-0.313l1.344-7.812-5.688-5.531c-0.187-0.203-0.391-0.469-0.391-0.75 0-0.469 0.484-0.656 0.875-0.719l7.844-1.141 3.516-7.109c0.141-0.297 0.406-0.641 0.766-0.641s0.625 0.344 0.766 0.641l3.516 7.109 7.844 1.141c0.375 0.063 0.875 0.25 0.875 0.719z"></path>
+                        </symbol>
+                        <symbol id="icon-star-half" viewBox="0 0 13 28">
+                            <path d="M13 0.5v20.922l-7.016 3.687c-0.203 0.109-0.406 0.187-0.625 0.187-0.453 0-0.656-0.375-0.656-0.781 0-0.109 0.016-0.203 0.031-0.313l1.344-7.812-5.688-5.531c-0.187-0.203-0.391-0.469-0.391-0.75 0-0.469 0.484-0.656 0.875-0.719l7.844-1.141 3.516-7.109c0.141-0.297 0.406-0.641 0.766-0.641v0z"></path>
+                        </symbol>
+                        </defs>
+                        </svg>
+                        <div class="comment-stars">
+
+                        <input class="comment-stars-input" type="radio" name="rating" value="5" id="rating-5">
+                        <label class="comment-stars-view" for="rating-5"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="4.5" id="rating-4.5" checked="checked"> <label class="comment-stars-view is-half" for="rating-4.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="4" id="rating-4"> <label class="comment-stars-view" for="rating-4"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="3.5" id="rating-3.5"> <label class="comment-stars-view is-half" for="rating-3.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="3" id="rating-3"> <label class="comment-stars-view" for="rating-3"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="2.5" id="rating-2.5"> <label class="comment-stars-view is-half" for="rating-2.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="2" id="rating-2"> <label class="comment-stars-view" for="rating-2"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="1.5" id="rating-1.5"> <label class="comment-stars-view is-half" for="rating-1.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="1" id="rating-1"> <label class="comment-stars-view" for="rating-1"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="0.5" id="rating-0.5"> <label class="comment-stars-view is-half" for="rating-0.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        </div>
+                                </div>
+            
+            </div>
+
+
+            <div class="content-rating">
+            <div class="col-md-10 mt-2 rating-para">
+            <p>Course Rating:</p>
+            </div>
+            <div class="comment-stars">
+            <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <defs>
+                        <symbol id="icon-star" viewBox="0 0 26 28">
+                            <path d="M26 10.109c0 0.281-0.203 0.547-0.406 0.75l-5.672 5.531 1.344 7.812c0.016 0.109 0.016 0.203 0.016 0.313 0 0.406-0.187 0.781-0.641 0.781-0.219 0-0.438-0.078-0.625-0.187l-7.016-3.687-7.016 3.687c-0.203 0.109-0.406 0.187-0.625 0.187-0.453 0-0.656-0.375-0.656-0.781 0-0.109 0.016-0.203 0.031-0.313l1.344-7.812-5.688-5.531c-0.187-0.203-0.391-0.469-0.391-0.75 0-0.469 0.484-0.656 0.875-0.719l7.844-1.141 3.516-7.109c0.141-0.297 0.406-0.641 0.766-0.641s0.625 0.344 0.766 0.641l3.516 7.109 7.844 1.141c0.375 0.063 0.875 0.25 0.875 0.719z"></path>
+                        </symbol>
+                        <symbol id="icon-star-half" viewBox="0 0 13 28">
+                            <path d="M13 0.5v20.922l-7.016 3.687c-0.203 0.109-0.406 0.187-0.625 0.187-0.453 0-0.656-0.375-0.656-0.781 0-0.109 0.016-0.203 0.031-0.313l1.344-7.812-5.688-5.531c-0.187-0.203-0.391-0.469-0.391-0.75 0-0.469 0.484-0.656 0.875-0.719l7.844-1.141 3.516-7.109c0.141-0.297 0.406-0.641 0.766-0.641v0z"></path>
+                        </symbol>
+                        </defs>
+                        </svg>
+                        <div class="comment-stars">
+
+                        <input class="comment-stars-input" type="radio" name="rating" value="5" id="rating-5">
+                        <label class="comment-stars-view" for="rating-5"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="4.5" id="rating-4.5" checked="checked"> <label class="comment-stars-view is-half" for="rating-4.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="4" id="rating-4"> <label class="comment-stars-view" for="rating-4"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="3.5" id="rating-3.5"> <label class="comment-stars-view is-half" for="rating-3.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="3" id="rating-3"> <label class="comment-stars-view" for="rating-3"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="2.5" id="rating-2.5"> <label class="comment-stars-view is-half" for="rating-2.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="2" id="rating-2"> <label class="comment-stars-view" for="rating-2"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="1.5" id="rating-1.5"> <label class="comment-stars-view is-half" for="rating-1.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="1" id="rating-1"> <label class="comment-stars-view" for="rating-1"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="0.5" id="rating-0.5"> <label class="comment-stars-view is-half" for="rating-0.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        </div>
+                                </div>
+            
+            </div>
+
+
+
+            <div class="content-rating">
+            <div class="col-md-10 mt-2 rating-para">
+            <p>Video quality Rating:</p>
+            </div>
+            <div class="comment-stars">
+            <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <defs>
+                        <symbol id="icon-star" viewBox="0 0 26 28">
+                            <path d="M26 10.109c0 0.281-0.203 0.547-0.406 0.75l-5.672 5.531 1.344 7.812c0.016 0.109 0.016 0.203 0.016 0.313 0 0.406-0.187 0.781-0.641 0.781-0.219 0-0.438-0.078-0.625-0.187l-7.016-3.687-7.016 3.687c-0.203 0.109-0.406 0.187-0.625 0.187-0.453 0-0.656-0.375-0.656-0.781 0-0.109 0.016-0.203 0.031-0.313l1.344-7.812-5.688-5.531c-0.187-0.203-0.391-0.469-0.391-0.75 0-0.469 0.484-0.656 0.875-0.719l7.844-1.141 3.516-7.109c0.141-0.297 0.406-0.641 0.766-0.641s0.625 0.344 0.766 0.641l3.516 7.109 7.844 1.141c0.375 0.063 0.875 0.25 0.875 0.719z"></path>
+                        </symbol>
+                        <symbol id="icon-star-half" viewBox="0 0 13 28">
+                            <path d="M13 0.5v20.922l-7.016 3.687c-0.203 0.109-0.406 0.187-0.625 0.187-0.453 0-0.656-0.375-0.656-0.781 0-0.109 0.016-0.203 0.031-0.313l1.344-7.812-5.688-5.531c-0.187-0.203-0.391-0.469-0.391-0.75 0-0.469 0.484-0.656 0.875-0.719l7.844-1.141 3.516-7.109c0.141-0.297 0.406-0.641 0.766-0.641v0z"></path>
+                        </symbol>
+                        </defs>
+                        </svg>
+                        <div class="comment-stars">
+
+                        <input class="comment-stars-input" type="radio" name="rating" value="5" id="rating-5">
+                        <label class="comment-stars-view" for="rating-5"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="4.5" id="rating-4.5" checked="checked"> <label class="comment-stars-view is-half" for="rating-4.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="4" id="rating-4"> <label class="comment-stars-view" for="rating-4"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="3.5" id="rating-3.5"> <label class="comment-stars-view is-half" for="rating-3.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="3" id="rating-3"> <label class="comment-stars-view" for="rating-3"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="2.5" id="rating-2.5"> <label class="comment-stars-view is-half" for="rating-2.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="2" id="rating-2"> <label class="comment-stars-view" for="rating-2"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="1.5" id="rating-1.5"> <label class="comment-stars-view is-half" for="rating-1.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="1" id="rating-1"> <label class="comment-stars-view" for="rating-1"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="0.5" id="rating-0.5"> <label class="comment-stars-view is-half" for="rating-0.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        </div>
+                                </div>
+            
+            </div>
+          
+
+
+
+            <div class="content-rating">
+            <div class="col-md-10 mt-2 rating-para">
+            <p >Instructor Rating:</p>
+            </div>
+            <div class="comment-stars">
+            <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <defs>
+                        <symbol id="icon-star" viewBox="0 0 26 28">
+                            <path d="M26 10.109c0 0.281-0.203 0.547-0.406 0.75l-5.672 5.531 1.344 7.812c0.016 0.109 0.016 0.203 0.016 0.313 0 0.406-0.187 0.781-0.641 0.781-0.219 0-0.438-0.078-0.625-0.187l-7.016-3.687-7.016 3.687c-0.203 0.109-0.406 0.187-0.625 0.187-0.453 0-0.656-0.375-0.656-0.781 0-0.109 0.016-0.203 0.031-0.313l1.344-7.812-5.688-5.531c-0.187-0.203-0.391-0.469-0.391-0.75 0-0.469 0.484-0.656 0.875-0.719l7.844-1.141 3.516-7.109c0.141-0.297 0.406-0.641 0.766-0.641s0.625 0.344 0.766 0.641l3.516 7.109 7.844 1.141c0.375 0.063 0.875 0.25 0.875 0.719z"></path>
+                        </symbol>
+                        <symbol id="icon-star-half" viewBox="0 0 13 28">
+                            <path d="M13 0.5v20.922l-7.016 3.687c-0.203 0.109-0.406 0.187-0.625 0.187-0.453 0-0.656-0.375-0.656-0.781 0-0.109 0.016-0.203 0.031-0.313l1.344-7.812-5.688-5.531c-0.187-0.203-0.391-0.469-0.391-0.75 0-0.469 0.484-0.656 0.875-0.719l7.844-1.141 3.516-7.109c0.141-0.297 0.406-0.641 0.766-0.641v0z"></path>
+                        </symbol>
+                        </defs>
+                        </svg>
+                        <div class="comment-stars">
+
+                        <input class="comment-stars-input" type="radio" name="rating" value="5" id="rating-5">
+                        <label class="comment-stars-view" for="rating-5"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="4.5" id="rating-4.5" checked="checked"> <label class="comment-stars-view is-half" for="rating-4.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="4" id="rating-4"> <label class="comment-stars-view" for="rating-4"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="3.5" id="rating-3.5"> <label class="comment-stars-view is-half" for="rating-3.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="3" id="rating-3"> <label class="comment-stars-view" for="rating-3"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="2.5" id="rating-2.5"> <label class="comment-stars-view is-half" for="rating-2.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="2" id="rating-2"> <label class="comment-stars-view" for="rating-2"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="1.5" id="rating-1.5"> <label class="comment-stars-view is-half" for="rating-1.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="1" id="rating-1"> <label class="comment-stars-view" for="rating-1"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="0.5" id="rating-0.5"> <label class="comment-stars-view is-half" for="rating-0.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        </div>
+                                </div>
+            
+            </div>
+               
+
+            <div class="content-rating">
+            <div class="col-md-10 mt-2 rating-para">
+            <p >Assignment Rating:</p>
+            </div>
+            <div class="comment-stars">
+            <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <defs>
+                        <symbol id="icon-star" viewBox="0 0 26 28">
+                            <path d="M26 10.109c0 0.281-0.203 0.547-0.406 0.75l-5.672 5.531 1.344 7.812c0.016 0.109 0.016 0.203 0.016 0.313 0 0.406-0.187 0.781-0.641 0.781-0.219 0-0.438-0.078-0.625-0.187l-7.016-3.687-7.016 3.687c-0.203 0.109-0.406 0.187-0.625 0.187-0.453 0-0.656-0.375-0.656-0.781 0-0.109 0.016-0.203 0.031-0.313l1.344-7.812-5.688-5.531c-0.187-0.203-0.391-0.469-0.391-0.75 0-0.469 0.484-0.656 0.875-0.719l7.844-1.141 3.516-7.109c0.141-0.297 0.406-0.641 0.766-0.641s0.625 0.344 0.766 0.641l3.516 7.109 7.844 1.141c0.375 0.063 0.875 0.25 0.875 0.719z"></path>
+                        </symbol>
+                        <symbol id="icon-star-half" viewBox="0 0 13 28">
+                            <path d="M13 0.5v20.922l-7.016 3.687c-0.203 0.109-0.406 0.187-0.625 0.187-0.453 0-0.656-0.375-0.656-0.781 0-0.109 0.016-0.203 0.031-0.313l1.344-7.812-5.688-5.531c-0.187-0.203-0.391-0.469-0.391-0.75 0-0.469 0.484-0.656 0.875-0.719l7.844-1.141 3.516-7.109c0.141-0.297 0.406-0.641 0.766-0.641v0z"></path>
+                        </symbol>
+                        </defs>
+                        </svg>
+                        <div class="comment-stars">
+
+                        <input class="comment-stars-input" type="radio" name="rating" value="5" id="rating-5">
+                        <label class="comment-stars-view" for="rating-5"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="4.5" id="rating-4.5" checked="checked"> <label class="comment-stars-view is-half" for="rating-4.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="4" id="rating-4"> <label class="comment-stars-view" for="rating-4"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="3.5" id="rating-3.5"> <label class="comment-stars-view is-half" for="rating-3.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="3" id="rating-3"> <label class="comment-stars-view" for="rating-3"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="2.5" id="rating-2.5"> <label class="comment-stars-view is-half" for="rating-2.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="2" id="rating-2"> <label class="comment-stars-view" for="rating-2"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="1.5" id="rating-1.5"> <label class="comment-stars-view is-half" for="rating-1.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="1" id="rating-1"> <label class="comment-stars-view" for="rating-1"><svg class="icon icon-star">
+                            <use xlink:href="#icon-star"></use>
+                        </svg></label>
+                        <input class="comment-stars-input" type="radio" name="rating" value="0.5" id="rating-0.5"> <label class="comment-stars-view is-half" for="rating-0.5"><svg class="icon icon-star-half">
+                            <use xlink:href="#icon-star-half"></use>
+                        </svg></label>
+                        </div>
+                                </div>
+            
+            </div>
+            
+
         
             <div class="mt-4">
             <label for="msg"> 
@@ -262,3 +473,4 @@ h1 {
 </body> 
 
 </html>
+
