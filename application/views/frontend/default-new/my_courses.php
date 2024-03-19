@@ -70,7 +70,7 @@
                                         </div>
                                         <div class="my-course-1-lesson-text mb-2">
                                             <div class="icon-1">
-                                                <p><i class="far fa-play-circle"></i> <?php echo get_phrase('Lectures').' '.$lectures->num_rows(); ?></p>
+                                                <p><i class="far fa-play-circle"></i> <?php echo get_phrase('Lectures').' '. $course_details["number_of_lectures"]; ?></p>
                                             </div>
                                             <div class="icon-1">
                                                 <p><i class="far fa-question-circle"></i> <?php echo get_phrase('Quizzes').' '.$quizzes->num_rows(); ?></p>
