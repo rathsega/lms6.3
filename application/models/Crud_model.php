@@ -4254,8 +4254,11 @@ class Crud_model extends CI_Model
         $this->db->where('email', $email);
         $this->db->update('users', array('verification_code' => $verification_code, 'last_modified' => time()));
         // send new password to user email
-        $this->email_model->password_reset_email($verification_code, $email);
-        $this->session->set_flashdata('flash_message', get_phrase('check_your_inbox_for_the_request'));
+        $sent = $this->email_model->password_reset_email($verification_code, $email);
+        if($sent){
+            sleep(60);
+            $this->session->set_flashdata('flash_message', get_phrase('email_sent_successfully'));
+        }
     }
 
     function change_password_from_forgot_passord($verification_code = "")
