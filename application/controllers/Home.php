@@ -2079,23 +2079,15 @@ class Home extends CI_Controller
 
     public function feedback_from_submitted(){
         date_default_timezone_set('Asia/Kolkata');
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
+        $rating = $_POST['rating'];
         $message = $_POST['message'];
 
         // Regular expressions for validation
         $nameRegex = "/^[a-zA-Z ]+$/"; // Only letters allowed
         $emailRegex = "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/"; // Email format
 
-        // Validation with lengths and regular expressions
-        if (strlen($name) < 3 || !preg_match($nameRegex, $name)) {
-            echo "Invalid name, name should contain at least 3 characters.";
-            return true;
-        }
-
-        if (!preg_match($emailRegex, $email)) {
-            echo "Invalid email";
+        if (floatval($rating) < 0.1) {
+            echo "Please provide a rating, it should be atleast 0.1";
             return true;
         }
 
@@ -2105,9 +2097,8 @@ class Home extends CI_Controller
         }
 
         $details = [];
-        $details['name'] = $name;
-        $details['email'] = $email;
-        $details['phone'] = $phone;
+        $details['user_id'] = $this->session->userdata('user_id');
+        $details['rating'] = $rating;
         $details['message'] = $message;
         $details['datetime'] = time();
         $inserted = $this->crud_model->add_feedback($details);
