@@ -22,7 +22,7 @@
     } 
     .timmer-img {
     height:60px;
-    animation: moveUpDown 2s ease-in-out infinite alternate; / Adjust the duration and timing function as needed /
+    animation: moveUpDown 2s ease-in-out infinite alternate;
 }
 .mbl-heading{
     color:#754ffe;
@@ -37,7 +37,7 @@
     }
 
     100% {
-        transform: translateY(-10px); / Adjust the vertical movement distance as needed /
+        transform: translateY(-10px); 
     }
 }
     .toast-body{
@@ -117,7 +117,7 @@
                     <!-- Toast Container -->
                     <div class="toast-mbl  position-fixed top-50 start-50 translate-middle " style="z-index: 9999; width: 65%; margin-left: 17%;">
                     
-                        <div id="mail_timer" style="display:none;"  class=" bg-white toast-box " role="alert" aria-live="assertive" aria-atomic="true">
+                        <div id="mail_timer" style="display:block;"  class=" bg-white toast-box " role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="toast-header d-flex justify-content-between">
                         <h6 class="mbl-heading " style="color:#754ffe;">We are sending you an email</h6>
                         <span class="close_btn" id="timer_toast_close" data-bs-dismiss="toast" aria-label="Close">×</span>
@@ -127,11 +127,10 @@
                             <div id="loadingProgress">
                                 <div id="loadingBar"></div>
                             </div>
-                            <button onclick="move()">Move it</button> 
                             <div class="toast-body ">
                             <div class="d-flex flex-column align-items-center">
                             <img src="<?php echo base_url() . "assets/frontend/default-new/image/reset_password_mail.png"; ?>" alt="" class="timmer-img">
-                            <p class="text-center pt-3" style="color:black;">You will receive an email with in <span id="timer" class="text-danger fw-bold">90</span> seconds. please check your inbox, spam, update folders </p>
+                            <p class="text-center pt-3" style="color:black;">You will receive an email with in <span id="timer" class="text-danger fw-bold">60</span> seconds. please check your inbox, spam, update folders </p>
                               
                             </div>
                                 <!-- <div class="spinner-grow" role="status">
@@ -164,9 +163,9 @@
         if(document.getElementById("forgot_email").value){
             var toastElement = document.getElementById('mail_timer');
             $('#mail_timer').show();
-            var twoMinutes = 60 * 1.5,
+            // var twoMinutes = 60 * 2,
             display = document.querySelector('#timer');
-            showTimerinSeconds(90, display);
+            showTimerinSeconds(60, display);
             //startTimer(twoMinutes, display);
         }
         
@@ -210,11 +209,12 @@
 <script>
 var i = 0;
 function move() {
+    let i=0;
   if (i == 0) {
     i = 1;
     var elem = document.getElementById("loadingBar");
     var width = 1;
-    var id = setInterval(frame, 10);
+    var id = setInterval(frame, 600);
     function frame() {
       if (width >= 100) {
         clearInterval(id);
@@ -226,4 +226,8 @@ function move() {
     }
   }
 }
+
+move();
+display = document.querySelector('#timer');
+            showTimerinSeconds(60, display);
 </script>
