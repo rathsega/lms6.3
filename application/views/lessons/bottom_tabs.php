@@ -42,7 +42,7 @@
   <?php endif ?>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="feedback-tab" onclick="actionTo('<?php echo site_url('addons/feedback/feedback/'.$course_details['id']); ?>')" data-bs-toggle="tab" data-bs-target="#feedback-content" type="button" role="tab" aria-controls="Feedback-content" aria-selected="true">
-        <?php echo get_phrase('Course Feedback'); ?>
+        <?php echo get_phrase('Rate your course'); ?>
         <span></span>
       </button>
     </li>

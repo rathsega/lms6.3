@@ -83,7 +83,7 @@ label {
     border: none; 
     border-radius:8px; 
     cursor: pointer; 
-    width: 15%; 
+    width: 25%; 
     font-size: 15px; 
     transition: .2s linear; 
     float:right;

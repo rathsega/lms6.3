@@ -131,6 +131,9 @@ select:visited {
     max-height: 457px;
     height: 100%;
   }
+  #live-class-content{
+    width: auto !important;
+  }
 }
 .course-playing-content .content .cp-title {
   font-size: 22px;
