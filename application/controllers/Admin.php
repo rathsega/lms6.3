@@ -3155,6 +3155,70 @@ class Admin extends CI_Controller
         $page_data['page_title'] = "Add Payments";
         $this->load->view('backend/index', $page_data);
     }
+    public function course_feedback(){
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        check_permission('enrolment');
+
+        $page_data['page_name'] = 'course_feedback';
+        $page_data['page_title'] = "Course Feedback";
+        $course_feedback = $this->crud_model->course_feedbacks_list();
+        $page_data['course_feedbacks'] = $course_feedback;
+        $this->load->view('backend/index', $page_data);
+    }
+
+    public function course_feedback_ciriterias(){
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        check_permission('enrolment');
+
+        $page_data['page_name'] = 'add_criteria';
+        $page_data['page_title'] = "Add Criteria";
+        $criterias = $this->db->get('criterias')->row_array();
+            $page_data['criteria_details'] = $criterias;
+        $this->load->view('backend/index', $page_data);
+    }
+
+    public function add_criteria(){
+        $criteria = array();
+        if(!empty($this->input->post('criteria_title'))):
+            foreach(array_filter($this->input->post('criteria_title')) as $criteria_key => $criteria_title){
+                $criteria[$criteria_key] = $criteria_title;
+            }
+            $this->crud_model->add_criteria($criteria);
+            $this->session->set_flashdata('flash_message', get_phrase('criteria_has_been_updated_successfully'));
+
+            $page_data['page_name'] = 'add_criteria';
+            $page_data['page_title'] = "Add Criteria";
+            $criterias = $this->db->get('criterias')->row_array();
+            $page_data['criteria_details'] = $criterias;
+            $this->load->view('backend/index', $page_data);
+        endif;
+
+    }
+
+    public function view_course_feedback($id){
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        check_permission('enrolment');
+
+        $page_data['page_name'] = 'view_course_feedback';
+        $page_data['page_title'] = "View Course Feedback";
+        $this->db->where('id', $id);
+        $course_feedback = $this->crud_model->view_course_feedback($id); //$this->db->get('course_feedback')->row_array();
+            $page_data['existed_feedback'] = $course_feedback;
+        $this->load->view('backend/index', $page_data);
+    }
+
     public function edit_payments($id){
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');

@@ -82,7 +82,7 @@
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    width: 25%;
+    width: 15%;
     font-size: 15px;
     transition: .2s linear;
     float: right;
@@ -169,25 +169,36 @@
 </style>
 
 <body>
+<div class="row ">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="page-title"> <i class="mdi mdi-apple-keyboard-command title_icon"></i> <?php echo $page_title; ?>
+                    <a href="<?php echo site_url('admin/course_feedback'); ?>" class="btn btn-outline-primary btn-rounded alignToTitle"><i class="mdi mdi-back"></i><?php echo get_phrase('Back'); ?></a>
+                </h4>
+            </div> <!-- end card body-->
+        </div> <!-- end card -->
+    </div><!-- end col-->
+</div>
+
   <div class="d-flex justify-content-center">
     <!-- <h1>Feedback Form</h1>  -->
     <div class="form-box">
 
-      <form class="form-var-tab"  action="javascript:void(0);" onsubmit="feedbackFormBottomTabSubmit()" id="lesson_feedback_form_bottom_tab" name="lesson_feedback_form_bottom_tab">
-        <?php $criterias = json_decode($criterias['criterias']); ?>
         <?php 
-          if($existed_feedback->num_rows()){
+          if($existed_feedback->row_array()){
             $data = $existed_feedback->row_array();
             $existed_feedback_data = json_decode($data['feedback']);
             $criterias  = $existed_feedback_data->criterias;
             $ratings  = $existed_feedback_data->ratings;
             $message = $existed_feedback_data->message;
-            //var_dump($existed_feedback_data);
           } else{
             $existed_feedback_data = json_decode(json_encode(array()));;
             $message = "";
           }
           ?>
+        Course : <?php echo $data['title']; ?></br>
+        Name : <?php echo $data['name']; ?>
         <?php foreach($criterias as $key => $criteria) : ?>
         <div class="row">
           <div class="col-6">
@@ -215,12 +226,9 @@
           </label>
               <textarea class="feed-bk" id="lesson_feedback_form_bottom_tab_message" name="lesson_feedback_form_bottom_tab_message" rows="4" cols="10" required><?php echo $message; ?>
           </textarea>
-          <button class="sbt_btn" type="submit">
-            Submit
-          </button>
+          
         </div>
 
-      </form>
     </div>
   </div>
 </body>
@@ -246,110 +254,13 @@
 
     <script>
         var existed_ratings = <?php echo json_encode($ratings); ?>;
+        console.log(existed_ratings);
         if(existed_ratings){
           existed_ratings.forEach((val,key) => {
-            document.getElementsByClassName('stars__selection')[key+1].style.width = (val*16)+"px";
+            document.getElementsByClassName('stars__selection')[key].style.width = (val*16)+"px";
             document.getElementsByClassName('ratings')[key].value = val;
               // document.getElementsByClassName('rating_val')[key].innerText = val + '/5';
           });
         }
-        $('.stars').on('mouseover mousemove', function(event) {
-          var x = event.pageX - $(this).offset().left;
-            $(this).find('.stars__selection').width(x);
-            var width = $(this).width();
-            var result = Math.round(x / width * 100); // in percent
-            var integer_rating = Math.floor(result / 20, 1);
-            var float_rating = integer_rating < 5 ? Math.ceil((result % 20) / 2) : 0;
-            if (float_rating == 10) {
-                ++integer_rating;
-                float_rating = 0;
-            }
-            //alert(result + '---' + integer_rating +'.' + float_rating + '% selected');
-            $(this).find('.ratings').val(integer_rating + '.' + float_rating);
-            // $(this).find('.rating_val').innerText = integer_rating + '.' + float_rating + '/5';
-        }).on('mouseout', function() {
-            // $(this).find('.stars__selection').width(0);
-        }).on('click', function(event) {
-            var x = event.pageX - $(this).offset().left;
-            $(this).find('.stars__selection').width(x);
-            var width = $(this).width();
-            var result = Math.round(x / width * 100); // in percent
-            var integer_rating = Math.floor(result / 20, 1);
-            var float_rating = integer_rating < 5 ? Math.ceil((result % 20) / 2) : 0;
-            if (float_rating == 10) {
-                ++integer_rating;
-                float_rating = 0;
-            }
-            //alert(result + '---' + integer_rating +'.' + float_rating + '% selected');
-            $(this).find('.ratings').val(integer_rating + '.' + float_rating);
-            // $(this).find('.rating_val').innerText = integer_rating + '.' + float_rating + '/5';
-        });
-
-        var lesson_feedback_form_modal_bottom_tab = document.getElementById('lesson_feedback_form_modal');
-        var lesson_feedback_form_button_bottom_tab = document.getElementById('lesson_feedback_form_button');
-        lesson_feedback_form_button_bottom_tab.addEventListener('click', function() {
-            lesson_feedback_form_modal_bottom_tab.style.display = 'block';
-        });
-
-        
-
-        function feedbackFormBottomTabSubmit() {
-            var rating = document.getElementsByName("lesson_feedback_form_bottom_tab_ratings[]")
-            var message = document.getElementById('lesson_feedback_form_bottom_tab_message').value.trim();
-            var ratings = [];
-            var criterias = [];
-
-            $("[name='lesson_feedback_form_bottom_tab_ratings[]']").each(function(){
-              ratings.push($(this).val());
-            });
-            $("[name='lesson_feedback_form_bottom_tab_criterias[]']").each(function(){
-              criterias.push($(this).val());
-            });
-
-            var formData = {
-                ratings: JSON.stringify(ratings) ,
-                message: message,
-                criterias: JSON.stringify(criterias),
-                course_id: <?php echo $course_id; ?>
-            };
-            // Create a new XMLHttpRequest object
-            var xhr = new XMLHttpRequest();
-
-            // Define the request (GET method, URL)
-            xhr.open('POST', '<?php echo site_url('home/bottom_tab_feedback_from_submitted'); ?>', true);
-
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-            // Convert the data object to JSON format
-            serialize = function(obj) {
-                var str = [];
-                for (var p in obj)
-                    if (obj.hasOwnProperty(p)) {
-                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                    }
-                return str.join("&");
-            }
-
-            var jsonData = serialize(formData);
-
-            // Set up a function to handle the response
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    // Request was successful
-                    alert(xhr.responseText);
-                    if (xhr.responseText == 'Thank You For Providing Your Feedback.') {
-                        lesson_feedback_form_modal_bottom_tab.style.display = 'none';
-                    }
-
-
-                    // Perform actions with the response data here
-                } else {
-                    // Error handling if the request fails
-                    console.error('Request failed. Status:', xhr.status);
-                }
-            };
-
-            // Send the POST request with the JSON data
-            xhr.send(jsonData);
-        }
+       
     </script>

@@ -34,11 +34,12 @@ class Feedback extends CI_Controller
             $user_id = $this->session->userdata('user_id');
         }
 
-        $this->crud_model->getUserFeedback($user_id);
+        $existed_feedback = $this->crud_model->getUserFeedback($user_id, $course_id);
+        $criterias = $this->db->get('criterias')->row_array();
 
         $response['html'] = [
             'elem' => '#feedback-content',
-            'content' => $this->load->view('lessons/feedback', ['course_id' => $course_id], true)
+            'content' => $this->load->view('lessons/feedback', ['course_id' => $course_id, 'existed_feedback'=>$existed_feedback, 'criterias'=>$criterias], true)
         ];
 
         echo json_encode($response);

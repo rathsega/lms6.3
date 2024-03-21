@@ -2231,4 +2231,16 @@ class Home extends CI_Controller
         }
     }
 
+    public function bottom_tab_feedback_from_submitted(){
+        date_default_timezone_set('Asia/Kolkata');
+        $ratings = json_decode($_POST['ratings']);
+        $message = $_POST['message'];
+        $criterias = json_decode($_POST['criterias']);
+        $course_id = $_POST['course_id'];
+        $inserted = $this->crud_model->insertCourseFeedbackData($ratings, $message, $criterias, $course_id);
+        if($inserted){
+            echo "Thank You For Providing Your Feedback.";
+        }
+    }
+
 }

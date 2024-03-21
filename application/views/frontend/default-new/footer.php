@@ -261,7 +261,10 @@ if ($stripe_info[0]['active'] == 0) {
             if(details_submitted != "true" && !user_id && contactPopUpClosed < 2){
                 setTimeout(()=>{
                     if((details_submitted != "true" && !user_id) && contactPopUpClosed < 2 ){
-                       openModalBtn2.click();
+                       var curr_url = window.location.href;
+                       if(!curr_url.includes('forgot_password_request') && !curr_url.includes('login')  && !curr_url.includes('sign_up')){
+                                openModalBtn2.click();
+                        }
                     }
                 }, 10000)
             } // 10000 to load it after 10 seconds from page load

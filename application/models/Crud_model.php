@@ -5120,8 +5120,8 @@ class Crud_model extends CI_Model
         return $this->db->query("SELECT * from feedback order by datetime desc ");
     }
 
-    public function getUserFeedback($user_id){
-        return $this->db->query("SELECT * from feedback where user_id=".$user_id." order by datetime desc ");
+    public function getUserFeedback($user_id, $course_id){
+        return $this->db->query("SELECT * from course_feedback where user_id=".$user_id." and course_id=".$course_id." order by id desc ");
     }
     
     public function get_broucher($course_id)
@@ -5766,5 +5766,42 @@ class Crud_model extends CI_Model
             $this->db->or_where('show_it_in_category', 1);
         $this->db->group_end();
         return $this->db->get('course');
+    }
+
+    public function add_criteria($criterias){
+        $this->db->empty_table('criterias');
+        $data = array('criterias'=>json_encode($criterias));
+        return $this->db->insert('criterias',$data);
+    }
+
+    public function insertCourseFeedbackData($ratings, $message, $criterias, $course_id){
+        $data=[];
+        $data['course_id'] = $course_id;
+        $data['user_id'] = $this->session->userdata('user_id');
+        $data['feedback'] = json_encode(array('criterias'=>$criterias, 'ratings'=>$ratings, 'message'=>$message));
+        
+        $existing_data = $this->db->get_where('course_feedback', array('user_id' => $data['user_id'], 'course_id' => $data['course_id']))->row();
+
+        if ($existing_data) {
+            // Data exists, perform update
+            $this->db->where(array('user_id' => $data['user_id'], 'course_id' => $data['course_id']));
+            $this->db->update('course_feedback', $data);
+            return $this->db->affected_rows() > 0;
+        } else {
+            // Data does not exist, perform insert
+            $this->db->insert('course_feedback', $data);
+            return $this->db->insert_id();
+        }
+    }
+
+    public function course_feedbacks_list()
+    {
+        $query = "select  cf.id, CONCAT(u.first_name, ' ', u.last_name) as name, u.id as user_id, u.email, u.phone, c.title, cf.feedback, cf.date from course_feedback as cf  left join users as u on u.id=cf.user_id left join course as c on c.id = cf.course_id";
+        return $this->db->query($query);
+    }
+
+    public function view_course_feedback($id){
+        $query = "select  cf.id, CONCAT(u.first_name, ' ', u.last_name) as name, u.id as user_id, u.email, u.phone, c.title, cf.feedback, cf.date from course_feedback as cf  left join users as u on u.id=cf.user_id left join course as c on c.id = cf.course_id where cf.id=".$id;
+        return $this->db->query($query);
     }
 }
