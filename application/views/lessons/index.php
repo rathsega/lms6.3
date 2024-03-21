@@ -114,7 +114,7 @@ if ($language_dirs) {
                     </li>
                 </ul>
                 <!-----fedback-btn----------- -->
-                <button class="btn btn btn-light btn-outline-secondary mx-1" id="lesson_feedback_form_button">LMS Platform Feedback</button>
+                <button class="btn btn btn-outline-secondary mx-1" id="lesson_feedback_form_button">Rate Your LMS Platform</button>
                 <!-- ---fedback-btn----------- -->
                 <?php if ($full_page) : ?>
 
