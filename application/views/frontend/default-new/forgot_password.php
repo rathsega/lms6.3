@@ -140,7 +140,7 @@
                             <div class="toast-body ">
                                 <div class="d-flex flex-column align-items-center">
                                     <img src="<?php echo base_url() . "assets/frontend/default-new/image/reset_password_mail.png"; ?>" alt="" class="timmer-img">
-                                    <p class="text-center pt-3" style="color:black;">You will receive an email with in <span id="timer" class="text-danger fw-bold">60</span> seconds. please check your inbox, spam, update folders </p>
+                                    <p class="text-center pt-3" style="color:black;">You will receive an email with in <span id="timer" class="text-danger fw-bold">60</span> seconds. please check your inbox, spam, updates folders </p>
 
                                 </div>
                                 <!-- <div class="spinner-grow" role="status">
