@@ -106,7 +106,7 @@
                                                     <?php if($enrolment['expiry_date'] == 0): ?>
                                                         <span class="text-12px text-start mt-2"><?php echo get_phrase('Expiry period') ?> - <b class="text-success text-uppercase"><?php echo get_phrase('Lifetime Access'); ?></b></span>
                                                     <?php else: ?>
-                                                        <span class="text-12px text-end mt-2"><?php echo get_phrase('Expiration On') ?> - <?php if(strtotime($enrolment['expiry_date']) - 60*24*60*60 < time()): ?><b style="color: var(--bs-code-color);"><?php echo date('d M Y, H:i A', strtotime($enrolment['expiry_date'])); ?></b><?php else: ?><b><?php echo date('d M Y, H:i A', strtotime($enrolment['expiry_date'])); ?></b><?php endif; ?></span>
+                                                        <span class="text-12px text-end mt-2 mbl-cou-para"><?php echo get_phrase('Expiration On') ?> - <?php if(strtotime($enrolment['expiry_date']) - 60*24*60*60 < time()): ?><b style="color: var(--bs-code-color);"><?php echo date('d M Y, H:i A', strtotime($enrolment['expiry_date'])); ?></b><?php else: ?><b><?php echo date('d M Y, H:i A', strtotime($enrolment['expiry_date'])); ?></b><?php endif; ?></span>
                                                     <?php endif; ?>
                                                 <?php endif; ?>
                                             </div>
