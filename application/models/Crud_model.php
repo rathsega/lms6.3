@@ -4256,7 +4256,7 @@ class Crud_model extends CI_Model
         // send new password to user email
         $sent = $this->email_model->password_reset_email($verification_code, $email);
         if($sent){
-            sleep(57);
+            sleep(55);
             $this->session->set_flashdata('flash_message', get_phrase('email_sent_successfully'));
         }
     }
