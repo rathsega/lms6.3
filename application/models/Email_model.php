@@ -103,7 +103,7 @@ class Email_model extends CI_Model
 			$template_data['user_type'] = $user_type;
 			$subject = json_decode($notification['subject'], true)[$user_type];
 			$email_template = $this->load->view('email/common_template',  $template_data, TRUE);
-
+			//var_dump($email_template);
 			if (json_decode($notification['system_notification'], true)[$user_type] == 1) {
 				$this->notify($type, $to_user['id'], $subject, $email_template);
 			}
@@ -113,11 +113,11 @@ class Email_model extends CI_Model
 				$headers[]= "MIME-Version: 1.0";
         		$headers[]= "Content-type:text/html;charset=UTF-8";
 				if (mail($to_user['email'], $subject, $email_template, implode("\r\n", $headers))) {
-					sleep(90);
 					$this->session->set_flashdata('flash_message', get_phrase('email_sent_successfully'));
+					return true;
 				} else {
-					sleep(90);
 					$this->session->set_flashdata('error_message', get_phrase('failed_to_send_email'));
+					return false;
 				}
 				//$this->send_smtp_mail($email_template, $subject, $to_user['email']);
 			}

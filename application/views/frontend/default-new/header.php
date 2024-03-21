@@ -253,7 +253,7 @@ width: 100%;
   }
 	</style>
   <?php include "enquire_now.php" ?>
-  <?php include "feedback.php" ?>
+  <?php //include "feedback.php" ?>
   <script>
     function openFeedbackForm() {
         document.getElementById("feedbackForm").style.display = "block";
