@@ -18,10 +18,10 @@
                 <a href="mailto:<?php echo get_settings('system_email'); ?>"><i class="fas fa-envelope"></i> <?php echo get_settings('system_email'); ?></a>
               </li>
 
-                
-              <li class="pt-2 px-2">
-             
-                <!-- assets/frontend/default-new/image/ISOmark.png -->
+              </li>
+              
+              <li class="px-3 pt-1">
+              <img src="<?php echo base_url() . "assets/frontend/default-new/image/iso_logomark_2.png"; ?>" alt="" class="iso_mark">  
               </li>
             </ul>
           </div>
@@ -149,6 +149,9 @@
     border-radius: 10px;
     width: 66%;
 
+}
+.iso_mark{
+  height:40px;
 }
 .email-ip{
   margin-top: 1px !important;
