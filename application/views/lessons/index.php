@@ -366,7 +366,7 @@ if ($language_dirs) {
             color: white;
             /* height: 53px; */
             font-size: 37px;
-            background: #754ffe;
+            /* background: #754ffe; */
             border-radius: 38px;
             padding: 10px;
         }
@@ -458,12 +458,12 @@ if ($language_dirs) {
             .close-btn {
                 position: absolute;
                 top: 25px;
-                right: -17px;
+                right: 9px;
                 cursor: pointer;
                 color: white;
                 /* height: 53px; */
                 font-size: 40px;
-                background: #754ffe;
+                /* background: #754ffe; */
                 border-radius: 38px;
                 padding: 14px;
             }
