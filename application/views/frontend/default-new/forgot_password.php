@@ -8,18 +8,15 @@
 
 <style>
     .close_btn {
+    margin-bottom: 14px;
     padding: 1em 1em;
-    /* margin-left: 136px !important; */
     font-size: 2rem;
     cursor: pointer;
-    /* float: right; */
 
 }
     .toast-header{
-        margin-bottom: -32px;
-        /* padding-left: 23px; */
-        padding-left: 11px;
-
+        height: 10px !important;
+    padding-top: 34px;
     } 
     .timmer-img {
     height:60px;
@@ -73,6 +70,9 @@
         margin-left: 34% !important;
 
       }
+      .mbl-heading{
+        font-size: 14px;
+      }
       /* .mbl-heading{
         font-size: 14px;
     width: 135%;
@@ -116,16 +116,18 @@
                     </form>
 
                     <!-- Toast Container -->
-                    <div class="toast-mbl  position-fixed top-50 start-50 translate-middle " style="z-index: 9999; width: 65%; margin-left: 17%;">
+                    <div class="col-md-8 col-sm-6 toast-mbl  position-fixed top-50 start-50 translate-middle " style="z-index: 9999; margin-left: 17%;">
                     
-                        <div id="mail_timer" style="display:none;"   class=" bg-white toast-box " role="alert" aria-live="assertive" aria-atomic="true">
+                        <div id="mail_timer"  class=" bg-white toast-box " role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="container">
                         <div class="toast-header d-flex flex-row">
-                            <div class="col-md-8 col-sm-7"> 
-                                <h6 class="" style="color:#754ffe;">We are sending you an email</h6>
+                            <div class="col-md-10 col-9"> 
+                                <h6 class="mbl-heading" style="color:#754ffe;">We are sending you an email</h6>
                             </div>
-                            <div class="col-md-4 col-sm-5">
-                                <span class="close_btn" id="timer_toast_close" data-bs-dismiss="toast" aria-label="Close">×</span>
-                            </div> 
+                            <div class="d-flex justify-content-end">
+    <span class="close_btn" id="timer_toast_close" data-bs-dismiss="toast" aria-label="Close">×</span>
+</div> 
+                        </div>
                         </div>
 
                             <hr style="color:transparent;" class="pt-2">
