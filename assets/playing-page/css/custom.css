@@ -26,6 +26,7 @@
 	text-align: center;
 }
 @media screen and (max-width: 767px) {
+	
 	#certificate-content {
 		width: auto !important;
 	}

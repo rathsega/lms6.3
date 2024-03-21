@@ -106,9 +106,9 @@ if ($language_dirs) {
                     <li class="nav-item">
                         <a class="nav-link text-white p-0" aria-current="page" href="<?php echo site_url('home/course/' . slugify($course_details['title']) . '/' . $course_details['id']); ?>">
                             <?php $number_of_lessons = $this->crud_model->get_lessons('course', $course_details['id'])->num_rows(); ?>
-                            <p class="text-md-center fs-6"><?php echo $course_details['title']; ?></p>
+                            <p class="mbile-cont text-md-center fs-6"><?php echo $course_details['title']; ?></p>
                             <?php if (isset($watch_history) && !empty($watch_history['completed_lesson']) && is_array(json_decode($watch_history['completed_lesson'], true))) : ?>
-                                <p class="text-md-center text-12px"><?php echo $watch_history['course_progress'] . '% ' . get_phrase('Completed'); ?>(<?php echo count(json_decode($watch_history['completed_lesson'], true)) ?>/<?php echo $number_of_lessons; ?>)</p>
+                                <p class="mbile-cont text-md-center text-12px"><?php echo $watch_history['course_progress'] . '% ' . get_phrase('Completed'); ?>(<?php echo count(json_decode($watch_history['completed_lesson'], true)) ?>/<?php echo $number_of_lessons; ?>)</p>
                             <?php endif; ?>
                         </a>
                     </li>
@@ -439,11 +439,18 @@ if ($language_dirs) {
                 width: 290px !important;
                 margin-left: -133px;
             }
-
-            .forms-ips {
+            .mbile-cont{
+            font-size: 10px !important; 
+            margin-top:4px;
+            text-align: center;
+            }
+            .btn-outline-secondary {
+                font-size: 10px !important;
+                }
+             .forms-ips {
                 width: 100%;
             }
-
+          
             .form-container {
                 margin-left: -73px;
             }
