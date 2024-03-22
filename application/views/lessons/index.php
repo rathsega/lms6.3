@@ -359,17 +359,13 @@ if ($language_dirs) {
         }
 
         .close-btn {
-            position: absolute;
-            top: 55px;
-            right: 50px;
+            font-size: 36px;
+            right: 80px !important;
             cursor: pointer;
             color: white;
-            /* height: 53px; */
-            font-size: 37px;
-            /* background: #754ffe; */
-            border-radius: 38px;
-            padding: 10px;
-        }
+            position: absolute;
+            top: 55px;
+          }
 
         .form-container {
             /* max-width: 400px; */
@@ -456,18 +452,56 @@ if ($language_dirs) {
             }
 
             .close-btn {
-                position: absolute;
-                top: 25px;
-                right: 9px;
-                cursor: pointer;
-                color: white;
-                /* height: 53px; */
-                font-size: 40px;
-                /* background: #754ffe; */
-                border-radius: 38px;
-                padding: 14px;
+              font-size: 34px;
+             right:30px !important;
             }
         }
+     
+      
+            @media only screen and (max-width: 360px) {
+            .close-btn {
+            font-size: 34px;
+            right: -6px !important;
+            }
+          }
+
+          @media screen and (min-width: 390px) and (max-width:844px) {
+          .close-btn {
+            font-size: 34px;
+            right: 8px !important;
+            }
+        }
+        @media screen and (min-width: 375px) and (max-width:667px) {
+          .close-btn {
+            font-size: 34px;
+            right: 8px !important;
+            }
+        }
+        @media screen and (min-width: 414px) and (max-width:896px) {
+          .close-btn {
+            font-size: 38px;
+            right: 21px !important;
+        }
+        }
+        @media screen and (min-width: 430px) and (max-width:932px) {
+          .close-btn {
+            font-size: 38px;
+            right: 32px !important;
+        }
+        }
+        @media screen and (min-width: 412px) and (max-width:915px) {
+          .close-btn {
+            font-size: 38px;
+            right: 32px !important;
+        }
+        }
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    /* Your CSS rules specific to screens with a width of exactly 768px */
+    .form-container {
+        width: 583px !important;
+        margin-left: -103px;
+    }
+}
     </style>
 
     <!-------------------pop-up -styles-end-------------- -->
