@@ -5117,7 +5117,7 @@ class Crud_model extends CI_Model
     }
     
     public function getAllFeedback(){
-        return $this->db->query("SELECT * from feedback order by datetime desc ");
+        return $this->db->query("SELECT f.*, CONCAT(u.first_name, ' ', u.last_name) as name, u.email, u.phone, u.id as user_id  from feedback as f inner join users as u on u.id = f.user_id order by datetime desc ");
     }
 
     public function getUserFeedback($user_id, $course_id){

@@ -36,6 +36,7 @@
                               <tr>
                                   <th>Name</th>
                                   <th>Phone</th>
+                                  <th>Rating</th>
                                   <th>Message</th>
                                   <th>Date</th>
                               </tr>
@@ -50,6 +51,7 @@
                                           <small><?php echo $feedback['email']; ?></small>
                                       </td>
                                       <td><?php echo $feedback['phone']; ?></td>
+                                      <td><?php echo $feedback['rating']; ?></td>
                                       <td><?php echo $feedback['message']; ?></td>
                                       <td data-sort='<?php echo $feedback['datetime']; ?>'><?php echo date('d-M-Y H:i', $feedback['datetime']); ?></td>
                                   </tr>

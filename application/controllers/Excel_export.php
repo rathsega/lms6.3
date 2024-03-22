@@ -173,6 +173,7 @@ class Excel_export extends CI_Controller
             $line["Name"] =  $feedback['name'];
             $line["Email"] =  $feedback['email'];
             $line["Phone"] =  $feedback['phone'];
+            $line["Rating"] =  $feedback['rating'];
             $line["Message"] =  $feedback['message'];
             $line["Date"] =  date('d-M-Y H:i', $feedback['date']);
             $data[] = $line;
