@@ -108,7 +108,7 @@
                             <div class="g-recaptcha" data-sitekey="<?php echo get_frontend_settings('recaptcha_sitekey'); ?>"></div>
                         <?php endif; ?>
                         <div class="log-in">
-                            <button type="submit" onclick="showToast()" class="btn btn-primary">
+                            <button type="submit" onclick="showToast()" id="fpb" class="btn btn-primary">
                                 <?php echo get_phrase('Send Request') ?>
                             </button>
                         </div>
@@ -165,12 +165,14 @@
     }
 </style>
 <script>
-    
+    var fpb = document.getElementById("fpb");
+    var cp_intervals = [];
     function showToast() {
         if(document.getElementById("forgot_email").value){
             var toastElement = document.getElementById('mail_timer');
             $('#mail_timer').show();
             // var twoMinutes = 60 * 2,
+            move();
             display = document.querySelector('#timer');
             showTimerinSeconds(60, display);
             //startTimer(twoMinutes, display);
@@ -196,7 +198,7 @@
     function startTimer(duration, display) {
         var timer = duration,
             minutes, seconds;
-        setInterval(function() {
+            var timerInterval = setInterval(function() {
             minutes = parseInt(timer / 60, 10);
             seconds = parseInt(timer % 60, 10);
 
@@ -210,28 +212,43 @@
                 timer = duration;
             }
         }, 1000);
+        cp_intervals.push(timerInterval);
     }
 
 </script>
 <script>
 var i = 0;
 function move() {
+    clearAllIntervals();
     let i=0;
   if (i == 0) {
     i = 1;
     var elem = document.getElementById("loadingBar");
     var width = 1;
-    var id = setInterval(frame, 600);
+    var progressbarInterval = setInterval(frame, 600);
     function frame() {
       if (width >= 100) {
-        clearInterval(id);
+        fpb.removeAttribute("disabled");
+        clearInterval(progressbarInterval);
         i = 0;
       } else {
         width++;
         elem.style.width = width + "%";
+        !fpb.hasAttribute("disabled") ? fpb.setAttribute("disabled", "disabled") : "";
       }
     }
+    cp_intervals.push(progressbarInterval);
   }
+}
+
+function clearAllIntervals() {
+    for (var i = 0; i < cp_intervals.length; i++) {
+        clearInterval(cp_intervals[i]);
+    }
+
+    // Clear the array
+    cp_intervals = [];
+    fpb.removeAttribute("disabled");
 }
 
 // move();
