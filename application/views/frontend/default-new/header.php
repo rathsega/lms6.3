@@ -23,6 +23,11 @@
               <li class="px-3 pt-1">
               <img src="<?php echo base_url() . "assets/frontend/default-new/image/iso_logomark_2.png"; ?>" alt="" class="iso_mark">  
               </li>
+              <li class="nav-item align-items-center d-flex blink2">
+              <a class="btn btn-primary text-14px py-1 enquire-mbl" href="#" id="openModalBtn2" style="color:white;">
+              <?php echo get_phrase('Enquire Now'); ?>
+                                                    </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -35,14 +40,13 @@
             <?php $linkedin = get_frontend_settings('linkedin'); ?>
             <ul class="nav justify-content-end">
 
-            <li class="nav-item align-items-center d-flex blink2">
+            <!-- <li class="nav-item align-items-center d-flex blink2">
               <a class="btn btn-primary text-14px py-1 enquire-mbl" href="#" id="openModalBtn2" style="color:white;">
                                                         <?php echo get_phrase('Enquire Now'); ?>
                                                     </a>
-              </li>
+              </li> -->
 
-            <a href="#" class="invisible" onclick="actionTo('<?php echo site_url('home/dark_and_light_mode') ?>')"><i class="fas fa-moon"></i></a>
-
+            <a href="#" class="invisible so-icons" onclick="actionTo('<?php echo site_url('home/dark_and_light_mode') ?>')"><i class="fas fa-moon"></i></a>
               <?php if($facebook): ?>
                 <li class="nav-item">
                   <a target="_blank" href="<?php echo $facebook; ?>"><i class="fa-brands fa-facebook-f"></i></a>
@@ -225,7 +229,11 @@
     cursor: pointer;
   }
 
-  
+ .blink2{
+  position: absolute ;
+    margin-top: 7px;
+    right: 20% ; 
+ } 
   /* button:hover {
     background-color: #45a049;
   } */
@@ -253,7 +261,44 @@ width: 100%;
     border-radius: 38px;
     padding: 14px;
 }
+
+.iso_mark {
+    height: 33px ;
+    margin-left: 143px;
+    width: 115px;
+}
+.blink2 {
+  margin-top: 85px;
+    margin-right: 120px;
+}
+}
+@media screen and (min-width: 430px) and (max-width: 932px) {
+    
+  .blink2 {
+    margin-top: 46px;
+    margin-right: 131px;
+    }
+}
+@media screen and (min-width: 390px) and (max-width: 844px) {
+    
+    .blink2 {
+      margin-top: 46px;
+      margin-right: 131px;
+      }
   }
+  @media screen and (min-width: 820px) and (max-width: 1180px) {
+    
+    .menubar {
+      margin-top: 40px;
+      }
+  }
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    
+    .menubar {
+      margin-top: 40px;
+      }
+  }
+
 	</style>
   <?php include "enquire_now.php" ?>
   <?php //include "feedback.php" ?>
