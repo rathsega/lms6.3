@@ -43,7 +43,7 @@
 
   .form-var-tab {
     max-width: 400px;
-    margin: 31px auto;
+    margin: 10px auto;
   }
 
   .radio-group {
@@ -82,7 +82,7 @@
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    width: 25%;
+    width: 18%;
     font-size: 15px;
     transition: .2s linear;
     float: right;
@@ -101,9 +101,9 @@
 
   .rating-para {
     color: #754ffe;
-    font-weight: 500;
-    font-size: 19px;
-
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 28px;
   }
 
   /* -ratings----------- */
@@ -164,6 +164,13 @@
     .rating-para {
       width: 260px;
     }
+    .sbt_btn {
+    width:45%;
+  }
+  .form-box {
+    padding-top: 1px;
+    padding-bottom: 29px;
+  }
 
   }
 </style>
@@ -195,7 +202,7 @@
           </div>
           <div class="col rating-container">
             <div class="row">
-              <div class="col-lg-9 com-md-9 col-sm-12">
+              <div class="col-lg-9 com-md-9 col-sm-12 mt-3">
                 <div class="stars">
                   <div class="stars__selection"></div>
                   <input type="hidden" class="ratings" value="<?php echo $ratings[$key]; ?>" name="lesson_feedback_form_bottom_tab_ratings[]" required>
