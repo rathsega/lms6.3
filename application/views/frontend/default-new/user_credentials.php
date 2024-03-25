@@ -4,6 +4,23 @@
 
 <?php include "breadcrumb.php"; ?>
 
+
+<style>
+    .input-group{
+        background: #f8f7ff;
+    border: 1.5px solid #6e798a49;
+    border-radius: 10px 9px 11px 10px;
+    }
+    .input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    margin-left: calc(var(--bs-border-width)* -1);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border: none;
+}
+.input-group-text {
+    border:none;
+}
+</style>
 <!--------  Wish List body section start------>
 <section class="wish-list-body message">
     <div class="container">
@@ -44,7 +61,7 @@
                                     <div class="col-12 mb-3">
                                         <label class="text-dark fw-600" for="email"><?php echo site_phrase('email'); ?></label>
                                         <div class="input-group">
-                                            <input type="email" class="form-control bg-white-2" name = "email" id="email" placeholder="<?php echo site_phrase('email'); ?>" value="<?php echo $user_details['email']; ?>" disabled>
+                                            <input type="email" class="form-control bg-white-2" style="border:none;" name = "email" id="email" placeholder="<?php echo site_phrase('email'); ?>" value="<?php echo $user_details['email']; ?>" disabled>
                                         </div>
                                     </div>
 
