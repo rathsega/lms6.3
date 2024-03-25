@@ -1,3 +1,14 @@
+<style>
+    .apply-btn{
+        padding: 4px 21px !important;
+    margin-top: 4px;
+    }
+    @media only screen and (max-width: 767px) {
+  .cart-page .cart-table a {
+    padding-left: 23px;
+}
+}
+ </style>
 <div class="row">
     <div class="col-lg-9 col-md-8">
         <div class="cart-table">
@@ -116,10 +127,15 @@
             <?php $actcive_coupons = $this->crud_model->get_active_coupons(); ?>
             <?php if ($actcive_coupons > 0) : ?>
                 <form class="ajaxForm" action="<?php echo site_url('home/apply_coupon') ?>" method="post">
+                <div class="d-flex flex-row">
                     <div class="input-group mb-3">
                         <input type="text" name="coupon_code" class="form-control text-14px" placeholder="<?php echo site_phrase('Apply coupon'); ?>" aria-label="<?php echo site_phrase('Apply coupon'); ?>">
-                        <button class="btn-primary btn-primary text-white px-2 py-2 radius-end-8 text-14px" type="submit"><?php echo get_phrase('Apply') ?></button>
-                    </div>
+                        </div>
+                        <div class="pt-3">
+                        <button class="btn-primary btn-primary text-white px-2 py-2 radius-end-8 text-14px apply-btn" type="submit"><?php echo get_phrase('Apply') ?></button>
+            
+                        </div>
+                           </div>
                 </form>
             <?php endif; ?>
 
@@ -128,7 +144,9 @@
             <?php else : ?>
                 <form action="<?php echo site_url('home/course_payment') ?>" method="post">
                     <div class="input-group mb-1">
-                        <input type="checkbox" id="is_gift" name="is_gift" onchange="
+                    <div class="d-flex flex-row">
+                            <div>
+                            <input type="checkbox" id="is_gift" name="is_gift" onchange="
                             if ($(this).prop('checked')==true){ 
                                 $('#gift_email_section').removeClass('d-hidden');
                             }else{
@@ -139,7 +157,11 @@
                             } else {
                                 $('#gift_email').prop('required', true);
                             }" value="1" <?php if (isset($_GET['gift'])) echo 'checked'; ?>>
-                        <label for="is_gift" class="ms-2 text-14px"><?php echo get_phrase('Send as a gift') ?></label>
+                            </div>
+                         <div >
+                         <label for="is_gift" class="ms-2 pt-3 text-14px"><?php echo get_phrase('Send as a gift') ?></label>
+                         </div>
+                        </div>
                     </div>
                     <div id="gift_email_section" class="<?php if (isset($_GET['gift'])) : else : echo 'd-hidden';
                                                         endif; ?>">
