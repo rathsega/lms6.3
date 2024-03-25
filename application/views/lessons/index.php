@@ -206,6 +206,17 @@ if ($language_dirs) {
         $('.stars').on('mouseover mousemove', function(event) {
             var x = event.pageX - $(this).offset().left;
             $(this).find('.stars__selection').width(x);
+            var width = $(this).width();
+            var result = Math.round(x / width * 100); // in percent
+            let integer_rating = Math.floor(result / 20, 1);
+            let float_rating = integer_rating < 5 ? Math.ceil((result % 20) / 2) : 0;
+            if (float_rating == 10) {
+                ++integer_rating;
+                float_rating = 0;
+            }
+            //alert(result + '---' + integer_rating +'.' + float_rating + '% selected');
+            $('#lesson_feedback_form_rating').val(integer_rating + '.' + float_rating);
+            document.getElementById('rating_val').innerText = integer_rating + '.' + float_rating + '/5';
         }).on('mouseout', function() {
             //$(this).find('.stars__selection').width(0);
         }).on('click', function(event) {

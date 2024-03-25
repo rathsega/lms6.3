@@ -5796,7 +5796,7 @@ class Crud_model extends CI_Model
 
     public function course_feedbacks_list()
     {
-        $query = "select  cf.id, CONCAT(u.first_name, ' ', u.last_name) as name, u.id as user_id, u.email, u.phone, c.title, cf.feedback, cf.date from course_feedback as cf  left join users as u on u.id=cf.user_id left join course as c on c.id = cf.course_id";
+        $query = "select  cf.id, CONCAT(u.first_name, ' ', u.last_name) as name, u.id as user_id, u.email, u.phone, c.title, cf.feedback, cf.date from course_feedback as cf  left join users as u on u.id=cf.user_id left join course as c on c.id = cf.course_id order by cf.date desc";
         return $this->db->query($query);
     }
 

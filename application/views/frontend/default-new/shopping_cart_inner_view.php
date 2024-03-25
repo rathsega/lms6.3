@@ -41,7 +41,7 @@
                                     </div>
                                 </td>
                                 <td class="d-flex">
-                                    <?php $course_details['price'] = $track_data[$course_details["id"]] == "weekday" ? $course_details['price'] : $course_details["weekend_track_course_price"]; ?>
+                                    <?php $course_details['price'] = $track_data && $track_data[$course_details["id"]] == "weekend" ? $course_details["weekend_track_course_price"] : $course_details['price']; ?>
                                     <?php if ($course_details['is_free_course']) : ?>
                                         <h4><?php echo get_phrase('Free'); ?></h4>
                                     <?php elseif ($course_details['discount_flag']) : ?>
