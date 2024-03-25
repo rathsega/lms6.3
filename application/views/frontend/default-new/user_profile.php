@@ -4,6 +4,22 @@
 
 <?php include "breadcrumb.php"; ?>
 
+<style>
+    .input-group{
+        background: #f8f7ff;
+    border: 1.5px solid #6e798a49;
+    border-radius: 10px 9px 11px 10px;
+    }
+    .input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    margin-left: calc(var(--bs-border-width)* -1);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border: none;
+}
+.input-group-text {
+    border:none;
+}
+</style>
 <!--------  Wish List body section start------>
 <section class="wish-list-body message">
     <div class="container">
@@ -88,7 +104,7 @@
                                     <div class="col-md-6">
                                         <label class="text-dark fw-600" for="FristName"><?php echo site_phrase('work_experience') . " <b>(C)</b>"; ?></label>
                                         <div class="input-group">
-                                            <span class="input-group-text"><i class="fas fa-work"></i></span>
+                                            <span class="input-group-text"><i class="fa-solid fa-house-laptop"></i></span>
                                             <input type="text" class="form-control bg-white-2 text-14px" name="work_experience" placeholder="<?php echo site_phrase('work_experience'); ?>" value="<?php echo $user_details['work_experience']; ?>">
                                         </div>
                                     </div>
