@@ -23,4 +23,10 @@
       }
     }
 
+    @media only screen and (max-width: 767px) {
+      .container p img{
+          width: 325px !important;
+      }
+    }
+
 </style>
