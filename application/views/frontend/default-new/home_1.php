@@ -9,7 +9,7 @@
 
 	#tilt {
 		display: block;
-		height: 400px;
+		/* height: 400px; */
 		width: auto;
 		margin: 0 auto;
 		transition: box-shadow 0.1s, transform 0.1s;
@@ -18,6 +18,11 @@
 		background-repeat: no-repeat;
 		background-position: center;
 	}
+}
+@media only screen and (min-width: 768px) {
+  .upcoming_couse_section{
+    margin-top: 110px;
+  }
 }
 </style>
 <?php
@@ -128,7 +133,7 @@ if($payment_pending){
 }
 ?>
 <!---------- Banner Section Start ---------------->
-<section class="h-1-banner bannar-area pt-5">
+<section class="h-1-banner bannar-area pt-2">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-12 order-md-1 order-sm-2 order-2">
@@ -177,7 +182,7 @@ if($payment_pending){
                 </div>
             </div>
         </div>
-        <div class="bannar-card">
+        <div class="bannar-card pb-4">
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="banner-card-1">
@@ -230,7 +235,7 @@ if($payment_pending){
 <!-- Start Upcoming Courses -->
 <?php $upcoming_courses = $this->db->order_by('id', 'desc')->limit(6)->get_where('course', ['status' => 'upcoming']); ?>
 <?php if($upcoming_courses->num_rows() > 0): ?>
-    <section class="pt-110 mt-5">
+    <section class="upcoming_couse_section">
       <div class="container">
         <div class="row">
           <div class="col-lg-4">
@@ -320,7 +325,7 @@ if($payment_pending){
                     ?>
                     <div class="single-popup-course">
                         <a href="<?php echo site_url($top_course_slug); ?>" id="top_course_<?php echo $top_course['id']; ?>" class="checkPropagation courses-card-body">
-                            <div class="courses-card-image performance-hide">
+                            <div class="courses-card-image ">
                                 <img loading="lazy" src="<?php echo $this->crud_model->get_course_thumbnail_url($top_course['id']); ?>">
                                 <div class="courses-icon <?php if(in_array($top_course['id'], $my_wishlist_items)) echo 'red-heart'; ?>" id="coursesWishlistIconTopCourse<?php echo $top_course['id']; ?>">
                                     <i class="fa-solid fa-heart checkPropagation" onclick="actionTo('<?php echo site_url('home/toggleWishlistItems/'.$top_course['id'].'/TopCourse'); ?>')"></i>
@@ -463,7 +468,7 @@ if($payment_pending){
 
 
 <!---------- Top Categories Start ------------->
-<section class="top-categories performance-hide">
+<section class="top-categories">
     <div class="container">
         <div class="row">
             <div class="col-lg-3"></div>
@@ -540,7 +545,7 @@ if($payment_pending){
                     ?>
                     <div class="single-popup-course">
                         <a href="<?php echo site_url($latest_course_slug); ?>" id="latest_course_<?php echo $latest_course['id']; ?>" class="checkPropagation courses-card-body">
-                            <div class="courses-card-image performance-hide">
+                            <div class="courses-card-image ">
                                 <img loading="lazy" src="<?php echo $this->crud_model->get_course_thumbnail_url($latest_course['id']); ?>">
                                 <div class="courses-icon <?php if(in_array($latest_course['id'], $my_wishlist_items)) echo 'red-heart'; ?>" id="coursesWishlistIconLatestCourse<?php echo $latest_course['id']; ?>">
                                     <i class="fa-solid fa-heart checkPropagation" onclick="actionTo('<?php echo site_url('home/toggleWishlistItems/'.$latest_course['id'].'/LatestCourse'); ?>')"></i>
@@ -688,7 +693,7 @@ if($payment_pending){
     $top_instructor_ids = array_slice($top_instructor_ids, 0, 10);
 ?>
 <?php if(count($top_instructor_ids) > 0): ?>
-<section class="expert-instructor top-categories pb-3 performance-hide">
+<section class="expert-instructor top-categories pb-3 ">
     <div class="container">
         <div class="row">
             <div class="col-lg-3"></div>

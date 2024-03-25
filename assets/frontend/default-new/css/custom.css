@@ -919,6 +919,7 @@
 }
 .courses-card .courses-card-body .courses-text{
     padding: 15px 18px 10px 15px;
+    height: 199px;
 }
 .grid-view-body .courses-card .courses-text .review-icon{
     margin-top: -5px;
