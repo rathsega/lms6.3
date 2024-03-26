@@ -28,7 +28,7 @@
   }
 
   .form-var-tab {
-    padding: 30px;
+    padding:9px;
     max-width: none !important;
   }
 
@@ -37,7 +37,7 @@
     /* box-shadow: 0 0 10px rgba(36, 67, 40, 0.8);  */
     padding: 15px;
     border-radius: 8px;
-    width: 95%;
+    width: 70%;
     border: 1px solid #423d3d4d;
   }
 
@@ -158,7 +158,7 @@
   @media only screen and (max-width: 768px) {
     .rating-container {
       display: flex;
-      justify-content: flex-start !important;
+      /* justify-content: flex-start !important; */
     }
 
     .rating-para {
@@ -170,7 +170,9 @@
   .form-box {
     padding-top: 1px;
     padding-bottom: 29px;
+    width: 95%;
   }
+  
 
   }
 </style>
