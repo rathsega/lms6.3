@@ -2,7 +2,7 @@
 <style>
     @media all and (max-width: 500px) {
 	#tilt {
-		height: 299px;
+		height: 298px;
 	  }
 }
 @media all and (max-width: 576px) {
