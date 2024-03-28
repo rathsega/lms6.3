@@ -104,6 +104,7 @@
     font-size: 15px;
     font-weight: 600;
     line-height: 28px;
+    width: 145%;
   }
 
   /* -ratings----------- */
@@ -162,7 +163,11 @@
     }
 
     .rating-para {
-      width: 260px;
+      width: 187px;
+    line-height: 22px;
+    margin-top:13px !important;
+    font-size: 12px;
+    font-weight: 600;
     }
     .sbt_btn {
     width:45%;
