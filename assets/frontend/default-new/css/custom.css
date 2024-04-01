@@ -219,9 +219,9 @@
     .course-heading-info .info-tag .text-12px{
         margin-top: 2px !important;
     }
-    .courses-card .courses-card-body .courses-text{
+    /* .courses-card .courses-card-body .courses-text{
         height: 170px !important;
-    }
+    } */
 }
 .created-by-instructor{
     color: var(--color-9);
