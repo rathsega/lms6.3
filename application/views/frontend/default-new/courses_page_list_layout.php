@@ -91,7 +91,7 @@
                             <div class="courses-price-right ">
                                 <p class="me-2"><i class="fa-regular fa-list-alt p-0 text-15px"></i> <?php echo $course["number_of_lectures"]/*$lessons->num_rows()*/.' '.get_phrase('lessons'); ?></p>
                                 <p class="me-2"><i class="fa-regular fa-clock text-15px p-0"></i> <?php echo $course_duration; ?></p>
-                                <p><i class="fa-regular fa-clock text-15px p-0"></i> <?php echo $course_duration_in_months; ?></p>
+                                <p><i class="far fa-calendar-alt text-15px p-0"></i> <?php echo $course_duration_in_months; ?></p>
                             </div>
                         </div>
                     </div>

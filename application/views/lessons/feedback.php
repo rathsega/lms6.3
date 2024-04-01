@@ -28,7 +28,7 @@
   }
 
   .form-var-tab {
-    padding: 30px;
+    padding:9px;
     max-width: none !important;
   }
 
@@ -37,7 +37,7 @@
     /* box-shadow: 0 0 10px rgba(36, 67, 40, 0.8);  */
     padding: 15px;
     border-radius: 8px;
-    width: 95%;
+    width: 70%;
     border: 1px solid #423d3d4d;
   }
 
@@ -104,6 +104,7 @@
     font-size: 15px;
     font-weight: 600;
     line-height: 28px;
+    width: 145%;
   }
 
   /* -ratings----------- */
@@ -158,11 +159,15 @@
   @media only screen and (max-width: 768px) {
     .rating-container {
       display: flex;
-      justify-content: flex-start !important;
+      /* justify-content: flex-start !important; */
     }
 
     .rating-para {
-      width: 260px;
+      width: 187px;
+    line-height: 22px;
+    margin-top:13px !important;
+    font-size: 12px;
+    font-weight: 600;
     }
     .sbt_btn {
     width:45%;
@@ -170,7 +175,9 @@
   .form-box {
     padding-top: 1px;
     padding-bottom: 29px;
+    width: 95%;
   }
+  
 
   }
 </style>
