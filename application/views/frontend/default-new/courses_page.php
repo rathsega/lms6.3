@@ -41,3 +41,11 @@
         $('#course_filter_form').submit();
     }
 </script>
+
+<style>
+   .courses-card .courses-card-body .courses-text .courses-price {
+    margin-top: 33px;
+}
+
+    
+</style>
