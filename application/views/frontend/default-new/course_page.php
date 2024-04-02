@@ -540,7 +540,10 @@ if($ratings_count){
     background-color: rgba(0, 0, 0, 0.5);
     overflow: auto;
     }
-
+    .courses-card .courses-card-body .courses-text {
+    padding: 15px 18px 10px 15px;
+    height: 255px;
+}
     .contact_us_modal-content {
     background-color: #fefefe;
     margin: 5% auto;
