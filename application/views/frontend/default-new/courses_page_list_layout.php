@@ -40,7 +40,7 @@
             ?>
             <!-- Course List Card -->
             <a href="<?php echo site_url($course_slug); ?>" class="courses-list-view-card-body courses-card-body checkPropagation">
-                <div class="courses-card-image ">
+                <div class="courses-card-image col-md-4">
                     <img src="<?php echo $this->crud_model->get_course_thumbnail_url($course['id']); ?>">
                     <div class="courses-icon <?php if(in_array($course['id'], $my_wishlist_items)) echo 'red-heart'; ?>" id="coursesWishlistIcon<?php echo $course['id']; ?>">
                         <i class="fa-solid fa-heart checkPropagation" onclick="actionTo('<?php echo site_url('home/toggleWishlistItems/'.$course['id']); ?>')"></i>
