@@ -466,7 +466,11 @@ Last Updated: 27 Aug 2023
   background-color: #754ffe;
   color: white;
 }
-
+@media only screen and (min-width: 1024px) {
+  .courses-card .card-img-car{
+    height: 155px ;
+  }
+}
 .nb-form form {
   padding: 10px 15px 7px 18px;
     /* padding-top: 16px; */
