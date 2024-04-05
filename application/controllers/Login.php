@@ -69,8 +69,16 @@ class Login extends CI_Controller
             //$this->user_model->new_device_login_tracker($row->id);
             $this->user_model->set_login_userdata($row->id);
         } else {
-            $this->session->set_flashdata('error_message', get_phrase('invalid_login_credentials'));
-            redirect(site_url('login'), 'refresh');
+            $credential = array('email' => $email, 'status' => 3);
+            $query1 = $this->db->get_where('users', $credential);
+            // echo $query1->num_rows();
+            // var_dump($query1->num_rows());exit;
+            if($query1->num_rows() > 0){
+                $this->session->set_flashdata('error_message', get_phrase('Your account has been paused'));
+            }else{
+                $this->session->set_flashdata('error_message', get_phrase('invalid_login_credentials'));
+            }
+            redirect(site_url('login'), 'refresh');            
         }
     }
 

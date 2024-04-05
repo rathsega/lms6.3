@@ -3170,6 +3170,19 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
+    public function user_status_modification(){
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        check_permission('enrolment');
+        $page_data['enrol_user_data'] = $this->crud_model->enrolment_details();
+        $page_data['page_name'] = 'user_status_modification';
+        $page_data['page_title'] = "User Status Modification";
+        $this->load->view('backend/index', $page_data);
+    }
+
     public function course_feedback_ciriterias(){
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
@@ -3372,6 +3385,55 @@ class Admin extends CI_Controller
         $page_data['page_name'] = 'copycoursedata';
         $page_data['page_title'] = "Cart Page Visitors";
         $this->load->view('backend/index', $page_data);
+    }
+
+    public function get_user_status(){
+        $data =  $this->crud_model->get_user_status($_POST['student_id'])->result_array();
+        echo json_encode(array('data'=>$data));
+    }
+
+    public function modify_user_status(){
+        $user_id = $_POST['user_id'];
+        $current_status = $_POST['current_status'];
+        $from_date = $_POST['from_date'];
+        //$to_date = $_POST['to_date'];
+        /*if(date('Y-m-d', strtotime($from_date)) > date('Y-m-d', strtotime($to_date))){
+            $this->session->set_flashdata('error_message', get_phrase('please select correct date range'));
+            redirect(site_url('admin/user_status_modification'),'refresh');
+        }*/
+
+        $data=  [];
+        if($current_status == 1){
+            $data['status'] = 3;
+            $data['paused_from_date'] = $from_date;
+            //$data['paused_to_date'] = $to_date;
+            $this->db->where('id', $user_id);
+            $updated = $this->db->update('users', $data);
+        }else if($current_status == 3){
+            $data['status'] = 1;
+            $data['paused_from_date'] = null;
+            //$data['paused_to_date'] = null;
+            $date1=date_create($_POST['paused_from_date']);
+            $date2=date_create(date("Y-m-d"));
+            $diff=date_diff($date1,$date2);
+            if($diff->invert == 0){
+                $updated = $this->crud_model->update_enrol_expiry_date($user_id, $diff->days, $_POST['paused_from_date']);
+            }else{
+                $updated = true;
+            }
+            
+            if($updated){
+                $this->db->where('id', $user_id);
+                $updated = $this->db->update('users', $data);
+            }
+        }
+
+        if($updated){
+            $this->session->set_flashdata('flash_message', get_phrase('updated_successfully'));
+        } else {
+            $this->session->set_flashdata('error_message', get_phrase('failed_to_update'));
+        }
+        redirect(site_url('admin/user_status_modification'),'refresh');
     }
 
 }
