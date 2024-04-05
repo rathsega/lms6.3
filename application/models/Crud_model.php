@@ -5733,7 +5733,7 @@ class Crud_model extends CI_Model
         LEFT JOIN cart_page_visitors v ON u.id = v.user_id
         LEFT JOIN course as c ON c.id = v.course_id 
         LEFT JOIN enrol e ON u.id = e.user_id AND v.course_id = e.course_id
-        WHERE v.course_id IS NOT NULL AND e.course_id IS NULL order by v.id desc");
+        WHERE v.course_id IS NOT NULL AND e.course_id IS NULL group by v.user_id, v.course_id order by v.id desc");
         //return $this->db->query("
         //SELECT CONCAT(u.first_name, u.last_name) as name, u.email, u.phone, c.title, cv.datetime from cart_page_visitors as cv left join course as c on c.id = cv.course_id left join users as u on u.id = cv.user_id order by cv.datetime desc ");
     }
