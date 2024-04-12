@@ -46,7 +46,7 @@
                                                     </a>
               </li> -->
 
-            <a href="#" class="invisible so-icons" onclick="actionTo('<?php echo site_url('home/dark_and_light_mode') ?>')"><i class="fas fa-moon"></i></a>
+            <!-- <a href="#" class="invisible so-icons" onclick="actionTo('<?php echo site_url('home/dark_and_light_mode') ?>')"><i class="fas fa-moon"></i></a> -->
               <?php if($facebook): ?>
                 <li class="nav-item">
                   <a target="_blank" href="<?php echo $facebook; ?>"><i class="fa-brands fa-facebook-f"></i></a>
@@ -57,14 +57,14 @@
                   <a target="_blank" href="<?php echo $twitter; ?>"><i class="fa-brands fa-twitter"></i></a>
                 </li>
               <?php endif; ?>
+                 
               <?php if($linkedin): ?>
                 <li class="nav-item">
                   <a target="_blank" href="<?php echo $linkedin; ?>"><i class="fa-brands fa-linkedin"></i></a>
                 </li>
               <?php endif; ?>
-
-
-              
+              <!-- <i class="fa-brands fa-x-twitter"></i> -->
+              <i class="fa-brands fa-square-instagram"></i>  
             </ul>
           </div>
         </div>
@@ -137,6 +137,7 @@
 </header>
 <!---------- Header Section End  ---------->
 <style>
+
 	    html {
           touch-action: manipulation;
         }
@@ -153,6 +154,9 @@
     border-radius: 10px;
     width: 66%;
 
+}
+.fa-x-twitter:before {
+    content: "\e61b";
 }
 .iso_mark{
   height:40px;
@@ -232,7 +236,7 @@
  .blink2{
   position: absolute ;
     margin-top: 7px;
-    right: 20% ; 
+    right: 26% ; 
  } 
   /* button:hover {
     background-color: #45a049;
