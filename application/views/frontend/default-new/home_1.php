@@ -18,12 +18,15 @@
 		background-repeat: no-repeat;
 		background-position: center;
 	}
+
 }
 @media only screen and (min-width: 768px) {
   .upcoming_couse_section{
     margin-top: 110px;
   }
+
 }
+
 </style>
 <?php
 /**
@@ -159,7 +162,7 @@ if($payment_pending){
             <div class="col-lg-6">
                 <div class="students-rating">
                     <div class="row">
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-3">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-2">
                             <?php $all_students = $this->db->get_where('users', ['role_id !=' => 1]); ?>
                             <h1><?php echo nice_number($all_students->num_rows()); ?>+</h1>
                         </div>
