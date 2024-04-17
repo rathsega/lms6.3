@@ -16,6 +16,8 @@ if($language_dirs){
 	<?php if ($page_name == 'course_page'):
 		$title = $this->crud_model->get_course_by_id($course_id)->row_array()?>
 		<title><?php echo $title['title'].' | '.get_settings('system_name'); ?></title>
+	<?php elseif ($page_name == 'home'): ?>
+		<title><?php echo get_settings('system_name')  .' | Where Learning Meets Innovation'; ?></title>
 	<?php else: ?>
 		<title><?php echo ucwords($page_title).' | '.get_settings('system_name'); ?></title>
 	<?php endif; ?>
