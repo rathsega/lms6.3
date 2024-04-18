@@ -3528,7 +3528,7 @@ class Admin extends CI_Controller
         $to_date = $_POST['to_date'];
         $user_id = $_POST['user_id'];
 
-        if($this->check_date_overlap($from_date, $to_date, $user_id)){
+        if($this->check_date_overlap($from_date, $to_date, $user_id, $id)){
             $this->session->set_flashdata('error_message', get_phrase('A record already exists with overlapping dates.'));
         }else{
             $data = [];
@@ -3547,12 +3547,15 @@ class Admin extends CI_Controller
         
     }
 
-    public function check_date_overlap($from_date, $to_date, $user_id) {
+    public function check_date_overlap($from_date, $to_date, $user_id, $id=null) {
         $this->db->select('*');
         $this->db->from('pause_user');
         $this->db->where('user_id', $user_id);
         $this->db->where('to_date >=', $from_date);
         $this->db->where('from_date <=', $to_date);
+        if($id){
+            $this->db->where('id !=', $id); 
+        }
 
         $query = $this->db->get();
         return $query->num_rows();
