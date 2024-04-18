@@ -3170,6 +3170,34 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
+    public function pause_user(){
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        check_permission('enrolment');
+        $page_data['enrol_user_data'] = $this->crud_model->enrolment_details();
+        $page_data['logs'] = $this->crud_model->getAllPausedUserLog();
+        $page_data['page_name'] = 'pause_user';
+        $page_data['page_title'] = "Pause User";
+        $this->load->view('backend/index', $page_data);
+    }
+
+    public function update_pause_user($id){
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        check_permission('enrolment');
+        $page_data['enrol_user_data'] = $this->crud_model->getPauseRecord($id);
+        $page_data['data'] = $this->crud_model->getAllPausedUserLog()->row();
+        $page_data['page_name'] = 'update_pause_user';
+        $page_data['page_title'] = "Update Pause User";
+        $this->load->view('backend/index', $page_data);
+    }
+
     public function user_status_modification(){
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
@@ -3179,7 +3207,7 @@ class Admin extends CI_Controller
         check_permission('enrolment');
         $page_data['enrol_user_data'] = $this->crud_model->enrolment_details();
         $page_data['page_name'] = 'user_status_modification';
-        $page_data['page_title'] = "User Status Modification";
+        $page_data['page_title'] = "Pause / Resume User";
         $this->load->view('backend/index', $page_data);
     }
 
@@ -3392,7 +3420,7 @@ class Admin extends CI_Controller
         echo json_encode(array('data'=>$data));
     }
 
-    public function modify_user_status(){
+    public function modify_user_status_old(){
         $user_id = $_POST['user_id'];
         $current_status = $_POST['current_status'];
         $from_date = $_POST['from_date'];
@@ -3434,6 +3462,100 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('error_message', get_phrase('failed_to_update'));
         }
         redirect(site_url('admin/user_status_modification'),'refresh');
+    }
+
+    public function modify_user_status(){
+        $user_id = $_POST['user_id'];
+        $current_status = $_POST['current_status'];
+        $from_date = $_POST['from_date'];
+        $to_date = $_POST['to_date'];
+        if(date('Y-m-d', strtotime($from_date)) > date('Y-m-d', strtotime($to_date))){
+            $this->session->set_flashdata('error_message', get_phrase('please select correct date range'));
+            redirect(site_url('admin/user_status_modification'),'refresh');
+        }
+
+        if($this->check_date_overlap($from_date, $to_date, $user_id)){
+            $this->session->set_flashdata('error_message', get_phrase('A record already exists with overlapping dates.'));
+        }else{
+            $data=  [];
+            //update user status as paused if from date and today are same
+            if(date("Y-m-d") == $from_date){
+                $data['status'] = 3;            
+                $this->db->where('id', $user_id);
+                $this->db->update('users', $data);
+            }
+            
+
+            //insert paused dates into pause user table
+            $data = [];
+            $data['from_date'] = $from_date;
+            $data['to_date'] = $to_date;
+            $data['user_id'] = $user_id;
+            $updated = $this->db->insert("pause_user", $data);
+
+            if($updated){
+                $this->session->set_flashdata('flash_message', get_phrase('updated_successfully'));
+            } else {
+                $this->session->set_flashdata('error_message', get_phrase('failed_to_update'));
+            }
+        }
+
+        
+        redirect(site_url('admin/pause_user'),'refresh');
+    }
+
+    public function update_user_status_automatically(){
+
+    }
+
+    
+    public function pause_user_log(){
+        $page_data['page_name'] = 'pause_user_log';
+        $page_data['page_title'] = "Pause Use Log";
+        $page_data['logs'] = $this->crud_model->getAllPausedUserLog();
+        $this->load->view('backend/index', $page_data);
+    }
+
+    public function delete_pause_user($id){
+        $this->db->where('id', $id);
+        $this->db->delete('pause_user');
+        $this->session->set_flashdata('flash_message', get_phrase('deleted_successfully'));
+        redirect(site_url('admin/pause_user'),'refresh');
+    }
+
+    public function update_pause_user_record($id){
+        $from_date = $_POST['from_date'];
+        $to_date = $_POST['to_date'];
+        $user_id = $_POST['user_id'];
+
+        if($this->check_date_overlap($from_date, $to_date, $user_id)){
+            $this->session->set_flashdata('error_message', get_phrase('A record already exists with overlapping dates.'));
+        }else{
+            $data = [];
+            $data['from_date'] = $from_date;
+            $data['to_date'] = $to_date;
+            $this->db->where('id', $id);
+            $updated = $this->db->update('pause_user', $data);
+            if($updated){
+                $this->session->set_flashdata('flash_message', get_phrase('updated_successfully'));
+            } else {
+                $this->session->set_flashdata('error_message', get_phrase('failed_to_update'));
+            }
+        }
+        redirect(site_url('admin/pause_user'),'refresh');
+
+        
+    }
+
+    public function check_date_overlap($from_date, $to_date, $user_id) {
+        $this->db->select('*');
+        $this->db->from('pause_user');
+        $this->db->where('user_id', $user_id);
+        $this->db->where('to_date >=', $from_date);
+        $this->db->where('from_date <=', $to_date);
+
+        $query = $this->db->get();
+        return $query->num_rows();
     }
 
 }
