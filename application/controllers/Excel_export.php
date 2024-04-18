@@ -265,4 +265,37 @@ class Excel_export extends CI_Controller
         $str = preg_replace("/\r?\n/", "\\n", $str);
         if (strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"';
     }
+
+    function pauseduserlog(){
+        $paused_users_data = [];
+        $paused_users_data = $this->crud_model->getAllPausedUserLog();
+        // File Name & Content Header For Download
+        $file_name = "paused_users_data.xls";
+        header("Content-Disposition: attachment; filename=\"$file_name\"");
+        header("Content-Type: application/vnd.ms-excel");
+
+        //To define column name in first row.
+        $column_names = false;
+        $data = [];
+        foreach ($paused_users_data->result_array()  as $paused_users) {
+            // generate csv lines from the inner arrays
+            $line = [];
+            $line["Name"] =  $paused_users['name'];
+            $line["Email"] =  $paused_users['email'];
+            $line["Phone"] =  $paused_users['phone'];
+            $line["From Date"] =  date('d-m-Y',strtotime($paused_users['from_date']));
+            $line["To Date"] =  date('d-m-Y',strtotime($paused_users['to_date']));
+            $data[] = $line;
+        }
+        // run loop through each row in $customers_data
+        foreach ($data  as $row) {
+            if (!$column_names) {
+                echo implode("\t", array_keys($row)) . "\n";
+                $column_names = true;
+            }
+            // The array_walk() function runs each array element in a user-defined function.
+            //array_walk($row, 'filterCustomerData');
+            echo implode("\t", array_values($row)) . "\n";
+        }
+    }
 }

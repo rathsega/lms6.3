@@ -2,7 +2,9 @@
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="page-title"> <i class="mdi mdi-apple-keyboard-command title_icon"></i> <?php echo get_phrase('enrol_history'); ?></h4>
+                <h4 class="page-title"> <i class="mdi mdi-apple-keyboard-command title_icon"></i> <?php echo get_phrase('enrol_history'); ?>
+                <a href="<?php echo base_url(); ?>excel_export/action" class="btn btn-outline-primary btn-rounded alignToTitle"><?php echo get_phrase('download'); ?></a>
+                </h4>
             </div> <!-- end card body-->
         </div> <!-- end card -->
     </div><!-- end col-->
@@ -30,11 +32,6 @@
                               <button type="submit" class="btn btn-info" id="submit-button" onclick="update_date_range();"> <?php echo get_phrase('filter');?></button>
                           </div>
                       </form>
-                      <form class="form-inline" action="<?php echo base_url(); ?>excel_export/action" method="get">
-                        <div class="col-xl-1">
-                              <button type="submit" class="btn btn-info" id="submit-button"> <?php echo "Download";?></button>
-                        </div>
-                    </form>
                   </div>
               </div>
               <div class="table-responsive-sm mt-4">

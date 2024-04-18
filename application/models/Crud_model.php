@@ -5806,12 +5806,12 @@ class Crud_model extends CI_Model
     }
 
     public function enrolment_details(){
-        $query = "SELECT u.id, u.first_name, u.last_name, u.status, u.email, e.expiry_date, c.title FROM users u INNER JOIN enrol e ON u.id = e.user_id Inner join course c on c.id = e.course_id WHERE (u.status = 1 AND e.expiry_date > NOW()) OR (u.status = 3 AND e.expiry_date > u.paused_from_date)";
+        $query = "SELECT u.id, u.first_name, u.last_name, u.status, u.email, e.expiry_date, c.title FROM users u INNER JOIN enrol e ON u.id = e.user_id Inner join course c on c.id = e.course_id WHERE (u.status = 1 AND e.expiry_date > NOW()) OR (u.status = 3)";
         return $this->db->query($query)->result_array();
     }
 
     public function enrolled_users(){
-        $query = "SELECT u.id, u.first_name, u.last_name, u.status, u.email, u.paused_from_date, u.paused_to_date, e.expiry_date, c.title FROM users u INNER JOIN enrol e ON u.id = e.user_id Inner join course c on c.id = e.course_id WHERE (u.status = 1 AND e.expiry_date > NOW()) OR (u.status = 3 AND e.expiry_date > u.paused_from_date) group by u.id";
+        $query = "SELECT u.id, u.first_name, u.last_name, u.status, u.email, u.paused_from_date, u.paused_to_date, e.expiry_date, c.title FROM users u INNER JOIN enrol e ON u.id = e.user_id Inner join course c on c.id = e.course_id WHERE (u.status = 1 AND e.expiry_date > NOW()) OR (u.status = 3) group by u.id";
         return $this->db->query($query)->result_array();
     }
 
@@ -5824,6 +5824,15 @@ class Crud_model extends CI_Model
         $query = "UPDATE enrol
         SET expiry_date = DATE_ADD(expiry_date, INTERVAL $days DAY)
         WHERE expiry_date > $paused_from_date and user_id = $user_id";
+        return $this->db->query($query);
+    }
+
+    public function getAllPausedUserLog(){
+        return $this->db->query("SELECT p.*, CONCAT(u.first_name, ' ', u.last_name) as name, u.email, u.phone, u.id as user_id  from pause_user as p inner join users as u on u.id = p.user_id order by p.id desc ");
+    }
+
+    public function getPauseRecord($id){
+        $query = "select  pu.*, CONCAT(u.first_name, ' ', u.last_name) as name, u.id as user_id, u.email, u.status from pause_user as pu  left join users as u on u.id=pu.user_id  where pu.id=".$id;
         return $this->db->query($query);
     }
 }

@@ -20,6 +20,7 @@ class Login extends CI_Controller
 
         //Check custom session data
         $this->user_model->check_session_data();
+        $this->update_user_status();
     }
 
     public function index()
@@ -358,6 +359,88 @@ class Login extends CI_Controller
         } else {
             echo false;
         }
+    }
+
+    function updateUserStatusAsPause(){
+        // Get today's date in 'Y-m-d' format
+        $today = date('Y-m-d');
+
+        // Build a subquery to find user_ids from pause_user where from_date is today
+        $this->db->select('user_id')->from('pause_user')
+                 ->where('from_date', $today);
+        $subQuery = $this->db->get_compiled_select();
+
+        // Update users' status to 3 where their ID is in the subquery results
+        $this->db->where("id IN ($subQuery)", NULL, FALSE);
+        $this->db->update('users', ['status' => 3]);
+
+        // Optional: return affected rows or success status
+        return $this->db->affected_rows();
+    }
+
+    
+    function updateUserStatusAsResume(){
+        // Get today's date in 'Y-m-d' format
+        $yesterday = date('Y-m-d', strtotime('-1 day'));
+
+        // Build a subquery to find user_ids from pause_user where from_date is today
+        $this->db->select('user_id')->from('pause_user')
+                 ->where('to_date', $yesterday);
+        $subQuery = $this->db->get_compiled_select();
+
+        // Update users' status to 1 where their ID is in the subquery results
+        $this->db->where("id IN ($subQuery)", NULL, FALSE);
+        $this->db->update('users', ['status' => 1]);
+
+        // Optional: return affected rows or success status
+        return $this->db->affected_rows();
+    }
+
+    public function update_user_status()
+    {
+        // Get today's date and yesterday's date in 'Y-m-d' format
+        $today = date('Y-m-d');
+        $yesterday = date('Y-m-d', strtotime('-1 day'));
+
+        // Begin transaction
+        $this->db->trans_start();
+
+        // Update users' status to 3 where their ID is in the subquery for from_date = today
+        $this->db->where("id IN (SELECT user_id FROM pause_user WHERE from_date = '{$today}')", NULL, FALSE);
+        $this->db->update('users', ['status' => 3]);
+
+        // Update users' status to 1 where their ID is in the subquery for to_date = yesterday
+        $this->db->where("id IN (SELECT user_id FROM pause_user WHERE to_date = '{$yesterday}')", NULL, FALSE);
+        $this->db->update('users', ['status' => 1]);
+
+        if($this->db->affected_rows()){
+            $this->db->where("to_date = '{$yesterday}'");
+            $resumed_users = $this->db->get('pause_user');
+
+            foreach($resumed_users->result_array() as $resumed_user){
+                $date1=date_create($resumed_user["from_date"]);
+                $date2=date_create($resumed_user["to_date"]);
+                $diff=date_diff($date1,$date2);
+                if($diff->invert == 0){
+                    $this->crud_model->update_enrol_expiry_date($resumed_user["user_id"], $diff->days, $resumed_user["from_date"]);
+                }
+            }
+        }
+        
+        
+
+        // Commit transaction
+        $this->db->trans_complete();
+
+        log_message("error", "trans status" . $this->db->trans_status());
+
+        if ($this->db->trans_status() === FALSE) {
+            // Handle error
+            return false;
+        }
+
+        // Optional: return affected rows or success status
+        return $this->db->affected_rows();
     }
 
 }
