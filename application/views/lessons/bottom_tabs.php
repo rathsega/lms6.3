@@ -27,7 +27,7 @@
   <?php if(addon_status('noticeboard')): ?>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="noticeboard-tab" onclick="load_course_notices('<?= $course_id; ?>')" data-bs-toggle="tab" data-bs-target="#noticeboard-content" type="button" role="tab" aria-controls="noticeboard-content" aria-selected="true">
-        <?php echo get_phrase('Noticeboard'); ?>
+        <?php echo get_phrase('Lab'); ?>
         <span></span>
       </button>
     </li>
