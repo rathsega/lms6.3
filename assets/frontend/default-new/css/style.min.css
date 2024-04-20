@@ -728,3 +728,6 @@ Last Updated: 27 Aug 2023
       opacity: 1;
     }
   }
+.cirriculum-card ul span{
+  white-space:nowrap;
+}
