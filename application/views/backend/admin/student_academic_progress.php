@@ -37,7 +37,7 @@
           </td>
           <td>
             <div class="progress">
-
+              <?php  $course_progress = ceil((100/$total_lesson)*count($completed_lesson));  ?>
               <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $course_progress; ?>%;" aria-valuenow="<?php echo $course_progress; ?>" aria-valuemin="0" aria-valuemax="100"><?php echo $course_progress; ?>%</div>
             </div>
             <p class="my-0 mt-1">- <?php echo get_phrase('Completed lesson').' '.count($completed_lesson).' '.get_phrase('out of').' '.$total_lesson; ?></p>
@@ -46,7 +46,7 @@
               $total_watched_duration = 0; //seconds
               $watched_durations = $this->db->get_where('watched_duration', ['watched_student_id' => $enrolment['user_id'], 'watched_course_id' => $course_details['id']]);
               foreach($watched_durations->result_array() as $watched_duration){
-                $total_watched_duration += array_sum(json_decode($watched_duration['watched_counter'], true));
+                $total_watched_duration += (count(json_decode($watched_duration['watched_counter'], true))*5);
               }
             ?>
 
