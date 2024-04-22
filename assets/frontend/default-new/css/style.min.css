@@ -731,3 +731,41 @@ Last Updated: 27 Aug 2023
 .cirriculum-card ul span{
   white-space:nowrap;
 }
+.manual_invoice{
+  font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif !important;
+
+}
+.invoice-pic{
+  width:65%;
+  height: auto;
+}
+.tech_logo{
+  width:35%;
+  height: auto;
+}
+.main-invoice{
+  margin:95px;
+  margin-top: 30px !important;
+}
+/* .table>:not(caption)>*>* {
+  border-bottom-width: 1.7px !important;
+} */
+.invoice-details{
+  margin: 80px;
+  margin-top:30px;
+}
+.horizontal{
+  border:1.7px solid #0569ec !important;
+}
+tbody, td, tfoot, th, thead, tr {
+  border-style: solid;
+  border-width: 0;
+}
+/* .table>:not(caption)>*>* {
+  padding: 1rem .5rem !important;
+} */
+
+.course-hisrory_n{
+    max-width: 70%;
+    margin-left: auto;
+}

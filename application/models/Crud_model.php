@@ -2401,6 +2401,7 @@ class Crud_model extends CI_Model
         $data = [];
         $data['installment_details'] = json_encode($installment);
         $data['expiry_date']   = date('Y-m-d',strtotime($this->input->post('expiry_date')));
+        $data['course_fee']  = $this->input->post('course_fee');
         $payment_amount = $this->input->post('payment_amount');
         foreach($users_id as $user_id){
 
@@ -2427,6 +2428,18 @@ class Crud_model extends CI_Model
                         $payment_data['amount'] = $payment_amount;
                         $payment_data['datetime'] = date('Y-m-d H:i:s', time());
                         $this->db->insert('manual_payments', $payment_data);
+
+                        /*//Add payment details in payment
+                        $payment_data = [];
+                        $payment_data['user_id'] = $user_id;
+                        $payment_data['payment_type'] = "manual";
+                        $payment_data['course_id'] = $course_id;
+                        $payment_data['amount'] = $payment_amount;
+                        $payment_data['admin_revenue'] = $payment_amount;
+                        $payment_data['instructor_revenue'] = 0;
+                        $payment_data['instructor_payment_status'] = 1;
+                        $payment_data['date_added'] = time();
+                        $this->db->insert('payment', $payment_data);*/
                     }
                 }else{
                     $data['last_modified'] = time();
@@ -5290,6 +5303,7 @@ class Crud_model extends CI_Model
         $installment[2]['amount']   = $this->input->post("installment_3_amount");
         $data['installment_details'] = json_encode($installment);
         $data['expiry_date']   = date('Y-m-d',strtotime($this->input->post('expiry_date')));
+        $data['course_fee']  = $this->input->post('course_fee');
         
         $this->db->where('id', $enrol_id);
         $this->db->update('enrol', array("expiry_date"=>$data["expiry_date"], 'installment_details'=>$data['installment_details']));
@@ -5834,5 +5848,10 @@ class Crud_model extends CI_Model
     public function getPauseRecord($id){
         $query = "select  pu.*, CONCAT(u.first_name, ' ', u.last_name) as name, u.id as user_id, u.email, u.status from pause_user as pu  left join users as u on u.id=pu.user_id  where pu.id=".$id;
         return $this->db->query($query);
+    }
+
+    public function get_manual_payments_by_enrolment_id($enrolment_id){
+        $query = "SELECT e.user_id, e.course_id, c.title, c.price, e.course_fee, e.id, e.date_added, mp.amount, mp.datetime FROM `manual_payments` as mp left join enrol as e on e.id = mp.enrolment_id inner join course as c on c.id = e.course_id where e.id=".$enrolment_id;
+        return $this->db->query($query)->result_array();
     }
 }

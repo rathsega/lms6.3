@@ -48,9 +48,16 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="course_fee"><?php echo get_phrase('course_fee'). " <b>(C)</b>"; ?></label>
+                        <div class="row">
+                            <input type="number" class="form-control col-md-12 col-lg-12" placeholder="Course fee" name="course_fee" id="course_fee">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label for="payment_amount"><?php echo get_phrase('payment_amount'). " <b>(C)</b>"; ?></label>
                         <div class="row">
-                            <input type="number" class="form-control col-md-6 col-lg-6" placeholder="Payment amount" name="payment_amount" id="payment_amount">
+                            <input type="number" class="form-control col-md-12 col-lg-12" placeholder="Payment amount" name="payment_amount" id="payment_amount">
                         </div>
                     </div>
 

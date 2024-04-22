@@ -1369,6 +1369,22 @@ class Home extends CI_Controller
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
     }
 
+    public function manual_payment_invoice($enrolment_id = '')
+    {
+        if ($this->session->userdata('user_login') != 1) {
+            redirect('home', 'refresh');
+        }
+        $purchase_history = $this->crud_model->get_manual_payments_by_enrolment_id($enrolment_id);
+        //var_dump($purchase_history);exit;
+        if ($purchase_history[0]['user_id'] != $this->session->userdata('user_id')) {
+            redirect('home', 'refresh');
+        }
+        $page_data['purchase_history'] = $purchase_history;
+        $page_data['page_name'] = 'manual_payment_invoice';
+        $page_data['page_title'] = 'invoice';
+        $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
+    }
+
     /** COURSE COMPARE STARTS */
     public function compare()
     {
