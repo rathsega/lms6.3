@@ -2259,4 +2259,11 @@ class Home extends CI_Controller
         }
     }
 
+    public function thankyou(){
+        $page_data['page_name'] = 'thank_you';
+        $page_data['page_title'] = site_phrase('thank_you');
+        
+        $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
+    }
+
 }

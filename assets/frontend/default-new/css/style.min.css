@@ -769,3 +769,25 @@ tbody, td, tfoot, th, thead, tr {
     max-width: 70%;
     margin-left: auto;
 }
+
+.thank-you-img{
+  height: 450px;
+}
+.ty-heading{
+  font-size: 60px;
+  color: #754FFE;
+}
+.ty-para{
+  color: black;
+  font-size: 18px;
+  font-weight:400;
+}
+.back-h{
+  background-color: #754FFE !important;
+  
+}
+@media screen and (max-width:767px){
+  .mbile-ty{
+      margin-left:60px;
+  }
+}

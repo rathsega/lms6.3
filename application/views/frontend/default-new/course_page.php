@@ -982,10 +982,11 @@ if($ratings_count){
         xhr.onload = function() {
         if (xhr.status === 200) {
             // Request was successful
-            alert( xhr.responseText);
+            //alert( xhr.responseText);
             if( xhr.responseText == 'Thank You For Contacting Us for Demo.'){
                 // Optionally, reset the form after successful submission
                 $('#demoRequestForm')[0].reset();
+                window.location.href = "<?php echo site_url('home/thankyou'); ?>";
             }
             
 
@@ -1050,10 +1051,11 @@ if($ratings_count){
         xhr.onload = function() {
         if (xhr.status === 200) {
             // Request was successful
-            alert( xhr.responseText);
+            //alert( xhr.responseText);
             if( xhr.responseText == 'Thank You For Contacting Us for Demo.'){
                 // Optionally, reset the form after successful submission
                 $('#demoRequestFormTwo')[0].reset();
+                window.location.href = "<?php echo site_url('home/thankyou'); ?>";
             }
             
 
