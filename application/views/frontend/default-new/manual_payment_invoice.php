@@ -1,4 +1,24 @@
-<div class="container col-md-7 col-12 shadow p-3 mb-5 bg-white mt-5 manual_invoice">
+<style>
+    .invoice-carui{
+        width: 1000px;
+    }
+@media screen and (max-width:767px){
+  .mobile-invoice-ui {
+    display: contents !important;
+  }
+  .tech_logo{
+    width:95% !important;
+  }
+  .invoice-carui {
+    width: 390px;
+    }
+    .main-invoice {
+    margin: 21px;
+    margin-top: 30px !important;
+}
+}
+</style>
+<div class="container invoice-carui col-md-7 col-12 shadow p-3 mb-5 bg-white manual_invoice">
     <div class="row" id="contentToPrint">
         <div class="col-lg-12">
             <div class="main-invoice">
@@ -8,41 +28,63 @@
                         <div class="mb-4">
                             <img src="<?php echo site_url('uploads/system/' . get_frontend_settings('dark_logo')) ?>" alt="" class="tech_logo">
                         </div>
-                        <div class="text-end col-12 pt-2" id="extra_image">
-                            <img src="<?php echo site_url('assets/frontend/default-new/image/custom_invoice.png') ?>" alt="" class="invoice-pic">
+                        <div class="text-end col-12 pt-2 d-none d-md-block" id="extra_image">
+                        <img src="<?php echo site_url('assets/frontend/default-new/image/custom_invoice.png') ?>" alt="" class="invoice-pic">
                         </div>
-                    </div>
+                        </div>
 
                     <!-- <hr class="my-4"> -->
 
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <div>
-                                <!-- <h5 class="font-size-16 "><span class="fw-bold text-primary">Accounting</span> Services</h5> -->
-                                <h5 class="font-size-15 mb-1 ">Invoice #<?php echo $purchase_history[0]['date_added']; ?> </h5>
-                                <h5 class="font-size-15 mb-1 ">Date: <?php echo date("j F, Y", $purchase_history[0]['date_added']); ?></h5>
-                                <!-- <p class="mb-1">Hyderbad, 500001</p>
-                                <p>001-234-5678</p> -->
-                                <h6 class=" mb-1  mt-2"> Course Name: <?php echo $purchase_history[0]['title']; ?></h6>
-                                <p>Actual Price: <?php echo currency($purchase_history[0]['amount']); ?></p>
-                                <p>Discount: <?php echo currency($purchase_history[0]['course_fee']); ?></p>
-
-                            </div>
+                    
+                    <div class="mobile-invoice-ui" style="display: flex; justify-content: space-between;margin-top:60px;">
+                        <div style="flex-basis: 65%;">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" style="text-align: left;">Invoice:</th>
+                                        <td>#<?php echo $purchase_history[0]['date_added']; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align: left;">Date:</th>
+                                        <td><?php echo date("j F, Y", $purchase_history[0]['date_added']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align: left;">Course Name:</th>
+                                        <td><?php echo $purchase_history[0]['title']; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align: left;">Actual Price:</th>
+                                        <td><?php echo currency($purchase_history[0]['amount']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align: left;">Discount:</th>
+                                        <td><?php echo currency($purchase_history[0]['course_fee']); ?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <!-- end col -->
-                        <div class="col-sm-4">
-                            <div class="mt-4">
-                                <div class="">
-                                    <div>
-                                        <h5 class="font-size-15 mb-1">Billed To: John Deo</h5>
-                                        <p class="font-size-15">Student ID: #466545</p>
-                                        <p class="font-size-15">Address: Hyderabad , 507111</p>
-
-                                    </div>
-                                </div>
-
-                            </div>
+                        <div style="flex-basis: 48%;">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" style="text-align: left;">Billed To:</th>
+                                        <td>John Deo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align: left;">Student ID:</th>
+                                        <td>#466545</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align: left;">Address:</th>
+                                        <td>Hyderabad, 507111</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
+
+                  
+
                         <h4 class="fw-bold pt-4 text-primary"># Payment details</h4>
                         <hr class="my-4 horizontal">
                         <!-- end col -->
@@ -59,52 +101,37 @@
                         <!-- <h5 class="font-size-15">Order Summary :</h5> -->
 
                         <div class="table-responsive">
-                            <table class="table align-middle table-nowrap table-centered mb-0">
-                                <thead>
+                        <table class="table align-middle table-nowrap table-centered mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:left; width: 120px;" style="width: 70px;">S.No</th>
+                                    <th style="text-align:left; width: 685px;">Course Name</th>
+                                    <th style="text-align:left; width: 680px;">Payment Date</th>
+                                    <th style="text-align:left;width: 120px;">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($purchase_history as $key => $payment) : ?>
                                     <tr>
-                                        <th style="width: 70px;">S.No</th>
-                                        <th>Course Name</th>
-                                        <th>Paymenyt Date</th>
-                                        <th class="text-end" style="width: 120px;">Amount</th>
+                                        <td style="text-align:left;"><?php echo ++$key; ?></td>
+                                        <td style="text-align:left;width:220px;"><?php echo $payment['title']; ?></td>
+                                        <td style="text-align:left;width:220px;"><?php echo date("j F, Y H:i", strtotime($payment['datetime'])); ?></td>
+                                        <td style="text-align:left;width:220px;"><?php echo currency($payment['amount']); ?></td>
                                     </tr>
-                                </thead><!-- end thead -->
-                                <tbody>
-                                    <?php foreach ($purchase_history as $key => $payment) : ?>
-                                        <tr>
-                                            <th scope="row"><?php echo ++$key; ?></th>
-                                            <td>
-                                                <div>
-                                                    <h6 class="text-truncate mb-1"><?php echo $payment['title']; ?> </h6>
+                                <?php endforeach; ?>
+                                <tr >
+                                <td colspan="3" style="text-align: right;color:#0d6efd;" class=" fw-semibold">Sub Total:</td>
+                                <td style="text-align:left;"><?php echo currency($total_paid_amount); ?></td>
+                                </tr>
 
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div>
-                                                    <h6 class="text-truncate mb-1"><?php echo date("j F, Y H:i", strtotime($payment['datetime'])); ?> </h6>
-
-                                                </div>
-                                            </td>
-                                            <td class="text-end"><?php echo currency($payment['amount']); ?></td>
-                                        </tr>
-                                        <!-- end tr -->
-                                    <?php endforeach; ?>
-
-
-                                    <tr>
-                                        <th scope="row" colspan="3" class="text-end">Sub Total</th>
-                                        <td class="text-end"><?php echo currency($total_paid_amount); ?></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row" colspan="3" class=" text-end fw-semibold">Total</th>
-                                        <td class=" text-end">
-                                            <h4 class="m-0 fw-semibold"><?php echo currency($total_paid_amount); ?></h4>
-                                        </td>
-                                    </tr>
-
-                                </tbody><!-- end tbody -->
-                            </table><!-- end table -->
+                                <tr>
+                                    <td colspan="3" style="text-align: right;color:#0d6efd;" style="text-align:right;" class=" fw-semibold">Total:</td>
+                                    <td  style="text-align:left;"><?php echo currency($total_paid_amount); ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
                         </div>
+
 
 
                         <?php if ($purchase_history[0]['course_fee'] > $total_paid_amount) : ?>
@@ -140,7 +167,7 @@
                 </div>
             </div>
             <div>
-                <h5 class="font-size-15 mb-1 text-center">This inovice is computer generated</h5>
+                <h5 class="font-size-15 mb-1 text-center" style="text-align:center;">This inovice is computer generated</h5>
             </div>
 
         </div><!-- end col -->
