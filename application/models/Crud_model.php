@@ -5385,7 +5385,7 @@ class Crud_model extends CI_Model
     public function get_total_duration_of_lesson_by_chapter_id($chapter_id)
     {
         $total_duration = 0;
-        $lessons = $this->crud_model->get_lessons('chapter', $chapter_id)->result_array();
+        $lessons = $this->crud_model->get_lessons('chapters', $chapter_id)->result_array();
         foreach ($lessons as $lesson) {
             if ($lesson['lesson_type'] != "other" && $lesson['lesson_type'] != "text") {
                 $time_array = explode(':', $lesson['duration']);
@@ -5477,7 +5477,7 @@ class Crud_model extends CI_Model
         $this->db->delete('section');
 
         $this->db->where('course_id', $course_id);
-        $this->db->delete('chapter');
+        $this->db->delete('chapters');
 
         $this->db->where('course_id', $course_id);
         $this->db->delete('lesson');

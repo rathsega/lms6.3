@@ -308,7 +308,7 @@
                 $('#contactForm1')[0].reset();
                 contactModal1.style.display = 'none';
                 localStorage.setItem("dataSubmitted", true);
-                window.location.href = "<?php echo site_url('home/thankyou'); ?>";
+                window.location.href = "<?php echo site_url('thankyou'); ?>";
             }
             
 

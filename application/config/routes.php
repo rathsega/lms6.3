@@ -74,7 +74,7 @@ $route['ebook_manager/payment_history'] = "addons/ebook_manager/payment_history"
 $route['ebook_manager/category'] = "addons/ebook_manager/category";
 $route['ebook/buy/(:any)'] = "addons/ebook/buy/$1";
 $route['home/my_ebooks'] = "addons/ebook/my_ebooks";
-$route['home/thankyou'] = "home/thankyou";
+$route['thankyou'] = "home/thankyou";
 //end ebook
 
 //BLog
@@ -95,7 +95,7 @@ $route['schedules_bookings/(:any)'] = "addons/tutor_booking/tutor_details/$1";
 $route['my_bookings'] = "addons/tutor_booking/booked_schedules_student";
 //End tutor booking
 
-$existed_segments = ["translate_uri_dashes","thankyou","addons","bundle_details","default_controller", "certificate", "404_override","home", "ebook", "ebook_manager", "course_bundles", "my_bookings", "schedules_bookings", "tutor", "tutors", "page", "blogs","login","admin","payment","sign_up","blog","modal", "install", "assets", "excel_export", "favicon.ico", "user","uploads"];
+$existed_segments = ["translate_uri_dashes","addons","thankyou","bundle_details","default_controller", "certificate", "404_override","home", "ebook", "ebook_manager", "course_bundles", "my_bookings", "schedules_bookings", "tutor", "tutors", "page", "blogs","login","admin","payment","sign_up","blog","modal", "install", "assets", "excel_export", "favicon.ico", "user", "uploads"];
 $seg1 = $this->uri->segment(1);
 $seg2 = $this->uri->segment(2);
 $seg3 = $this->uri->segment(3);

@@ -986,7 +986,7 @@ if($ratings_count){
             if( xhr.responseText == 'Thank You For Contacting Us for Demo.'){
                 // Optionally, reset the form after successful submission
                 $('#demoRequestForm')[0].reset();
-                window.location.href = "<?php echo site_url('home/thankyou'); ?>";
+                window.location.href = "<?php echo site_url('thankyou'); ?>";
             }
             
 
@@ -1055,7 +1055,7 @@ if($ratings_count){
             if( xhr.responseText == 'Thank You For Contacting Us for Demo.'){
                 // Optionally, reset the form after successful submission
                 $('#demoRequestFormTwo')[0].reset();
-                window.location.href = "<?php echo site_url('home/thankyou'); ?>";
+                window.location.href = "<?php echo site_url('thankyou'); ?>";
             }
             
 
