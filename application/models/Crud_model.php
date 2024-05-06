@@ -610,7 +610,8 @@ class Crud_model extends CI_Model
         $data['course_duration_in_hours'] = $this->input->post('course_duration_in_hours');
         $data['course_duration_in_months'] = $this->input->post('course_duration_in_months');
         $data['daily_class_duration_in_hours'] = $this->input->post('daily_class_duration_in_hours');
-
+        $data['subject'] = $this->input->post('subject');
+        $data['message'] = $this->input->post('message');
         //Course expiry period
         if($this->input->post('expiry_period') == 'limited_time' && is_numeric($this->input->post('number_of_month')) && $this->input->post('number_of_month') > 0){
             $data['expiry_period'] = $this->input->post('number_of_month');
@@ -971,7 +972,8 @@ class Crud_model extends CI_Model
         $data['weekend_track_sessions_count'] = $this->input->post('weekend_track_sessions_count');
         $data['week_track_sessions_count'] = $this->input->post('week_track_sessions_count');
         $data['number_of_lectures'] = $this->input->post('number_of_lectures');
-
+        $data['subject'] = $this->input->post('subject');
+        $data['message'] = $this->input->post('message');
         //Course expiry period
         if($this->input->post('expiry_period') == 'limited_time' && is_numeric($this->input->post('number_of_month')) && $this->input->post('number_of_month') > 0){
             $data['expiry_period'] = $this->input->post('number_of_month');
