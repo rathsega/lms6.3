@@ -263,7 +263,7 @@ if ($stripe_info[0]['active'] == 0) {
                     if((details_submitted != "true" && !user_id) && contactPopUpClosed < 2 ){
                        var curr_url = window.location.href;
                        if(!curr_url.includes('forgot_password_request') && !curr_url.includes('login')  && !curr_url.includes('sign_up')){
-                                openModalBtn2.click();
+                                //openModalBtn2.click();
                         }
                     }
                 }, 10000)
