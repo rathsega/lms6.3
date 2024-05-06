@@ -35,7 +35,7 @@ $get_lesson_type = get_lesson_type($lesson_details['id']);
     $video_id = $video_details['video_id'];?>
     <div class="p-3 <?php if($full_page)echo 'bg-black'; ?>">
 	    <div class="plyr__video-embed" id="player">
-	        <iframe height="500" src="https://player.vimeo.com/video/<?php echo $video_id; ?>?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media" allowfullscreen allowtransparency allow="autoplay"></iframe>
+	        <iframe height="500" id="iframeplayer" src="https://player.vimeo.com/video/<?php echo $video_id; ?>" allowfullscreen allowtransparency allow="autoplay"></iframe>
 	    </div>
 	</div>
     <?php include "plyr_config.php"; ?>
@@ -81,3 +81,28 @@ $get_lesson_type = get_lesson_type($lesson_details['id']);
         <iframe class="embed-responsive-item" width="100%" height="550px" src="<?php echo $lesson_details['attachment']; ?>" allowfullscreen></iframe>
     </div>
 <?php endif; ?>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function(){ 
+        setTimeout(()=>{
+			var iframe = document.getElementsByTagName('iframe')[0];
+        
+			if (iframe) {
+				// Add event listener for iframe load event
+				//iframe.onload = function() {
+					var iframeDocument = iframe.contentWindow.document;
+		
+					// Hide an element within the iframe
+					var elementToHide = iframeDocument.getElementsByClassName("vp-sidedock")[0];
+					if (elementToHide) {
+						elementToHide.style.display = 'none';
+					}
+				//};
+			} else {
+				console.error('The iframe element was not found.');
+			}
+		}, 5000);
+        
+    }, false);
+</script>

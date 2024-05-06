@@ -1,7 +1,10 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/global/plyr/plyr.css">
-<script src="<?php echo base_url(); ?>assets/global/plyr/plyr.js"></script>
+<!-- <script src="<?php echo base_url(); ?>assets/global/plyr/plyr.js"></script> -->
+<script src="https://player.vimeo.com/api/player.js"></script>
 <script>
-    var player = new Plyr('#player');
+    // var player = new Plyr('#player');
+    var iframe = document.querySelector('iframe');
+    var player = new Vimeo.Player(iframe);
 </script>
 
 <!-- Video preview start -->
@@ -82,7 +85,9 @@
     //const player = new Plyr('#player');
     if (typeof player === 'object' && player !== null) {
         setInterval(function() {
-            currentDuration = parseInt(player.currentTime);
+            player.getCurrentTime().then(function(time){
+                currentDuration = parseInt(time);
+
             if (lesson_id && course_id && (currentDuration % 5) == 0 && previousSavedDuration != currentDuration) {
                 previousSavedDuration = currentDuration;
 
@@ -101,6 +106,8 @@
                     }
                 });
             }
+            })
+            
 
             //console.log('Avoid Server Call'+currentDuration);
         }, 900);
