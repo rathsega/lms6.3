@@ -64,7 +64,13 @@
                 </li>
               <?php endif; ?>
               <!-- <i class="fa-brands fa-x-twitter"></i> -->
-              <i class="fa-brands fa-square-instagram"></i>  
+              <a href="https://www.instagram.com/techleadsit/" target="_blank">
+                <i class="fab fa-brands fa-square-instagram"></i>
+              </a>
+              <a href="https://www.youtube.com/@TechLeadsIT" target="_blank">
+                <i class="fab fa-youtube"></i>
+                </a>
+
             </ul>
           </div>
         </div>

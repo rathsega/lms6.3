@@ -99,9 +99,9 @@ if ($stripe_info[0]['active'] == 0) {
   <div class="row">
     <!-- Form -->
     <div class="nb-form">
-      <p class="title">Send a message</p>
+      <!-- <p class="title title-mess">S</p> -->
       <div class="user-container">
-      <img src="<?php echo base_url() . "assets/frontend/default-new/image/maximized.png"; ?>"  class="user-icon" id="userIcon">
+      <img src="<?php echo base_url() . "assets/frontend/default-new/image/message-widget.png"; ?>"  class="user-icon" id="userIcon">
       </div>
       <form action="javascript:void(0);" onsubmit="footerContactFormSubmit()" name="footerContactForm" id="footerContactForm">
         <input type="text" name="cpname" id="footerCFName" placeholder="Name:" required>
