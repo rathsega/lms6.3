@@ -400,9 +400,9 @@ Last Updated: 27 Aug 2023
     bottom: 0px;
 }*/
 
-.nb-form:hover #userIcon {
+/* .nb-form:hover #userIcon {
     content: url('../image/minimize-img.png');
-}
+} */
 /* .nb-form .user-icon {
     position: absolute;
     top: -49px;
@@ -413,17 +413,19 @@ Last Updated: 27 Aug 2023
     border-radius: 100%;
 } */
 .nb-form .user-icon {
-    position: absolute;
-    top: -10px;
-    right: 20px;
-    display: block;
-    width: 27px;
-    margin: 20px auto 15px;
-    border-radius: 100%;
+  position: absolute;
+  top: -98px;
+  right: 0px;
+  display: block;
+  width: 56px;
+  margin: 35px auto 15px;
+  border-radius: 100%;
 }
 
 /*-- Title --*/
-
+.title-mess{
+  width:80px !important;
+}
 .nb-form .title {
     background: #754ffe;
     font-size: 16px !important;
@@ -472,7 +474,7 @@ Last Updated: 27 Aug 2023
   }
 }
 .nb-form form {
-  padding: 10px 15px 7px 18px;
+  padding: 18px 15px 7px 18px;
     /* padding-top: 16px; */
 }
 
