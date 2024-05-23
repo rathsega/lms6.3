@@ -68,15 +68,11 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row" style="text-align: left;">Billed To:</th>
-                                        <td>John Deo</td>
+                                        <td><?php echo $buyer_details['first_name'].' '.$buyer_details['last_name']; ?></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" style="text-align: left;">Student ID:</th>
-                                        <td>#466545</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" style="text-align: left;">Address:</th>
-                                        <td>Hyderabad, 507111</td>
                                     </tr>
                                 </tbody>
                             </table>

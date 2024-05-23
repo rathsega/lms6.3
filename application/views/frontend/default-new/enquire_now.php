@@ -302,12 +302,13 @@
         xhr.onload = function() {
         if (xhr.status === 200) {
             // Request was successful
-            alert( xhr.responseText);
+            //alert( xhr.responseText);
             if( xhr.responseText == 'Thank You For Contacting Us.'){
                 // Optionally, reset the form after successful submission
                 $('#contactForm1')[0].reset();
                 contactModal1.style.display = 'none';
                 localStorage.setItem("dataSubmitted", true);
+                window.location.href = "<?php echo site_url('thankyou'); ?>";
             }
             
 

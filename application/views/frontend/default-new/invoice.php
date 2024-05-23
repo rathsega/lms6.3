@@ -44,7 +44,6 @@ $instructor_details = $this->user_model->get_all_user($course_details['user_id']
                                 <div class="">
                                     <div>
                                         <h5 class="font-size-15 mb-1">Billed To: <?php echo $buyer_details['first_name'].' '.$buyer_details['last_name']; ?></h5>
-                                        <p class="font-size-15">Address: <?php echo $buyer_details['address']; ?></p>
 
                                     </div>
                                 </div>

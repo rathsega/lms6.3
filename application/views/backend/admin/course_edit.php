@@ -128,6 +128,12 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                             </a>
                                         </li>
                                         <li class="nav-item">
+                                            <a href="#email_template" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
+                                                <i class="mdi mdi-tag-multiple"></i>
+                                                <span class=""><?php echo get_phrase('email_template'); ?></span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="#about" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
                                                 <i class="mdi mdi-tag-multiple"></i>
                                                 <span class=""><?php echo get_phrase('About (X)'); ?></span>
@@ -744,6 +750,26 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                             </div> <!-- end col -->
                                         </div> <!-- end row -->
                                     </div>
+                                    <div class="tab-pane" id="email_template">
+                                        <div class="row justify-content-center">
+                                            <div class="col-xl-8">
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-md-2 col-form-label" for="subject"><?php echo get_phrase('subject'); ?></label>
+                                                    <div class="col-md-10">
+                                                        <input type="text" class="form-control bootstrap-tag-input" id = "subject" name="subject" style="width: 100%;" value="<?php echo $course_details['subject']; ?>" placeholder="<?php echo get_phrase('subject'); ?>"./>
+                                                    </div>
+                                                </div>
+                                            </div> <!-- end col -->
+                                            <div class="col-xl-8">
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-md-2 col-form-label" for="message"><?php echo get_phrase('message'); ?></label>
+                                                    <div class="col-md-10">
+                                                        <textarea name="message" id="message" class="form-control"><?php echo $course_details['message']; ?></textarea>
+                                                    </div>
+                                                </div>
+                                            </div> <!-- end col -->
+                                        </div> <!-- end row -->
+                                    </div>
                                     <div class="tab-pane" id="about">
                                         <div class="row justify-content-center">
                                             <div class="col-xl-8">
@@ -1125,6 +1151,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
 <script type="text/javascript">
     $(document).ready(function() {
         initSummerNote(['#description']);
+        initSummerNote(['#message']);
         togglePriceFields('is_free_course');
     });
 </script>

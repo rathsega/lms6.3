@@ -123,7 +123,7 @@ if ($language_dirs) {
 	include 'header.php';
 
 	if (get_frontend_settings('cookie_status') == 'active') :
-		include 'eu-cookie.php';
+		//include 'eu-cookie.php';
 	endif;
 
 	if ($page_name === null) {

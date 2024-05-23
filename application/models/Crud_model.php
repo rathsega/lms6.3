@@ -610,7 +610,8 @@ class Crud_model extends CI_Model
         $data['course_duration_in_hours'] = $this->input->post('course_duration_in_hours');
         $data['course_duration_in_months'] = $this->input->post('course_duration_in_months');
         $data['daily_class_duration_in_hours'] = $this->input->post('daily_class_duration_in_hours');
-
+        $data['subject'] = $this->input->post('subject');
+        $data['message'] = $this->input->post('message');
         //Course expiry period
         if($this->input->post('expiry_period') == 'limited_time' && is_numeric($this->input->post('number_of_month')) && $this->input->post('number_of_month') > 0){
             $data['expiry_period'] = $this->input->post('number_of_month');
@@ -971,7 +972,8 @@ class Crud_model extends CI_Model
         $data['weekend_track_sessions_count'] = $this->input->post('weekend_track_sessions_count');
         $data['week_track_sessions_count'] = $this->input->post('week_track_sessions_count');
         $data['number_of_lectures'] = $this->input->post('number_of_lectures');
-
+        $data['subject'] = $this->input->post('subject');
+        $data['message'] = $this->input->post('message');
         //Course expiry period
         if($this->input->post('expiry_period') == 'limited_time' && is_numeric($this->input->post('number_of_month')) && $this->input->post('number_of_month') > 0){
             $data['expiry_period'] = $this->input->post('number_of_month');
@@ -5385,7 +5387,7 @@ class Crud_model extends CI_Model
     public function get_total_duration_of_lesson_by_chapter_id($chapter_id)
     {
         $total_duration = 0;
-        $lessons = $this->crud_model->get_lessons('chapter', $chapter_id)->result_array();
+        $lessons = $this->crud_model->get_lessons('chapters', $chapter_id)->result_array();
         foreach ($lessons as $lesson) {
             if ($lesson['lesson_type'] != "other" && $lesson['lesson_type'] != "text") {
                 $time_array = explode(':', $lesson['duration']);
@@ -5477,7 +5479,7 @@ class Crud_model extends CI_Model
         $this->db->delete('section');
 
         $this->db->where('course_id', $course_id);
-        $this->db->delete('chapter');
+        $this->db->delete('chapters');
 
         $this->db->where('course_id', $course_id);
         $this->db->delete('lesson');
