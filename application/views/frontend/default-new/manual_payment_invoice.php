@@ -1,6 +1,7 @@
 <style>
     .invoice-carui{
         width: 1000px;
+        margin-bottom: 66px !important;
     }
 @media screen and (max-width:767px){
   .mobile-invoice-ui {
@@ -52,14 +53,7 @@
                                         <th scope="row" style="text-align: left;">Course Name:</th>
                                         <td><?php echo $purchase_history[0]['title']; ?></td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align: left;">Actual Price:</th>
-                                        <td><?php echo currency($purchase_history[0]['amount']); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align: left;">Discount:</th>
-                                        <td><?php echo currency($purchase_history[0]['course_fee']); ?></td>
-                                    </tr>
+                                   
                                 </tbody>
                             </table>
                         </div>
@@ -74,6 +68,7 @@
                                     </tr>
                                     <tr>
                                     </tr>
+                                 
                                 </tbody>
                             </table>
                         </div>
@@ -128,8 +123,9 @@
                         </table>
                         </div>
 
-
-
+                                <?php
+                                $purchase_history[0]['course_fee'] = 50000;
+                                ?>
                         <?php if ($purchase_history[0]['course_fee'] > $total_paid_amount) : ?>
                             <div class=" mb-5 mt-4">
                                 <div class="shadow-lg p-4 mb-5 bg-body-tertiary rounded">
@@ -137,22 +133,6 @@
                                 </div>
                             </div>
                         <?php endif; ?>
-
-                        <div class="d-print-none mt-4" id="extra_buttons">
-                            <div class="float-end">
-                                <a href="javascript:void()" onclick="printContent()" class="btn btn-success me-1"><i class="fa fa-print"></i></a>
-                            </div>
-                        </div>
-                        <!-- <div class="col-sm-8 mt-5">
-                        <div>
-                            <h5 class="font-size-15 mb-1">Billed To:</h5>
-                            <p class="font-size-15">John Deo</p>
-                            <p class="font-size-15">Student ID: #466545</p>
-                            <p class="font-size-15">Address: Hyderabad , 507111</p>
-                         
-  
-                        </div>
-                    </div> -->
 
                         <div class="col-sm-8 mt-5">
                             <div>
@@ -165,10 +145,17 @@
             <div>
                 <h5 class="font-size-15 mb-1 text-center" style="text-align:center;">This inovice is computer generated</h5>
             </div>
-
         </div><!-- end col -->
+  
+        <div class="d-print-none print-btn" id="extra_buttons">
+        <div class="float-end">
+            <a href="javascript:void()" onclick="printContent()" class="btn btn-success me-1" style="margin-top:30px;"><span><i class="fa fa-print"></i> Print</span></a>
+        </div>
     </div>
-</div>
+    </div>
+
+
+  
 
 <script>
     function printContent() {

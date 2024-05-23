@@ -16,6 +16,7 @@ class Entity extends Resource implements ArrayableInterface
     protected function create($attributes = null) 
     {
         $entityUrl = $this->getEntityUrl();
+        
         return $this->request('POST', $entityUrl, $attributes);
     }
 
