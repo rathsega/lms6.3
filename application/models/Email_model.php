@@ -841,4 +841,85 @@ class Email_model extends CI_Model
 		// echo $this->email->print_debugger();
 		// die();
 	}
+
+	public function return_contact_email($course_id, $name, $to){
+		$course_details    = $this->crud_model->get_course_by_id($course_id)->row_array();
+		$subject = $course_details['subject'];
+		$message = $course_details['message'];
+
+		$message_body = str_replace('[name]', $name, $message);
+
+		/*$semi_rand = md5(time()); 
+		$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
+
+		$sender = 'admin@techleadsit.com';
+		$headers[] = 'From:' . $sender;
+		$headers[]= "MIME-Version: 1.0";
+		$headers[]= "Content-Type: multipart/mixed;\r\n";
+		//$headers[]= " boundary=\"{$mime_boundary}\"";
+
+		$message = "--{$mime_boundary}\r\n"; 
+		$message .= "Content-Type: text/plain; charset=\"UTF-8\"\r\n"; 
+		$message .= "Content-Transfer-Encoding: 7bit\r\n\r\n"; 
+		$message .= $message. "\r\n"; 
+
+		
+
+		// Attachment
+		$file = 'uploads/broucher/' . $course_details['broucher'];
+		$handle = fopen($file, "r"); 
+		$content = fread($handle, filesize($file)); 
+		fclose($handle); 
+		$content = chunk_split(base64_encode($content)); 
+		$message .= "--{$mime_boundary}\r\n"; 
+		$message .= "Content-Type: application/octet-stream;\r\n"; 
+		$message .= " name=\"".basename($file)."\"\r\n"; 
+		$message .= "Content-Transfer-Encoding: base64\r\n"; 
+		$message .= "Content-Disposition: attachment;\r\n"; 
+		$message .= " filename=\"".basename($file)."\"\r\n\r\n"; 
+		$message .= $content. "\r\n\r\n"; 
+		$message .= "--{$mime_boundary}--"; */
+
+		$from = "admin@techleadsit.com";
+		// Boundary 
+		$semi_rand = md5(time()); 
+		$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
+		$reply_to = "info@techleadsit.com";
+		// Headers for attachment 
+		$headers = "From: ".$from."\r\n"; 
+		$headers .= "Reply-To: ".$reply_to. "\r\n"; 
+		$headers .= "MIME-Version: 1.0\r\n"; 
+		$headers .= "Content-Type: multipart/mixed;\r\n"; 
+		$headers .= " boundary=\"{$mime_boundary}\""; 
+
+
+		// MIME boundary message
+		$message = "--{$mime_boundary}\r\n"; 
+		$message .= "Content-Type: text/html; charset=\"UTF-8\"\r\n";
+		$message .= "Content-Transfer-Encoding: 7bit\r\n\r\n"; 
+		$message .= $message_body. "\r\n\r\n"; 
+
+		// Attachment
+		$file = 'uploads/broucher/' . $course_details['broucher'];
+		$handle = fopen($file, "r"); 
+		$content = fread($handle, filesize($file)); 
+		fclose($handle); 
+		$content = chunk_split(base64_encode($content)); 
+		$message .= "--{$mime_boundary}\r\n"; 
+		$message .= "Content-Type: application/octet-stream;\r\n"; 
+		$message .= " name=\"".basename($file)."\"\r\n"; 
+		$message .= "Content-Transfer-Encoding: base64\r\n"; 
+		$message .= "Content-Disposition: attachment;\r\n"; 
+		$message .= " filename=\"".basename($file)."\"\r\n\r\n"; 
+		$message .= $content. "\r\n\r\n"; 
+		$message .= "--{$mime_boundary}--"; 
+
+		if (mail($to, $subject, $message, $headers)) {
+			log_message("error", "mail sent successfully");
+			return true;
+		} else {
+			log_message("error", "mail sent failed");
+			return false;
+		}
+	}
 }

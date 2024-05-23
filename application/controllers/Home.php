@@ -2089,6 +2089,7 @@ class Home extends CI_Controller
         $details['datetime'] = time();
         $inserted = $this->crud_model->add_contactus($details);
         if($inserted){
+            $this->email_model->return_contact_email($course, $first_name .' '. $last_name, $email);
             echo "Thank You For Contacting Us.";
         }
     }
@@ -2232,6 +2233,7 @@ class Home extends CI_Controller
         $details['date'] = time();
         $inserted = $this->crud_model->add_demorequest($details);
         if($inserted){
+            $this->email_model->return_contact_email($course, $name, $email);
             echo "Thank You For Contacting Us for Demo.";
         }
     }

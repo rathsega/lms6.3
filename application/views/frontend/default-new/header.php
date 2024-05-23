@@ -242,7 +242,7 @@
  .blink2{
   position: absolute ;
     margin-top: 7px;
-    right: 26% ; 
+    right: 33% ; 
  } 
   /* button:hover {
     background-color: #45a049;

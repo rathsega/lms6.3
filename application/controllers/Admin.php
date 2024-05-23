@@ -18,7 +18,6 @@ class Admin extends CI_Controller
         $this->user_model->check_session_data('admin');
 
         ini_set('memory_limit', '128M');
-
     }
 
 
@@ -489,10 +488,10 @@ class Admin extends CI_Controller
         $page_data['enrol_history'] = $this->crud_model->enrol_history_by_date_range($page_data['timestamp_start'], $page_data['timestamp_end']);
         $page_data['page_title'] = get_phrase('enrol_history');
         $this->load->view('backend/index', $page_data);*/
-        if($this->input->get('name_email')){
+        if ($this->input->get('name_email')) {
             $page_data['page_name'] = 'enrol_history';
             $page_data['enrol_history'] = $this->crud_model->enrol_history_by_name_email($this->input->get('name_email'));
-        }else{
+        } else {
             if ($param1 != "") {
                 $date_range                   = $this->input->get('date_range');
                 $date_range                   = explode(" - ", $date_range);
@@ -523,7 +522,7 @@ class Admin extends CI_Controller
         if ($param1 == 'enrol') {
             $this->crud_model->enrol_a_student_manually();
             redirect(site_url('admin/enrol_history'), 'refresh');
-        } else if($param1 == 'edit_enrol'){
+        } else if ($param1 == 'edit_enrol') {
             $this->crud_model->edit_enrol_a_student_manually();
             redirect(site_url('admin/enrol_history'), 'refresh');
         }
@@ -892,7 +891,7 @@ class Admin extends CI_Controller
         $page_data['page_name']              = 'courses-server-side';
         $page_data['categories']             = $this->crud_model->get_categories();
         $page_data['page_title']             = get_phrase('active_courses');
-        $this->load->view('backend/index', $page_data); 
+        $this->load->view('backend/index', $page_data);
     }
 
     // This function is responsible for loading the course data from server side for datatable SILENTLY
@@ -1025,11 +1024,11 @@ class Admin extends CI_Controller
                     $price_field .= '<p class="text-12">' . get_phrase('Lifetime') . '</p>';
                 }
 
-                if($row['slug_count'] == 1 || $row['slug_count'] == 2){
+                if ($row['slug_count'] == 1 || $row['slug_count'] == 2) {
                     $row_slug = $row['slug'];
-                }else if($row['slug_count'] == 3 || $row['slug_count'] == 4){
-                    $row_slug = $row['category_slug'] .'/' . $row['sub_category_slug'] .'/' . $row['slug'];
-                }else{
+                } else if ($row['slug_count'] == 3 || $row['slug_count'] == 4) {
+                    $row_slug = $row['category_slug'] . '/' . $row['sub_category_slug'] . '/' . $row['slug'];
+                } else {
                     $row_slug = $row['slug'];
                 }
 
@@ -2434,11 +2433,11 @@ class Admin extends CI_Controller
         $this->db->where('id', $rating_id)->delete('rating');
 
         $this->session->set_flashdata('flash_message', get_phrase('user_review_deleted_successfully'));
-        if($course_details['slug_count'] == 1 || $course_details['slug_count'] == 2){
+        if ($course_details['slug_count'] == 1 || $course_details['slug_count'] == 2) {
             $course_details_slug = $course_details['slug'];
-        }else if($course_details['slug_count'] == 3 || $course_details['slug_count'] == 4){
-            $course_details_slug = $course_details['category_slug'] .'/' . $course_details['sub_category_slug'] .'/' . $course_details['slug'];
-        }else{
+        } else if ($course_details['slug_count'] == 3 || $course_details['slug_count'] == 4) {
+            $course_details_slug = $course_details['category_slug'] . '/' . $course_details['sub_category_slug'] . '/' . $course_details['slug'];
+        } else {
             $course_details_slug = $course_details['slug'];
         }
         redirect(site_url($course_details_slug), 'refresh');
@@ -2892,18 +2891,19 @@ class Admin extends CI_Controller
         }
     }
 
-    function update_language_direction(){
+    function update_language_direction()
+    {
         $language = $this->input->post('language');
         $dir = $this->input->post('dir');
         $language_dirs = get_settings('language_dirs') ? json_decode(get_settings('language_dirs'), true) : ['english' => 'ltr'];
-        
+
         $language_dirs[$language] = $dir;
 
         $data['value'] = json_encode($language_dirs);
 
-        if($this->db->get_where('settings', ['key' => 'language_dirs'])->num_rows() > 0){
+        if ($this->db->get_where('settings', ['key' => 'language_dirs'])->num_rows() > 0) {
             $this->db->where('key', 'language_dirs')->update('settings', $data);
-        }else{
+        } else {
             $data['key'] = 'language_dirs';
             $this->db->insert('settings', $data);
         }
@@ -2953,9 +2953,9 @@ class Admin extends CI_Controller
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
-        if($this->input->post('user_id')){
+        if ($this->input->post('user_id')) {
             $page_data['user_login_history'] = $this->crud_model->user_login_history_by_user_id($this->input->post('user_id'));
-        }else{
+        } else {
             $page_data['user_login_history'] = $this->crud_model->user_login_history();
         }
         // CHECK ACCESS PERMISSION
@@ -2964,17 +2964,19 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
-    public function generate_certificate_manually(){
+    public function generate_certificate_manually()
+    {
         $user_id = $this->input->post('user_id');
         $course_id = $this->input->post('course_id');
         $certificate_identifier = $this->api_model->certificate_addon_get_forcefully($user_id, $course_id);
-        if($certificate_identifier){
+        if ($certificate_identifier) {
             $certificate = $this->db->get_where('certificates', array('course_id' => $course_id, 'student_id' => $user_id));
-            redirect(site_url('certificate/'.$certificate->row('shareable_url')));
+            redirect(site_url('certificate/' . $certificate->row('shareable_url')));
         }
     }
 
-    public function customsettings($param1=""){
+    public function customsettings($param1 = "")
+    {
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
@@ -2985,34 +2987,35 @@ class Admin extends CI_Controller
         if ($param1 == 'ratings_count_form') {
             $this->crud_model->save_ratings_count();
             redirect(site_url('admin/ratings_count_form'), 'refresh');
-        } else if($param1 == 'custom_reviews_form'){
+        } else if ($param1 == 'custom_reviews_form') {
             $this->crud_model->save_custom_reiews();
             redirect(site_url('admin/custom_reviews'), 'refresh');
-        } else if($param1 == "broucher_form"){
+        } else if ($param1 == "broucher_form") {
             $this->crud_model->save_broucher_form();
             redirect(site_url('admin/broucher'), 'refresh');
-        } else if($param1 == "upload_curriculam"){
+        } else if ($param1 == "upload_curriculam") {
             $this->crud_model->upload_curriculam();
             redirect(site_url('admin/upload_curriculam'), 'refresh');
-        } else if($param1 == "add_payment"){
+        } else if ($param1 == "add_payment") {
             $this->crud_model->add_payment();
             redirect(site_url('admin/payments_list'), 'refresh');
-        } else if($param1 == 'generate_image_link'){
+        } else if ($param1 == 'generate_image_link') {
             $file_name = $this->crud_model->generate_image_link();
             $this->session->set_flashdata('flash_message', $file_name);
             redirect(site_url('admin/generate_image_link'), 'refresh');
-        } else if($param1 == 'copy_course_data'){
+        } else if ($param1 == 'copy_course_data') {
             $file_name = $this->crud_model->copy_curriculum();
             $this->session->set_flashdata('flash_message', $file_name);
             redirect(site_url('admin/copycoursedata'), 'refresh');
         }
-        
+
         // $page_data['page_name'] = 'enrol_student';
         // $page_data['page_title'] = get_phrase('course_enrolment');
         // $this->load->view('backend/index', $page_data);
     }
 
-    public function generate_image_link(){
+    public function generate_image_link()
+    {
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
@@ -3023,60 +3026,69 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
-    public function fetch_review_count(){
+    public function fetch_review_count()
+    {
         $id = $this->input->post('id');
         $data = $this->crud_model->get_ratings_count($id);
-        echo json_encode(array("data"=>$data));
+        echo json_encode(array("data" => $data));
     }
 
-    
-    public function get_custom_reviews(){
+
+    public function get_custom_reviews()
+    {
         $id = $this->input->post('id');
         $data = $this->crud_model->get_custom_reviews($id);
-        echo json_encode(array("data"=>$data));
+        echo json_encode(array("data" => $data));
     }
 
-    public function contactus(){
+    public function contactus()
+    {
         $page_data['page_name'] = 'contactus';
         $page_data['page_title'] = "Contact Us";
         $page_data['contactus'] = $this->crud_model->getAllContactUs();
         $this->load->view('backend/index', $page_data);
     }
 
-    public function feedback(){
+    public function feedback()
+    {
         $page_data['page_name'] = 'feedback';
         $page_data['page_title'] = "Contact Us";
         $page_data['feedbacks'] = $this->crud_model->getAllFeedback();
         $this->load->view('backend/index', $page_data);
     }
 
-    public function demorequests(){
+    public function demorequests()
+    {
         $page_data['page_name'] = 'demorequests';
         $page_data['page_title'] = "Contact Us";
         $page_data['demorequests'] = $this->crud_model->getAllDemoRequests();
         $this->load->view('backend/index', $page_data);
     }
 
-    public function cartpagevisitors(){
+    public function cartpagevisitors()
+    {
         $page_data['page_name'] = 'cartpagevisitors';
         $page_data['page_title'] = "Cart Page Visitors";
         $page_data['cartpagevisitors'] = $this->crud_model->getAllCartpagevisitors();
         $this->load->view('backend/index', $page_data);
     }
 
-    public function broucher(){
+    public function broucher()
+    {
         $page_data['page_name'] = 'broucher';
         $page_data['page_title'] = "Broucher";
         $this->load->view('backend/index', $page_data);
     }
 
-    public function fetch_broucher(){
+    public function fetch_broucher()
+    {
         $id = $this->input->post('id');
         $data = $this->user_model->get_broucher_url_of_custom_review($id);
-        echo json_encode(array("data"=>$data));
+        echo json_encode(array("data" => $data));
     }
 
-    function download_enrol_history(){
+    function download_enrol_history()
+    {
         $enrol_data = [];
         $enrol_data = $this->crud_model->getEnrolHistory();
         $page_data['page_name'] = 'excel_export_view';
@@ -3102,7 +3114,8 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
-    public function user_actions(){
+    public function user_actions()
+    {
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
@@ -3116,7 +3129,8 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
-    public function installment_settings(){
+    public function installment_settings()
+    {
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
@@ -3130,7 +3144,8 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
-    public function payments_list(){
+    public function payments_list()
+    {
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
@@ -3143,7 +3158,8 @@ class Admin extends CI_Controller
         $page_data['page_title'] = "Payments List";
         $this->load->view('backend/index', $page_data);
     }
-    public function add_payments(){
+    public function add_payments()
+    {
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
@@ -3155,7 +3171,8 @@ class Admin extends CI_Controller
         $page_data['page_title'] = "Add Payments";
         $this->load->view('backend/index', $page_data);
     }
-    public function course_feedback(){
+    public function course_feedback()
+    {
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
@@ -3170,7 +3187,8 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
-    public function pause_user(){
+    public function pause_user()
+    {
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
@@ -3184,7 +3202,8 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
-    public function update_pause_user($id){
+    public function update_pause_user($id)
+    {
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
@@ -3198,7 +3217,8 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
-    public function user_status_modification(){
+    public function user_status_modification()
+    {
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
@@ -3211,7 +3231,86 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
-    public function course_feedback_ciriterias(){
+
+    public function jobs($action = "", $id = "")
+    {
+        if ($this->session->userdata('admin_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        // CHECK ACCESS PERMISSION
+        check_permission('enrolment');
+        $this->load->model('Job_model');
+
+        if ($action == "add") {
+            $page_data['page_name'] = 'add_job';
+            $page_data['page_title'] = "Add Job";
+        } else if ($action == "view") {
+            $page_data['page_name'] = 'view_job';
+            $page_data['page_title'] = "View Job";
+            $page_data['job'] = $this->Job_model->get_jobs($id);
+        } else if ($action == "edit") {
+            $page_data['page_name'] = 'edit_job';
+            $page_data['page_title'] = "Edit Job";
+            $page_data['job'] = $this->Job_model->get_jobs($id);
+        } else if ($action == "delete") {
+            $this->Job_model->delete_job($id);
+            $this->session->set_flashdata('flash_message', get_phrase('job_deleted_successfully'));
+            redirect(site_url('admin/jobs'), 'refresh');
+        } else {
+            $page_data['jobs'] = $this->Job_model->get_jobs();
+            $page_data['page_name'] = 'jobs';
+            $page_data['page_title'] = "Jobs";
+        }
+
+        $this->load->view('backend/index', $page_data);
+    }
+
+    public function create_job()
+    {
+        $this->load->model('Job_model');
+
+        $data = array(
+            'title' => $this->input->post('title'),
+            'description' => $this->input->post('description'),
+            'company_name' => $this->input->post('company_name'),
+            'employment_type' => $this->input->post('employment_type'),
+            'location' => $this->input->post('location'),
+            'pay_scale' => $this->input->post('pay_scale'),
+            'experience' => $this->input->post('experience'),
+            'qualification' => json_encode($this->input->post('qualification')), // Assuming qualification is an array
+            'required_skills' => json_encode($this->input->post('required_skills')), // Assuming required_skills is an array
+            'work_mode' => $this->input->post('work_mode'),
+            'industry' => $this->input->post('industry'),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        );
+        $this->Job_model->add_job($data);
+        redirect(site_url('admin/jobs'), 'refresh');
+    }
+
+    public function update_job($id)
+    {
+        $this->load->model('Job_model');
+        $update_data = array(
+            'title' => $this->input->post('title'),
+            'description' => $this->input->post('description'),
+            'company_name' => $this->input->post('company_name'),
+            'employment_type' => $this->input->post('employment_type'),
+            'location' => $this->input->post('location'),
+            'pay_scale' => $this->input->post('pay_scale'),
+            'experience' => $this->input->post('experience'),
+            'qualification' => json_encode($this->input->post('qualification')), // Assuming qualification is an array
+            'required_skills' => json_encode($this->input->post('required_skills')), // Assuming required_skills is an array
+            'work_mode' => $this->input->post('work_mode'),
+            'industry' => $this->input->post('industry'),
+            'updated_at' => date('Y-m-d H:i:s')
+        );
+        $this->Job_model->update_job($id, $update_data);
+        redirect(site_url('admin/jobs'), 'refresh');
+    }
+    public function course_feedback_ciriterias()
+    {
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
@@ -3222,14 +3321,15 @@ class Admin extends CI_Controller
         $page_data['page_name'] = 'add_criteria';
         $page_data['page_title'] = "Add Criteria";
         $criterias = $this->db->get('criterias')->row_array();
-            $page_data['criteria_details'] = $criterias;
+        $page_data['criteria_details'] = $criterias;
         $this->load->view('backend/index', $page_data);
     }
 
-    public function add_criteria(){
+    public function add_criteria()
+    {
         $criteria = array();
-        if(!empty($this->input->post('criteria_title'))):
-            foreach(array_filter($this->input->post('criteria_title')) as $criteria_key => $criteria_title){
+        if (!empty($this->input->post('criteria_title'))) :
+            foreach (array_filter($this->input->post('criteria_title')) as $criteria_key => $criteria_title) {
                 $criteria[$criteria_key] = $criteria_title;
             }
             $this->crud_model->add_criteria($criteria);
@@ -3241,10 +3341,10 @@ class Admin extends CI_Controller
             $page_data['criteria_details'] = $criterias;
             $this->load->view('backend/index', $page_data);
         endif;
-
     }
 
-    public function view_course_feedback($id){
+    public function view_course_feedback($id)
+    {
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
@@ -3256,11 +3356,12 @@ class Admin extends CI_Controller
         $page_data['page_title'] = "View Course Feedback";
         $this->db->where('id', $id);
         $course_feedback = $this->crud_model->view_course_feedback($id); //$this->db->get('course_feedback')->row_array();
-            $page_data['existed_feedback'] = $course_feedback;
+        $page_data['existed_feedback'] = $course_feedback;
         $this->load->view('backend/index', $page_data);
     }
 
-    public function edit_payments($id){
+    public function edit_payments($id)
+    {
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
@@ -3274,7 +3375,7 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
-    
+
     public function chapters($param1 = "", $param2 = "", $param3 = "")
     {
         if ($this->session->userdata('admin_login') != true) {
@@ -3297,9 +3398,10 @@ class Admin extends CI_Controller
         redirect(site_url('admin/course_form/course_edit/' . $param1));
     }
 
-    public function getChaptersBySectionId(){
+    public function getChaptersBySectionId()
+    {
         $data =  $this->crud_model->get_chapters('section', $_POST['section_id'])->result_array();
-        echo json_encode(array('data'=>$data));
+        echo json_encode(array('data' => $data));
     }
 
     public function ajax_sort_chapter()
@@ -3308,8 +3410,9 @@ class Admin extends CI_Controller
         $this->crud_model->sort_chapter($chapter_json);
     }
 
-    
-    public function upload_curriculam(){
+
+    public function upload_curriculam()
+    {
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
@@ -3322,12 +3425,14 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
-    public function get_student_active_enrolments(){
+    public function get_student_active_enrolments()
+    {
         $data =  $this->crud_model->get_student_active_enrolments($_POST['student_id'])->result_array();
-        echo json_encode(array('data'=>$data));
+        echo json_encode(array('data' => $data));
     }
 
-    public function update_installment_settings(){
+    public function update_installment_settings()
+    {
         $response = $this->crud_model->update_installment_settings();
         if ($response) {
             $this->session->set_flashdata('flash_message', get_phrase('data_updated_successfully'));
@@ -3337,7 +3442,8 @@ class Admin extends CI_Controller
         redirect(site_url('admin/installment_settings'), 'refresh');
     }
 
-    public function add_payment(){
+    public function add_payment()
+    {
         $response = $this->crud_model->add_payment();
         if ($response) {
             $this->session->set_flashdata('flash_message', get_phrase('payment_added_successfully'));
@@ -3346,7 +3452,8 @@ class Admin extends CI_Controller
         }
         redirect(site_url('admin/payments_list'), 'refresh');
     }
-    public function delete_payment($id){
+    public function delete_payment($id)
+    {
         $response = $this->crud_model->delete_payment($id);
         if ($response) {
             $this->session->set_flashdata('flash_message', get_phrase('payment_added_successfully'));
@@ -3356,7 +3463,8 @@ class Admin extends CI_Controller
         redirect(site_url('admin/payments_list'), 'refresh');
     }
 
-    public function payment_notification_settings(){
+    public function payment_notification_settings()
+    {
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
@@ -3370,7 +3478,8 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
-    public function sort_courses(){
+    public function sort_courses()
+    {
         if ($this->session->userdata('admin_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
@@ -3383,7 +3492,8 @@ class Admin extends CI_Controller
         $this->load->view('backend/index', $page_data);
     }
 
-    public function add_payment_notification_settings(){
+    public function add_payment_notification_settings()
+    {
         $response = $this->crud_model->add_payment_notification_settings();
         if ($response) {
             $this->session->set_flashdata('flash_message', get_phrase('added_successfully'));
@@ -3393,13 +3503,15 @@ class Admin extends CI_Controller
         redirect(site_url('admin/payment_notification_settings'), 'refresh');
     }
 
-    public function get_payment_notification_setting(){
+    public function get_payment_notification_setting()
+    {
         $data =  $this->crud_model->get_payment_notification_setting($_POST['student_id']);
-        echo json_encode(array('data'=>$data));
+        echo json_encode(array('data' => $data));
     }
 
-    public function manage_instructor_visibility($id, $status=0){
-        log_message("error","Id : " . $id . ", status : " . $status);
+    public function manage_instructor_visibility($id, $status = 0)
+    {
+        log_message("error", "Id : " . $id . ", status : " . $status);
         $response = $this->crud_model->manage_instructor_visibility($id, $status);
         if ($response) {
             $this->session->set_flashdata('flash_message', get_phrase('updated_successfully'));
@@ -3409,18 +3521,21 @@ class Admin extends CI_Controller
         redirect(site_url('admin/instructors'), 'refresh');
     }
 
-    public function copycoursedata(){
+    public function copycoursedata()
+    {
         $page_data['page_name'] = 'copycoursedata';
         $page_data['page_title'] = "Cart Page Visitors";
         $this->load->view('backend/index', $page_data);
     }
 
-    public function get_user_status(){
+    public function get_user_status()
+    {
         $data =  $this->crud_model->get_user_status($_POST['student_id'])->result_array();
-        echo json_encode(array('data'=>$data));
+        echo json_encode(array('data' => $data));
     }
 
-    public function modify_user_status_old(){
+    public function modify_user_status_old()
+    {
         $user_id = $_POST['user_id'];
         $current_status = $_POST['current_status'];
         $from_date = $_POST['from_date'];
@@ -3430,61 +3545,62 @@ class Admin extends CI_Controller
             redirect(site_url('admin/user_status_modification'),'refresh');
         }*/
 
-        $data=  [];
-        if($current_status == 1){
+        $data =  [];
+        if ($current_status == 1) {
             $data['status'] = 3;
             $data['paused_from_date'] = $from_date;
             //$data['paused_to_date'] = $to_date;
             $this->db->where('id', $user_id);
             $updated = $this->db->update('users', $data);
-        }else if($current_status == 3){
+        } else if ($current_status == 3) {
             $data['status'] = 1;
             $data['paused_from_date'] = null;
             //$data['paused_to_date'] = null;
-            $date1=date_create($_POST['paused_from_date']);
-            $date2=date_create(date("Y-m-d"));
-            $diff=date_diff($date1,$date2);
-            if($diff->invert == 0){
+            $date1 = date_create($_POST['paused_from_date']);
+            $date2 = date_create(date("Y-m-d"));
+            $diff = date_diff($date1, $date2);
+            if ($diff->invert == 0) {
                 $updated = $this->crud_model->update_enrol_expiry_date($user_id, $diff->days, $_POST['paused_from_date']);
-            }else{
+            } else {
                 $updated = true;
             }
-            
-            if($updated){
+
+            if ($updated) {
                 $this->db->where('id', $user_id);
                 $updated = $this->db->update('users', $data);
             }
         }
 
-        if($updated){
+        if ($updated) {
             $this->session->set_flashdata('flash_message', get_phrase('updated_successfully'));
         } else {
             $this->session->set_flashdata('error_message', get_phrase('failed_to_update'));
         }
-        redirect(site_url('admin/user_status_modification'),'refresh');
+        redirect(site_url('admin/user_status_modification'), 'refresh');
     }
 
-    public function modify_user_status(){
+    public function modify_user_status()
+    {
         $user_id = $_POST['user_id'];
         $current_status = $_POST['current_status'];
         $from_date = $_POST['from_date'];
         $to_date = $_POST['to_date'];
-        if(date('Y-m-d', strtotime($from_date)) > date('Y-m-d', strtotime($to_date))){
+        if (date('Y-m-d', strtotime($from_date)) > date('Y-m-d', strtotime($to_date))) {
             $this->session->set_flashdata('error_message', get_phrase('please select correct date range'));
-            redirect(site_url('admin/user_status_modification'),'refresh');
+            redirect(site_url('admin/user_status_modification'), 'refresh');
         }
 
-        if($this->check_date_overlap($from_date, $to_date, $user_id)){
+        if ($this->check_date_overlap($from_date, $to_date, $user_id)) {
             $this->session->set_flashdata('error_message', get_phrase('A record already exists with overlapping dates.'));
-        }else{
-            $data=  [];
+        } else {
+            $data =  [];
             //update user status as paused if from date and today are same
-            if(date("Y-m-d") == $from_date){
-                $data['status'] = 3;            
+            if (date("Y-m-d") == $from_date) {
+                $data['status'] = 3;
                 $this->db->where('id', $user_id);
                 $this->db->update('users', $data);
             }
-            
+
 
             //insert paused dates into pause user table
             $data = [];
@@ -3493,72 +3609,73 @@ class Admin extends CI_Controller
             $data['user_id'] = $user_id;
             $updated = $this->db->insert("pause_user", $data);
 
-            if($updated){
+            if ($updated) {
                 $this->session->set_flashdata('flash_message', get_phrase('updated_successfully'));
             } else {
                 $this->session->set_flashdata('error_message', get_phrase('failed_to_update'));
             }
         }
 
-        
-        redirect(site_url('admin/pause_user'),'refresh');
+
+        redirect(site_url('admin/pause_user'), 'refresh');
     }
 
-    public function update_user_status_automatically(){
-
+    public function update_user_status_automatically()
+    {
     }
 
-    
-    public function pause_user_log(){
+
+    public function pause_user_log()
+    {
         $page_data['page_name'] = 'pause_user_log';
         $page_data['page_title'] = "Pause Use Log";
         $page_data['logs'] = $this->crud_model->getAllPausedUserLog();
         $this->load->view('backend/index', $page_data);
     }
 
-    public function delete_pause_user($id){
+    public function delete_pause_user($id)
+    {
         $this->db->where('id', $id);
         $this->db->delete('pause_user');
         $this->session->set_flashdata('flash_message', get_phrase('deleted_successfully'));
-        redirect(site_url('admin/pause_user'),'refresh');
+        redirect(site_url('admin/pause_user'), 'refresh');
     }
 
-    public function update_pause_user_record($id){
+    public function update_pause_user_record($id)
+    {
         $from_date = $_POST['from_date'];
         $to_date = $_POST['to_date'];
         $user_id = $_POST['user_id'];
 
-        if($this->check_date_overlap($from_date, $to_date, $user_id, $id)){
+        if ($this->check_date_overlap($from_date, $to_date, $user_id, $id)) {
             $this->session->set_flashdata('error_message', get_phrase('A record already exists with overlapping dates.'));
-        }else{
+        } else {
             $data = [];
             $data['from_date'] = $from_date;
             $data['to_date'] = $to_date;
             $this->db->where('id', $id);
             $updated = $this->db->update('pause_user', $data);
-            if($updated){
+            if ($updated) {
                 $this->session->set_flashdata('flash_message', get_phrase('updated_successfully'));
             } else {
                 $this->session->set_flashdata('error_message', get_phrase('failed_to_update'));
             }
         }
-        redirect(site_url('admin/pause_user'),'refresh');
-
-        
+        redirect(site_url('admin/pause_user'), 'refresh');
     }
 
-    public function check_date_overlap($from_date, $to_date, $user_id, $id=null) {
+    public function check_date_overlap($from_date, $to_date, $user_id, $id = null)
+    {
         $this->db->select('*');
         $this->db->from('pause_user');
         $this->db->where('user_id', $user_id);
         $this->db->where('to_date >=', $from_date);
         $this->db->where('from_date <=', $to_date);
-        if($id){
-            $this->db->where('id !=', $id); 
+        if ($id) {
+            $this->db->where('id !=', $id);
         }
 
         $query = $this->db->get();
         return $query->num_rows();
     }
-
 }

@@ -158,49 +158,49 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                <label class="form_label">First Name *</label>
-                                    <input name="first_name" type="text" class="form-control" maxlength="26" id="first_name1" required placeholder="<?php echo get_phrase('John') ?>">
+                                <!-- <label class="form_label">First Name *</label> -->
+                                    <input name="first_name" type="text" class="form-control" maxlength="26" id="first_name1" required placeholder="<?php echo get_phrase('First name *') ?>">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                <label class="form_label">Last Name</label>
-                                    <input name="last_name" type="text" class="form-control" maxlength="26" id="last_name1" placeholder="<?php echo get_phrase('Deo') ?>">
+                                <!-- <label class="form_label">Last Name</label> -->
+                                    <input name="last_name" type="text" class="form-control" maxlength="26" id="last_name1" placeholder="<?php echo get_phrase('Last name') ?>">
                                 </div>                           
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                <label class="form_label">Email *</label>
-                                    <input name="email" type="email" class="form-control" id="email1" required placeholder="<?php echo get_phrase('JohnDeo@gmail.com') ?>">
+                                <!-- <label class="form_label">Email *</label> -->
+                                    <input name="email" type="email" class="form-control" id="email1" required placeholder="<?php echo get_phrase('Email *') ?>">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                <label class="form_label contact-p-label">Phone *</label>
-                                    <input name="phone" type="tel" class="form-control " id="phone1" required placeholder="<?php echo get_phrase('1234567890 ') ?>">
+                                <!-- <label class="form_label contact-p-label">Phone *</label> -->
+                                    <input name="phone" type="text" class="form-control " id="phone1" required placeholder="<?php echo get_phrase('Phone *') ?>">
                                 </div>                           
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <div class="mb-2">
-                                <label class="form_label">City</label>
-                                    <input name="city" type="text" class="form-control" id="city1" placeholder="Hyderabad">
+                                <div class="mb-3">
+                                <!-- <label class="form_label">City</label> -->
+                                    <input name="city" type="hidden" class="form-control" id="city1" placeholder="Hyderabad">
                                 </div> 
                                 <div class="input-group comment mt-3">
-                                <label class="form_label">Write your message</label>
-                                    <textarea name="message" class="form-control" aria-label="With textarea" id="message1" maxlength="500" placeholder="<?php echo get_phrase('Message'); ?>"></textarea>
+                                <!-- <label class="form_label">Write your message</label> -->
+                                    <textarea name="message" class="form-control" aria-label="With textarea" id="message1" maxlength="500" placeholder="<?php echo get_phrase('Write your message'); ?>"></textarea>
                                 </div>
-                                <div class="cheack-box mt-3">
+                                <!-- <div class="cheack-box mt-3">
                                     <div class="form-check">
                                         <input name="i_agree" class="form-check-input" type="checkbox" required value="1" id="i_agree1">
                                         <label class="form-check-label" for="i_agree"> 
                                             <p><?php echo get_phrase('I agree that my submitted data is being collected and stored.'); ?></p>
                                         </label>
                                     </div>                                  
-                                </div>
+                                </div> -->
                                 <?php if(get_frontend_settings('recaptcha_status')): ?>
                                     <div class="g-recaptcha" data-sitekey="<?php echo get_frontend_settings('recaptcha_sitekey'); ?>"></div>
                                 <?php endif; ?>

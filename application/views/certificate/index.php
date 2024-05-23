@@ -13,12 +13,12 @@
     <link rel="shortcut icon" href="<?php echo base_url('uploads/system/').get_frontend_settings('favicon');?>">
     <script src="<?php echo base_url('assets/global/html2canvas/'); ?>html2canvas.min.js"></script>
     <script src="<?php echo base_url('assets/backend/js/jquery-3.3.1.min.js'); ?>" charset="utf-8"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oleo+Script&family=WindSong:wght@500&display=swap" rel="stylesheet">
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Oleo+Script&family=WindSong:wght@500&display=swap" rel="stylesheet"> -->
    <!--  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script> -->
    <style type="text/css">
-        @import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
+        /* @import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap'); */
         .download{
             padding: 12px 15px;
             background-color: #2d32d5;
@@ -29,11 +29,18 @@
             cursor: pointer;
             margin-top: 100px;
         }
+
+        @font-face {
+            font-family: 'Nova Classic';
+            src: url('<?php echo base_url('assets/frontend/default-new/webfonts/Nova-Classic-Personal-Use-Only-Regular.ttf'); ?>') format('truetype');
+            /* Add more src declarations if you have additional font formats */
+        }
+
         
    </style>
 
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+    /* @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); */
     </style>
 </head>
 
@@ -56,7 +63,7 @@
             // echo get_settings('certificate-text-positons');exit;
             $certificate_template =  str_replace("{date}", date('d M Y'), $certificate_template);
             $certificate_template =  str_replace("{course}",$course['title'], $certificate_template);
-            $certificate_template =  str_replace("{student}", '<span style="font-size:45px;font-family: Oleo Script, cursive;">'.$student.'</span>', $certificate_template);
+            $certificate_template =  str_replace("{student}", '<span style="font-size:45px;">'.$student.'</span>', $certificate_template);
             $certificate_template =  str_replace("{course_language}", '<i class="fas fa-language"></i> '.ucfirst($language), $certificate_template);
             $certificate_template =  str_replace("{course_level}", "", $certificate_template);
             $certificate_template =  str_replace("{total_duration}","", $certificate_template);

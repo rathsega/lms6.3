@@ -180,7 +180,7 @@ class User_model extends CI_Model
         if ($validity) {
             $data['first_name'] = html_escape($this->input->post('first_name'));
             $data['last_name'] = html_escape($this->input->post('last_name'));
-            $data['phone'] = html_escape($this->input->post('phone'));
+            //$data['phone'] = html_escape($this->input->post('phone'));
             
             if (isset($_POST['email'])) {
                 $data['email'] = html_escape($this->input->post('email'));
