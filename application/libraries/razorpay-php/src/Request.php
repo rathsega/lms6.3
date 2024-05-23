@@ -2,7 +2,6 @@
 
 namespace Razorpay\Api;
 
-use Error;
 use Requests;
 use Exception;
 use Requests_Hooks;
@@ -114,12 +113,8 @@ class Request
 
     protected function processError($body, $httpStatusCode, $response)
     {
-        try{
-            throw new error("Hello");
-        }catch(Error $e){
-            echo $e->getTraceAsString();
-        }
         $this->verifyErrorFormat($body, $httpStatusCode);
+
         $code = $body['error']['code'];
 
         // We are basically converting the error code to the Error class name

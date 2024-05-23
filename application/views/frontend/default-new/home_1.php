@@ -729,6 +729,7 @@ if($payment_pending){
                                             <a class="" href="<?php echo $social_links['twitter']; ?>" target="_blank">
                                                 <i class="fa-brands fa-twitter"></i>
                                             </a>
+                                           
                                         <?php endif; ?>
                                         <?php if($social_links['linkedin']): ?>
                                             <a class="" href="<?php echo $social_links['linkedin']; ?>" target="_blank">

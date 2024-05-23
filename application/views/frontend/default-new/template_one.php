@@ -58,7 +58,7 @@ $cart_items = $this->session->userdata('cart_items');
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-12  order-md-1 order-sm-2 order-2">
                 <div class=" mb-3 mt-5">
-                    <h1 class="hero-heading mb-4 fw-bold"> Empower your <br> <span class="cyber-para"><?php echo $course_details['title']; ?> career</span> </h1>
+                    <h1 class="hero-heading mb-4 fw-bold"> Empower your <br> <span class="cyber-para"><?php echo $course_details['title']; ?> Career</span> </h1>
                     <p class="mb-5 col-lg-10 col-12">There's such a high demand for <?php echo $course_details['title']; ?> professionals that there will be an estimated 3.5 million unfilled jobs worldwide by 2025, according to Cybercert. So if you're interested in filling one of those 3.5 million positions, you should know the landscape of various career paths in the cybersecurity field</p>
                 </div>
                 <div class="buttons-mble">
