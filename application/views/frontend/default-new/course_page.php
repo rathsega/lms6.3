@@ -546,7 +546,7 @@ if($ratings_count){
 }
     .contact_us_modal-content {
     background-color: #fefefe;
-    margin: 5% auto;
+    margin: 4% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 40%;
@@ -586,7 +586,9 @@ if($ratings_count){
     font-weight: bold;
 
     }
-
+.phon-ip{
+    margin-top: 1.2rem;
+}
     .close:hover,
     .close:focus {
     cursor: pointer;
@@ -625,15 +627,15 @@ if($ratings_count){
 <div class="contact_us_modal" id="contactModal">
   <div class="contact_us_modal-content">
     <div class="row">
-        <div class="col-md-10 col-sm-10 col-md-lg-10">
-            <h2>Contact Us</h2>
+    <div class="col-md-10 col-sm-10 col-md-lg-10 text-center c-head">
+        <h4><img src="<?php echo site_url("assets/frontend/default-new/image/letter_send_1_1_zete2g.webp") ?>" alt="" class="c-img"> Contact <span class="Us-color">Us</span></h4>
         </div>
         <div class="col-md-2 col-sm-2 col-md-lg-2">
             <span class="close" id="closeModal">&times;</span>
         </div>
     </div>
 
-    <section class="sign-up my-5 pt-1">
+    <section class="sign-up ">
     <div class="container">
         <div class="row">
             <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-12 text-center">
@@ -646,7 +648,7 @@ if($ratings_count){
                     <form action="javascript:void(0);" onsubmit="contactFormSubmit()" name="contactForm" id="contactForm">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="mb-3">
+                                <div class="mb-1">
                                     <select class="select2 form-control select2-multiple" data-toggle="select2" data-placeholder="Choose ..." name="course" id="course" required>
                                         <option value=""><?php echo get_phrase('select_a_course'); ?></option>
                                         <?php $course_list = $this->crud_model->get_actual_courses()->result_array();
@@ -662,44 +664,44 @@ if($ratings_count){
                         </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-12 col-sm-12">
-                                <div class="mb-3">
+                                <div>
                                     <input name="first_name" type="text" class="form-control" maxlength="26" id="first_name" required placeholder="<?php echo get_phrase('First Name *') ?>">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
-                                <div class="mb-3">
+                                <div>
                                     <input name="last_name" type="text" class="form-control" maxlength="26" id="last_name" placeholder="<?php echo get_phrase('Last Name') ?>">
                                 </div>                           
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-12 col-sm-12">
-                                <div class="mb-3">
+                                <div>
                                     <input name="email" type="email" class="form-control" id="email" required placeholder="<?php echo get_phrase('Email *') ?>">
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-12 col-sm-12">
-                                <div class="mb-3">
+                            <div class="col-lg-6 col-md-12 col-sm-12 phon-ip">
+                                <div>
                                     <input name="phone" type="tel" class="form-control" id="phone" required placeholder="<?php echo get_phrase('Phone *') ?>">
                                 </div>                           
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <div class="mb-3">
+                                <!-- <div class="mb-3">
                                     <input name="city" type="text" class="form-control" id="city" placeholder="City">
-                                </div> 
+                                </div>  -->
                                 <div class="input-group comment">
                                     <textarea name="message" class="form-control" aria-label="With textarea" id="message" maxlength="500" placeholder="<?php echo get_phrase('Write your message'); ?>"></textarea>
                                 </div>
-                                <div class="cheack-box">
+                                <!-- <div class="cheack-box">
                                     <div class="form-check">
                                         <input name="i_agree" class="form-check-input" type="checkbox" required value="1" id="i_agree">
                                         <label class="form-check-label" for="i_agree"> 
                                             <p><?php echo get_phrase('I agree that my submitted data is being collected and stored.'); ?></p>
                                         </label>
                                     </div>                                  
-                                </div>
+                                </div> -->
                                 <?php if(get_frontend_settings('recaptcha_status')): ?>
                                     <div class="g-recaptcha" data-sitekey="<?php echo get_frontend_settings('recaptcha_sitekey'); ?>"></div>
                                 <?php endif; ?>
@@ -941,6 +943,9 @@ if($ratings_count){
 <style>
     .iti--allow-dropdown{
         width: 100%;
+    }
+    input{
+        margin-bottom: 2px;
     }
 </style>
 <script>

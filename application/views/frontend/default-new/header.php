@@ -293,7 +293,7 @@ width: 100%;
     
     .blink2 {
       margin-top: 46px;
-      margin-right: 131px;
+      margin-right: 80px;
       }
   }
   @media screen and (min-width: 820px) and (max-width: 1180px) {
@@ -308,7 +308,21 @@ width: 100%;
       margin-top: 40px;
       }
   }
-
+  @media only screen and (-webkit-device-pixel-ratio: 2) { 
+    .blink2 {
+      margin-right:73px;
+      }
+}
+@media only screen and (max-width: 360px) {
+  .blink2 {
+      margin-right:62px;
+      }
+}
+@media only screen and (min-width: 834px) and (max-width: 1024px) and (orientation: portrait) { 
+  .blink2 {
+      margin-right:15px;
+      }
+}
 	</style>
   <?php include "enquire_now.php" ?>
   <?php //include "feedback.php" ?>
