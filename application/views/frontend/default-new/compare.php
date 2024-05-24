@@ -105,9 +105,9 @@
 	                            <h3><?php echo get_phrase('Free'); ?></h3>
 	                        <?php elseif($course_1_details['discount_flag']): ?>
 	                            <h3><?php echo currency($course_1_details['discounted_price']); ?></h3>
-	                            <h6 class="ms-1" style="margin-top: 2px"><del><?php echo currency($course_1_details['price']); ?></del></h6>
+	                            <h6 class="ms-1" style="margin-top: 2px"><del><?php echo currency($course_1_details['price']); ?></del><span><?php echo " +Tax"; ?></span></h6>
 	                        <?php else: ?>
-	                            <h3><?php echo currency($course_1_details['price']); ?></h3>
+	                            <h3><?php echo currency($course_1_details['price']); ?><span><?php echo " +Tax"; ?></span></h3>
 	                        <?php endif; ?>
 	                    </div>
 	                    <p class="ellipsis-line-2"><?php echo $course_1_details['short_description'] ?></p>
@@ -125,9 +125,9 @@
 	                            <h3><?php echo get_phrase('Free'); ?></h3>
 	                        <?php elseif($course_2_details['discount_flag']): ?>
 	                            <h3><?php echo currency($course_2_details['discounted_price']); ?></h3>
-	                            <h6 class="ms-1" style="margin-top: 2px"><del><?php echo currency($course_2_details['price']); ?></del></h6>
+	                            <h6 class="ms-1" style="margin-top: 2px"><del><?php echo currency($course_2_details['price']); ?></del><span><?php echo " +Tax"; ?></span></h6>
 	                        <?php else: ?>
-	                            <h3><?php echo currency($course_2_details['price']); ?></h3>
+	                            <h3><?php echo currency($course_2_details['price']); ?><span><?php echo " +Tax"; ?></span></h3>
 	                        <?php endif; ?>
 	                    </div>
 	                    <p class="ellipsis-line-2"><?php echo $course_2_details['short_description'] ?></p>
@@ -145,9 +145,9 @@
 	                            <h3><?php echo get_phrase('Free'); ?></h3>
 	                        <?php elseif($course_3_details['discount_flag']): ?>
 	                            <h3><?php echo currency($course_3_details['discounted_price']); ?></h3>
-	                            <h6 class="ms-1" style="margin-top: 2px"><del><?php echo currency($course_3_details['price']); ?></del></h6>
+	                            <h6 class="ms-1" style="margin-top: 2px"><del><?php echo currency($course_3_details['price']); ?></del><span><?php echo " +Tax"; ?></span></h6>
 	                        <?php else: ?>
-	                            <h3><?php echo currency($course_3_details['price']); ?></h3>
+	                            <h3><?php echo currency($course_3_details['price']); ?><span><?php echo " +Tax"; ?></span></h3>
 	                        <?php endif; ?>
 	                    </div>
 	                    <p class="ellipsis-line-2"><?php echo $course_3_details['short_description'] ?></p>

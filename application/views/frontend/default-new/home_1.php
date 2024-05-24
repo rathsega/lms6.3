@@ -369,9 +369,9 @@ if($payment_pending){
                                                 <h5><?php echo get_phrase('Free'); ?></h5>
                                             <?php elseif($top_course['discount_flag']): ?>
                                                 <h5><?php echo currency($top_course['discounted_price']); ?></h5>
-                                                <p class="mt-1"><del><?php echo currency($top_course['price']); ?></del></p>
+                                                <p class="mt-1"><del><?php echo currency($top_course['price']); ?></del><span><?php echo " +Tax"; ?></span></p>
                                             <?php else: ?>
-                                                <h5><?php echo currency($top_course['price']); ?></h5>
+                                                <h5><?php echo currency($top_course['price']); ?><span><?php echo " +Tax"; ?></span></h5>
                                             <?php endif; ?>
                                         </div>
                                         <div class="courses-price-right ">
@@ -589,9 +589,9 @@ if($payment_pending){
                                                 <h5><?php echo get_phrase('Free'); ?></h5>
                                             <?php elseif($latest_course['discount_flag']): ?>
                                                 <h5><?php echo currency($latest_course['discounted_price']); ?></h5>
-                                                <p class="mt-1"><del><?php echo currency($latest_course['price']); ?></del></p>
+                                                <p class="mt-1"><del><?php echo currency($latest_course['price']); ?></del><span><?php echo " +Tax"; ?></span></p>
                                             <?php else: ?>
-                                                <h5><?php echo currency($latest_course['price']); ?></h5>
+                                                <h5><?php echo currency($latest_course['price']); ?><span><?php echo " +Tax"; ?></span></h5>
                                             <?php endif; ?>
                                         </div>
                                         <div class="courses-price-right ">
@@ -873,7 +873,7 @@ if($payment_pending){
                             </div> 
                         </div>
                         <div class="courses-text">
-                            <h5><?php echo $latest_blog['title']; ?></h5>
+                            <h5 class="truncate-text"><?php echo $latest_blog['title']; ?></h5>
                             <p class="ellipsis-line-2"><?php echo ellipsis(strip_tags(htmlspecialchars_decode_($latest_blog['description'])), 100); ?></p>
                             <div class="courses-price-border">
                                 <div class="courses-price">

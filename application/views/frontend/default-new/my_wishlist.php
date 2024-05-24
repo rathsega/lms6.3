@@ -67,10 +67,10 @@
 			                                            <?php if($course['is_free_course']): ?>
 			                                                <h5><?php echo get_phrase('Free'); ?></h5>
 			                                            <?php elseif($course['discount_flag']): ?>
-			                                                <h5><?php echo currency($course['discounted_price']); ?></h5>
-			                                                <p class="mt-1"><del><?php echo currency($course['price']); ?></del></p>
+			                                                <h5><?php echo currency($course['discounted_price']); ?><span><?php echo " +Tax"; ?></span></h5>
+			                                                <p class="mt-1"><del><?php echo currency($course['price']); ?></del><span><?php echo " +Tax"; ?></span></p>
 			                                            <?php else: ?>
-			                                                <h5><?php echo currency($course['price']); ?></h5>
+			                                                <h5><?php echo currency($course['price']); ?><span><?php echo " +Tax"; ?></span></h5>
 			                                            <?php endif; ?>
 			                                        </div>
 			                                        <div class="courses-price-right ">
