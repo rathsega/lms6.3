@@ -159,14 +159,16 @@
 
 <script>
     function printContent() {
-        $("extra_image").hide();
-        $("extra_buttons").hide();
+        let extra_image = document.getElementById("extra_image");
+        let extra_button = document.getElementById("extra_buttons");
+        extra_image.style.display = "none";
+        extra_button.style.display = "none";
         var content = document.getElementById("contentToPrint").innerHTML;
         var originalDocument = document.body.innerHTML;
         document.body.innerHTML = content;
         window.print();
         document.body.innerHTML = originalDocument;
-        $("extra_image").show();
-        $("extra_buttons").show();
+        extra_image.style.display = "block";
+        extra_button.style.display = "block";
     }
 </script>
