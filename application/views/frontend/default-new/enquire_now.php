@@ -18,6 +18,12 @@
     .c-img{
         height:66px;
     }
+    .phon-enquery{
+        margin-top:1.2rem;
+    }
+    input {
+    margin-bottom: 0px;
+}
     .contact_us_modal-content {
     border-radius: 6px;
     background-color: #fefefe;
@@ -141,7 +147,7 @@
                     <form action="javascript:void(0);" onsubmit="contactFormSubmit1()" name="contactForm1" id="contactForm1">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="mb-3">
+                                <div>
                                     <select class="select2 form-control select2-multiple" data-toggle="select2" data-placeholder="Choose ..." name="course" id="course1" required>
                                         <option value=""><?php echo get_phrase('select_a_course'); ?></option>
                                         <?php $course_list = $this->crud_model->get_actual_courses()->result_array();
@@ -157,13 +163,13 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-12 col-sm-12">
-                                <div class="mb-3">
+                                <div >
                                 <!-- <label class="form_label">First Name *</label> -->
                                     <input name="first_name" type="text" class="form-control" maxlength="26" id="first_name1" required placeholder="<?php echo get_phrase('First name *') ?>">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
-                                <div class="mb-3">
+                                <div>
                                 <!-- <label class="form_label">Last Name</label> -->
                                     <input name="last_name" type="text" class="form-control" maxlength="26" id="last_name1" placeholder="<?php echo get_phrase('Last name') ?>">
                                 </div>                           
@@ -171,25 +177,24 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-12 col-sm-12">
-                                <div class="mb-3">
+                                <div >
                                 <!-- <label class="form_label">Email *</label> -->
                                     <input name="email" type="email" class="form-control" id="email1" required placeholder="<?php echo get_phrase('Email *') ?>">
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-12 col-sm-12">
-                                <div class="mb-3">
-                                <!-- <label class="form_label contact-p-label">Phone *</label> -->
+                            <div class="col-lg-6 col-md-12 col-sm-12 phon-enquery">
+                                <div >
                                     <input name="phone" type="text" class="form-control " id="phone1" required placeholder="<?php echo get_phrase('Phone *') ?>">
                                 </div>                           
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <div class="mb-3">
+                                <div>
                                 <!-- <label class="form_label">City</label> -->
                                     <input name="city" type="hidden" class="form-control" id="city1" placeholder="Hyderabad">
                                 </div> 
-                                <div class="input-group comment mt-3">
+                                <div class="input-group comment">
                                 <!-- <label class="form_label">Write your message</label> -->
                                     <textarea name="message" class="form-control" aria-label="With textarea" id="message1" maxlength="500" placeholder="<?php echo get_phrase('Write your message'); ?>"></textarea>
                                 </div>
