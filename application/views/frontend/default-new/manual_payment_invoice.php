@@ -3,6 +3,9 @@
         width: 1000px;
         margin-bottom: 66px !important;
     }
+    .gstin-p{
+        font-size:18px;
+    }
 @media screen and (max-width:767px){
   .mobile-invoice-ui {
     display: contents !important;
@@ -12,6 +15,9 @@
   }
   .invoice-carui {
     width: 390px;
+    }
+    .gstin-p{
+        font-size:16px;
     }
     .main-invoice {
     margin: 21px;
@@ -28,6 +34,7 @@
                         <!-- <h4 class="float-end font-size-15">Invoice #DS0204 <span class="badge bg-success font-size-12 ms-2">Paid</span></h4> -->
                         <div class="mb-4">
                             <img src="<?php echo site_url('uploads/system/' . get_frontend_settings('dark_logo')) ?>" alt="" class="tech_logo">
+                       
                         </div>
                         <div class="text-end col-12 pt-2 d-none d-md-block" id="extra_image">
                         <img src="<?php echo site_url('assets/frontend/default-new/image/custom_invoice.png') ?>" alt="" class="invoice-pic">
@@ -65,8 +72,12 @@
                                         <td><?php echo $buyer_details['first_name'].' '.$buyer_details['last_name']; ?></td>
                                     </tr>
                                     <tr>
+                                        <th scope="row" style="text-align: left;">Actual Price:</th>
+                                        <td><?php echo $buyer_details['first_name'].' '.$buyer_details['last_name']; ?></td>
                                     </tr>
                                     <tr>
+                                        <th scope="row" style="text-align: left;">Discount:</th>
+                                        <td><?php echo $buyer_details['first_name'].' '.$buyer_details['last_name']; ?></td>
                                     </tr>
                                  
                                 </tbody>
@@ -143,6 +154,7 @@
                 </div>
             </div>
             <div>
+            <p class=" fw-bold text-dark gstin-p text-center">GSTIN NO: #78785478</p>
                 <h5 class="font-size-15 mb-1 text-center" style="text-align:center;">This inovice is computer generated</h5>
             </div>
         </div><!-- end col -->

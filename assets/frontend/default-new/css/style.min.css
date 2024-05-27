@@ -792,11 +792,22 @@ tbody, td, tfoot, th, thead, tr {
 }
 .back-h{
   background-color: #754FFE !important;
-  
+  padding: 6px 30px !important;
 }
 @media screen and (max-width:767px){
   .mbile-ty{
-      margin-left:60px;
+      margin-left:30px;
+      margin-top: -56px;
+  }
+  .ty-heading{
+    font-size: 29px;
+
+  }
+  .ty-para{
+    font-size:16px;
+  }
+  .thank-you-img{
+    height: 350px;
   }
 }
 
