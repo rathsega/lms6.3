@@ -1,11 +1,12 @@
 <?php
+$payment_info = (array)$payment_info;
 $course_details = $this->crud_model->get_course_by_id($payment_info['course_id'])->row_array();
 $buyer_details = $this->user_model->get_all_user($payment_info['user_id'])->row_array();
 $sub_category_details = $this->crud_model->get_category_details_by_id($course_details['sub_category_id'])->row_array();
 $instructor_details = $this->user_model->get_all_user($course_details['user_id'])->row_array();
 ?>
 
-
+<?php //var_dump($course_details["id"]); exit; ?>
 
 <style>
     .invoice-carui{
@@ -52,6 +53,7 @@ $instructor_details = $this->user_model->get_all_user($course_details['user_id']
                         </div>
 
                     <!-- <hr class="my-4"> -->
+                    <?php //var_dump($payment_info); ?>
 
                     
                     <div class="mobile-invoice-ui" style="display: flex; justify-content: space-between;margin-top:60px;">
@@ -60,15 +62,15 @@ $instructor_details = $this->user_model->get_all_user($course_details['user_id']
                                 <tbody>
                                     <tr>
                                         <th scope="row" style="text-align: left;">Invoice:</th>
-                                        <td>#<?php echo $purchase_history[0]['date_added']; ?></td>
+                                        <td>#<?php echo $payment_info['date_added']; ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row" style="text-align: left;">Date:</th>
-                                        <td><?php echo date("j F, Y", $purchase_history[0]['date_added']); ?></td>
+                                        <td><?php echo date("j F, Y", $payment_info['date_added']); ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row" style="text-align: left;">Course Name:</th>
-                                        <td><?php echo $purchase_history[0]['title']; ?></td>
+                                        <td><?php echo $payment_info['title']; ?></td>
                                     </tr>
                                    
                                 </tbody>
@@ -79,15 +81,17 @@ $instructor_details = $this->user_model->get_all_user($course_details['user_id']
                                 <tbody>
                                 <tr>
                                         <th scope="row" style="text-align: left;">Billed To:</th>
-                                        <td><?php echo $buyer_details['first_name'].' '.$buyer_details['last_name']; ?></td>
+                                        <td><?php echo $user_details['first_name'].' '.$user_details['last_name']; ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row" style="text-align: left;">Actual Price:</th>
-                                        <td><?php echo $buyer_details['first_name'].' '.$buyer_details['last_name']; ?></td>
+                                        <td><?php echo currency($payment_info['price']); ?></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" style="text-align: left;">Discount:</th>
-                                        <td><?php echo $buyer_details['first_name'].' '.$buyer_details['last_name']; ?></td>
+                                        <?php if($payment_info['discounted_price']): ?>
+                                        <th scope="row" style="text-align: left;">Discounted Price:</th>
+                                        <td><?php echo currency($payment_info['discounted_price']); ?></td>
+                                        <?php endif; ?>
                                     </tr>
                                  
                                 </tbody>
@@ -105,9 +109,9 @@ $instructor_details = $this->user_model->get_all_user($course_details['user_id']
 
                     <?php
                     $total_paid_amount = 0;
-                    foreach ($purchase_history as $history) {
+                    /*foreach ($payment_info as $history) {
                         $total_paid_amount += $history['amount'];
-                    }
+                    }*/
                     ?>
                     <div class="py-2">
                         <!-- <h5 class="font-size-15">Order Summary :</h5> -->
@@ -123,34 +127,31 @@ $instructor_details = $this->user_model->get_all_user($course_details['user_id']
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($purchase_history as $key => $payment) : ?>
+                                <?php //foreach ($purchase_history as $key => $payment) : ?>
                                     <tr>
-                                        <td style="text-align:left;"><?php echo ++$key; ?></td>
-                                        <td style="text-align:left;width:220px;"><?php echo $payment['title']; ?></td>
-                                        <td style="text-align:left;width:220px;"><?php echo date("j F, Y H:i", strtotime($payment['datetime'])); ?></td>
-                                        <td style="text-align:left;width:220px;"><?php echo currency($payment['amount']); ?></td>
+                                        <td style="text-align:left;"><?php echo "1"; ?></td>
+                                        <td style="text-align:left;width:220px;"><?php echo $payment_info['title']; ?></td>
+                                        <td style="text-align:left;width:220px;"><?php echo date("j F, Y H:i", strtotime($payment_info['datetime'])); ?></td>
+                                        <td style="text-align:left;width:220px;"><?php echo currency($payment_info['amount']); ?></td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php //endforeach; ?>
                                 <tr >
                                 <td colspan="3" style="text-align: right;color:#0d6efd;" class=" fw-semibold">Sub Total:</td>
-                                <td style="text-align:left;"><?php echo currency($total_paid_amount); ?></td>
+                                <td style="text-align:left;"><?php echo currency($payment_info['amount']); ?></td>
                                 </tr>
 
                                 <tr>
                                     <td colspan="3" style="text-align: right;color:#0d6efd;" style="text-align:right;" class=" fw-semibold">Total:</td>
-                                    <td  style="text-align:left;"><?php echo currency($total_paid_amount); ?></td>
+                                    <td  style="text-align:left;"><?php echo currency($payment_info['amount']); ?></td>
                                 </tr>
                             </tbody>
                         </table>
                         </div>
-
-                                <?php
-                                $purchase_history[0]['course_fee'] = 50000;
-                                ?>
-                        <?php if ($purchase_history[0]['course_fee'] > $total_paid_amount) : ?>
+                            
+                        <?php if ($course_details['course_fee'] > $total_paid_amount) : ?>
                             <div class=" mb-5 mt-4">
                                 <div class="shadow-lg p-4 mb-5 bg-body-tertiary rounded">
-                                    <h6 class="fw-bold">Your Total Due Amount = <span class="text-danger fw-bold"><?php echo currency($purchase_history[0]['course_fee'] - $total_paid_amount); ?></span></h6>
+                                    <h6 class="fw-bold">Your Total Due Amount = <span class="text-danger fw-bold"><?php echo currency($payment_info[0]['course_fee'] - $total_paid_amount); ?></span></h6>
                                 </div>
                             </div>
                         <?php endif; ?>
@@ -164,7 +165,7 @@ $instructor_details = $this->user_model->get_all_user($course_details['user_id']
                 </div>
             </div>
             <div>
-          <p class=" fw-bold text-dark gstin-p text-center">GSTIN NO: #78785478</p>
+          <p class=" fw-bold text-dark gstin-p text-center">GSTIN NO: 36CAWPG4294E1ZA</p>
                 <h5 class="font-size-15 mb-1 text-center" style="text-align:center;">This inovice is computer generated</h5>
             </div>
         </div><!-- end col -->

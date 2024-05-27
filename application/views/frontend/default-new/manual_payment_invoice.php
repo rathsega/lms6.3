@@ -42,7 +42,6 @@
                         </div>
 
                     <!-- <hr class="my-4"> -->
-
                     
                     <div class="mobile-invoice-ui" style="display: flex; justify-content: space-between;margin-top:60px;">
                         <div style="flex-basis: 65%;">
@@ -69,15 +68,15 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row" style="text-align: left;">Billed To:</th>
-                                        <td><?php echo $buyer_details['first_name'].' '.$buyer_details['last_name']; ?></td>
+                                        <td><?php echo $user_details['first_name'].' '.$user_details['last_name']; ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row" style="text-align: left;">Actual Price:</th>
-                                        <td><?php echo $buyer_details['first_name'].' '.$buyer_details['last_name']; ?></td>
+                                        <td><?php echo currency($purchase_history[0]['price']); ?></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" style="text-align: left;">Discount:</th>
-                                        <td><?php echo $buyer_details['first_name'].' '.$buyer_details['last_name']; ?></td>
+                                        <th scope="row" style="text-align: left;">Discounted Price:</th>
+                                        <td><?php echo currency($purchase_history[0]['course_fee']); ?></td>
                                     </tr>
                                  
                                 </tbody>
@@ -134,9 +133,7 @@
                         </table>
                         </div>
 
-                                <?php
-                                $purchase_history[0]['course_fee'] = 50000;
-                                ?>
+                               
                         <?php if ($purchase_history[0]['course_fee'] > $total_paid_amount) : ?>
                             <div class=" mb-5 mt-4">
                                 <div class="shadow-lg p-4 mb-5 bg-body-tertiary rounded">
@@ -154,7 +151,7 @@
                 </div>
             </div>
             <div>
-            <p class=" fw-bold text-dark gstin-p text-center">GSTIN NO: #78785478</p>
+            <p class=" fw-bold text-dark gstin-p text-center">GSTIN NO: 36CAWPG4294E1ZA</p>
                 <h5 class="font-size-15 mb-1 text-center" style="text-align:center;">This inovice is computer generated</h5>
             </div>
         </div><!-- end col -->

@@ -1360,7 +1360,8 @@ class Home extends CI_Controller
             redirect('home', 'refresh');
         }
         $purchase_history = $this->crud_model->get_payment_details_by_id($purchase_history_id);
-        if ($purchase_history['user_id'] != $this->session->userdata('user_id')) {
+
+        if ($purchase_history->user_id != $this->session->userdata('user_id')) {
             redirect('home', 'refresh');
         }
         $page_data['payment_info'] = $purchase_history;

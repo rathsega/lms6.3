@@ -276,7 +276,9 @@ class Crud_model extends CI_Model
 
     public function get_payment_details_by_id($payment_id = "")
     {
-        return $this->db->get_where('payment', array('id' => $payment_id))->row_array();
+        $query = "SELECT c.title, c.price, c.discounted_price, p.* FROM `payment` as p left join course as c on c.id = p.course_id where p.id=" . $payment_id;
+        return $this->db->query($query)->row();
+        //return $this->db->get_where('payment', array('id' => $payment_id))->row_array();
     }
 
     public function update_payout_status($payout_id = "", $payment_type = "")
