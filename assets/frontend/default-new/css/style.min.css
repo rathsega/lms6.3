@@ -821,7 +821,7 @@ h1 span{
   color: #000 !important;
 }
 
-h4 span{
+h4 span:not(.Us-color){
   font-size: 0.6em;
   color: #000 !important;
 }

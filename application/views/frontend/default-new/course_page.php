@@ -804,7 +804,7 @@ if($ratings_count){
         const last_name = document.getElementById('last_name').value.trim();
         const email = document.getElementById('email').value.trim();
         const phone = document.getElementById('phone').value.trim();
-        const city = document.getElementById('city').value.trim();
+        const city = "";
         const message = document.getElementById('message').value.trim();
         const course = document.getElementById('course').value.trim();
         // const phone = document.getElementsByName('full')[0].value.trim();

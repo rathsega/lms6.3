@@ -249,7 +249,7 @@
         const last_name = document.getElementById('last_name1').value.trim();
         const email = document.getElementById('email1').value.trim();
         const phone = document.getElementById('phone1').value.trim();
-        const city = document.getElementById('city1').value.trim();
+        const city = "";
         const message = document.getElementById('message1').value.trim();
         const course = document.getElementById('course1').value.trim();
         // const phone = document.getElementsByName('full')[0].value.trim();

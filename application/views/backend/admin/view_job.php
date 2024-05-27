@@ -28,7 +28,7 @@
                     <p><strong>Required Skills:</strong> <?php echo implode(', ', json_decode($job['required_skills'])); ?></p>
                     <p><strong>Work Mode:</strong> <?php echo $job['work_mode']; ?></p>
                     <p><strong>Industry:</strong> <?php echo $job['industry']; ?></p>
-                    <p><a href="<?php echo site_url('jobs/edit/' . $job['id']); ?>">Edit</a> | <a href="<?php echo site_url('jobs'); ?>">Back to Jobs</a></p>
+                    <p><a href="<?php echo site_url('jobs/edit/' . $job['id']); ?>">Edit</a> |&nbsp;&nbsp; <a href="<?php echo site_url('admin/jobs'); ?>">Back to Jobs</a></p>
                 </div>
             </div> <!-- end card body-->
         </div> <!-- end card -->
