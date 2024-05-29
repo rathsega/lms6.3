@@ -400,9 +400,9 @@ Last Updated: 27 Aug 2023
     bottom: 0px;
 }*/
 
-/* .nb-form:hover #userIcon {
+.nb-form:hover #userIcon {
     content: url('../image/minimize-img.png');
-} */
+}
 /* .nb-form .user-icon {
     position: absolute;
     top: -49px;
@@ -849,4 +849,7 @@ del span{
   text-overflow: ellipsis;     /* Adds ellipsis (...) for overflow text */
   line-height: 1.5em;          /* Adjust line height to match your text */
   max-height: 3em;             /* 2 lines * line-height, adjust if line-height changes */
+}
+.iti {
+  width: 100%;
 }

@@ -902,7 +902,11 @@ class Crud_model extends CI_Model
                         $learn[$learn_key]['icon'] = $course_id .'_'.$learn_key.'_' .$data['last_modified']. '.'.$fileExtension;
                     }
                 }else{
-                    $learn[$learn_key]['icon'] = $this->input->post('learn_previous_icon')[$learn_key];
+                    if($this->input->post('learn_previous_icon')){
+                        $learn[$learn_key]['icon'] = $this->input->post('learn_previous_icon')[$learn_key];
+                    }else{
+                        $learn[$learn_key]['icon'] = "";
+                    }
                 }
             }
         endif;
