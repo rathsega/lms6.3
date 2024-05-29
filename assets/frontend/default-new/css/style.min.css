@@ -400,9 +400,9 @@ Last Updated: 27 Aug 2023
     bottom: 0px;
 }*/
 
-/* .nb-form:hover #userIcon {
+.nb-form:hover #userIcon {
     content: url('../image/minimize-img.png');
-} */
+}
 /* .nb-form .user-icon {
     position: absolute;
     top: -49px;
