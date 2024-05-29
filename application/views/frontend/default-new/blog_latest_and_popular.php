@@ -23,7 +23,7 @@
                                 </div> 
                             </div>
                             <div class="courses-text">
-                                <h5><?php echo $latest_blog['title']; ?></h5>
+                                <h5 class="truncate-text"><?php echo $latest_blog['title']; ?></h5>
                                 <p class="ellipsis-line-2"><?php echo ellipsis(strip_tags(htmlspecialchars_decode_($latest_blog['description'])), 150); ?></p>
                                     <div class="courses-price-border">
                                         <div class="courses-price">
