@@ -99,9 +99,10 @@ if ($stripe_info[0]['active'] == 0) {
   <div class="row">
     <!-- Form -->
     <div class="nb-form">
-      <!-- <p class="title title-mess">S</p> -->
+      <p class="title">Send a message</p>
       <div class="user-container">
-      <img src="<?php echo base_url() . "assets/frontend/default-new/image/message-widget.png"; ?>"  class="user-icon" id="userIcon">
+      <img src="<?php echo base_url() . "assets/frontend/default-new/image/message-widget.png"; ?>" class="user-icon" id="userIcon" onclick="toggleImageDisplay('hide')">
+      <img src="<?php echo base_url() . "assets/frontend/default-new/image/minimize-img.png"; ?>"  class="user-icon user-icon-2" onclick="toggleImageDisplay('show')">
       </div>
       <form action="javascript:void(0);" onsubmit="footerContactFormSubmit()" name="footerContactForm" id="footerContactForm">
         <input type="text" name="cpname" id="footerCFName" placeholder="Name:" required>
@@ -149,7 +150,7 @@ if ($stripe_info[0]['active'] == 0) {
     <script>
         $(".user-icon").click(function(){
             if($('.nb-form').css("bottom") == "0px"){
-                $('.nb-form').css("bottom", "-335px");
+                $('.nb-form').css("bottom", "-395px");
             }else{
                 $('.nb-form').css("bottom", "0px");
             }
@@ -269,6 +270,10 @@ if ($stripe_info[0]['active'] == 0) {
                 }, 10000)
             } // 10000 to load it after 10 seconds from page load
         });
+        function toggleImageDisplay(action) {
+            action == 'hide' ? $('#userIcon').hide() : $('#userIcon').show();
+        }
+
     </script>
 
 

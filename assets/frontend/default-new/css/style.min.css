@@ -390,8 +390,8 @@ Last Updated: 27 Aug 2023
     width: 300px;
     background: #FFF;
     right: 20px;
-    /* bottom: -395px; */
-    bottom: -335px;
+    bottom: -395px;
+    /* bottom: -335px; */
     transition: all .8s cubic-bezier(.22, .67, .43, 1.22) .2s;
     border-radius: 10px 10px 0 0;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12),0 3px 1px -2px rgba(0,0,0,0.2);
@@ -400,9 +400,9 @@ Last Updated: 27 Aug 2023
     bottom: 0px;
 }*/
 
-.nb-form:hover #userIcon {
+/* .nb-form:hover #userIcon {
     content: url('../image/minimize-img.png');
-}
+} */
 /* .nb-form .user-icon {
     position: absolute;
     top: -49px;
@@ -414,18 +414,31 @@ Last Updated: 27 Aug 2023
 } */
 .nb-form .user-icon {
   position: absolute;
-  top: -104px;
+  top: -114px;
   right: 0px;
   display: block;
   width: 56px;
   margin: 35px auto 15px;
   border-radius: 100%;
 }
+.nb-form .user-icon-2 {
+ position: absolute;
+       top: -27px;
+    right: 16px;
+    display: block;
+    width: 33px;
+    margin: 35px auto 14px;
+    border-radius: 100%;
+}
 @media only screen and (max-width: 768px) {
  .nb-form .user-icon {
   /* right: -48px; */
-  right: -2.2rem;
+  right: -1.5rem;
   cursor: pointer;
+ }
+ .nb-form .user-icon-2{
+  top: -26px;
+  right: 16px !important;
  }
 }
 /*-- Title --*/
@@ -565,7 +578,7 @@ Last Updated: 27 Aug 2023
   
     .nb-form{
         right: 50%;
-        bottom: -336px;
+        bottom: -400px;
         left: 50%;
         transform: translateX(-50%);
     }
