@@ -369,9 +369,9 @@ if($payment_pending){
                                                 <h5><?php echo get_phrase('Free'); ?></h5>
                                             <?php elseif($top_course['discount_flag']): ?>
                                                 <h5><?php echo currency($top_course['discounted_price']); ?></h5>
-                                                <p class="mt-1"><del><?php echo currency($top_course['price']); ?></del><span><?php echo " +Tax"; ?></span></p>
+                                                <p class="mt-1"><del><?php echo currency($top_course['price']); ?></del><span><?php echo " +Taxes"; ?></span></p>
                                             <?php else: ?>
-                                                <h5><?php echo currency($top_course['price']); ?><span><?php echo " +Tax"; ?></span></h5>
+                                                <h5><?php echo currency($top_course['price']); ?><span><?php echo " +Taxes"; ?></span></h5>
                                             <?php endif; ?>
                                         </div>
                                         <div class="courses-price-right ">
@@ -589,9 +589,9 @@ if($payment_pending){
                                                 <h5><?php echo get_phrase('Free'); ?></h5>
                                             <?php elseif($latest_course['discount_flag']): ?>
                                                 <h5><?php echo currency($latest_course['discounted_price']); ?></h5>
-                                                <p class="mt-1"><del><?php echo currency($latest_course['price']); ?></del><span><?php echo " +Tax"; ?></span></p>
+                                                <p class="mt-1"><del><?php echo currency($latest_course['price']); ?></del><span><?php echo " +Taxes"; ?></span></p>
                                             <?php else: ?>
-                                                <h5><?php echo currency($latest_course['price']); ?><span><?php echo " +Tax"; ?></span></h5>
+                                                <h5><?php echo currency($latest_course['price']); ?><span><?php echo " +Taxes"; ?></span></h5>
                                             <?php endif; ?>
                                         </div>
                                         <div class="courses-price-right ">

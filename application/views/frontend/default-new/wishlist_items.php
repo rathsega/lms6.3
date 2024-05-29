@@ -27,10 +27,10 @@
                     <?php if($course_details['is_free_course']): ?>
                         <span><?php echo get_phrase('Free'); ?></span>
                     <?php elseif($course_details['discount_flag']): ?>
-                        <span><?php echo currency($course_details['discounted_price']); ?><span><?php echo " +Tax"; ?></span></span>
-                        <del><?php echo currency($course_details['price']); ?></del><span><?php echo " +Tax"; ?></span>
+                        <span><?php echo currency($course_details['discounted_price']); ?><span><?php echo " +Taxes"; ?></span></span>
+                        <del><?php echo currency($course_details['price']); ?></del><span><?php echo " +Taxes"; ?></span>
                     <?php else: ?>
-                        <h5><?php echo currency($course_details['price']); ?><span><?php echo " +Tax"; ?></span></h5>
+                        <h5><?php echo currency($course_details['price']); ?><span><?php echo " +Taxes"; ?></span></h5>
                     <?php endif; ?>
 
                     <?php if(!$course_details['is_free_course']): ?>

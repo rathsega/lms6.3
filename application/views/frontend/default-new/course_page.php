@@ -250,9 +250,9 @@ if($ratings_count){
                                 <h1 class="fw-500"><?php echo get_phrase('Free'); ?></h1>
                             <?php elseif($course_details['discount_flag']): ?>
                                 <h1 class="fw-500"><?php echo currency($course_details['discounted_price']); ?></h1>
-                                <h3 class="fw-500"><del><?php echo currency($course_details['price']) ?></del><span><?php echo " +Tax"; ?></span></h3>
+                                <h3 class="fw-500"><del><?php echo currency($course_details['price']) ?></del><span><?php echo " +Taxes"; ?></span></h3>
                             <?php else: ?>
-                                <h1 class="fw-500"><?php echo currency($course_details['price']); ?><span><?php echo " +Tax"; ?></span></h1>
+                                <h1 class="fw-500"><?php echo currency($course_details['price']); ?><span><?php echo " +Taxes"; ?></span></h1>
                             <?php endif; ?>
 
                             <!-- <a href="<?php echo base_url('home/compare?course-1='.slugify($course_details['title']).'&course-id-1='.$course_details['id']); ?>" title="<?php echo get_phrase('Compare this course') ?>" data-bs-toggle="tooltip" class="ms-auto py-2">
@@ -473,10 +473,10 @@ if($ratings_count){
                                             <?php if($course['is_free_course']): ?>
                                                 <h5><?php echo get_phrase('Free'); ?></h5>
                                             <?php elseif($course['discount_flag']): ?>
-                                                <h5><?php echo currency($course['discounted_price']); ?><span><?php echo " +Tax"; ?></span></h5>
-                                                <p class="mt-1"><del><?php echo currency($course['price']); ?></del><span><?php echo " +Tax"; ?></span></p>
+                                                <h5><?php echo currency($course['discounted_price']); ?><span><?php echo " +Taxes"; ?></span></h5>
+                                                <p class="mt-1"><del><?php echo currency($course['price']); ?></del><span><?php echo " +Taxes"; ?></span></p>
                                             <?php else: ?>
-                                                <h5><?php echo currency($course['price']); ?><span><?php echo " +Tax"; ?></span></h5>
+                                                <h5><?php echo currency($course['price']); ?><span><?php echo " +Taxes"; ?></span></h5>
                                             <?php endif; ?>
                                         </div>
                                         <div class="courses-price-right ">

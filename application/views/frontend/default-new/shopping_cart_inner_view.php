@@ -57,11 +57,11 @@
                                         <h4><?php echo get_phrase('Free'); ?></h4>
                                     <?php elseif ($course_details['discount_flag']) : ?>
                                         <?php $total += $course_details['discounted_price']; ?>
-                                        <h4><?php echo currency($course_details['discounted_price']); ?><span><?php echo " +Tax"; ?></span></h4>                                        
-                                        <h6 class="mt-2 ms-2"><del><?php echo currency($course_details['price']); ?></del><span><?php echo " +Tax"; ?></span></h6>
+                                        <h4><?php echo currency($course_details['discounted_price']); ?><span><?php echo " +Taxes"; ?></span></h4>                                        
+                                        <h6 class="mt-2 ms-2"><del><?php echo currency($course_details['price']); ?></del><span><?php echo " +Taxes"; ?></span></h6>
                                     <?php else : ?>
                                         <?php $total += $course_details['price']; ?>
-                                        <h4><?php echo currency($course_details['price']); ?><span><?php echo " +Tax"; ?></span></h4>
+                                        <h4><?php echo currency($course_details['price']); ?><span><?php echo " +Taxes"; ?></span></h4>
                                     <?php endif; ?>
                                 </td>
                                 <td class="text-end">
