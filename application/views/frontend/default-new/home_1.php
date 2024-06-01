@@ -160,9 +160,9 @@ if($payment_pending){
         </div> 
         <div class="row">
             <div class="col-lg-6">
-                <div class="students-rating">
+                <div class="students-rating container">
                     <div class="row">
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-2">
+                        <div class="col-lg-3 col-md-2 col-sm-2 col-3">
                             <?php $all_students = $this->db->get_where('users', ['role_id !=' => 1]); ?>
                             <h1><?php echo nice_number($all_students->num_rows()); ?>+</h1>
                         </div>
