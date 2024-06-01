@@ -229,7 +229,10 @@
 
   }
 
-
+  input, textarea {
+  
+    margin-top:0px;
+}
   .button-sub {
     background-color: #754ffe;
     color: white;
