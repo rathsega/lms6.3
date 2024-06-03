@@ -19,7 +19,7 @@
         height:66px;
     }
     .phon-enquery{
-        margin-top:1.2rem;
+        margin-top:1.1rem;
     }
     input {
     margin-bottom: 0px;
@@ -162,13 +162,13 @@
                             
                         </div>
                         <div class="row">
-                            <div class="col-lg-6 col-md-12 col-sm-12">
-                                <div >
+                            <div class="col-lg-6 col-md-12 col-sm-12 mt-3">
+                                <div>
                                 <!-- <label class="form_label">First Name *</label> -->
                                     <input name="first_name" type="text" class="form-control" maxlength="26" id="first_name1" required placeholder="<?php echo get_phrase('First name *') ?>">
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="col-lg-6 col-md-12 col-sm-12 mt-3">
                                 <div>
                                 <!-- <label class="form_label">Last Name</label> -->
                                     <input name="last_name" type="text" class="form-control" maxlength="26" id="last_name1" placeholder="<?php echo get_phrase('Last name') ?>">
@@ -176,7 +176,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="col-lg-6 col-md-12 col-sm-12 mt-3">
                                 <div >
                                 <!-- <label class="form_label">Email *</label> -->
                                     <input name="email" type="email" class="form-control" id="email1" required placeholder="<?php echo get_phrase('Email *') ?>">
@@ -194,7 +194,7 @@
                                 <!-- <label class="form_label">City</label> -->
                                     <input name="city" type="hidden" class="form-control" id="city1" placeholder="Hyderabad">
                                 </div> 
-                                <div class="input-group comment">
+                                <div class="input-group comment mt-3">
                                 <!-- <label class="form_label">Write your message</label> -->
                                     <textarea name="message" class="form-control" aria-label="With textarea" id="message1" maxlength="500" placeholder="<?php echo get_phrase('Write your message'); ?>"></textarea>
                                 </div>
