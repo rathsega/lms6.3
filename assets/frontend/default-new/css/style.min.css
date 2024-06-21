@@ -857,7 +857,7 @@ del span{
 .truncate-text {
   display: -webkit-box;        /* Enables flexbox-like behavior for the element */
   -webkit-box-orient: vertical; /* Sets the box orientation to vertical */
-  -webkit-line-clamp: 2;       /* Limits the text to 2 lines */
+  -webkit-line-clamp: 1;       /* Limits the text to 2 lines */
   overflow: hidden;            /* Hides any overflow content */
   text-overflow: ellipsis;     /* Adds ellipsis (...) for overflow text */
   line-height: 1.5em;          /* Adjust line height to match your text */

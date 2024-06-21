@@ -90,6 +90,9 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 				<li class="<?php if ($page_name == 'jobs') echo 'active'; ?>">
 					<a href="<?php echo site_url('admin/jobs'); ?>"><?php echo "Jobs"; ?></a>
 				</li>
+				<li class="<?php if ($page_name == 'upcoming_batches') echo 'active'; ?>">
+					<a href="<?php echo site_url('admin/upcoming_batches'); ?>"><?php echo "Upcoming Batches"; ?></a>
+				</li>
 			</ul>
 		</li>
 		<?php endif; ?>

@@ -614,6 +614,13 @@ class Crud_model extends CI_Model
         $data['daily_class_duration_in_hours'] = $this->input->post('daily_class_duration_in_hours');
         $data['subject'] = $this->input->post('subject');
         $data['message'] = $this->input->post('message');
+        $data['batch_1'] = $this->input->post('batch_1');
+        $data['batch_2'] = $this->input->post('batch_2');
+        $growth = [];
+        for($i=0; $i< count($this->input->post('job_title')); $i++){
+            $growth[] = array("job_title"=>$this->input->post('job_title')[$i], "min_salary"=>$this->input->post('min_salary')[$i], "max_salary"=>$this->input->post('max_salary')[$i], "company"=>$this->input->post('company')[$i], "demand"=>$this->input->post('demand')[$i]);
+        }
+        $data['career_growth'] = json_encode($growth);
         //Course expiry period
         if($this->input->post('expiry_period') == 'limited_time' && is_numeric($this->input->post('number_of_month')) && $this->input->post('number_of_month') > 0){
             $data['expiry_period'] = $this->input->post('number_of_month');
@@ -980,6 +987,15 @@ class Crud_model extends CI_Model
         $data['number_of_lectures'] = $this->input->post('number_of_lectures');
         $data['subject'] = $this->input->post('subject');
         $data['message'] = $this->input->post('message');
+        $data['batch_1'] = $this->input->post('batch_1');
+        $data['batch_2'] = $this->input->post('batch_2');
+        // var_dump($this->input->post('company'));exit;
+
+        $growth = [];
+        for($i=0; $i< count($this->input->post('job_title')); $i++){
+            $growth[] = array("job_title"=>$this->input->post('job_title')[$i], "min_salary"=>$this->input->post('min_salary')[$i], "max_salary"=>$this->input->post('max_salary')[$i], "company"=>$this->input->post('company')[$i], "demand"=>$this->input->post('demand')[$i]);
+        }
+        $data['career_growth'] = json_encode($growth);
         //Course expiry period
         if($this->input->post('expiry_period') == 'limited_time' && is_numeric($this->input->post('number_of_month')) && $this->input->post('number_of_month') > 0){
             $data['expiry_period'] = $this->input->post('number_of_month');
@@ -4492,6 +4508,7 @@ class Crud_model extends CI_Model
     function add_blog()
     {
         $data['title'] = htmlspecialchars_($this->input->post('title'));
+        $data['tag'] = htmlspecialchars_($this->input->post('tag'));
         $data['blog_category_id'] = htmlspecialchars_($this->input->post('blog_category_id'));
         $data['keywords'] = htmlspecialchars_($this->input->post('keywords'));
         $data['description'] = htmlspecialchars_(remove_js($this->input->post('description', false)));
@@ -4504,6 +4521,14 @@ class Crud_model extends CI_Model
         } else {
             $data['status'] = 'pending';
             $data['is_popular'] = 0;
+        }
+
+        if ($this->session->userdata('admin_login')) {
+            $data['is_interview_question'] = htmlspecialchars_($this->input->post('is_interview_question'));
+            $data['status'] = 1;
+        } else {
+            $data['status'] = 'pending';
+            $data['is_interview_question'] = 0;
         }
 
         if ($_FILES['thumbnail']['name'] != "") {
@@ -4523,6 +4548,7 @@ class Crud_model extends CI_Model
         $blog = $this->get_blogs($blog_id)->row_array();
 
         $data['title'] = htmlspecialchars_($this->input->post('title'));
+        $data['tag'] = htmlspecialchars_($this->input->post('tag'));
         $data['blog_category_id'] = htmlspecialchars_($this->input->post('blog_category_id'));
         $data['keywords'] = htmlspecialchars_($this->input->post('keywords'));
         $data['description'] = htmlspecialchars_(remove_js($this->input->post('description', false)));
@@ -4530,6 +4556,7 @@ class Crud_model extends CI_Model
 
         if ($this->session->userdata('admin_login')) {
             $data['is_popular'] = htmlspecialchars_($this->input->post('is_popular'));
+            $data['is_interview_question'] = htmlspecialchars_($this->input->post('is_interview_question'));
         }
 
         if ($_FILES['thumbnail']['name'] != "") {
@@ -5861,5 +5888,10 @@ class Crud_model extends CI_Model
     public function get_manual_payments_by_enrolment_id($enrolment_id){
         $query = "SELECT e.user_id, e.course_id, c.title, c.price, e.course_fee, e.id, e.date_added, mp.amount, mp.datetime FROM `manual_payments` as mp left join enrol as e on e.id = mp.enrolment_id inner join course as c on c.id = e.course_id where e.id=".$enrolment_id;
         return $this->db->query($query)->result_array();
+    }
+
+    public function get_companies() {
+        $query = $this->db->get('companies');
+        return $query->result();
     }
 }

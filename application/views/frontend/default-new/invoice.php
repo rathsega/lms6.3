@@ -131,7 +131,7 @@ $instructor_details = $this->user_model->get_all_user($course_details['user_id']
                                     <tr>
                                         <td style="text-align:left;"><?php echo "1"; ?></td>
                                         <td style="text-align:left;width:220px;"><?php echo $payment_info['title']; ?></td>
-                                        <td style="text-align:left;width:220px;"><?php echo date("j F, Y H:i", strtotime($payment_info['datetime'])); ?></td>
+                                        <td style="text-align:left;width:220px;"><?php echo date("j F, Y H:i", strtotime($payment_info['date_added'])); ?></td>
                                         <td style="text-align:left;width:220px;"><?php echo currency($payment_info['amount']); ?></td>
                                     </tr>
                                 <?php //endforeach; ?>

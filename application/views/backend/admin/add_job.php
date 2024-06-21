@@ -55,15 +55,25 @@
                         <div class="form-group">
 
 
-                            <label for="pay_scale">Pay Scale<span class="required">*</span></label>
-                            <input type="text" name="pay_scale" class="form-control" required value="<?php echo set_value('pay_scale'); ?>">
+                            <label for="pay_scale">Pay Scale(in rupees)<span class="required">*</span></label>
+                            <div class="col-lg-6">
+                                <input type="text" name="min_pay_scale" class="form-control" placeholder="Minimum Pay Scale" required value="<?php echo set_value('min_pay_scale'); ?>">
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" name="max_pay_scale" class="form-control" placeholder="Maximum Pay Scale" required value="<?php echo set_value('max_pay_scale'); ?>">
+                            </div>
 
                         </div>
                         <div class="form-group">
 
 
                             <label for="experience">Experience<span class="required">*</span></label>
-                            <input type="text" name="experience" class="form-control" required  value="<?php echo set_value('experience'); ?>">
+                            <div class="col-lg-6">
+                                <input type="text" name="min_experience" class="form-control" placeholder="Minimum Experience" required value="<?php echo set_value('min_experience'); ?>">
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" name="max_experience" class="form-control" placeholder="Maximum Experience" required value="<?php echo set_value('max_experience'); ?>">
+                            </div>
 
                         </div>
                         <div class="form-group">

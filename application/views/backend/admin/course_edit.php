@@ -1,5 +1,23 @@
 <?php
 $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
+function is_json_array_empty($json_string)
+{
+    $decoded_array = json_decode($json_string, true);
+
+    // Check if the JSON decoding was successful and the result is an array
+    if (is_array($decoded_array)) {
+        // Check if the array is empty
+        return empty($decoded_array);
+    } else {
+        // Handle invalid JSON string if necessary
+        // For example, you can throw an exception or return false
+        return true; // Assuming invalid JSON is considered "empty"
+    }
+}
+if (is_json_array_empty($course_details["career_growth"])) {
+    $course_details["career_growth"][] = array("job_title" => "", "min_salary" => "", "max_salary" => "", "company" => array(), "growth" => "");
+    $course_details["career_growth"] = json_encode($course_details["career_growth"]);
+}
 ?>
 <div class="row ">
     <div class="col-xl-12">
@@ -36,7 +54,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                         <form class="required-form" action="<?php echo site_url('admin/course_actions/edit/' . $course_id); ?>" method="post" enctype="multipart/form-data" autocomplete="off">
                             <div class="scrollable-tab-section" id="basicwizard">
 
-                                <button type="button" class="scrollable-tab-btn-left" ><i class="mdi mdi-arrow-left"></i></button>
+                                <button type="button" class="scrollable-tab-btn-left"><i class="mdi mdi-arrow-left"></i></button>
 
                                 <div class="scrollable-tab">
                                     <ul class="nav nav-pills nav-justified form-wizard-header">
@@ -134,6 +152,18 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                             </a>
                                         </li>
                                         <li class="nav-item">
+                                            <a href="#upcoming_batches" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
+                                                <i class="mdi mdi-tag-multiple"></i>
+                                                <span class=""><?php echo get_phrase('upcoming_batches'); ?></span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#growth" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
+                                                <i class="mdi mdi-tag-multiple"></i>
+                                                <span class=""><?php echo get_phrase('growth'); ?></span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="#about" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
                                                 <i class="mdi mdi-tag-multiple"></i>
                                                 <span class=""><?php echo get_phrase('About (X)'); ?></span>
@@ -172,7 +202,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                     </ul>
                                 </div>
 
-                                <button type="button" class="scrollable-tab-btn-right" ><i class="mdi mdi-arrow-right"></i></button>
+                                <button type="button" class="scrollable-tab-btn-right"><i class="mdi mdi-arrow-right"></i></button>
 
                                 <div class="tab-content b-0 mb-0">
                                     <div class="tab-pane" id="curriculum">
@@ -181,10 +211,10 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                             include 'curriculum.php';
                                         elseif ($course_details['course_type'] == 'scorm' && addon_status('scorm_course') == true) :
                                             include 'scorm_curriculum.php';
-                                        elseif($course_details['course_type']== 'h5p' && addon_status('h5p') == true):
-                                            include 'h5p_curriculum.php' ; 
-                                        else:?>
-                                            <?php if ($course_details['course_type'] == 'scorm_course') :?>
+                                        elseif ($course_details['course_type'] == 'h5p' && addon_status('h5p') == true) :
+                                            include 'h5p_curriculum.php';
+                                        else : ?>
+                                            <?php if ($course_details['course_type'] == 'scorm_course') : ?>
                                                 <div class="row justify-content-center">
                                                     <div class="col-md-6">
                                                         <div class="alert alert-warning" role="alert">
@@ -195,7 +225,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                 </div>
                                             <?php endif; ?>
 
-                                            <?php if ($course_details['course_type'] == 'h5p') :?>
+                                            <?php if ($course_details['course_type'] == 'h5p') : ?>
                                                 <div class="row justify-content-center">
                                                     <div class="col-md-6">
                                                         <div class="alert alert-warning" role="alert">
@@ -214,7 +244,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                     <?php if (addon_status('live-class')) : ?>
                                         <?php include 'live_class.php'; ?>
                                     <?php endif; ?>
-                                    
+
                                     <!-- Jitsi live class CODE BASE -->
                                     <?php if (addon_status('jitsi-live-class')) : ?>
                                         <div class="tab-pane" id="jitsi-live-class">
@@ -224,7 +254,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                     <!-- LIVE CLASS CODE BASE -->
 
                                     <!-- ASSIGNMENT CODE BASE -->
-                                    <?php if(addon_status('assignment')): ?>
+                                    <?php if (addon_status('assignment')) : ?>
                                         <div class="tab-pane" id="assignment">
                                             <?php include 'assignment.php'; ?>
                                         </div>
@@ -294,7 +324,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-2 col-form-label" for="new_instructor"><?php echo get_phrase('add_new_instructor'); ?></label>
                                                     <div class="col-md-10">
-                                                        <select class="select2 form-control select2-multiple" data-toggle="select2" multiple="multiple" data-placeholder="Choose ..." name="new_instructors[]">
+                                                        <select class="select2 form-control multi-select-dropdown" data-toggle="select2" multiple="multiple" data-placeholder="Choose ..." name="new_instructors[]">
                                                             <?php $instructors = $this->user_model->get_instructor()->result_array(); ?>
                                                             <?php foreach ($instructors as $key => $instructor) : ?>
                                                                 <option value="<?php echo html_escape($instructor['id']); ?>"><?php echo html_escape($instructor['first_name'] . ' ' . $instructor['last_name']); ?> ( <?php echo html_escape($instructor['email']); ?> )</option>
@@ -360,7 +390,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-2 col-form-label" for="enable_drip_content"><?php echo get_phrase('enable_drip_content'); ?></label>
                                                     <div class="col-md-10 pt-2">
-                                                        <input type="checkbox" name="enable_drip_content" value="1" id="enable_drip_content" data-switch="primary" <?php if($course_details['enable_drip_content'] == 1) echo 'checked'; ?>>
+                                                        <input type="checkbox" name="enable_drip_content" value="1" id="enable_drip_content" data-switch="primary" <?php if ($course_details['enable_drip_content'] == 1) echo 'checked'; ?>>
                                                         <label for="enable_drip_content" data-on-label="On" data-off-label="Off"></label>
                                                     </div>
                                                 </div>
@@ -369,17 +399,17 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                     <label class="col-md-2 col-form-label pt-1" for="enable_drip_content"><?php echo get_phrase('Updated as a'); ?></label>
                                                     <div class="col-md-10 pt-1">
                                                         <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="status_active" name="status" class="custom-control-input" value="active" <?php echo $course_details['status'] == 'active' ? 'checked':''; ?>>
+                                                            <input type="radio" id="status_active" name="status" class="custom-control-input" value="active" <?php echo $course_details['status'] == 'active' ? 'checked' : ''; ?>>
                                                             <label class="custom-control-label" for="status_active"><?php echo get_phrase('Active course'); ?></label>
                                                         </div>
 
                                                         <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="status_private" name="status" class="custom-control-input" value="private" <?php echo $course_details['status'] == 'private' ? 'checked':''; ?> >
+                                                            <input type="radio" id="status_private" name="status" class="custom-control-input" value="private" <?php echo $course_details['status'] == 'private' ? 'checked' : ''; ?>>
                                                             <label class="custom-control-label" for="status_private"><?php echo get_phrase('Private course'); ?></label>
                                                         </div>
 
                                                         <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="status_upcoming" name="status" class="custom-control-input" value="upcoming" <?php echo $course_details['status'] == 'upcoming' ? 'checked':''; ?> >
+                                                            <input type="radio" id="status_upcoming" name="status" class="custom-control-input" value="upcoming" <?php echo $course_details['status'] == 'upcoming' ? 'checked' : ''; ?>>
                                                             <label class="custom-control-label" for="status_upcoming"><?php echo get_phrase('Upcoming course'); ?></label>
                                                         </div>
                                                     </div>
@@ -397,7 +427,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                     <div class="offset-md-2 col-md-10">
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input" name="is_top10_course" id="is_top10_course" value="1" <?php if ($course_details['is_top10_course'] == 1) echo 'checked'; ?>>
-                                                            <label class="custom-control-label" for="is_top10_course"><?php echo get_phrase('check_if_this_course_is_top10_course'). " <b>(X)</b>"; ?></label>
+                                                            <label class="custom-control-label" for="is_top10_course"><?php echo get_phrase('check_if_this_course_is_top10_course') . " <b>(X)</b>"; ?></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -405,31 +435,31 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                     <div class="offset-md-2 col-md-10">
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input" name="show_it_in_category" id="show_it_in_category" value="1" <?php if ($course_details['show_it_in_category'] == 1) echo 'checked'; ?>>
-                                                            <label class="custom-control-label" for="show_it_in_category"><?php echo get_phrase('check_if_this_course_should_show_in_category'). " <b>(X)</b>"; ?></label>
+                                                            <label class="custom-control-label" for="show_it_in_category"><?php echo get_phrase('check_if_this_course_should_show_in_category') . " <b>(X)</b>"; ?></label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-8">
                                                     <div class="form-group row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="course_duration_in_hours"><?php echo get_phrase('course_duration_in_hours'). " <b>(X)</b>"; ?> </label>
+                                                        <label class="col-md-3 col-form-label" for="course_duration_in_hours"><?php echo get_phrase('course_duration_in_hours') . " <b>(X)</b>"; ?> </label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control" id="course_duration_in_hours" name = "course_duration_in_hours" value="<?php echo $course_details['course_duration_in_hours']; ?>" placeholder="HH:MM:SS" >
+                                                            <input type="text" class="form-control" id="course_duration_in_hours" name="course_duration_in_hours" value="<?php echo $course_details['course_duration_in_hours']; ?>" placeholder="HH:MM:SS">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-8">
                                                     <div class="form-group row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="course_duration_in_months"><?php echo get_phrase('course_duration_in_months'). " <b>(X)</b>"; ?> </label>
+                                                        <label class="col-md-3 col-form-label" for="course_duration_in_months"><?php echo get_phrase('course_duration_in_months') . " <b>(X)</b>"; ?> </label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control" id="course_duration_in_months" name = "course_duration_in_months" value="<?php echo $course_details['course_duration_in_months']; ?>" placeholder="2.5" >
+                                                            <input type="text" class="form-control" id="course_duration_in_months" name="course_duration_in_months" value="<?php echo $course_details['course_duration_in_months']; ?>" placeholder="2.5">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-8">
                                                     <div class="form-group row mb-3">
-                                                        <label class="col-md-3 col-form-label" for="daily_class_duration_in_hours"><?php echo get_phrase('daily_class_duration_in_hours'). " <b>(X)</b>"; ?> </label>
+                                                        <label class="col-md-3 col-form-label" for="daily_class_duration_in_hours"><?php echo get_phrase('daily_class_duration_in_hours') . " <b>(X)</b>"; ?> </label>
                                                         <div class="col-md-9">
-                                                            <input type="text" class="form-control" id="daily_class_duration_in_hours" name = "daily_class_duration_in_hours" value="<?php echo $course_details['daily_class_duration_in_hours']; ?>" placeholder="2" >
+                                                            <input type="text" class="form-control" id="daily_class_duration_in_hours" name="daily_class_duration_in_hours" value="<?php echo $course_details['daily_class_duration_in_hours']; ?>" placeholder="2">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -443,11 +473,11 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-2 col-form-label" for="faq"><?php echo get_phrase('course_faq'); ?></label>
                                                     <div class="col-md-10">
-                                                        <div id = "faq_area">
+                                                        <div id="faq_area">
                                                             <?php $faq_counter = 0; ?>
-                                                            <?php $course_faqs_arr = !empty($course_details['faqs']) ? json_decode($course_details['faqs'], true):[]; ?>
+                                                            <?php $course_faqs_arr = !empty($course_details['faqs']) ? json_decode($course_details['faqs'], true) : []; ?>
                                                             <?php $course_faqs_arr = is_array($course_faqs_arr) ? $course_faqs_arr : array(); ?>
-                                                            <?php foreach($course_faqs_arr as $faq_title => $faq_description): ?>
+                                                            <?php foreach ($course_faqs_arr as $faq_title => $faq_description) : ?>
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
@@ -456,9 +486,9 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                         </div>
                                                                     </div>
                                                                     <div class="">
-                                                                        <?php if($faq_counter == 0): ?>
+                                                                        <?php if ($faq_counter == 0) : ?>
                                                                             <button type="button" class="btn btn-success btn-sm" style="" name="button" onclick="appendFaq()"> <i class="fa fa-plus"></i> </button>
-                                                                        <?php else: ?>
+                                                                        <?php else : ?>
                                                                             <button type="button" class="btn btn-danger btn-sm" style="margin-top: 0px;" name="button" onclick="removeFaq(this)"> <i class="fa fa-minus"></i> </button>
                                                                         <?php endif; ?>
                                                                     </div>
@@ -466,7 +496,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                 <?php $faq_counter++; ?>
                                                             <?php endforeach; ?>
 
-                                                            <?php if($faq_counter == 0): ?>
+                                                            <?php if ($faq_counter == 0) : ?>
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
@@ -480,7 +510,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                 </div>
                                                             <?php endif; ?>
 
-                                                            <div id = "blank_faq_field">
+                                                            <div id="blank_faq_field">
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
@@ -558,7 +588,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                         </div>
                                                     </div>
                                                 </div>
-                                            
+
                                                 <div class="form-group row mb-3 pt-2">
                                                     <label class="col-md-2 col-form-label" for="outcomes"><?php echo get_phrase('outcomes'); ?></label>
                                                     <div class="col-md-10">
@@ -665,16 +695,16 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                     <label class="col-md-2 col-form-label"><?php echo get_phrase('Expiry period'); ?></label>
                                                     <div class="col-md-10 pt-2 d-flex">
                                                         <div class="custom-control custom-radio mr-2">
-                                                            <input type="radio" id="lifetime_expiry_period" name="expiry_period" class="custom-control-input" value="lifetime" onchange="checkExpiryPeriod(this)" <?php if($course_details['expiry_period'] == 0) echo 'checked'; ?>>
+                                                            <input type="radio" id="lifetime_expiry_period" name="expiry_period" class="custom-control-input" value="lifetime" onchange="checkExpiryPeriod(this)" <?php if ($course_details['expiry_period'] == 0) echo 'checked'; ?>>
                                                             <label class="custom-control-label" for="lifetime_expiry_period"><?php echo get_phrase('Lifetime'); ?></label>
                                                         </div>
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" id="limited_expiry_period" name="expiry_period" class="custom-control-input" value="limited_time" onchange="checkExpiryPeriod(this)" <?php if($course_details['expiry_period'] > 0) echo 'checked'; ?>>
+                                                            <input type="radio" id="limited_expiry_period" name="expiry_period" class="custom-control-input" value="limited_time" onchange="checkExpiryPeriod(this)" <?php if ($course_details['expiry_period'] > 0) echo 'checked'; ?>>
                                                             <label class="custom-control-label" for="limited_expiry_period"><?php echo get_phrase('Limited time'); ?></label>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group row mb-3" id="number_of_month" style="<?php if($course_details['expiry_period'] == '') echo 'display: none'; ?>">
+                                                <div class="form-group row mb-3" id="number_of_month" style="<?php if ($course_details['expiry_period'] == '') echo 'display: none'; ?>">
                                                     <label class="col-md-2 col-form-label"><?php echo get_phrase('Number of month'); ?></label>
                                                     <div class="col-md-10">
                                                         <input class="form-control" type="number" name="number_of_month" min="1" value="<?php echo $course_details['expiry_period']; ?>">
@@ -756,7 +786,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-2 col-form-label" for="subject"><?php echo get_phrase('subject'); ?></label>
                                                     <div class="col-md-10">
-                                                        <input type="text" class="form-control bootstrap-tag-input" id = "subject" name="subject" style="width: 100%;" value="<?php echo $course_details['subject']; ?>" placeholder="<?php echo get_phrase('subject'); ?>"./>
+                                                        <input type="text" class="form-control bootstrap-tag-input" id="subject" name="subject" style="width: 100%;" value="<?php echo $course_details['subject']; ?>" placeholder="<?php echo get_phrase('subject'); ?>" . />
                                                     </div>
                                                 </div>
                                             </div> <!-- end col -->
@@ -770,17 +800,109 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                             </div> <!-- end col -->
                                         </div> <!-- end row -->
                                     </div>
+                                    <div class="tab-pane" id="upcoming_batches">
+                                        <div class="row justify-content-center">
+                                            <div class="col-xl-8">
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-md-4 col-form-label" for="batch_1"><?php echo get_phrase('batch_1') . "(In IST)"; ?></label>
+                                                    <div class="col-md-4">
+                                                        <input type="datetime-local" class="form-control bootstrap-tag-input" id="batch_1" name="batch_1" style="width: 100%;" value="<?php echo $course_details['batch_1']; ?>" placeholder="<?php echo get_phrase('subject'); ?>" . />
+                                                    </div>
+                                                </div>
+                                            </div> <!-- end col -->
+                                            <div class="col-xl-8">
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-md-4 col-form-label" for="batch_2"><?php echo get_phrase('batch_2') . "(In IST)"; ?></label>
+                                                    <div class="col-md-4">
+                                                        <input type="datetime-local" class="form-control bootstrap-tag-input" id="batch_2" name="batch_2" style="width: 100%;" value="<?php echo $course_details['batch_2']; ?>" placeholder="<?php echo get_phrase('subject'); ?>" . />
+                                                    </div>
+                                                </div>
+                                            </div> <!-- end col -->
+
+                                        </div> <!-- end row -->
+                                    </div>
+                                    <div class="tab-pane" id="growth">
+                                        <div class="row justify-content-center">
+                                            <div id="growth_form_groups">
+                                                <?php foreach (json_decode($course_details['career_growth']) as $gkey => $growth) : ?>
+
+                                                    <div class="group">
+                                                        <div class="col-xl-12">
+                                                            <div class="form-group row mb-3">
+                                                                <label class="col-md-4 col-form-label" for="title"><?php echo get_phrase('Title'); ?></label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control bootstrap-tag-input" name="job_title[]" style="width: 100%;" placeholder="<?php echo get_phrase('title'); ?>" value="<?php echo $growth->job_title; ?>" />
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- end col -->
+                                                        <div class="col-xl-12">
+                                                            <div class="form-group row mb-3">
+                                                                <label class="col-md-4 col-form-label" for="min_salary"><?php echo get_phrase('min_salary'); ?></label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control bootstrap-tag-input" name="min_salary[]" style="width: 100%;" placeholder="<?php echo get_phrase('min_salary'); ?>" value="<?php echo $growth->min_salary; ?>" />
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- end col -->
+                                                        <div class="col-xl-12">
+                                                            <div class="form-group row mb-3">
+                                                                <label class="col-md-4 col-form-label" for="max_salary"><?php echo get_phrase('max_salary'); ?></label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control bootstrap-tag-input" name="max_salary[]" style="width: 100%;" placeholder="<?php echo get_phrase('max_salary'); ?>" value="<?php echo $growth->max_salary; ?>" />
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- end col -->
+                                                        <div class="col-xl-12">
+                                                            <div class="form-group row mb-3">
+                                                                <label class="col-md-4 col-form-label" for="company"><?php echo get_phrase('Select Companies'); ?></label>
+                                                                <div class="col-md-8">
+                                                                    <select name="company[<?php echo $gkey; ?>][]" class="form-control select2" data-toggle="select2" multiple>
+                                                                        <?php foreach ($companies as $company) : ?>
+                                                                            <option value="<?php echo $company->id; ?>" <?php echo in_array($company->id, $growth->company) ? 'selected' : ''; ?>><?php echo $company->title; ?></option>
+                                                                        <?php endforeach; ?>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- end col -->
+                                                        <div class="col-xl-12">
+                                                            <div class="form-group row mb-3">
+                                                                <label class="col-md-4 col-form-label" for="demand"><?php echo get_phrase('Demand in Percentage'); ?></label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control bootstrap-tag-input" name="demand[]" style="width: 100%;" placeholder="<?php echo get_phrase('Demand in Percentage'); ?>" value="<?php echo $growth->demand; ?>" />
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- end col -->
+                                                        <div class="col-xl-12">
+                                                            <div class="form-group row mb-3">
+                                                                <div class="col-md-4">
+                                                                    <button type="button" class="removeGroup">Remove</button>
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- end col -->
+
+                                                    </div>
+                                                <?php endforeach; ?>
+
+                                            </div>
+
+                                        </div> <!-- end row -->
+                                        <ul class="list-inline mb-4 wizard text-center">
+                                            <li class="list-inline-item">
+                                                <button type="button" class="btn btn-primary text-center" id="addGroup">Add Group</button>
+                                            </li>
+                                        </ul>
+
+                                    </div>
                                     <div class="tab-pane" id="about">
                                         <div class="row justify-content-center">
                                             <div class="col-xl-8">
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-2 col-form-label" for="about"><?php echo get_phrase('About Course'); ?></label>
                                                     <div class="col-md-10">
-                                                        <div id = "about_area">
+                                                        <div id="about_area">
                                                             <?php $about_counter = 0; ?>
-                                                            <?php $course_about_arr = !empty($course_details['about']) ? json_decode($course_details['about'], true):[]; ?>
+                                                            <?php $course_about_arr = !empty($course_details['about']) ? json_decode($course_details['about'], true) : []; ?>
                                                             <?php $course_about_arr = is_array($course_about_arr) ? $course_about_arr : array(); ?>
-                                                            <?php foreach($course_about_arr as $about_key => $about_val): ?>
+                                                            <?php foreach ($course_about_arr as $about_key => $about_val) : ?>
                                                                 <?php $about_title = $about_val['title']; ?>
                                                                 <?php $about_description = $about_val['description']; ?>
                                                                 <div class="d-flex mt-2">
@@ -791,9 +913,9 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                         </div>
                                                                     </div>
                                                                     <div class="">
-                                                                        <?php if($about_counter == 0): ?>
+                                                                        <?php if ($about_counter == 0) : ?>
                                                                             <button type="button" class="btn btn-success btn-sm" style="" name="button" onclick="appendAbout()"> <i class="fa fa-plus"></i> </button>
-                                                                        <?php else: ?>
+                                                                        <?php else : ?>
                                                                             <button type="button" class="btn btn-danger btn-sm" style="margin-top: 0px;" name="button" onclick="removeAbout(this)"> <i class="fa fa-minus"></i> </button>
                                                                         <?php endif; ?>
                                                                     </div>
@@ -801,7 +923,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                 <?php $about_counter++; ?>
                                                             <?php endforeach; ?>
 
-                                                            <?php if($about_counter == 0): ?>
+                                                            <?php if ($about_counter == 0) : ?>
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
@@ -815,7 +937,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                 </div>
                                                             <?php endif; ?>
 
-                                                            <div id = "blank_about_field">
+                                                            <div id="blank_about_field">
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
@@ -830,13 +952,13 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>                                            
+                                                </div>
                                             </div>
                                         </div> <!-- end row -->
                                     </div>
                                     <div class="tab-pane" id="future">
                                         <div class="row justify-content-center">
-                                        <div class="col-xl-8">
+                                            <div class="col-xl-8">
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-2 col-form-label" for="future"><?php echo get_phrase('Future of the course'); ?></label>
                                                     <div class="col-md-10">
@@ -850,9 +972,11 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
-                                                                            <input type="file" name="future_icon[]" class="form-control"  accept="image/*" placeholder="<?php echo get_phrase('icon'); ?>">
+                                                                            <input type="file" name="future_icon[]" class="form-control" accept="image/*" placeholder="<?php echo get_phrase('icon'); ?>">
                                                                             Note : File size should be 92*75 px and format should be .webp only
-                                                                            <input type="hidden" name="future_previous_icon[]" value="<?php if($future_val['icon']){ echo $future_val['icon'];} ?>">
+                                                                            <input type="hidden" name="future_previous_icon[]" value="<?php if ($future_val['icon']) {
+                                                                                                                                            echo $future_val['icon'];
+                                                                                                                                        } ?>">
 
                                                                             <input type="text" class="form-control" value="<?php echo $future_title; ?>" name="future_title[]" id="future" placeholder="<?php echo get_phrase('future_title'); ?>">
                                                                             <textarea name="future_descriptions[]" class="form-control mt-2" placeholder="<?php echo get_phrase('answer'); ?>"><?php echo $future_description; ?></textarea>
@@ -873,7 +997,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
-                                                                            <input type="file" name="future_icon[]" class="form-control"  accept="image/*" placeholder="<?php echo get_phrase('icon'); ?>">
+                                                                            <input type="file" name="future_icon[]" class="form-control" accept="image/*" placeholder="<?php echo get_phrase('icon'); ?>">
                                                                             Note : File size should be 92*75 px and format should be .webp only
                                                                             <input type="text" class="form-control" name="future_title[]" id="future" placeholder="<?php echo get_phrase('future_title'); ?>">
                                                                             <textarea name="future_descriptions[]" class="form-control mt-2" placeholder="<?php echo get_phrase('answer'); ?>"></textarea>
@@ -889,7 +1013,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
-                                                                            <input type="file" name="future_icon[]" class="form-control"  accept="image/*" placeholder="<?php echo get_phrase('icon'); ?>">
+                                                                            <input type="file" name="future_icon[]" class="form-control" accept="image/*" placeholder="<?php echo get_phrase('icon'); ?>">
                                                                             Note : File size should be 92*75 px and format should be .webp only
                                                                             <input type="text" class="form-control" name="future_title[]" id="future" placeholder="<?php echo get_phrase('future_title'); ?>">
                                                                             <textarea name="future_descriptions[]" class="form-control mt-2" placeholder="<?php echo get_phrase('answer'); ?>"></textarea>
@@ -901,15 +1025,15 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    
+
                                                     </div>
-                                                </div>                                            
-                                            </div>                                            
+                                                </div>
+                                            </div>
                                         </div> <!-- end row -->
                                     </div>
                                     <div class="tab-pane" id="learn">
                                         <div class="row justify-content-center">
-                                        <div class="col-xl-8">
+                                            <div class="col-xl-8">
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-2 col-form-label" for="learn"><?php echo get_phrase('learn of the course'); ?></label>
                                                     <div class="col-md-10">
@@ -923,9 +1047,11 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
-                                                                            <input type="file" name="learn_icon[]" class="form-control"  accept="image/*"  placeholder="<?php echo get_phrase('icon'); ?>">
+                                                                            <input type="file" name="learn_icon[]" class="form-control" accept="image/*" placeholder="<?php echo get_phrase('icon'); ?>">
                                                                             Note : File size should be 94*92 px and format should be .webp only
-                                                                            <input type="hidden" name="learn_previous_icon[]" value="<?php if($learn_val['icon']){ echo $learn_val['icon'];} ?>">
+                                                                            <input type="hidden" name="learn_previous_icon[]" value="<?php if ($learn_val['icon']) {
+                                                                                                                                            echo $learn_val['icon'];
+                                                                                                                                        } ?>">
                                                                             <input type="text" class="form-control" value="<?php echo $learn_title; ?>" name="learn_title[]" id="learn" placeholder="<?php echo get_phrase('learn_title'); ?>">
                                                                             <textarea name="learn_descriptions[]" class="form-control mt-2" placeholder="<?php echo get_phrase('answer'); ?>"><?php echo $learn_description; ?></textarea>
                                                                         </div>
@@ -945,7 +1071,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
-                                                                            <input type="file" name="learn_icon[]" class="form-control"  accept="image/*" placeholder="<?php echo get_phrase('icon'); ?>">
+                                                                            <input type="file" name="learn_icon[]" class="form-control" accept="image/*" placeholder="<?php echo get_phrase('icon'); ?>">
                                                                             Note : File size should be 94*92 px and format should be .webp only
                                                                             <input type="text" class="form-control" name="learn_title[]" id="learn" placeholder="<?php echo get_phrase('learn_title'); ?>">
                                                                             <textarea name="learn_descriptions[]" class="form-control mt-2" placeholder="<?php echo get_phrase('description'); ?>"></textarea>
@@ -961,7 +1087,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
-                                                                            <input type="file" name="learn_icon[]" class="form-control"  accept="image/*" placeholder="<?php echo get_phrase('icon'); ?>">
+                                                                            <input type="file" name="learn_icon[]" class="form-control" accept="image/*" placeholder="<?php echo get_phrase('icon'); ?>">
                                                                             Note : File size should be 94*92 px and format should be .webp only
                                                                             <input type="text" class="form-control" name="learn_title[]" id="learn" placeholder="<?php echo get_phrase('learn_title'); ?>">
                                                                             <textarea name="learn_descriptions[]" class="form-control mt-2" placeholder="<?php echo get_phrase('description'); ?>"></textarea>
@@ -974,70 +1100,70 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>                                            
-                                            </div>  
+                                                </div>
+                                            </div>
                                         </div> <!-- end row -->
                                     </div>
                                     <div class="tab-pane" id="growth">
                                         <div class="row justify-content-center">
-                                        <div class="form-group row">
-                                                    <label class="col-md-4 col-form-label" for="growth"><?php echo get_phrase('Course growth'); ?></label>
-                                                    <div class="col-md-8">
-                                                    <div id = "growth_area">
-                                                            <?php $growth_counter = 0; ?>
-                                                            <?php $course_growth_arr = !empty($course_details['growth']) ? json_decode($course_details['growth'], true):[]; ?>
-                                                            <?php $course_growth_arr = is_array($course_growth_arr) ? $course_growth_arr : array(); ?>
-                                                            <?php foreach($course_growth_arr as $growth_key => $growth_val): ?>
-                                                                <?php $growth_title = $growth_val['title']; ?>
-                                                                <?php $growth_description = $growth_val['description']; ?>
-                                                                <div class="d-flex mt-2">
-                                                                    <div class="flex-grow-1 px-3">
-                                                                        <div class="form-group">
-                                                                            <input type="text" class="form-control" value="<?php echo $growth_title; ?>" name="growth_title[]" id="growth" placeholder="<?php echo get_phrase('growth_title'); ?>">
-                                                                            <textarea name="growth_descriptions[]" class="form-control mt-2" placeholder="<?php echo get_phrase('description'); ?>"><?php echo $growth_description; ?></textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="">
-                                                                        <?php if($growth_counter == 0): ?>
-                                                                            <button type="button" class="btn btn-success btn-sm" style="" name="button" onclick="appendGrowth()"> <i class="fa fa-plus"></i> </button>
-                                                                        <?php else: ?>
-                                                                            <button type="button" class="btn btn-danger btn-sm" style="margin-top: 0px;" name="button" onclick="removeGrowth(this)"> <i class="fa fa-minus"></i> </button>
-                                                                        <?php endif; ?>
+                                            <div class="form-group row">
+                                                <label class="col-md-4 col-form-label" for="growth"><?php echo get_phrase('Course growth'); ?></label>
+                                                <div class="col-md-8">
+                                                    <div id="growth_area">
+                                                        <?php $growth_counter = 0; ?>
+                                                        <?php $course_growth_arr = !empty($course_details['growth']) ? json_decode($course_details['growth'], true) : []; ?>
+                                                        <?php $course_growth_arr = is_array($course_growth_arr) ? $course_growth_arr : array(); ?>
+                                                        <?php foreach ($course_growth_arr as $growth_key => $growth_val) : ?>
+                                                            <?php $growth_title = $growth_val['title']; ?>
+                                                            <?php $growth_description = $growth_val['description']; ?>
+                                                            <div class="d-flex mt-2">
+                                                                <div class="flex-grow-1 px-3">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control" value="<?php echo $growth_title; ?>" name="growth_title[]" id="growth" placeholder="<?php echo get_phrase('growth_title'); ?>">
+                                                                        <textarea name="growth_descriptions[]" class="form-control mt-2" placeholder="<?php echo get_phrase('description'); ?>"><?php echo $growth_description; ?></textarea>
                                                                     </div>
                                                                 </div>
-                                                                <?php $growth_counter++; ?>
-                                                            <?php endforeach; ?>
-
-                                                            <?php if($growth_counter == 0): ?>
-                                                                <div class="d-flex mt-2">
-                                                                    <div class="flex-grow-1 px-3">
-                                                                        <div class="form-group">
-                                                                            <input type="text" class="form-control" name="growth_title[]" id="growth" placeholder="<?php echo get_phrase('growth_title'); ?>">
-                                                                            <textarea name="growth_descriptions[]" class="form-control mt-2" placeholder="<?php echo get_phrase('description'); ?>"></textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="">
+                                                                <div class="">
+                                                                    <?php if ($growth_counter == 0) : ?>
                                                                         <button type="button" class="btn btn-success btn-sm" style="" name="button" onclick="appendGrowth()"> <i class="fa fa-plus"></i> </button>
+                                                                    <?php else : ?>
+                                                                        <button type="button" class="btn btn-danger btn-sm" style="margin-top: 0px;" name="button" onclick="removeGrowth(this)"> <i class="fa fa-minus"></i> </button>
+                                                                    <?php endif; ?>
+                                                                </div>
+                                                            </div>
+                                                            <?php $growth_counter++; ?>
+                                                        <?php endforeach; ?>
+
+                                                        <?php if ($growth_counter == 0) : ?>
+                                                            <div class="d-flex mt-2">
+                                                                <div class="flex-grow-1 px-3">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control" name="growth_title[]" id="growth" placeholder="<?php echo get_phrase('growth_title'); ?>">
+                                                                        <textarea name="growth_descriptions[]" class="form-control mt-2" placeholder="<?php echo get_phrase('description'); ?>"></textarea>
                                                                     </div>
                                                                 </div>
-                                                            <?php endif; ?>
+                                                                <div class="">
+                                                                    <button type="button" class="btn btn-success btn-sm" style="" name="button" onclick="appendGrowth()"> <i class="fa fa-plus"></i> </button>
+                                                                </div>
+                                                            </div>
+                                                        <?php endif; ?>
 
-                                                            <div id = "blank_growth_field">
-                                                                <div class="d-flex mt-2">
-                                                                    <div class="flex-grow-1 px-3">
-                                                                        <div class="form-group">
-                                                                            <input type="text" class="form-control" name="growth_title[]" id="growth" placeholder="<?php echo get_phrase('growth_title'); ?>">
-                                                                            <textarea name="growth_descriptions[]" class="form-control mt-2" placeholder="<?php echo get_phrase('description'); ?>"></textarea>
-                                                                        </div>
+                                                        <div id="blank_growth_field">
+                                                            <div class="d-flex mt-2">
+                                                                <div class="flex-grow-1 px-3">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control" name="growth_title[]" id="growth" placeholder="<?php echo get_phrase('growth_title'); ?>">
+                                                                        <textarea name="growth_descriptions[]" class="form-control mt-2" placeholder="<?php echo get_phrase('description'); ?>"></textarea>
                                                                     </div>
-                                                                    <div class="">
-                                                                        <button type="button" class="btn btn-danger btn-sm" style="margin-top: 0px;" name="button" onclick="removeGrowth(this)"> <i class="fa fa-minus"></i> </button>
-                                                                    </div>
+                                                                </div>
+                                                                <div class="">
+                                                                    <button type="button" class="btn btn-danger btn-sm" style="margin-top: 0px;" name="button" onclick="removeGrowth(this)"> <i class="fa fa-minus"></i> </button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>   
+                                                </div>
+                                            </div>
                                         </div> <!-- end row -->
                                     </div>
                                     <div class="tab-pane" id="other">
@@ -1061,52 +1187,54 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-3 col-form-label" for="weekend_track_course_duration_in_months"><?php echo get_phrase('weekend_track_course_duration_in_months'); ?> </label>
                                                     <div class="col-md-9">
-                                                        <input type="text" class="form-control" id="weekend_track_course_duration_in_months" name = "weekend_track_course_duration_in_months" value="<?php echo $course_details['weekend_track_course_duration_in_months']; ?>" placeholder="2.5" >
+                                                        <input type="text" class="form-control" id="weekend_track_course_duration_in_months" name="weekend_track_course_duration_in_months" value="<?php echo $course_details['weekend_track_course_duration_in_months']; ?>" placeholder="2.5">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-3 col-form-label" for="weekend_track_daily_class_duration_in_hours"><?php echo get_phrase('weekend_track_daily_class_duration_in_hours'); ?> </label>
                                                     <div class="col-md-9">
-                                                        <input type="text" class="form-control" id="weekend_track_daily_class_duration_in_hours" name = "weekend_track_daily_class_duration_in_hours" value="<?php echo $course_details['weekend_track_daily_class_duration_in_hours']; ?>" placeholder="2" >
+                                                        <input type="text" class="form-control" id="weekend_track_daily_class_duration_in_hours" name="weekend_track_daily_class_duration_in_hours" value="<?php echo $course_details['weekend_track_daily_class_duration_in_hours']; ?>" placeholder="2">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-3 col-form-label" for="weekend_track_course_price"><?php echo get_phrase('weekend_track_course_price'); ?> </label>
                                                     <div class="col-md-9">
-                                                        <input type="text" class="form-control" id="weekend_track_course_price" name = "weekend_track_course_price" value="<?php echo $course_details['weekend_track_course_price']; ?>" placeholder="28000" >
+                                                        <input type="text" class="form-control" id="weekend_track_course_price" name="weekend_track_course_price" value="<?php echo $course_details['weekend_track_course_price']; ?>" placeholder="28000">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-3 col-form-label" for="week_track_sessions_count"><?php echo get_phrase('week_track_sessions_count'); ?> </label>
                                                     <div class="col-md-9">
-                                                        <input type="text" class="form-control" id="week_track_sessions_count" name = "week_track_sessions_count" value="<?php echo $course_details['week_track_sessions_count']; ?>" placeholder="25" >
+                                                        <input type="text" class="form-control" id="week_track_sessions_count" name="week_track_sessions_count" value="<?php echo $course_details['week_track_sessions_count']; ?>" placeholder="25">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-3 col-form-label" for="weekend_track_sessions_count"><?php echo get_phrase('weekend_track_sessions_count'); ?> </label>
                                                     <div class="col-md-9">
-                                                        <input type="text" class="form-control" id="weekend_track_sessions_count" name = "weekend_track_sessions_count" value="<?php echo $course_details['weekend_track_sessions_count']; ?>" placeholder="25" >
+                                                        <input type="text" class="form-control" id="weekend_track_sessions_count" name="weekend_track_sessions_count" value="<?php echo $course_details['weekend_track_sessions_count']; ?>" placeholder="25">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-3 col-form-label" for="number_of_lectures"><?php echo get_phrase('number_of_lectures'); ?> </label>
                                                     <div class="col-md-9">
-                                                        <input type="text" class="form-control" id="number_of_lectures" name = "number_of_lectures" value="<?php echo $course_details['number_of_lectures']; ?>" placeholder="25" >
+                                                        <input type="text" class="form-control" id="number_of_lectures" name="number_of_lectures" value="<?php echo $course_details['number_of_lectures']; ?>" placeholder="25">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-2 col-form-label" for="banner_image_label"><?php echo get_phrase("banner image"); ?></label>
                                                     <div class="col-md-10">
-                                                    <div class="wrapper-image-preview" style="margin-left: -6px;">
-                                                        <div class="box" style="width: 250px;">
-                                                        <div class="js--image-preview" style="background-image: url(<?php echo $this->crud_model->get_course_banner_image_url($course_details['id'], "course_thumbnail");?>); background-color: #F5F5F5;"></div>
-                                                        <div class="upload-options">
-                                                            <label for="banner_image" class="btn"> <i class="mdi mdi-camera"></i> <?php echo get_phrase("banner image"); ?> <br> <small>(<?php echo $size; ?>)</small> </label>
-                                                            <input id="banner_image" style="visibility:hidden;" type="file" class="image-upload" name="banner_image" accept="image/*">
-                                                            <input type="hidden" name="previous_banner_image" value="<?php if($course_details['banner_image']){ echo $course_details['banner_image'];} ?>">
+                                                        <div class="wrapper-image-preview" style="margin-left: -6px;">
+                                                            <div class="box" style="width: 250px;">
+                                                                <div class="js--image-preview" style="background-image: url(<?php echo $this->crud_model->get_course_banner_image_url($course_details['id'], "course_thumbnail"); ?>); background-color: #F5F5F5;"></div>
+                                                                <div class="upload-options">
+                                                                    <label for="banner_image" class="btn"> <i class="mdi mdi-camera"></i> <?php echo get_phrase("banner image"); ?> <br> <small>(<?php echo $size; ?>)</small> </label>
+                                                                    <input id="banner_image" style="visibility:hidden;" type="file" class="image-upload" name="banner_image" accept="image/*">
+                                                                    <input type="hidden" name="previous_banner_image" value="<?php if ($course_details['banner_image']) {
+                                                                                                                                    echo $course_details['banner_image'];
+                                                                                                                                } ?>">
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        </div>
-                                                    </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1165,56 +1293,66 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
     var blank_outcome = jQuery('#blank_outcome_field').html();
     var blank_requirement = jQuery('#blank_requirement_field').html();
     jQuery(document).ready(function() {
-      jQuery('#blank_faq_field').hide();
-      jQuery('#blank_outcome_field').hide();
-      jQuery('#blank_requirement_field').hide();
-      calculateDiscountPercentage($('#discounted_price').val());
+        jQuery('#blank_faq_field').hide();
+        jQuery('#blank_outcome_field').hide();
+        jQuery('#blank_requirement_field').hide();
+        calculateDiscountPercentage($('#discounted_price').val());
     });
 
     function appendFaq() {
-      jQuery('#faq_area').append(blank_faq);
+        jQuery('#faq_area').append(blank_faq);
     }
+
     function removeFaq(faqElem) {
-      jQuery(faqElem).parent().parent().remove();
+        jQuery(faqElem).parent().parent().remove();
     }
 
     function appendAbout() {
-    jQuery('#about_area').append(blank_about);
+        jQuery('#about_area').append(blank_about);
     }
+
     function removeAbout(aboutElem) {
-    jQuery(aboutElem).parent().parent().remove();
+        jQuery(aboutElem).parent().parent().remove();
     }
+
     function appendFuture() {
-    jQuery('#future_area').append(blank_future);
+        jQuery('#future_area').append(blank_future);
     }
+
     function removeFuture(futureElem) {
-    jQuery(futureElem).parent().parent().remove();
+        jQuery(futureElem).parent().parent().remove();
     }
+
     function appendLearn() {
-    jQuery('#learn_area').append(blank_learn);
+        jQuery('#learn_area').append(blank_learn);
     }
+
     function removeLearn(learnElem) {
-    jQuery(learnElem).parent().parent().remove();
+        jQuery(learnElem).parent().parent().remove();
     }
+
     function appendGrowth() {
-    jQuery('#growth_area').append(blank_growth);
+        jQuery('#growth_area').append(blank_growth);
     }
+
     function removeGrowth(growthElem) {
-    jQuery(growthElem).parent().parent().remove();
+        jQuery(growthElem).parent().parent().remove();
     }
 
     function appendOutcome() {
-      jQuery('#outcomes_area').append(blank_outcome);
+        jQuery('#outcomes_area').append(blank_outcome);
     }
+
     function removeOutcome(outcomeElem) {
-      jQuery(outcomeElem).parent().parent().remove();
+        jQuery(outcomeElem).parent().parent().remove();
     }
 
     function appendRequirement() {
-      jQuery('#requirement_area').append(blank_requirement);
+        jQuery('#requirement_area').append(blank_requirement);
     }
+
     function removeRequirement(requirementElem) {
-      jQuery(requirementElem).parent().parent().remove();
+        jQuery(requirementElem).parent().parent().remove();
     }
 
     function ajax_get_sub_category(category_id) {
@@ -1281,9 +1419,9 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
     });
 
 
-    function student_academic_progress(course_id){
+    function student_academic_progress(course_id) {
         var academicProgressContent = $('#academic_progress').html();
-        if(academicProgressContent == ''){
+        if (academicProgressContent == '') {
             $('.ajax_loader').addClass('start_ajax_loading');
             $.ajax({
                 url: '<?php echo site_url('admin/student_academic_progress/'); ?>' + course_id,
@@ -1297,15 +1435,95 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
 
 
     //Show specific tab by passing the tab id when reload browser
-    <?php if(isset($_GET['tab'])): ?>
+    <?php if (isset($_GET['tab'])) : ?>
         $('.ajax_loader').addClass('start_ajax_loading');
-        const tabClickInterval = setInterval(function(){
-            if(!$("a[href$=<?= $_GET['tab']; ?>]").hasClass('active')){
+        const tabClickInterval = setInterval(function() {
+            if (!$("a[href$=<?= $_GET['tab']; ?>]").hasClass('active')) {
                 $("a[href$=<?= $_GET['tab']; ?>]").click();
-            }else{
+            } else {
                 $('.ajax_loader').removeClass('start_ajax_loading');
                 clearInterval(tabClickInterval);
             }
         }, 1000);
     <?php endif; ?>
+
+    $(document).ready(function() {
+        //$('.multi-select-dropdown').select2();
+        $('#addGroup').click(function() {
+            var newGroup = $('<div class="group"></div>');
+
+            var input1 = $(`<div class="col-xl-12">
+                                                            <div class="form-group row mb-3">
+                                                                <label class="col-md-4 col-form-label" for="title"><?php echo get_phrase('Title'); ?></label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control bootstrap-tag-input" name="job_title[]" style="width: 100%;" placeholder="<?php echo get_phrase('title'); ?>" />
+                                                                </div>
+                                                            </div>
+                                                        </div>`);
+            var input2 = $(`<div class="col-xl-12">
+                                                            <div class="form-group row mb-3">
+                                                                <label class="col-md-4 col-form-label" for="min_salary"><?php echo get_phrase('min_salary'); ?></label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control bootstrap-tag-input" name="min_salary[]" style="width: 100%;" placeholder="<?php echo get_phrase('min_salary'); ?>" />
+                                                                </div>
+                                                            </div>
+                                                        </div>`);
+            var input3 = $(`<div class="col-xl-12">
+                                                            <div class="form-group row mb-3">
+                                                                <label class="col-md-4 col-form-label" for="max_salary"><?php echo get_phrase('max_salary'); ?></label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control bootstrap-tag-input" name="max_salary[]" style="width: 100%;" placeholder="<?php echo get_phrase('max_salary'); ?>" />
+                                                                </div>
+                                                            </div>
+                                                        </div>`);
+            var input4 = $(`<div class="col-xl-12">
+                                                            <div class="form-group row mb-3">
+                                                                <label class="col-md-4 col-form-label" for="demand"><?php echo get_phrase('Demand in Percentage'); ?></label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control bootstrap-tag-input" name="demand[]" style="width: 100%;" placeholder="<?php echo get_phrase('Demand in Percentage'); ?>" />
+                                                                </div>
+                                                            </div>
+                                                        </div>`);
+
+            var selectField = $(`<div class="col-xl-12">
+                                                            <div class="form-group row mb-3">
+                                                                <label class="col-md-4 col-form-label" for="company"><?php echo get_phrase('Select Companies'); ?></label>
+                                                                <div class="col-md-8">
+                                                                    <select name="company[${$('.group').length}][]" class="form-control select2" data-toggle="select2" multiple>
+                                                                        <?php foreach ($companies as $company) : ?>
+                                                                            <option value="<?php echo $company->id; ?>" ><?php echo $company->title; ?></option>
+                                                                        <?php endforeach; ?>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>`);
+            var removeButton = $(`<div class="col-xl-12">
+                                                            <div class="form-group row mb-3">
+                                                                <div class="col-md-4">
+                                                                    <button type="button" class="removeGroup">Remove</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>`);
+
+
+            // Append inputs and select field to the new group
+            newGroup.append(input1, input2, input3, selectField, input4, removeButton);
+
+            $('#growth_form_groups').append(newGroup);
+
+        });
+
+
+        $(document).on('click', '.removeGroup', function() {
+            if ($('.group').length > 1) {
+                $(this).closest('.group').remove();
+            }
+        });
+    });
 </script>
+
+<style>
+    .group {
+        margin-bottom: 15px;
+    }
+</style>

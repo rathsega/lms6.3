@@ -1199,6 +1199,7 @@ class Admin extends CI_Controller
 
             $page_data['languages'] = $this->crud_model->get_all_languages();
             $page_data['categories'] = $this->crud_model->get_categories();
+            $page_data['companies'] = $this->crud_model->get_companies();
             $page_data['page_name'] = 'course_add';
             $page_data['page_title'] = get_phrase('add_course');
             $this->load->view('backend/index', $page_data);
@@ -1214,6 +1215,7 @@ class Admin extends CI_Controller
             $page_data['page_title'] = get_phrase('edit_course');
             $page_data['languages'] = $this->crud_model->get_all_languages();
             $page_data['categories'] = $this->crud_model->get_categories();
+            $page_data['companies'] = $this->crud_model->get_companies();
             $this->load->view('backend/index', $page_data);
         }
     }
@@ -3276,8 +3278,10 @@ class Admin extends CI_Controller
             'company_name' => $this->input->post('company_name'),
             'employment_type' => $this->input->post('employment_type'),
             'location' => $this->input->post('location'),
-            'pay_scale' => $this->input->post('pay_scale'),
-            'experience' => $this->input->post('experience'),
+            'min_pay_scale' => $this->input->post('min_pay_scale'),
+            'max_pay_scale' => $this->input->post('max_pay_scale'),
+            'min_experience' => $this->input->post('min_experience'),
+            'max_experience' => $this->input->post('max_experience'),
             'qualification' => json_encode($this->input->post('qualification')), // Assuming qualification is an array
             'required_skills' => json_encode($this->input->post('required_skills')), // Assuming required_skills is an array
             'work_mode' => $this->input->post('work_mode'),
@@ -3298,8 +3302,10 @@ class Admin extends CI_Controller
             'company_name' => $this->input->post('company_name'),
             'employment_type' => $this->input->post('employment_type'),
             'location' => $this->input->post('location'),
-            'pay_scale' => $this->input->post('pay_scale'),
-            'experience' => $this->input->post('experience'),
+            'min_pay_scale' => $this->input->post('min_pay_scale'),
+            'max_pay_scale' => $this->input->post('max_pay_scale'),
+            'min_experience' => $this->input->post('min_experience'),
+            'max_experience' => $this->input->post('max_experience'),
             'qualification' => json_encode($this->input->post('qualification')), // Assuming qualification is an array
             'required_skills' => json_encode($this->input->post('required_skills')), // Assuming required_skills is an array
             'work_mode' => $this->input->post('work_mode'),

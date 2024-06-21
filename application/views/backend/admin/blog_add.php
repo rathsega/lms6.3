@@ -37,6 +37,11 @@
                         <small class="text-muted"><?php echo site_phrase('click_the_enter_button_after_writing_your_keyword'); ?></small>
                     </div>
 
+					<div class="form-group">
+		    			<label for="tag"><?php echo get_phrase('tag'); ?></label>
+		    			<input type="text" class="form-control" name="tag" id="tag" placeholder="<?php echo get_phrase('enter_blog_tag'); ?>" required>
+		    		</div>
+
 		    		<div class="form-group">
 		    			<label for="summernote-basic"><?php echo get_phrase('description'); ?></label>
 		    			<textarea name="description" id="summernote-basic"></textarea>
@@ -72,6 +77,12 @@
 						<label><?php echo get_phrase('do_you_want_to_mark_it_as_popular'); ?>?</label><br>
 						<input type="checkbox" id="is_popular" value="1" name="is_popular">
 						<label for="is_popular"><?php echo get_phrase('mark_as_popular'); ?></label>
+					</div>
+
+					<div class="form-group mt-4">
+						<label><?php echo get_phrase('is_this_interview_question'); ?>?</label><br>
+						<input type="checkbox" id="is_interview_question" value="1" name="is_interview_question">
+						<label for="is_this_interview_question"><?php echo get_phrase('mark_as_interview_question'); ?></label>
 					</div>
 
 					<div class="form-group mt-4">
