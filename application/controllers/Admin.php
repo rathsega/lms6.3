@@ -3684,4 +3684,13 @@ class Admin extends CI_Controller
         $query = $this->db->get();
         return $query->num_rows();
     }
+
+    public function toggle_status() {
+        $job_id = $this->input->post('job_id');
+        $status = $this->input->post('status');
+        $new_status = $status == 1 ? 0 : 1;
+        $this->load->model('Job_model');
+        $this->Job_model->update_status($job_id, $new_status);
+        echo json_encode(['status' => $new_status]);
+    }
 }

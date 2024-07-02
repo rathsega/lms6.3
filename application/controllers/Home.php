@@ -2269,4 +2269,19 @@ class Home extends CI_Controller
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
     }
 
+    
+    public function jobs_list()
+    {
+        $page_data['page_name'] = "jobs_list";
+        $page_data['page_title'] = site_phrase('All Jobs');
+        $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
+    }
+    
+    public function job_view()
+    {
+        $page_data['page_name'] = "job_view";
+        $page_data['page_title'] = site_phrase('Job View');
+        $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
+    }
+
 }

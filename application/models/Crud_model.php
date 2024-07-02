@@ -3635,7 +3635,12 @@ class Crud_model extends CI_Model
         } else {
             $this->db->where('category_id', $category_id);
         }
-        $this->db->where('status', 'active');
+        $this->db->where('status', 'active')
+        ->group_start()
+            ->where('is_top_course', 1)
+            ->or_where('is_top10_course', 1)
+            ->or_where('show_it_in_category', 1)
+            ->group_end();
         return $this->db->get('course');
     }
 

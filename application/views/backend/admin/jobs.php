@@ -34,9 +34,11 @@
                                     <td><?php echo $job['company_name']; ?></td>
                                     <td><?php echo $job['location']; ?></td>
                                     <td>
-                                        <a href="<?php echo site_url('admin/jobs/view/' . $job['id']); ?>">View</a>
-                                        <a href="<?php echo site_url('admin/jobs/edit/' . $job['id']); ?>">Edit</a>
-                                        <a href="<?php echo site_url('admin/jobs/delete/' . $job['id']); ?>" onclick="return confirm('Are you sure you want to delete this job?');">Delete</a>
+                                        <a href="<?php echo site_url('admin/jobs/view/' . $job['id']); ?>" title="View"><i class="fa-solid fas fa-eye cursor-pointer"></i></a>
+                                        <a href="<?php echo site_url('admin/jobs/edit/' . $job['id']); ?>" title="Edit"><i class="mdi mdi-pencil"></i></a>
+                                        <a href="<?php echo site_url('admin/jobs/delete/' . $job['id']); ?>" title="Delete" onclick="return confirm('Are you sure you want to delete this job?');"><i class="dripicons-trash"></i></a>
+                                        <input type="checkbox" name="enable_drip_content" value="1" id="enable_drip_content" class="toggle-status" data-switch="primary" data-id="<?= $job["id"] ?>" data-status="<?= $job["status"] ?>">
+                                        <label for="enable_drip_content" style="width: 87px !important;" data-on-label="Activate" data-off-label="Inactivate"></label>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -47,3 +49,27 @@
         </div> <!-- end card -->
     </div><!-- end col-->
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('.toggle-status').click(function() {
+            var button = $(this);
+            var jobId = button.data('id');
+            var status = button.data('status');
+            
+            $.ajax({
+                url: '<?= site_url('jobs/toggle_status') ?>',
+                type: 'POST',
+                data: {
+                    job_id: jobId,
+                    status: status
+                },
+                success: function(response) {
+                    var result = JSON.parse(response);
+                    button.data('status', result.status);
+                    button.text(result.status == 1 ? 'Deactivate' : 'Activate');
+                }
+            });
+        });
+    });
+</script>
