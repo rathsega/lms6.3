@@ -689,6 +689,125 @@ if($payment_pending){
 </section>
 <!---------- Latest courses Section End --------------->
 
+<section class="jobs-sections grid-view-body pb-4 ">
+ <div class="container">
+    <h1 class="text-center">Related Jobs</h1>
+      <p class="text-center fs-16 pt-4">These are the most latest jobs among listen courses learners worldwide</p>
+      <div class="job-cards">
+					<div class="job-card">
+						<div class="job-card-header mb-2">
+							<div class="row">
+								<div class="col-md-2">
+									<svg viewBox="0 -13 512 512" xmlns="http://www.w3.org/2000/svg" style="background-color:#2e2882">
+										<g fill="#feb0a5">
+											<path d="M256 92.5l127.7 91.6L512 92 383.7 0 256 91.5 128.3 0 0 92l128.3 92zm0 0M256 275.9l-127.7-91.5L0 276.4l128.3 92L256 277l127.7 91.5 128.3-92-128.3-92zm0 0"></path>
+											<path d="M127.7 394.1l128.4 92 128.3-92-128.3-92zm0 0"></path>
+										</g>
+										<path d="M512 92L383.7 0 256 91.5v1l127.7 91.6zm0 0M512 276.4l-128.3-92L256 275.9v1l127.7 91.5zm0 0M256 486.1l128.4-92-128.3-92zm0 0" fill="#feb0a5"></path>
+									</svg>
+								</div>
+								<div class="col-md-10 job-card-title">UI/UX Designer at AlgoUniversity (YC S21) at
+									AlgoUniversity (YC S21)</div>
+							</div>
+							<!-- <div class="menu-dot"></div> -->
+
+						</div>
+						<div class="job-detail-buttons mb-3 ellipsis-line-2">
+							<button class="search-buttons detail-button">Contractual Full Time </button>
+							<button class="search-buttons detail-button">Freelance</button>
+							<button class="search-buttons detail-button">Senior Level </button>
+							<button class="search-buttons detail-button">Senior Level </button>
+							<button class="search-buttons detail-button">Full Time</button>
+						</div>
+
+						<div class="job-card-subtitle">
+							The User Experience Designer position exists to create position exists to create create
+							position exists to create
+						</div>
+						<div class="mt-2 ellipsis-line-2">
+							<span class="badge text-bg-dark">HTML</span>
+							<span class="badge text-bg-dark">CSS</span>
+							<span class="badge text-bg-dark">Java Script</span>
+							<span class="badge text-bg-dark">HTML</span>
+							<span class="badge text-bg-dark">CSS</span>
+							<span class="badge text-bg-dark">Java Script</span>
+						</div>
+						<div class="job-card-buttons">
+							<button href="job_view.php" class="search-buttons card-buttons">Apply Now</button>
+						</div>
+					</div>
+					<div class="job-card">
+						<div class="job-card-header mb-2">
+							<div class="row">
+								<div class="col-md-2">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" style="background-color:#f76754">
+										<path xmlns="http://www.w3.org/2000/svg" d="M0 .5h4.2v23H0z" fill="#042b48" data-original="#212121"></path>
+										<path xmlns="http://www.w3.org/2000/svg" d="M15.4.5a8.6 8.6 0 100 17.2 8.6 8.6 0 000-17.2z" fill="#fefefe" data-original="#f4511e"></path>
+									</svg>
+								</div>
+								<div class="col-md-10 job-card-title "> Sr.Product Designer and Visual Designer </div>
+							</div>
+						</div>
+						<div class="job-detail-buttons mb-3 ellipsis-line-2">
+							<button class="search-buttons detail-button">Full Time</button>
+							<button class="search-buttons detail-button">Min. 1 Year</button>
+							<button class="search-buttons detail-button">Senior Level to fresher level</button>
+
+						</div>
+						<div class="job-card-subtitle">
+							The User Experience Designer position exists
+						</div>
+
+						<div class="mt-2 ellipsis-line-2">
+							<span class="badge text-bg-dark">HTML</span>
+							<span class="badge text-bg-dark">CSS</span>
+							<span class="badge text-bg-dark">Java Script Java Script</span>
+						</div>
+						<div class="job-card-buttons">
+							<button class="search-buttons card-buttons">Apply Now</button>
+
+						</div>
+					</div>
+					<div class="job-card">
+						<div class="job-card-header mb-2">
+							<div class="row">
+								<div class="col-md-2">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#fff" style="background-color:#55acee">
+										<path d="M512 97.2c-19 8.4-39.3 14-60.5 16.6 21.8-13 38.4-33.4 46.2-58a209.8 209.8 0 01-66.6 25.4A105 105 0 00249.5 153c0 8.3.8 16.3 2.5 24A297.1 297.1 0 0135.6 67 105.1 105.1 0 0068 207.4c-16.9-.3-33.4-5.2-47.4-12.9v1.1c0 51 36.4 93.4 84 103.2-8.5 2.3-17.8 3.4-27.4 3.4-6.8 0-13.5-.3-20-1.8a106 106 0 0098.2 73.2A211 211 0 010 416.9 295.5 295.5 0 00161 464c193.2 0 298.8-160 298.8-298.7 0-4.6-.2-9.1-.4-13.6A209.4 209.4 0 00512 97.2z"></path>
+									</svg>
+								</div>
+								<div class="col-md-10 job-card-title ">User Experience Designer</div>
+							</div>
+						</div>
+						<div class="job-detail-buttons mb-3 ellipsis-line-2">
+							<button class="search-buttons detail-button">Full Time</button>
+							<button class="search-buttons detail-button">Min. 1 Year</button>
+							<button class="search-buttons detail-button">Senior Level</button>
+							<button class="search-buttons detail-button">Full Time</button>
+							<button class="search-buttons detail-button">Min. 1 Year</button>
+							<button class="search-buttons detail-button">Senior Level</button>
+						</div>
+						<div class="job-card-subtitle">
+							The User Experience Designer position exists to create the carrer path to position exists to
+							create the carrer path to
+						</div>
+
+						<div class="mt-2 ellipsis-line-2">
+							<span class="badge text-bg-dark">HTML</span>
+							<span class="badge text-bg-dark">CSS</span>
+							<span class="badge text-bg-dark">Java Script</span>
+							<span class="badge text-bg-dark">node JS</span>
+							<span class="badge text-bg-dark">Figma</span>
+							<span class="badge text-bg-dark">canva</span>
+						</div>
+						<div class="job-card-buttons">
+						<a href="job_view.php" class="w-100"><button class="search-buttons card-buttons">Apply Now</button></a>
+						</div>
+					</div>
+
+				</div>
+ </div>
+</section>
 
 
 <!---------  Expert Instructor Start ---------------->
