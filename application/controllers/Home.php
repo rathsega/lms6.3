@@ -9,7 +9,7 @@ class Home extends CI_Controller
         parent::__construct();
 
         date_default_timezone_set(get_settings('timezone'));
-        
+
         // Your own constructor code
         $this->load->database();
         $this->load->library('session');
@@ -24,12 +24,12 @@ class Home extends CI_Controller
 
 
         //CHECKING COURSE ACCESSIBILITY STATUS
-        if(get_settings('course_accessibility') != 'publicly' && !$this->session->userdata('user_id')){
+        if (get_settings('course_accessibility') != 'publicly' && !$this->session->userdata('user_id')) {
             redirect(site_url('login'), 'refresh');
         }
 
         //If user was deleted
-        if($this->session->userdata('user_login') && $this->user_model->get_all_user($this->session->userdata('user_id'))->num_rows() == 0){
+        if ($this->session->userdata('user_login') && $this->user_model->get_all_user($this->session->userdata('user_id'))->num_rows() == 0) {
             $this->user_model->session_destroy();
         }
 
@@ -40,7 +40,7 @@ class Home extends CI_Controller
         $this->home();
     }
 
-    
+
     public function home()
     {
         $page_data['page_name'] = "home";
@@ -57,9 +57,9 @@ class Home extends CI_Controller
 
         //send gift
         $this->session->unset_userdata('send_gift_to_id');
-        if($gift_status){
-            if($gift_status == 'gift'){
-            $page_data['gift_status'] = 'gift';        
+        if ($gift_status) {
+            if ($gift_status == 'gift') {
+                $page_data['gift_status'] = 'gift';
             }
         }
         $page_data['page_name'] = "shopping_cart";
@@ -84,18 +84,18 @@ class Home extends CI_Controller
         $h5p_status = addon_status('h5p');
 
         // check script inject
-        foreach($_GET as $key => $value){
+        foreach ($_GET as $key => $value) {
             //check double quote and script text in the search string
-            if(preg_match('/"/', strtolower($value)) >= 1 && strpos(strtolower($value),"script") >= 1){
-                $this->session->set_flashdata('error_message', site_phrase('such_script_searches_are_not_allowed').'!');
+            if (preg_match('/"/', strtolower($value)) >= 1 && strpos(strtolower($value), "script") >= 1) {
+                $this->session->set_flashdata('error_message', site_phrase('such_script_searches_are_not_allowed') . '!');
                 redirect(site_url('home/courses'), 'refresh');
             }
             $_GET[htmlspecialchars_($key)] = htmlspecialchars_($value);
         }
 
-        if(isset($_GET['query']) && $_GET['query'] != ""){
+        if (isset($_GET['query']) && $_GET['query'] != "") {
             $search_string = $_GET['query'];
-        }else{
+        } else {
             $search_string = "";
         }
 
@@ -134,13 +134,13 @@ class Home extends CI_Controller
         if ($search_string == "" && $selected_category_id == "all" && $selected_price == "all" && $selected_level == 'all' && $selected_language == 'all' && $selected_rating == 'all') {
 
             $this->db->group_start();
-                $this->db->where('course_type', 'general');
-                if ($scorm_status) {
-                    $this->db->or_where('course_type', 'scorm');
-                }
-                if ($h5p_status) {
-                    $this->db->or_where('course_type', 'h5p');
-                }
+            $this->db->where('course_type', 'general');
+            if ($scorm_status) {
+                $this->db->or_where('course_type', 'scorm');
+            }
+            if ($h5p_status) {
+                $this->db->or_where('course_type', 'h5p');
+            }
             $this->db->group_end();
             $this->db->where('status', 'active');
             $this->db->where('show_it_in_category', '1');
@@ -152,13 +152,13 @@ class Home extends CI_Controller
 
 
             $this->db->group_start();
-                $this->db->where('course_type', 'general');
-                if ($scorm_status) {
-                    $this->db->or_where('course_type', 'scorm');
-                }
-                if ($h5p_status) {
-                    $this->db->or_where('course_type', 'h5p');
-                }
+            $this->db->where('course_type', 'general');
+            if ($scorm_status) {
+                $this->db->or_where('course_type', 'scorm');
+            }
+            if ($h5p_status) {
+                $this->db->or_where('course_type', 'h5p');
+            }
             $this->db->group_end();
 
             $this->db->group_start();
@@ -174,9 +174,9 @@ class Home extends CI_Controller
         } else {
             $category_slug = isset($_GET['category']) ? $_GET['category'] : 'all';
 
-            if($search_string != ""){
-                $search_string_val = "query=".$search_string."&";
-            }else{
+            if ($search_string != "") {
+                $search_string_val = "query=" . $search_string . "&";
+            } else {
                 $search_string_val = "";
             }
 
@@ -185,8 +185,8 @@ class Home extends CI_Controller
             $config = pagintaion($all_filtered_courses, 9);
             $config['base_url']  = site_url('home/courses/');
 
-            $config['suffix']  = '?'.$search_string_val.'category=' . $category_slug . '&price=' . $selected_price . '&level=' . $selected_level . '&language=' . $selected_language . '&rating=' . $selected_rating . '&sort_by=' . $selected_sorting;
-            $config['first_url']  = site_url('home/courses').'?'.$search_string_val.'category=' . $category_slug . '&price=' . $selected_price . '&level=' . $selected_level . '&language=' . $selected_language . '&rating=' . $selected_rating . '&sort_by=' . $selected_sorting;
+            $config['suffix']  = '?' . $search_string_val . 'category=' . $category_slug . '&price=' . $selected_price . '&level=' . $selected_level . '&language=' . $selected_language . '&rating=' . $selected_rating . '&sort_by=' . $selected_sorting;
+            $config['first_url']  = site_url('home/courses') . '?' . $search_string_val . 'category=' . $category_slug . '&price=' . $selected_price . '&level=' . $selected_level . '&language=' . $selected_language . '&rating=' . $selected_rating . '&sort_by=' . $selected_sorting;
 
             $this->pagination->initialize($config);
             $courses = $this->crud_model->filter_course($search_string, $selected_category_id, $selected_price, $selected_level, $selected_language, $selected_rating, $selected_sorting, $config['per_page'], $this->uri->segment(3))->result_array();
@@ -213,15 +213,15 @@ class Home extends CI_Controller
         echo json_encode(['reload' => true]);
     }
 
-    public function course($slug_1, $slug_2=null, $slug_3=null, $slug_4=null)
+    public function course($slug_1, $slug_2 = null, $slug_3 = null, $slug_4 = null)
     {
-        if($slug_1 && $slug_2 && $slug_3 && $slug_4){
-            $slug = $slug_3 ."/".$slug_4;
-        }else if($slug_1 && $slug_2 && $slug_3){
+        if ($slug_1 && $slug_2 && $slug_3 && $slug_4) {
+            $slug = $slug_3 . "/" . $slug_4;
+        } else if ($slug_1 && $slug_2 && $slug_3) {
             $slug = $slug_3;
-        }else if($slug_1 && $slug_2){
-            $slug = $slug_1 . "/". $slug_2;
-        }else if($slug_1){
+        } else if ($slug_1 && $slug_2) {
+            $slug = $slug_1 . "/" . $slug_2;
+        } else if ($slug_1) {
             $slug = $slug_1;
         }
         $course_id = null;
@@ -234,8 +234,8 @@ class Home extends CI_Controller
                 $CI->load->model('addons/affiliate_course_model');
                 $affiliator_details_for_checking_active_status = $_GET['ref'];
                 $check_validity = $CI->affiliate_course_model->get_user_by_unique_identifier($affiliator_details_for_checking_active_status);
-           
-                if ($check_validity['status'] == 1 && $check_validity['user_id']!=$this->session->userdata('user_id')) {
+
+                if ($check_validity['status'] == 1 && $check_validity['user_id'] != $this->session->userdata('user_id')) {
 
                     if (isset($_GET['ref'])) {
                         $this->session->set_userdata('course_referee', $_GET['ref']);
@@ -244,16 +244,13 @@ class Home extends CI_Controller
                         $this->session->unset_userdata('course_referee');
                         $this->session->unset_userdata('course_reffer_id');
                     }
-                }
-                else
-                {
+                } else {
                     $this->session->set_flashdata('error_message', get_phrase('you can not reffer yourself'));
                     redirect(site_url('home/courses'), 'refresh');
-            
                 }
             }
         }
-        
+
 
 
 
@@ -266,7 +263,7 @@ class Home extends CI_Controller
         $page_data['page_name'] = $course_data['template'] == 'template one'  ? "template_one" : "course_page";
         $page_data['page_title'] = site_phrase('course');
 
-    
+
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
     }
 
@@ -378,7 +375,7 @@ class Home extends CI_Controller
             if (isset($_FILES['resume']) && $_FILES['resume']['name'] != "" && $_FILES['resume']['tmp_name']) {
                 $accepted_ext = array('doc', 'docx', 'pdf', 'txt', 'png', 'jpg', 'jpeg');
                 $ext = pathinfo($_FILES['resume']['name'], PATHINFO_EXTENSION);
-                log_message("error","Uploaded file extension : " . $ext);
+                log_message("error", "Uploaded file extension : " . $ext);
                 if (!in_array(strtolower($ext), $accepted_ext)) {
                     $this->session->set_flashdata('error_message', get_phrase('Invalid file extension'));
                     redirect(site_url('home/profile/user_profile'), 'refresh');
@@ -399,9 +396,9 @@ class Home extends CI_Controller
             }
             $this->session->set_flashdata('flash_message', site_phrase('updated_successfully'));
 
-            if($is_profile_page){
+            if ($is_profile_page) {
                 redirect(site_url('home/profile/user_profile'), 'refresh');
-            }else{
+            } else {
                 redirect(site_url('home/profile/user_photo'), 'refresh');
             }
         }
@@ -425,39 +422,40 @@ class Home extends CI_Controller
     }
 
 
-    function toggleWishlistItems($course_id = "", $identifier = ""){
+    function toggleWishlistItems($course_id = "", $identifier = "")
+    {
         if ($this->session->userdata('user_login') != 1) {
             $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
-            if($course_details['slug_count'] == 1 || $course_details['slug_count'] == 2){
+            if ($course_details['slug_count'] == 1 || $course_details['slug_count'] == 2) {
                 $slug = $course_details['slug'];
-            }else if($course_details['slug_count'] == 3 || $course_details['slug_count'] == 4){
-                $slug = $course_details['category_slug'] .'/' . $course_details['sub_category_slug'] .'/' . $course_details['slug'];
-            }else{
+            } else if ($course_details['slug_count'] == 3 || $course_details['slug_count'] == 4) {
+                $slug = $course_details['category_slug'] . '/' . $course_details['sub_category_slug'] . '/' . $course_details['slug'];
+            } else {
                 $slug = $course_details['slug'];
             }
             $url = site_url($slug);
             set_url_history($url);
             $response['redirectTo'] = site_url('login');
-        }else{
+        } else {
             //sdfkudsgfdfhidhfhdfi hhj
             $response_bool = $this->crud_model->handleWishList($course_id);
-            if($response_bool){
+            if ($response_bool) {
                 $response['success'] = get_phrase('Course added to wishlist');
-            }else{
+            } else {
                 $response['success'] = get_phrase('Course removed from wishlist');
             }
-            $response['toggleClass'] = ['elem' => '#coursesWishlistIcon'.$identifier.$course_id, 'content' => 'red-heart'];
+            $response['toggleClass'] = ['elem' => '#coursesWishlistIcon' . $identifier . $course_id, 'content' => 'red-heart'];
 
 
             //Header wishlist content start
             $my_wishlist_items = array();
-            if($user_id = $this->session->userdata('user_id')){
+            if ($user_id = $this->session->userdata('user_id')) {
                 $wishlist = $this->user_model->get_all_user($user_id)->row('wishlist');
-                if($wishlist != ''){
+                if ($wishlist != '') {
                     $my_wishlist_items = json_decode($wishlist, true);
                 }
             }
-            $wishlist_content = $this->load->view('frontend/'. get_frontend_settings('theme') .'/wishlist_items', ['my_wishlist_items' => $my_wishlist_items], true);
+            $wishlist_content = $this->load->view('frontend/' . get_frontend_settings('theme') . '/wishlist_items', ['my_wishlist_items' => $my_wishlist_items], true);
             $response['html'] = ['elem' => '#wishlistItems', 'content' => $wishlist_content];
             $response['text'] = ['elem' => '#wishlistItemsCounter', 'content' => count($my_wishlist_items)];
             //End header wishlist content
@@ -490,7 +488,7 @@ class Home extends CI_Controller
     }
     public function handle_cart_items($course_id = "", $identifier = "", $course_track = "weekday")
     {
-        if($identifier == "null"){
+        if ($identifier == "null") {
             $identifier = "";
         }
         if (!$this->session->userdata('cart_items')) {
@@ -508,32 +506,29 @@ class Home extends CI_Controller
             unset($previous_track[$course_id]);
 
             $response['success'] = get_phrase('Item successfully removed from cart');
-            $response['hide'] = '#added_to_cart_btn_'.$identifier.$course_id;
-            $response['show'] = '#add_to_cart_btn_'.$identifier.$course_id;
-            if($course_track=="weekday"){
-                $response['fee_weekday_hide'] = '#fee_weekday_added_to_cart_btn_'.$identifier.$course_id;
-                $response['fee_weekday_show'] = '#fee_weekday_add_to_cart_btn_'.$identifier.$course_id;
-            } else if($course_track=="weekend"){
-                $response['fee_weekend_hide'] = '#fee_weekend_added_to_cart_btn_'.$identifier.$course_id;
-                $response['fee_weekend_show'] = '#fee_weekend_add_to_cart_btn_'.$identifier.$course_id;
+            $response['hide'] = '#added_to_cart_btn_' . $identifier . $course_id;
+            $response['show'] = '#add_to_cart_btn_' . $identifier . $course_id;
+            if ($course_track == "weekday") {
+                $response['fee_weekday_hide'] = '#fee_weekday_added_to_cart_btn_' . $identifier . $course_id;
+                $response['fee_weekday_show'] = '#fee_weekday_add_to_cart_btn_' . $identifier . $course_id;
+            } else if ($course_track == "weekend") {
+                $response['fee_weekend_hide'] = '#fee_weekend_added_to_cart_btn_' . $identifier . $course_id;
+                $response['fee_weekend_show'] = '#fee_weekend_add_to_cart_btn_' . $identifier . $course_id;
             }
-            
-            
         } else {
             array_push($previous_cart_items, $course_id);
             $previous_track[$course_id] = $course_track;
 
             $response['success'] = get_phrase('Item successfully added to cart');
-            $response['show'] = '#added_to_cart_btn_'.$identifier.$course_id;
-            $response['hide'] = '#add_to_cart_btn_'.$identifier.$course_id;
-            if($course_track=="weekday"){
-                $response['fee_weekday_show'] = '#fee_weekday_added_to_cart_btn_'.$identifier.$course_id;
-                $response['fee_weekday_hide'] = '#fee_weekday_add_to_cart_btn_'.$identifier.$course_id;
-            } else if($course_track=="weekend"){
-                $response['fee_weekend_show'] = '#fee_weekend_added_to_cart_btn_'.$identifier.$course_id;
-                $response['fee_weekend_hide'] = '#fee_weekend_add_to_cart_btn_'.$identifier.$course_id;
+            $response['show'] = '#added_to_cart_btn_' . $identifier . $course_id;
+            $response['hide'] = '#add_to_cart_btn_' . $identifier . $course_id;
+            if ($course_track == "weekday") {
+                $response['fee_weekday_show'] = '#fee_weekday_added_to_cart_btn_' . $identifier . $course_id;
+                $response['fee_weekday_hide'] = '#fee_weekday_add_to_cart_btn_' . $identifier . $course_id;
+            } else if ($course_track == "weekend") {
+                $response['fee_weekend_show'] = '#fee_weekend_added_to_cart_btn_' . $identifier . $course_id;
+                $response['fee_weekend_hide'] = '#fee_weekend_add_to_cart_btn_' . $identifier . $course_id;
             }
-            
         }
         $response['track'] = $course_track;
         $this->session->set_userdata('cart_items', $previous_cart_items);
@@ -551,7 +546,7 @@ class Home extends CI_Controller
         $cart_items = $this->session->userdata('cart_items');
         $response['load'] = [
             'elem' => '#cartItems',
-            'content' => $this->load->view('frontend/'. get_frontend_settings('theme') .'/cart_items',[], true)
+            'content' => $this->load->view('frontend/' . get_frontend_settings('theme') . '/cart_items', [], true)
         ];
         $response['text'] = ['elem' => '#cartItemsCounter', 'content' => count($cart_items)];
         //Cart header content end
@@ -565,9 +560,9 @@ class Home extends CI_Controller
             $this->session->set_userdata('cart_items', array());
         }
 
-        if(isset($_GET['gift'])){
+        if (isset($_GET['gift'])) {
             $is_gift = '?gift=yes';
-        }else{
+        } else {
             $is_gift = '';
         }
 
@@ -580,11 +575,11 @@ class Home extends CI_Controller
         }
         $this->session->set_userdata('cart_items', $previous_cart_items);
 
-        if($this->session->userdata('user_login')){
+        if ($this->session->userdata('user_login')) {
             $this->payment_model->configure_course_payment();
-            echo json_encode(['redirectTo' => site_url('home/shopping_cart'.$is_gift)]);
-        }else{
-            set_url_history(site_url('home/shopping_cart'.$is_gift));
+            echo json_encode(['redirectTo' => site_url('home/shopping_cart' . $is_gift)]);
+        } else {
+            set_url_history(site_url('home/shopping_cart' . $is_gift));
             echo json_encode(['redirectTo' => site_url('login')]);
         }
     }
@@ -612,7 +607,7 @@ class Home extends CI_Controller
     public function apply_coupon()
     {
         $page_data['coupon_code'] = $this->input->post('coupon_code');
-        
+
         $response['html'] = [
             'elem' => '#shoppingCart',
             'content' => $this->load->view('frontend/' . get_frontend_settings('theme') . '/shopping_cart_inner_view', $page_data, true)
@@ -841,7 +836,7 @@ class Home extends CI_Controller
         $course_instructor_ids = explode(',', $course_details['user_id']);
 
         if ($course_details['course_type'] == 'general') {
-            
+
             //this function saved current lesson id and return previous lesson id if $lesson_id param is empty
             $lesson_id = $this->crud_model->update_last_played_lesson($course_id, $lesson_id);
             $sections = $this->crud_model->get_section('course', $course_id);
@@ -872,10 +867,10 @@ class Home extends CI_Controller
 
         //if not admin or course owner
         if ($this->session->userdata('role_id') != 1 && !in_array($user_id, $course_instructor_ids)) {
-            if($enroll_status == 'expired'){
+            if ($enroll_status == 'expired') {
                 $this->session->set_flashdata('error_message', site_phrase('Your course accessibility has expired. You need to buy it again'));
                 redirect(site_url($course_details['slug']), 'refresh');
-            }elseif (!$enroll_status) {
+            } elseif (!$enroll_status) {
                 $this->session->set_flashdata('error_message', site_phrase('You have to buy the course first'));
                 redirect(site_url($course_details['slug']), 'refresh');
             }
@@ -892,7 +887,8 @@ class Home extends CI_Controller
         $this->load->view('lessons/index', $page_data);
     }
 
-    function pdf_canvas($course_id = "", $lesson_id = ""){
+    function pdf_canvas($course_id = "", $lesson_id = "")
+    {
         $page_data['course_id'] = $course_id;
         $page_data['lesson_id'] = $lesson_id;
         $this->load->view('lessons/pdf_canvas', $page_data);
@@ -914,7 +910,7 @@ class Home extends CI_Controller
             $search_string = $_GET['query'];
 
             //check double quote and script text in the search string
-            if(preg_match('/"/', $search_string) >= 1 && strpos($search_string,"script") >= 1){
+            if (preg_match('/"/', $search_string) >= 1 && strpos($search_string, "script") >= 1) {
                 $this->session->set_flashdata('error_message', site_phrase('such_script_searches_are_not_allowed'));
                 redirect(site_url(), 'refresh');
             }
@@ -925,7 +921,7 @@ class Home extends CI_Controller
             $config = pagintaion($all_rows, 9);
             $config['base_url']  = site_url('home/search/');
             $config['suffix']  = '?query=' . $search_string;
-            $config['first_url']  = site_url('home/search').'?query=' . $search_string;
+            $config['first_url']  = site_url('home/search') . '?query=' . $search_string;
             $this->pagination->initialize($config);
 
             $page_data['courses'] = $this->crud_model->get_active_and_visible_courses_by_search_string($search_string, $config['per_page'], $this->uri->segment(3))->result_array();
@@ -979,7 +975,7 @@ class Home extends CI_Controller
     {
         $course_id = $this->input->post('course_id');
         $starRating = $this->input->post('starRating');
-        if(enroll_status($course_id)){
+        if (enroll_status($course_id)) {
             $data['review'] = $this->input->post('review');
             $data['ratable_id'] = $this->input->post('course_id');
             $data['ratable_type'] = 'course';
@@ -990,21 +986,22 @@ class Home extends CI_Controller
             $this->crud_model->rate($data);
 
             $data['course_details'] = $this->crud_model->get_course_by_id($course_id)->row_array();
-            $response['html'] = ['elem' => '#reviews .reviews', 'content' => $this->load->view('frontend/' . get_frontend_settings('theme') . '/course_page_reviews',$data, true)];
+            $response['html'] = ['elem' => '#reviews .reviews', 'content' => $this->load->view('frontend/' . get_frontend_settings('theme') . '/course_page_reviews', $data, true)];
             $response['success'] = get_phrase('You have successfully rated the course');
-        }else{
+        } else {
             $response['error'] = get_phrase('This course cannot be rated. Please buy the course first');
         }
 
         echo json_encode($response);
     }
 
-    public function remove_rating($course_id, $rating_id){
-        if(enroll_status($course_id) || $this->session->userdata('admin_login')){
+    public function remove_rating($course_id, $rating_id)
+    {
+        if (enroll_status($course_id) || $this->session->userdata('admin_login')) {
             $this->db->where('id', $rating_id);
             $this->db->delete('rating');
 
-            $response['fadeOut'] = '#userReview'.$rating_id;
+            $response['fadeOut'] = '#userReview' . $rating_id;
             $response['success'] = get_phrase('Review deleted successfully');
             echo json_encode($response);
         }
@@ -1020,21 +1017,21 @@ class Home extends CI_Controller
     public function terms_and_condition()
     {
         $page_data['page_name'] = 'terms_and_condition';
-        $page_data['page_title'] = site_phrase('terms_and_condition');
+        $page_data['page_title'] = 'Terms and Conditions';
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
     }
 
     public function refund_policy()
     {
         $page_data['page_name'] = 'refund_policy';
-        $page_data['page_title'] = site_phrase('refund_policy');
+        $page_data['page_title'] = ucwords(site_phrase('refund_policy'));
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
     }
 
     public function privacy_policy()
     {
         $page_data['page_name'] = 'privacy_policy';
-        $page_data['page_title'] = site_phrase('privacy_policy');
+        $page_data['page_title'] = ucwords(site_phrase('privacy_policy'));
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
     }
     public function cookie_policy()
@@ -1395,7 +1392,7 @@ class Home extends CI_Controller
 
         $page_data['page_name'] = 'compare';
         $page_data['page_title'] = site_phrase('course_compare');
-        
+
         $this->db->where('status', 'active');
         $page_data['courses'] = $this->db->get('course')->result_array();
         $page_data['course_1_details'] = $course_id_1 ? $this->crud_model->get_course_by_id($course_id_1)->row_array() : array();
@@ -1430,7 +1427,7 @@ class Home extends CI_Controller
     // SETTING FRONTEND LANGUAGE
     public function switch_language($language = "column")
     {
-        if($this->db->field_exists(strtolower($language), 'language')){
+        if ($this->db->field_exists(strtolower($language), 'language')) {
             $this->session->set_userdata('language', $language);
         }
         echo json_encode(['reload' => true]);
@@ -1535,33 +1532,35 @@ class Home extends CI_Controller
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/preview_free_lesson', $page_data);
     }
 
-    function course_preview($course_id = ""){
+    function course_preview($course_id = "")
+    {
         $page_data['course_details'] = $this->crud_model->get_course_by_id($course_id)->row_array();
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/course_page_preview_modal', $page_data);
     }
 
-    function play_lesson($lesson_id = "", $is_preview = ""){
+    function play_lesson($lesson_id = "", $is_preview = "")
+    {
         $admin_login = $this->session->userdata('admin_login');
         $lesson = $this->crud_model->get_lessons('lesson', $lesson_id)->row_array();
         $course_details = $this->crud_model->get_course_by_id($lesson['course_id'])->row_array();
         $is_course_instructor = $this->crud_model->is_course_instructor($course_details['id'], $this->session->userdata('user_id'));
-        if($is_preview){
-            if($lesson['is_free'] == 1){
+        if ($is_preview) {
+            if ($lesson['is_free'] == 1) {
                 $data['course_details'] = $course_details;
                 $data['lesson_details'] = $lesson;
                 $data['lesson_id'] = $lesson_id;
                 $data['course_id'] = $course_details['id'];
                 $this->load->view('lessons/general_course_content_body', $data);
-            }else{
+            } else {
                 $response['error'] = get_phrase('This lecture is available exclusively as of premium part. To gain access, please purchase the course');
                 echo json_encode($response);
             }
-        }elseif($admin_login || $is_course_instructor || enroll_status($course_details['id']) == 'valid'){
-            $response['redirectTo'] = site_url('home/lesson/'.slugify($course_details['title']).'/'.$course_details['id'].'/'.$lesson['id']);
+        } elseif ($admin_login || $is_course_instructor || enroll_status($course_details['id']) == 'valid') {
+            $response['redirectTo'] = site_url('home/lesson/' . slugify($course_details['title']) . '/' . $course_details['id'] . '/' . $lesson['id']);
             echo json_encode($response);
-        }elseif($lesson['is_free'] != 1){
+        } elseif ($lesson['is_free'] != 1) {
             $response['error'] = get_phrase('This lecture is available exclusively as of premium part. To gain access, please purchase the course');
-                echo json_encode($response);
+            echo json_encode($response);
         }
     }
 
@@ -1607,11 +1606,11 @@ class Home extends CI_Controller
         $course_details = $this->crud_model->get_course_by_id($data['lesson_details']['course_id'])->row_array();
         $is_purchased = $this->crud_model->check_course_enrolled($course_details['id'], $logged_in_user_details['id']);
 
-        if($is_purchased > 0){
+        if ($is_purchased > 0) {
             $data['course_details'] = $course_details;
             $data['page_name'] = 'quiz_view';
             $this->load->view('mobile/index', $data);
-        }else{
+        } else {
             echo api_phrase('buy_the_course');
         }
     }
@@ -1624,31 +1623,32 @@ class Home extends CI_Controller
         $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
         $is_purchased = $this->crud_model->check_course_enrolled($course_details['id'], $logged_in_user_details['id']);
 
-        if($is_purchased > 0 && $now_leave == ""){
+        if ($is_purchased > 0 && $now_leave == "") {
             $page_data['instructor_details']  = $this->user_model->get_all_user($course_details['creator'])->row_array();
             $page_data['live_class_details']  = $this->liveclass_model->get_live_class_details($course_id);
             $page_data['logged_user_details'] = $this->user_model->get_all_user($this->session->userdata('user_id'))->row_array();
             $page_data['course_details'] = $course_details;
             $page_data['page_name'] = 'live_class';
             $this->load->view('mobile/index', $page_data);
-        }elseif($now_leave != ""){
-            echo '<h6>'.api_phrase('you_have_already_left_the_meeting').'</h6>';
-        }else{
-             echo '<h6>'.api_phrase('buy_the_course').'</h6>';
+        } elseif ($now_leave != "") {
+            echo '<h6>' . api_phrase('you_have_already_left_the_meeting') . '</h6>';
+        } else {
+            echo '<h6>' . api_phrase('buy_the_course') . '</h6>';
         }
     }
 
-    function check_gift_user(){
+    function check_gift_user()
+    {
 
-        if(isset($_POST['gift_email']) && filter_var($_POST['gift_email'], FILTER_VALIDATE_EMAIL)){
+        if (isset($_POST['gift_email']) && filter_var($_POST['gift_email'], FILTER_VALIDATE_EMAIL)) {
             $gift_to_user = $this->db->get_where('users', ['email' => $_POST['gift_email']]);
-            if($gift_to_user->num_rows() > 0){
-                $content = '<span class="text-success text-12px">'.get_phrase('Name').': '.$gift_to_user->row('first_name').' '.$gift_to_user->row('last_name').'</span>';
-            }else{
-                $content = '<span class="text-danger text-12px">'.get_phrase('User not found').'</span>';
+            if ($gift_to_user->num_rows() > 0) {
+                $content = '<span class="text-success text-12px">' . get_phrase('Name') . ': ' . $gift_to_user->row('first_name') . ' ' . $gift_to_user->row('last_name') . '</span>';
+            } else {
+                $content = '<span class="text-danger text-12px">' . get_phrase('User not found') . '</span>';
             }
-        }else{
-            $content = '<span class="text-danger text-12px">'.get_phrase('User not found').'</span>';
+        } else {
+            $content = '<span class="text-danger text-12px">' . get_phrase('User not found') . '</span>';
         }
         $response['html'] = [
             'elem' => '#check_gift_user_message',
@@ -1658,35 +1658,36 @@ class Home extends CI_Controller
     }
 
     //send gift modified
-    function course_payment(){
-        if(count($this->session->userdata('cart_items')) == 0){
+    function course_payment()
+    {
+        if (count($this->session->userdata('cart_items')) == 0) {
             $this->session->set_flashdata('error_message', site_phrase('there_are_no_courses_on_your_cart'));
             redirect(site_url('home/shopping_cart'), 'refresh');
         }
 
-        if(!$this->session->userdata('user_login')){
+        if (!$this->session->userdata('user_login')) {
             set_url_history(site_url('home/shopping_cart'));
             redirect(site_url('login'), 'refresh');
         }
 
 
         //Course gift
-        if(isset($_POST['is_gift']) && $_POST['is_gift'] == 1){
-          if(isset($_POST['gift_email']) && filter_var($_POST['gift_email'], FILTER_VALIDATE_EMAIL)){
-            $gift_to_user = $this->db->get_where('users', ['email' => $_POST['gift_email']]);
-            if($gift_to_user->num_rows() > 0){
-                $this->session->set_userdata('gift_to_user_id', $gift_to_user->row('id'));
-            }else{
+        if (isset($_POST['is_gift']) && $_POST['is_gift'] == 1) {
+            if (isset($_POST['gift_email']) && filter_var($_POST['gift_email'], FILTER_VALIDATE_EMAIL)) {
+                $gift_to_user = $this->db->get_where('users', ['email' => $_POST['gift_email']]);
+                if ($gift_to_user->num_rows() > 0) {
+                    $this->session->set_userdata('gift_to_user_id', $gift_to_user->row('id'));
+                } else {
+                    $this->session->set_userdata('gift_to_user_id', null);
+                    $this->session->set_flashdata('error_message', site_phrase('Recepient must be an existing user'));
+                    redirect(site_url('home/shopping_cart'), 'refresh');
+                }
+            } else {
                 $this->session->set_userdata('gift_to_user_id', null);
-                $this->session->set_flashdata('error_message', site_phrase('Recepient must be an existing user'));
+                $this->session->set_flashdata('error_message', site_phrase('Invalid email address'));
                 redirect(site_url('home/shopping_cart'), 'refresh');
             }
-          }else{
-            $this->session->set_userdata('gift_to_user_id', null);
-            $this->session->set_flashdata('error_message', site_phrase('Invalid email address'));
-            redirect(site_url('home/shopping_cart'), 'refresh');
-          }
-        }else{
+        } else {
             $this->session->set_userdata('gift_to_user_id', null);
         }
         //End course gift
@@ -1694,41 +1695,44 @@ class Home extends CI_Controller
         redirect(site_url('payment'));
     }
 
-    function gift_to_user_id(){
+    function gift_to_user_id()
+    {
         $this->session->unset_userdata('send_gift_to_id');
         $status = 0;
         $email = $this->input->post('email');
         $is_user = $this->user_model->get_user_by_email($email)->num_rows();
-        if($is_user > 0){
+        if ($is_user > 0) {
             $status = 1;
-            if(!empty($this->session->userdata('cart_items'))){                
+            if (!empty($this->session->userdata('cart_items'))) {
                 $user_id = $this->user_model->get_user_by_email($email)->row('id');
                 $this->session->set_userdata('send_gift_to_id', $user_id);
-            }                
+            }
         }
         echo $status;
     }
 
 
-    function subscribe_to_our_newsletter(){
+    function subscribe_to_our_newsletter()
+    {
         $data['email'] = $this->input->post('email');
 
-        if(filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
-            if($this->db->get_where('newsletter_subscriber',$data)->num_rows() > 0){
+        if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            if ($this->db->get_where('newsletter_subscriber', $data)->num_rows() > 0) {
                 $this->db->where('email', $data['email']);
                 $this->db->update('newsletter_subscriber', ['updated_at' => time()]);
-            }else{
+            } else {
                 $data['created_at'] = time();
                 $this->db->insert('newsletter_subscriber', $data);
             }
             $response['success'] = get_phrase('Thanks for subscribing to our newsletter');
-        }else{
+        } else {
             $response['error'] = get_phrase('Invalid email address');
         }
         echo json_encode($response);
     }
 
-    function get_compare_course_select2($course_1 = "0", $course_2 = "0", $course_3 = "0"){
+    function get_compare_course_select2($course_1 = "0", $course_2 = "0", $course_3 = "0")
+    {
         //Select 2 server-side course data
         $response = array();
         $result = $this->db->select('course.id id, course.title title, users.first_name first_name, users.last_name last_name')
@@ -1737,30 +1741,32 @@ class Home extends CI_Controller
             ->where('course.id !=', $course_3)
             ->where('course.status', 'active')
             ->group_start()
-                ->like('course.title', $_GET['searchVal'])
-                ->or_like('short_description', $_GET['searchVal'])
-                ->or_like('first_name', $_GET['searchVal'])
-                ->or_like('last_name', $_GET['searchVal'])
+            ->like('course.title', $_GET['searchVal'])
+            ->or_like('short_description', $_GET['searchVal'])
+            ->or_like('first_name', $_GET['searchVal'])
+            ->or_like('last_name', $_GET['searchVal'])
             ->group_end()
             ->limit(100)
             ->from('course')
             ->join('users', 'users.id = course.creator')
             ->get()->result_array();
-        foreach($result as $key => $row){
-            $response[] = ['id' => $row['id'], 'text' => $row['title'].' ('.get_phrase('Creator').': '.$row['first_name'].' '.$row['last_name'].')'];
+        foreach ($result as $key => $row) {
+            $response[] = ['id' => $row['id'], 'text' => $row['title'] . ' (' . get_phrase('Creator') . ': ' . $row['first_name'] . ' ' . $row['last_name'] . ')'];
         }
         echo json_encode($response);
     }
 
-    function faq(){
+    function faq()
+    {
         $page_data['page_name'] = 'website_faq';
         $page_data['page_title'] = strtoupper(get_phrase('FAQ'));
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
     }
 
-    function contact_us($param1 = ""){
+    function contact_us($param1 = "")
+    {
 
-        if($param1 == 'submit'){
+        if ($param1 == 'submit') {
             /*if ($this->crud_model->check_recaptcha() == false && get_frontend_settings('recaptcha_status') == true) {
                 $this->session->set_flashdata('error_message', get_phrase('recaptcha_verification_failed'));
                 redirect(site_url('login'), 'refresh');
@@ -1821,7 +1827,7 @@ class Home extends CI_Controller
                 redirect('home/contact_us', 'location');
             }
 
-            
+
 
             $this->db->insert('contactus', $data);
             $this->session->set_flashdata('flash_message', site_phrase('Your contact request has been sent successfully'));
@@ -1839,23 +1845,25 @@ class Home extends CI_Controller
     //     echo seconds_to_time_format($duration_as_seconds);
     // }
 
-    function dark_and_light_mode(){
-        if($this->session->userdata('theme_mode') != 'dark-theme'){
+    function dark_and_light_mode()
+    {
+        if ($this->session->userdata('theme_mode') != 'dark-theme') {
             $this->session->set_userdata('theme_mode', 'dark-theme');
             echo json_encode(['toggleClass' => ['elem' => 'body', 'content' => 'dark-theme']]);
-        }else{
+        } else {
             $this->session->unset_userdata('theme_mode');
             echo json_encode(['toggleClass' => ['elem' => 'body', 'content' => 'dark-theme']]);
         }
     }
 
-    function coupon_offer_100_percent(){
+    function coupon_offer_100_percent()
+    {
         $cart_items = $this->session->userdata('cart_items');
         $enrol_user_id = $this->session->userdata('user_id');
         $coupon_code = $this->session->userdata('applied_coupon');
         $coupon_details = $this->crud_model->get_coupon_details_by_code($coupon_code)->row_array();
 
-        if(count($cart_items) > 0 && $coupon_code && $coupon_details['discount_percentage'] == 100 && $coupon_details['expiry_date'] >= time() && $enrol_user_id > 0 && $this->session->userdata('user_login')){
+        if (count($cart_items) > 0 && $coupon_code && $coupon_details['discount_percentage'] == 100 && $coupon_details['expiry_date'] >= time() && $enrol_user_id > 0 && $this->session->userdata('user_login')) {
 
             $this->crud_model->enrol_student($enrol_user_id);
 
@@ -1866,7 +1874,7 @@ class Home extends CI_Controller
 
             $this->session->set_flashdata('flash_message', site_phrase('You have successfully enrolled by applying a 100 percent coupon offer'));
             redirect('home/my_courses', 'refresh');
-        }else{
+        } else {
             $this->session->set_flashdata('error_message', site_phrase('an_error_occurred_during_apply_coupn'));
             redirect('home/shopping_cart', 'refresh');
         }
@@ -1874,15 +1882,16 @@ class Home extends CI_Controller
 
 
     //Start Notification
-    function get_my_notification($type = ""){
+    function get_my_notification($type = "")
+    {
         $user_id = $this->session->userdata('user_id');
 
-        if($type == 'mark_all_as_read'){
+        if ($type == 'mark_all_as_read') {
             $this->db->where('to_user', $user_id);
             $this->db->update('notifications', ['status' => 1]);
         }
 
-        if($type == 'remove_all'){
+        if ($type == 'remove_all') {
             $this->db->where('to_user', $user_id);
             $this->db->delete('notifications');
         }
@@ -1895,41 +1904,42 @@ class Home extends CI_Controller
 
         $response['html'] = [
             'elem' => '#headerNotification',
-            'content' => $this->load->view('frontend/'.get_frontend_settings('theme').'/notifications', [], true)
+            'content' => $this->load->view('frontend/' . get_frontend_settings('theme') . '/notifications', [], true)
         ];
 
         echo json_encode($response);
-
     }
     //End notification
 
 
-    function course_playing_page_layout(){
-        if($this->session->userdata('full_page_layout') == false){
+    function course_playing_page_layout()
+    {
+        if ($this->session->userdata('full_page_layout') == false) {
             $this->session->set_userdata('full_page_layout', true);
-        }else{
+        } else {
             $this->session->set_userdata('full_page_layout', false);
         }
 
         echo json_encode(['reload' => true]);
     }
 
-    function become_an_instructor(){
+    function become_an_instructor()
+    {
         $applications = $this->user_model->get_applications($this->session->userdata('user_id'), 'user');
-        if ($this->session->userdata('user_id') && $applications->num_rows() > 0):
+        if ($this->session->userdata('user_id') && $applications->num_rows() > 0) :
             redirect('user/become_an_instructor', 'refresh');
         endif;
 
         if ($this->session->userdata('user_login') != 1) {
-            if(isset($course_id)){
+            if (isset($course_id)) {
                 $url = site_url($this->crud_model->get_course_by_id($course_id)->row('slug'));
                 set_url_history($url);
             }
-            $this->session->set_flashdata('become_an_instructor',1);
+            $this->session->set_flashdata('become_an_instructor', 1);
             redirect(site_url('sign_up'), 'refresh');
-        }else{
+        } else {
 
-            if(isset($_POST) && count($_POST) > 0):
+            if (isset($_POST) && count($_POST) > 0) :
                 $accepted_ext = array('doc', 'docs', 'pdf', 'txt', 'png', 'jpg', 'jpeg');
                 $path = $_FILES['document']['name'];
                 $ext = pathinfo($path, PATHINFO_EXTENSION);
@@ -1945,14 +1955,13 @@ class Home extends CI_Controller
                 $this->user_model->post_instructor_application($this->session->userdata('user_id'), $document_custom_name);
                 $this->session->set_flashdata('flash_message', get_phrase('The request was successful'));
                 redirect('user/become_an_instructor', 'refresh');
-            else:
+            else :
                 $page_data['page_name'] = 'become_a_instructor';
                 $page_data['page_title'] = get_phrase('Become an instructor');
                 $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
                 return;
             endif;
         }
-
     }
 
     //Payout settings 
@@ -1962,7 +1971,7 @@ class Home extends CI_Controller
             redirect(site_url('login'), 'refresh');
         }
 
-        if(isset($_POST['gateways'])){
+        if (isset($_POST['gateways'])) {
             $data['payment_keys'] = json_encode($_POST['gateways']);
             $data['last_modified'] = time();
             $this->db->where('id', $this->session->userdata('user_id'));
@@ -1976,7 +1985,8 @@ class Home extends CI_Controller
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
     }
 
-    function lesson_mobile_web_view_get($lesson_id = ""){
+    function lesson_mobile_web_view_get($lesson_id = "")
+    {
         if ($this->session->userdata('user_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
@@ -1988,10 +1998,10 @@ class Home extends CI_Controller
         $enroll_status = enroll_status($lesson_details['course_id']);
 
 
-        if($enroll_status == 'expired' || !$enroll_status){
+        if ($enroll_status == 'expired' || !$enroll_status) {
             return false;
         }
-        
+
 
         $page_data['course_details'] = $course_details;
         $page_data['lesson_details'] = $lesson_details;
@@ -1999,11 +2009,11 @@ class Home extends CI_Controller
         $page_data['full_page'] = true;
 
 
-        if($get_lesson_type == 'text'):
+        if ($get_lesson_type == 'text') :
             echo '
                 <html>
                     <head>
-                        <title>'.$lesson_details['title'].'</title>
+                        <title>' . $lesson_details['title'] . '</title>
                         <meta charset="utf-8">
                         <meta http-equiv="X-UA-Compatible" content="IE=edge">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -2011,22 +2021,23 @@ class Home extends CI_Controller
                         <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     </head>
                     <body>';
-                        echo htmlspecialchars_decode_($lesson_details['attachment']);
-                        echo '<hr style="border-color: #efefef;">';
-                        echo '<h3>'.get_phrase('Summary:').'</h3>';
-                        echo htmlspecialchars_decode_($lesson_details['summary'])
-                    .'</body>
+            echo htmlspecialchars_decode_($lesson_details['attachment']);
+            echo '<hr style="border-color: #efefef;">';
+            echo '<h3>' . get_phrase('Summary:') . '</h3>';
+            echo htmlspecialchars_decode_($lesson_details['summary'])
+                . '</body>
                 </html>';
         endif;
     }
 
-    function account_disable(){
+    function account_disable()
+    {
         if ($this->session->userdata('user_login') != true) {
             redirect(site_url('login'), 'refresh');
         }
 
 
-        if(isset($_POST) && count($_POST)){
+        if (isset($_POST) && count($_POST)) {
 
 
             $user_details = $this->user_model->get_all_user($this->session->userdata('user_id'))->row_array();
@@ -2047,7 +2058,8 @@ class Home extends CI_Controller
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/account_disable');
     }
 
-    public function contactus_submitted(){
+    public function contactus_submitted()
+    {
         date_default_timezone_set('Asia/Kolkata');
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
@@ -2089,13 +2101,14 @@ class Home extends CI_Controller
         $details['city'] = $city;
         $details['datetime'] = time();
         $inserted = $this->crud_model->add_contactus($details);
-        if($inserted){
-            $this->email_model->return_contact_email($course, $first_name .' '. $last_name, $email);
+        if ($inserted) {
+            $this->email_model->return_contact_email($course, $first_name . ' ' . $last_name, $email);
             echo "Thank You For Contacting Us.";
         }
     }
 
-    public function feedback_from_submitted(){
+    public function feedback_from_submitted()
+    {
         date_default_timezone_set('Asia/Kolkata');
         $rating = $_POST['rating'];
         $message = $_POST['message'];
@@ -2120,12 +2133,13 @@ class Home extends CI_Controller
         $details['message'] = $message;
         $details['datetime'] = time();
         $inserted = $this->crud_model->add_feedback($details);
-        if($inserted){
+        if ($inserted) {
             echo "Thank You For Providing Your Feedback.";
         }
     }
 
-    public function footer_contactus_submitted(){
+    public function footer_contactus_submitted()
+    {
         date_default_timezone_set('Asia/Kolkata');
         $name = $_POST['name'];
         $email = $_POST['email'];
@@ -2161,14 +2175,15 @@ class Home extends CI_Controller
         $details['message'] = $message;
         $details['datetime'] = time();
         $inserted = $this->crud_model->add_contactus($details);
-        if($inserted){
+        if ($inserted) {
             echo "Thank You For Contacting Us.";
         }
     }
 
-    public function user_actions(){
+    public function user_actions()
+    {
         date_default_timezone_set('Asia/Kolkata');
-        if($_POST['user_id']){
+        if ($_POST['user_id']) {
             $query = $this->user_model->get_user($_POST['user_id']);
             if ($query->num_rows() > 0) {
                 $user_details = $query->row_array();
@@ -2177,11 +2192,11 @@ class Home extends CI_Controller
                 $email = $user_details['email'];
                 $phone = $user_details['phone'];
             }
-        }else{
+        } else {
             $first_name = $_POST['first_name'];
             $last_name = $_POST['last_name'];
             $email = $_POST['email'];
-            $phone = $_POST['phone'];            
+            $phone = $_POST['phone'];
         }
         $course = $_POST['course'];
         $action_from = $_POST['action_from'];
@@ -2196,13 +2211,15 @@ class Home extends CI_Controller
         $inserted = $this->crud_model->add_user_actions($details);
     }
 
-    
-    public function get_user_answers(){
+
+    public function get_user_answers()
+    {
         $answer_details = $this->user_model->getUserQuizAnswers($_POST['quiz_id']);
         echo json_encode($answer_details);
     }
 
-    public function demorequest_submitted(){
+    public function demorequest_submitted()
+    {
         date_default_timezone_set('Asia/Kolkata');
         $name = $_POST['name'];
         $email = $_POST['email'];
@@ -2233,55 +2250,275 @@ class Home extends CI_Controller
         $details['course'] = $course;
         $details['date'] = time();
         $inserted = $this->crud_model->add_demorequest($details);
-        if($inserted){
+        if ($inserted) {
             $this->email_model->return_contact_email($course, $name, $email);
             echo "Thank You For Contacting Us for Demo.";
         }
     }
 
-    public function logWhoVisitedCartPage(){
-        foreach ($this->session->userdata('cart_items') as $item){
+    public function logWhoVisitedCartPage()
+    {
+        foreach ($this->session->userdata('cart_items') as $item) {
             $data = [];
             $data['course_id'] = $item;
             $data['user_id'] = $this->session->userdata('user_id');
             $data['status'] = 'visited';
-            $data['datetime'] = date("Y-m-d H:i:s",time());
+            $data['datetime'] = date("Y-m-d H:i:s", time());
             $this->db->insert('cart_page_visitors', $data);
         }
     }
 
-    public function bottom_tab_feedback_from_submitted(){
+    public function bottom_tab_feedback_from_submitted()
+    {
         date_default_timezone_set('Asia/Kolkata');
         $ratings = json_decode($_POST['ratings']);
         $message = $_POST['message'];
         $criterias = json_decode($_POST['criterias']);
         $course_id = $_POST['course_id'];
         $inserted = $this->crud_model->insertCourseFeedbackData($ratings, $message, $criterias, $course_id);
-        if($inserted){
+        if ($inserted) {
             echo "Thank You For Providing Your Feedback.";
         }
     }
 
-    public function thankyou(){
+    public function thankyou()
+    {
         $page_data['page_name'] = 'thank_you';
         $page_data['page_title'] = site_phrase('thank_you');
-        
+
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
     }
 
-    
+
     public function jobs_list()
     {
+        if (isset($_GET['page'])) {
+            $page = $_GET['page'];
+        } else {
+            $page = 1;
+        }
+
+        $search_criteria = array(
+            'query' => $this->input->get('query'),
+            'experience' => $this->input->get('experience'),
+            'location' => $this->input->get('location')
+        );
+
+        $this->load->model("Job_model");
+        $page_data['jobs'] = $this->Job_model->getInitialJobs($search_criteria, 10, ($page - 1) * 10);
+        $page_data['experience_options'] = $this->Job_model->get_experience_options();
+        $page_data['location_options'] = $this->Job_model->get_location_options();
+        $page_data['filter_options'] = $this->getFilterData();
+        $page_data['total_count'] = $this->getJobsCount();
+
         $page_data['page_name'] = "jobs_list";
         $page_data['page_title'] = site_phrase('All Jobs');
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
     }
-    
-    public function job_view()
+
+    public function job_details($job_id = null)
     {
-        $page_data['page_name'] = "job_view";
-        $page_data['page_title'] = site_phrase('Job View');
+        $this->load->model("Job_model");
+        $job_details = $this->Job_model->getJobTitle($_GET['id']);
+        $page_data['page_name'] = "job_details";
+        $page_data['page_title'] = site_phrase($job_details['title']);
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
     }
 
+    public function getAllJobs()
+    {
+        $jobs = $this->Job_model->findAll();
+        echo json_encode($jobs);
+    }
+
+    /*public function getPaginatedJobs($page = 1, $limit = 10)
+    {
+        $filters = [
+            'work_mode' => $this->input->get('work_mode'),
+            'experience' => $this->input->get('experience'),
+            'location' => $this->input->get('location'),
+            'pay_scale' => $this->input->get('pay_scale'),
+        ];
+
+        $filters = array_filter($filters, function ($value) {
+            return $value !== null && $value !== '';
+        });
+
+        $jobs = $this->Job_model->getPaginatedJobs($page, $limit, $filters);
+        echo json_encode($jobs);
+    }*/
+
+    public function getPaginatedJobs(int $page = 1, int $perPage = 10, array $filters = [])
+    {
+        $offset = ($page - 1) * $perPage;
+
+        $this->db->select('*')
+            ->from('your_table_name')
+            ->order_by('created_at', 'DESC')
+            ->limit($perPage, $offset);
+
+        if (isset($filters['work_mode'])) {
+            $this->db->where_in('work_mode', explode(',', $filters['work_mode']));
+        }
+
+        if (isset($filters['experience'])) {
+            $this->db->group_start();
+            foreach (explode(',', $filters['experience']) as $experience) {
+                $this->db->or_where("FIND_IN_SET('{$experience}', experience) >", 0);
+            }
+            $this->db->group_end();
+        }
+
+        if (isset($filters['location'])) {
+            $this->db->where_in('location', explode(',', $filters['location']));
+        }
+
+        if (isset($filters['pay_scale'])) {
+            $this->db->group_start();
+            foreach (explode(',', $filters['pay_scale']) as $payScale) {
+                $this->db->or_where("FIND_IN_SET('{$payScale}', pay_scale) >", 0);
+            }
+            $this->db->group_end();
+        }
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function show($id = null)
+    {
+        $job = $this->Job_model->find($id);
+        if (!$job) {
+            show_404();
+        }
+        echo json_encode($job);
+    }
+
+    public function applyJob()
+    {
+        $input = json_decode(file_get_contents('php://input'), true);
+        $data = [
+            'name' => $input['apply_job_name'],
+            'email' => $input['apply_job_email'],
+            'phone' => $input['apply_job_phone'],
+            'resume' => basename($input['resume_file']),
+            'job_id' => $input['job_id']
+        ];
+
+        $this->load->model('Job_model');
+
+        // Check for duplication
+        $this->db->where('email', $data['email']);
+        $this->db->where('job_id', $data['job_id']);
+        $query = $this->db->get('applied_jobs');
+
+        if ($query->num_rows() > 0) {
+            // Record exists, return a duplication message
+            $response = array("message" => "You have already applied for this job.");
+            echo json_encode($response);
+        }else{
+            $this->Job_model->applyJob($data);
+            echo json_encode(["message" => "Application Submitted Successfully."]);
+        }
+    }
+
+    public function getFilterData()
+    {
+        $workModes = $this->Job_model->getUniqueWorkModes();
+        $experiences = $this->Job_model->getUniqueExperiences();
+        $locations = $this->Job_model->getUniqueLocations();
+        $payScales = $this->Job_model->getUniquePayScales();
+
+        return json_encode([
+            'work_modes' => $workModes,
+            'experiences' => $experiences,
+            'locations' => $locations,
+            'pay_scales' => $payScales
+        ]);
+    }
+
+    public function getJobsCount()
+    {
+        $count = $this->Job_model->getJobsCount();
+        return $count;
+    }
+
+    public function getJobsByUsingFilters()
+    {
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        $filters = [
+            'work_mode' => $input['work_mode'],
+            'experience' => $input['experience'],
+            'location' => $input['location'],
+            'pay_scale' => $input['pay_scale']
+        ];
+
+        $jobs = $this->Job_model->getPaginatedJobs($input['page'], $input['limit'], $filters);
+        echo json_encode($jobs);
+    }
+
+    public function upload()
+    {
+        log_message("error", "File Name : " . isset($_FILES['file']));
+        log_message("error", "File Name : " . $_FILES['file']['error']);
+        if (isset($_FILES['file']) && $_FILES['file']['error'] == UPLOAD_ERR_OK) {
+            $this->load->helper('url'); // Load URL helper for base_url()
+
+            // Load the File Uploading library
+            $config['upload_path'] = './uploads/resume/';
+            $config['allowed_types'] = '*'; // Define allowed file types
+            $config['encrypt_name'] = TRUE; // Generate a random file name
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('file')) {
+                $uploadData = $this->upload->data();
+                $filePath = base_url('uploads/resume/' . $uploadData['file_name']);
+                $fileName = $uploadData['client_name'];
+                log_message("error", "File Name : " . $fileName);
+                $response = [
+                    'status' => 200,
+                    'message' => 'File uploaded successfully',
+                    'filePath' => $filePath,
+                    'fileName' => $fileName
+                ];
+
+                echo json_encode($response);
+            } else {
+                $error = $this->upload->display_errors();
+                $response = [
+                    'status' => 400,
+                    'message' => $error
+                ];
+
+                echo json_encode($response);
+            }
+        } else {
+            $response = [
+                'status' => 400,
+                'message' => 'No file uploaded or file upload error'
+            ];
+
+            echo json_encode($response);
+        }
+    }
+
+    public function deleteFile()
+    {
+        $json = json_decode(file_get_contents('php://input'));
+
+        $filePath = isset($json->filePath) ? $json->filePath : '/';
+        $fileName = basename($filePath);
+        $fullPath = FCPATH . 'uploads/resume/' . $fileName; // FCPATH points to the project's root directory
+
+        if (file_exists($fullPath)) {
+            unlink($fullPath);
+            $response = ['status' => 200, 'message' => 'File deleted successfully'];
+            echo json_encode($response);
+        } else {
+            $response = ['status' => 404, 'message' => 'File not found'];
+            echo json_encode($response);
+        }
+    }
 }

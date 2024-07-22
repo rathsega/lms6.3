@@ -2970,6 +2970,7 @@ class Admin extends CI_Controller
     {
         $user_id = $this->input->post('user_id');
         $course_id = $this->input->post('course_id');
+        $this->load->model('Api_model');
         $certificate_identifier = $this->api_model->certificate_addon_get_forcefully($user_id, $course_id);
         if ($certificate_identifier) {
             $certificate = $this->db->get_where('certificates', array('course_id' => $course_id, 'student_id' => $user_id));
@@ -3259,6 +3260,10 @@ class Admin extends CI_Controller
             $this->Job_model->delete_job($id);
             $this->session->set_flashdata('flash_message', get_phrase('job_deleted_successfully'));
             redirect(site_url('admin/jobs'), 'refresh');
+        } else if($action == "applications"){
+            $page_data['data'] = $this->Job_model->get_all_applied_jobs();
+            $page_data['page_name'] = 'job_applications';
+            $page_data['page_title'] = "Job Applications";
         } else {
             $page_data['jobs'] = $this->Job_model->get_jobs();
             $page_data['page_name'] = 'jobs';

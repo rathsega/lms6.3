@@ -1,7 +1,7 @@
 
 <?php if(count(json_decode($course_details['outcomes']) )): ?>
     <div class="course-description">
-        <h3 class="description-head"><?php echo get_phrase('What will i learn?') ?></h3>
+        <h3 class="description-head"><?php echo ucwords(get_phrase('What will I learn?')) ?></h3>
         <ul class="step-down">
             <?php foreach (json_decode($course_details['outcomes']) as $outcome) : ?>
                 <?php if ($outcome != "") : ?>
@@ -28,7 +28,7 @@
 <?php endif; ?>
 
 <div class="course-description" id="course-description-overview">
-    <h3 class="description-head"><?php echo get_phrase('Course Description') ?></h3>
+    <h3 class="description-head"><?php echo ucwords(get_phrase('Course Description')) ?></h3>
     <?php $content = $course_details['description']; ?>
     <div id="read_more_overview" style="display:block;">
         <?php 
@@ -52,7 +52,7 @@
     $counter = 0;
   if(is_array($faqs) && count($faqs) > 0): ?>
     <div class="course-description">
-        <h3 class="description-head"><?php echo get_phrase('Frequently asked question') ?></h3>
+        <h3 class="description-head"><?php echo ucwords(get_phrase('Frequently asked questions')) ?></h3>
 
         <div class="faq-accrodion m-0">
             <?php foreach($faqs as $faq_question => $faq): ?>

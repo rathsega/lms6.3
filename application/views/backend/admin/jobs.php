@@ -4,6 +4,7 @@
             <div class="card-body">
                 <h4 class="page-title"> <i class="mdi mdi-apple-keyboard-command title_icon"></i> <?php echo $page_title; ?>
                     <a href="<?php echo site_url('admin/jobs/add'); ?>" class="btn btn-outline-primary btn-rounded alignToTitle"><i class="mdi mdi-plus"></i><?php echo get_phrase('add_job'); ?></a>
+                    <a href="<?php echo site_url('admin/jobs/applications'); ?>" class="btn btn-outline-primary btn-rounded alignToTitle"><i class="mdi mdi-file"></i><?php echo get_phrase('job_applications'); ?></a>
                 </h4>
             </div> <!-- end card body-->
         </div> <!-- end card -->
@@ -37,8 +38,10 @@
                                         <a href="<?php echo site_url('admin/jobs/view/' . $job['id']); ?>" title="View"><i class="fa-solid fas fa-eye cursor-pointer"></i></a>
                                         <a href="<?php echo site_url('admin/jobs/edit/' . $job['id']); ?>" title="Edit"><i class="mdi mdi-pencil"></i></a>
                                         <a href="<?php echo site_url('admin/jobs/delete/' . $job['id']); ?>" title="Delete" onclick="return confirm('Are you sure you want to delete this job?');"><i class="dripicons-trash"></i></a>
-                                        <input type="checkbox" name="enable_drip_content" value="1" id="enable_drip_content" class="toggle-status" data-switch="primary" data-id="<?= $job["id"] ?>" data-status="<?= $job["status"] ?>">
-                                        <label for="enable_drip_content" style="width: 87px !important;" data-on-label="Activate" data-off-label="Inactivate"></label>
+                                        <!-- <input type="checkbox" name="enable_drip_content" value="1" id="enable_drip_content" class="toggle-status" data-switch="primary" data-id="<?= $job["id"] ?>" data-status="<?= $job["status"] ?>">
+                                        <label for="enable_drip_content" style="width: 87px !important;" data-on-label="On" data-off-label="Off"></label> -->
+                                        <input type="checkbox" class="toggle-status" name="enable_drip_content_<?= $job["id"] ?>" value="1" <?php if ($job['status'] == 1) echo 'checked'; ?> id="enable_drip_content_<?= $job["id"] ?>" data-switch="primary" data-id="<?= $job["id"] ?>" data-status="<?= $job["status"] ?>">
+                                        <label for="enable_drip_content_<?= $job["id"] ?>" data-on-label="On" data-off-label="Off"></label>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -56,7 +59,7 @@
             var button = $(this);
             var jobId = button.data('id');
             var status = button.data('status');
-            
+
             $.ajax({
                 url: '<?= site_url('jobs/toggle_status') ?>',
                 type: 'POST',

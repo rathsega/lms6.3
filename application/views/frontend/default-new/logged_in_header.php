@@ -97,7 +97,7 @@
                         <?php $custom_page_menus = $this->crud_model->get_custom_pages('', 'header'); ?>
                         <?php foreach($custom_page_menus->result_array() as $custom_page_menu): ?>
                         <li>
-                        <a class=" <?php if(isset($page_url) && $custom_page_menu['page_url'] == $page_url) echo 'active'; ?>"  href="<?php echo site_url('page/'.$custom_page_menu['page_url']); ?>"><?php echo $custom_page_menu['button_title']; ?></a>
+                        <a class=" <?php if(isset($page_url) && $custom_page_menu['page_url'] == $page_url) echo 'active'; ?>"  href="<?php echo site_url('page/'.$custom_page_menu['page_url']); ?>"><?php echo ucwords($custom_page_menu['button_title']); ?></a>
                         </li>
                         <?php endforeach; ?>
                         <?php if ($this->session->userdata('admin_login')): ?>

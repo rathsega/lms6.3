@@ -1,7 +1,7 @@
 <!--------- Blog section start ---------->
 <section class="courses blog pb-3 mb-5">
     <div class="container">
-        <h1 class="text-center"><span><?php echo get_phrase('Latest from our blog'); ?></span></h1>
+        <h1 class="text-center"><span><?php echo ucwords(get_phrase('Latest from our blog')); ?></span></h1>
         <p class="text-center"><?php echo get_phrase('Exploring the Cutting-Edge Insights and Updates on Our Blog') ?></p>
         <div class="courses-card">
             <div class="row justify-content-center">
@@ -49,7 +49,7 @@
 
     <?php if($popular_blogs->num_rows() > 0): ?>
         <div class="container">
-            <h1 class="text-center"><span><?php echo get_phrase('Popular blogs'); ?></span></h1>
+            <h1 class="text-center"><span><?php echo ucwords(get_phrase('Popular blogs')); ?></span></h1>
             <p class="text-center"><?php echo get_phrase('Learn from Expert Bloggers and Expand Your Knowledge') ?></p>
             <div class="courses-card">
                 <div class="row justify-content-center">

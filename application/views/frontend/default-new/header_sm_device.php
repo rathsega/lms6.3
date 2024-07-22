@@ -139,7 +139,7 @@
           <?php $custom_page_menus = $this->crud_model->get_custom_pages('', 'header'); ?>
           <?php foreach ($custom_page_menus->result_array() as $custom_page_menu) : ?>
             <li class="bg-light">
-              <a href="<?php echo site_url('page/' . $custom_page_menu['page_url']); ?>" class="btn btn-toggle-list d-inline-flex align-items-center rounded border-0 text-dark text-16px fw-500"> <i class="fas fa-arrow-alt-circle-right me-2"></i> <?php echo $custom_page_menu['button_title']; ?></a>
+              <a href="<?php echo site_url('page/' . $custom_page_menu['page_url']); ?>" class="btn btn-toggle-list d-inline-flex align-items-center rounded border-0 text-dark text-16px fw-500"> <i class="fas fa-arrow-alt-circle-right me-2"></i> <?php echo ucwords($custom_page_menu['button_title']); ?></a>
             </li>
           <?php endforeach; ?>
 

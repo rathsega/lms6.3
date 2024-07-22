@@ -102,8 +102,8 @@ if($ratings_count){
                                     </div>
                                     <div class="info-tag blink_download_broucher" id="links">
                                         <i class="fa-regular fa-file text-15px mt-7px"></i>
-                                        <p class="text-15px mt-1 content_button"> <a href="<?php echo base_url() . 'uploads/broucher/' . $course_details['broucher'] ?>" download="<?php echo end(explode("/",$slug)); ?>"  style="color:#F9B23A;" name="current_broucher_link" id="current_broucher_link"><b><?php echo get_phrase('Download Broucher'); ?></b></a></p>
-                                        <p class="text-15px mt-1 contactus_form_button" id="openModalBtn1"> <a href="#" style="color:#F9B23A;" download name="current_broucher_link"><b><?php echo get_phrase('Download Broucher'); ?></b></a></p>
+                                        <p class="text-15px mt-1 content_button"> <a href="<?php echo base_url() . 'uploads/broucher/' . $course_details['broucher'] ?>" download="<?php echo end(explode("/",$slug)); ?>"  style="color:#F9B23A;" name="current_broucher_link" id="current_broucher_link"><b><?php echo ucwords(get_phrase('Download Broucher')); ?></b></a></p>
+                                        <p class="text-15px mt-1 contactus_form_button" id="openModalBtn1"> <a href="#" style="color:#F9B23A;" download name="current_broucher_link"><b><?php echo ucwords(get_phrase('Download Broucher')); ?></b></a></p>
 
                                     </div>
                                 </div>
@@ -115,7 +115,7 @@ if($ratings_count){
                                     <div class="row courses-price">
                                             <div class="col-lg-4 col-md-10 col-sm-10">
                                                 <div class="mb-3">
-                                                    <input name="drname" type="text" maxlength="26" class="form-control" id="drname" required placeholder="<?php echo get_phrase('Full Name *') ?>">
+                                                    <input name="drname" type="text" maxlength="26" class="form-control" id="drname" required placeholder="<?php echo ucwords(get_phrase('Full Name *')) ?>">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-10 col-sm-10">
@@ -132,7 +132,7 @@ if($ratings_count){
                                                     <input name="drcourse" type="hidden" class="form-control" id="drcourse" value="<?php echo $course_id; ?>">
                                             <div class="courses-price-right d-flex justify-content-end mb-2">
                                                 <div class="form-btn">
-                                                    <button type="submit" class="btn btn-success p-2"><?php echo get_phrase('Request Demo'); ?></button>
+                                                    <button type="submit" class="btn btn-success p-2"><?php echo ucwords(get_phrase('Request Demo')); ?></button>
                                                 </div>
                                             </div>
                                     </div>
@@ -282,7 +282,7 @@ if($ratings_count){
                         <div class="enrol">
                             <div class="icon">
                                 <img src="<?php echo base_url('assets/frontend/default-new/image/c-enrold-6.png') ?>">
-                                <h4><?php echo get_phrase('Skill level') ?></h4>
+                                <h4><?php echo ucwords(get_phrase('Skill level')) ?></h4>
                             </div>
                             <h5><?php echo get_phrase($course_details['level']); ?></h5>
                         </div>
@@ -360,7 +360,7 @@ if($ratings_count){
                 <div class="row courses-price">
                         <div class="col-lg-3 col-md-10 col-sm-10">
                             <div class="mb-3">
-                                <input name="drnametwo" type="text" maxlength="26" class="form-control shadow-lg l-form" id="drnametwo" required placeholder="<?php echo get_phrase('Full Name *') ?>">
+                                <input name="drnametwo" type="text" maxlength="26" class="form-control shadow-lg l-form" id="drnametwo" required placeholder="<?php echo ucwords(get_phrase('Full Name *')) ?>">
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-10 col-sm-10">
@@ -377,7 +377,7 @@ if($ratings_count){
                                 <input name="drcoursetwo" type="hidden" class="form-control" id="drcoursetwo" value="<?php echo $course_id; ?>">
                         <div class="col-lg-3 col-md-10 col-sm-10 courses-price-right">
                             <div class="form-btn ">
-                                <button type="submit" class="btn btn-success shadow-lg p-2 mbl-btn" style="background-color:#198754 ;color:white;"><?php echo get_phrase('Request Demo'); ?></button>
+                                <button type="submit" class="btn btn-success shadow-lg p-2 mbl-btn" style="background-color:#198754 ;color:white;"><?php echo ucwords(get_phrase('Request Demo')); ?></button>
                             </div>
                         </div>
                 </div>
@@ -390,7 +390,7 @@ if($ratings_count){
 <!-------- Related course section start ----->
 <section class="courses grid-view-body course-details-card">
     <div class="container">
-        <h1><?php echo get_phrase('Related Courses'); ?></h1>
+        <h1><?php echo ucwords(get_phrase('Related Courses')); ?></h1>
         <div class="courses-card">
             <div class="row">
                 <?php $related_courses = $this->crud_model->get_related_courses($course_details['category_id'], $course_details['sub_category_id'], $course_details['id'], 12)->result_array(); ?>

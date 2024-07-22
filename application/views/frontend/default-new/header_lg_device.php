@@ -97,7 +97,7 @@
       <?php $custom_page_menus = $this->crud_model->get_custom_pages('', 'header'); ?>
       <?php if($custom_page_menus->num_rows() == 1): ?>
         <?php $custom_page_menu = $custom_page_menus->row_array(); ?>
-        <a class="text-dark fw-600 text-15px ms-3" href="<?php echo site_url('page/' . $custom_page_menu['page_url']); ?>"><?php echo $custom_page_menu['button_title']; ?></a>
+        <a class="text-dark fw-600 text-15px ms-3" href="<?php echo site_url('page/' . $custom_page_menu['page_url']); ?>"><?php echo ucwords($custom_page_menu['button_title']); ?></a>
       <?php elseif($custom_page_menus->num_rows() > 1): ?>
         <ul class="navbar-nav main-nav-wrap mb-2 mb-lg-0 ms-2">
           <li class="nav-item">
@@ -109,7 +109,7 @@
               <?php foreach ($custom_page_menus->result_array() as $custom_page_menu) : ?>
                 <li>
                   <a href="<?php echo site_url('page/' . $custom_page_menu['page_url']); ?>">
-                    <?php echo $custom_page_menu['button_title']; ?>   
+                    <?php echo ucwords($custom_page_menu['button_title']); ?>   
                   </a>
                 </li>
               <?php endforeach; ?>

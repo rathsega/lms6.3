@@ -829,7 +829,7 @@ h6 span{
   color: #000 !important;
 }
 
-h1 span{
+h1 span:not(.h-1-banner-text h1 span):not(.top_courses h1 span):not(.top_10_latest_courses h1 span):not(.latest_blogs h1 span){
   font-size: 0.5em;
   color: #000 !important;
 }
