@@ -37,7 +37,7 @@
     }
 
     .job-wrapper {
-        padding-top: 20px;
+        padding-top: 4px;
     }
 
     .form-select {
@@ -294,50 +294,63 @@
         }
     }
 
-    function shareOnFacebook(job_id){
+    function shareOnFacebook(job_id) {
         event.preventDefault();
         event.stopPropagation();
-        const url = "<?php echo base_url("home/job_details?id=") ?>"+job_id;
+        const url = "<?php echo base_url("home/job_details?id=") ?>" + job_id;
         const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
         window.open(facebookUrl, '_blank');
     }
 
-    function shareOnLinkedin(job_id, title){
+    function shareOnLinkedin(job_id, title) {
         event.preventDefault();
         event.stopPropagation();
-        const url = "<?php echo base_url("home/job_details?id=") ?>"+job_id;
+        const url = "<?php echo base_url("home/job_details?id=") ?>" + job_id;
         const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;
         window.open(linkedinUrl, '_blank');
     }
 
-    function shareOnWhatsApp(job_id, title){
+    function shareOnWhatsApp(job_id, title) {
         event.preventDefault();
         event.stopPropagation();
-        const url = "<?php echo base_url("home/job_details?id=") ?>"+job_id;
+        const url = "<?php echo base_url("home/job_details?id=") ?>" + job_id;
         const text = `Check out this course: ${title} - ${url}`;
         const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
         window.open(whatsappUrl, '_blank');
     }
 
-    function shareOnSkype(job_id, title){
+    function shareOnSkype(job_id, title) {
         event.preventDefault();
         event.stopPropagation();
-        const url = "<?php echo base_url("home/job_details?id=") ?>"+job_id;
+        const url = "<?php echo base_url("home/job_details?id=") ?>" + job_id;
         const text = `Check out this course: ${title} - ${url}`;
         const skypeUrl = `https://web.skype.com/share?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
         window.open(skypeUrl, '_blank');
     }
 
-    function showJobDetails(job_id){
-        const url = "<?php echo base_url("home/job_details?id=") ?>"+job_id;
+    function showJobDetails(job_id) {
+        const url = "<?php echo base_url("home/job_details?id=") ?>" + job_id;
         window.open(url, '_blank');
     }
-
 </script>
 <!-- Main Wrapper -->
 <div class="main-wrapper">
 
+    <?php
+    $payscale_ranges = [
+        "0-300000" => "0-3 Lakhs",
+        "300000-600000" => "3-6 Lakhs",
+        "600000-1000000" => "6-10 Lakhs",
+        "1000000-1500000" => "10-15 Lakhs",
+        "1500000-2000000" => "15-20 Lakhs",
+        "2000000-3000000" => "20-30 Lakhs",
+        "3000000-5000000" => "30-50 Lakhs",
+        "5000000-7500000" => "50-75 Lakhs",
+        "7500000-10000000" => "75-100 Lakhs",
+        "10000000-50000000" => "1-5 Cr"
+    ];
 
+    ?>
 
     <!-- Home Banner -->
     <section class="home-slide-3 d-flex align-items-center d-none d-md-block">
@@ -428,7 +441,7 @@
                                 </div>
 
                                 <div class="job-time job-time-card mb-3">
-                                    <div class="job-time-title">Work mode</div>
+                                    <div class="job-time-title">Work Mode</div>
                                     <div class="job-wrapper">
                                         <div class="type-container">
                                             <input type="checkbox" id="wm1" class="job-style" checked="">
@@ -554,7 +567,8 @@
 
                 <div class="job-time job-time-card mb-3">
                     <div class="job-time-title">Work mode</div>
-                    <div class="job-wrapper" id="workModeFilters">
+                    <div class="job-wrapper">
+                    <div class="job-time job-time-card mb-3" id="workModeFilters"></div>
 
                     </div>
                 </div>
@@ -568,7 +582,8 @@
 
                 <div class="job-time job-time-card mb-3">
                     <div class="job-time-title">Location</div>
-                    <div class="job-wrapper  truncate-location-filters" id="locationFilters">
+                    <div class="job-wrapper  truncate-location-filters">
+                    <div class="job-time job-time-card mb-3" id="locationFilters"></div>
 
                     </div>
                     <a href="javascript:void(0);" id="showMoreLocBtn" class="view-m-links"> Show More</a>
@@ -576,8 +591,20 @@
 
 
                 <div class="job-time job-time-card mb-3">
-                    <div class="job-time-title">Salary range</div>
+                    <div class="job-time-title">Salary Range</div>
                     <div class="job-wrapper truncate-pay-scale-filters" id="payScaleFilters">
+                        <div class="job-time job-time-card mb-3">
+                            <div class="job-wrapper">
+                                
+                                    <?php foreach ($payscale_ranges as $value => $label) : ?>
+                                        <div class="type-container">
+                                            <input type="checkbox" id="<?= htmlspecialchars($label) ?>" name="pay_scales[]" value="<?= htmlspecialchars($value) ?>" class="pay-scale job-style">
+                                            <label for="<?= htmlspecialchars($label) ?>"><?= htmlspecialchars($label) ?></label>
+                                        </div>
+                                    <?php endforeach; ?>
+                                
+                            </div>
+                        </div>
 
                     </div>
                     <a href="javascript:void(0);" id="showMorePayScaleBtn" class="view-m-links"> Show More</a>
@@ -706,16 +733,29 @@
                 skills.forEach(skill => {
                     skills_html += `<span class="badge text-bg-dark">${skill}</span>`
                 })
-                jobs_slides += `<div class="job-listings-section-card" onclick="showJobDetails(${slide.id})" style="cursor: pointer !important;">
+
+                let client_logo = '';
+                if (slide.logo) {
+                    client_logo = '<?php echo base_url() . "uploads/jobs/logo/";  ?>' + slide.logo;
+                } else {
+                    client_logo = '<?php echo base_url() . "assets/frontend/default-new/image/icon/office-building.png";  ?>';
+                }
+
+                let pay_scale = '';
+                if (slide.min_pay_scale == slide.max_pay_scale) {
+                    if (slide.min_pay_scale > 0) {
+                        pay_scale = '₹' + numberWithCommas(slide.min_pay_scale) + ' PA';
+                    } else {
+                        pay_scale = 'Not discolsed';
+
+                    }
+                } else {
+                    pay_scale = '₹' + numberWithCommas(slide.min_pay_scale) + '- ₹' + numberWithCommas(slide.max_pay_scale) + ' PA';
+                }
+                jobs_slides += `<div class="job-listings-section-card mb-5" onclick="showJobDetails(${slide.id})" style="cursor: pointer !important;">
               <div class="row">
                 <div class="col-md-2 logo-w-listing">
-                  <svg class="job-logo-listing" viewBox="0 -13 512 512" xmlns="http://www.w3.org/2000/svg" style="background-color:#2e2882">
-                    <g fill="#feb0a5">
-                      <path d="M256 92.5l127.7 91.6L512 92 383.7 0 256 91.5 128.3 0 0 92l128.3 92zm0 0M256 275.9l-127.7-91.5L0 276.4l128.3 92L256 277l127.7 91.5 128.3-92-128.3-92zm0 0"></path>
-                      <path d="M127.7 394.1l128.4 92 128.3-92-128.3-92zm0 0"></path>
-                    </g>
-                    <path d="M512 92L383.7 0 256 91.5v1l127.7 91.6zm0 0M512 276.4l-128.3-92L256 275.9v1l127.7 91.5zm0 0M256 486.1l128.4-92-128.3-92zm0 0" fill="#feb0a5"></path>
-                  </svg>
+                  <img height="70px" width="70px" src="${client_logo}" alt="">
                 </div>
                 <div class="col-md-8 mbl-conte">
                   <h1 class="job-card-title ">${slide.title} </h1>
@@ -723,7 +763,8 @@
                   <img src="<?php echo base_url() . "assets/frontend/default-new/image/yaer_of-work.svg"; ?>" alt=""> <span class="text-secondary location-para">${slide.min_experience == slide.max_experience ? slide.min_experience : slide.min_experience + " - " + slide.max_experience} Years</span>
                   <img src="<?php echo base_url() . "assets/frontend/default-new/image/loaction_pin.svg"; ?>" alt=""> <span class="text-secondary location-para">${slide.location}</span>
                   <!-- <img src="<?php echo base_url() . "assets/frontend/default-new/image/clock_mnth.svg"; ?>" alt=""> <span class="text-secondary location-para">${convertdateStringToDate(slide.created_at)}</span> -->
-                  <img src="<?php echo base_url() . "assets/frontend/default-new/image/wallet_job.svg"; ?>" alt=""> <span class="text-secondary location-para">₹${numberWithCommas(slide.min_pay_scale)} - ₹${numberWithCommas(slide.max_pay_scale)}</span>
+
+                  <img src="<?php echo base_url() . "assets/frontend/default-new/image/wallet_job.svg"; ?>" alt=""> <span class="text-secondary location-para">${pay_scale}</span>
                   <div class="job-detail-buttons mb-3 ellipsis-line-2">
                     <button class="search-buttons detail-button">${slide.employment_type} </button>
                     <button class="search-buttons detail-button">${slide.work_mode}</button>
@@ -770,11 +811,12 @@
 
 
         function generateFilters(min, max, type, interval, id) {
+            console.log(min, max, type, interval, id)
             let filterOptions = '';
             for (let i = parseInt(min); i <= parseInt(max); i += interval) {
-                let end = i + interval - 1;
-                if (end > max) {
-                    end = max;
+                let end = i + interval;
+                if (end > parseInt(max)) {
+                    end = parseInt(max);
                 }
                 let label = "";
                 if (type == 'experience') {
@@ -797,7 +839,6 @@
             `;
             }
             $(`#${id}`).append(`<div class="job-time job-time-card mb-3">
-            <div class="job-time-title">${type.charAt(0).toUpperCase() + type.slice(1)} Range</div>
             <div class="job-wrapper">${filterOptions}</div>
         </div>`);
         }
@@ -825,8 +866,8 @@
               </div>`);
             });
 
-            generateFilters(data.experiences.min_experience, data.experiences.max_experience, 'experience', 2, 'experienceFilters');
-            generateFilters(data.pay_scales.min_pay_scale, data.pay_scales.max_pay_scale, 'salary', 200000, 'payScaleFilters');
+            generateFilters(data.experiences.min_experience, data.experiences.max_experience, 'experience', 3, 'experienceFilters');
+            //generateFilters(data.pay_scales.min_pay_scale, data.pay_scales.max_pay_scale, 'salary', 200000, 'payScaleFilters');
 
             data.locations.forEach((loc, key) => {
                 $('#locationFilters').append(`<div class="type-container">
@@ -890,6 +931,7 @@
             }, function(status, statusText) {
                 console.error('Error:', status, statusText);
             });
+            displayPageNumbers();
         }
 
         // Load filters and jobs on page load
@@ -902,10 +944,12 @@
         });
 
         // Filter button click event
-        $('#filterButton').click(function() {
-            var filters = collectFilters();
-            paginationDetails.currentPageNumber = 1;
-            loadJobs(filters);
+        $('#filterButton').click(function(event) {
+            if (event.target.nodeName == "INPUT") {
+                var filters = collectFilters();
+                paginationDetails.currentPageNumber = 1;
+                loadJobs(filters);
+            }
         });
 
         //Handle Prev button
@@ -987,7 +1031,7 @@
         }
 
         function displayPageNumbers() {
-            $('#page_numbers').text(`${paginationDetails.currentPageNumber}  out of  ${paginationDetails.pageCount} Pages`);
+            $('#page_numbers').text(`${paginationDetails.currentPageNumber * paginationDetails.records_per_page > paginationDetails.total_records_count ? paginationDetails.total_records_count : paginationDetails.currentPageNumber * paginationDetails.records_per_page  }  out of  ${paginationDetails.total_records_count} Jobs`);
         }
 
 

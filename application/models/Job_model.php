@@ -17,7 +17,7 @@ class Job_model extends CI_Model
             return $query->result_array();
         }
 
-        
+
         $query = $this->db->get_where('jobs', array('id' => $id));
         return $query->row_array();
     }
@@ -182,7 +182,14 @@ class Job_model extends CI_Model
         return $query->row_array();
     }
 
-    public function getUniqueLocations()
+    public function getAllLocations()
+    {
+        $this->db->select('location');
+        $query = $this->db->get('jobs');
+        return $query->result_array();
+    }
+
+    public function getUniqueLocationsOld()
     {
         $this->db->select('location, count(id) as count');
         $this->db->group_by('location');
@@ -190,9 +197,54 @@ class Job_model extends CI_Model
         return $query->result_array();
     }
 
+    public function getUniqueLocations()
+    {
+        // Fetch all locations from the database
+        $locationsData = $this->getAllLocations();
+
+        // Initialize an empty array to store location counts
+        $locationCounts = [];
+
+        // Iterate through each row from the result set
+        foreach ($locationsData as $row) {
+            // Split the comma-separated locations into an array
+            $locations = explode(',', $row['location']);
+
+            // Trim whitespace and count each location
+            foreach ($locations as $location) {
+                $location = trim($location);
+                if (!empty($location)) {
+                    if (isset($locationCounts[$location])) {
+                        $locationCounts[$location]++;
+                    } else {
+                        $locationCounts[$location] = 1;
+                    }
+                }
+            }
+        }
+
+        // Convert the associative array to a format similar to the original result
+        $uniqueLocations = [];
+        foreach ($locationCounts as $location => $count) {
+            $uniqueLocations[] = ['location' => $location, 'count' => $count];
+        }
+
+        // $locations_val = array_column($uniqueLocations, 'location');
+        // array_multisort($locations_val, SORT_DESC, $uniqueLocations);
+
+        usort($uniqueLocations, function ($item1, $item2) {
+            return $item1['location'] <=> $item2['location'];
+        });
+
+        return $uniqueLocations;
+    }
+
+
     public function getUniquePayScales()
     {
         $this->db->select('MIN(min_pay_scale) as min_pay_scale, MAX(max_pay_scale) as max_pay_scale');
+        $this->db->where('min_pay_scale > ', 0);
+        $this->db->where('max_pay_scale >', 0);
         $query = $this->db->get('jobs');
         return $query->row_array();
     }
@@ -200,6 +252,7 @@ class Job_model extends CI_Model
     public function getJobsCount()
     {
         $this->db->select('count(id) as job_count');
+        $this->db->where('status', 1);
         $query = $this->db->get('jobs');
         return $query->row()->job_count;
     }
@@ -209,6 +262,24 @@ class Job_model extends CI_Model
         $this->db->select('title');
         $query = $this->db->get_where('jobs', ['id' => $id]);
         return $query->row_array();
+    }
+    public function getOgBanner($id)
+    {
+        $this->db->select('og_banner');
+        $query = $this->db->get_where('jobs', ['id' => $id]);
+        return $query->row_array();
+    }
+    public function getSkills($id)
+    {
+        $this->db->select('required_skills');
+        $query = $this->db->get_where('jobs', ['id' => $id]);
+        return $query->row_array();
+    }
+    public function getAllIndustries()
+    {
+        $this->db->select('industry_name');
+        $this->db->order_by('industry_name', "asc");
+        return $this->db->get('industry');
     }
 
     public function applyJob($data)
@@ -222,16 +293,19 @@ class Job_model extends CI_Model
         $this->db->select('applied_jobs.id, applied_jobs.name, applied_jobs.email, applied_jobs.phone, applied_jobs.resume, applied_jobs.created_at, jobs.title as job_title');
         $this->db->from('applied_jobs');
         $this->db->join('jobs', 'applied_jobs.job_id = jobs.id');
+        $this->db->order_by("applied_jobs.id", "desc");
         $query = $this->db->get();
         return $query->result_array();
     }
 
-    public function toggle_status($job_id, $data){
+    public function toggle_status($job_id, $data)
+    {
         $this->db->where('id', $job_id);
         return $this->db->update('jobs', $data);
     }
 
-    public function getLatestThreeJobs(){
+    public function getLatestThreeJobs()
+    {
         $this->db->where('status', 1);
         $this->db->order_by("id", "desc");
         $this->db->limit(3);

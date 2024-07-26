@@ -691,47 +691,47 @@ if ($payment_pending) {
 <section class="jobs-sections grid-view-body pb-4 ">
     <div class="container">
         <h1 class="text-center">Latest Jobs</h1>
-        <p class="text-center fs-16 pt-4">These are the most latest jobs among listen courses learners worldwide</p>
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <p class="text-center fs-16 pt-4">These are the most latest jobs among listen courses learners worldwide</p>
+            </div>
+            <div class="col-lg-2"><button class="btn btn-primary card-buttons"> <a style="color: white;" href="<?php echo base_url('home/jobs_list'); ?>" rel="noopener noreferrer">View All Jobs</a></button></div>
+        </div>
         <?php
-            $jobs = $this->Job_model->getLatestThreeJobs();
+        $jobs = $this->Job_model->getLatestThreeJobs();
         ?>
         <div class="job-cards">
-            <?php foreach($jobs as $job): ?>
-            <div class="job-card">
-                <div class="job-card-header mb-2">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <svg viewBox="0 -13 512 512" xmlns="http://www.w3.org/2000/svg" style="background-color:#2e2882">
-                                <g fill="#feb0a5">
-                                    <path d="M256 92.5l127.7 91.6L512 92 383.7 0 256 91.5 128.3 0 0 92l128.3 92zm0 0M256 275.9l-127.7-91.5L0 276.4l128.3 92L256 277l127.7 91.5 128.3-92-128.3-92zm0 0"></path>
-                                    <path d="M127.7 394.1l128.4 92 128.3-92-128.3-92zm0 0"></path>
-                                </g>
-                                <path d="M512 92L383.7 0 256 91.5v1l127.7 91.6zm0 0M512 276.4l-128.3-92L256 275.9v1l127.7 91.5zm0 0M256 486.1l128.4-92-128.3-92zm0 0" fill="#feb0a5"></path>
-                            </svg>
+            <?php foreach ($jobs as $job) : ?>
+                <div class="job-card clickable-job-div" data-id="<?php echo base_url('home/job_details?id=' . $job['id']) ?>">
+                    <div class="job-card-header mb-2">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img height="46px" src="<?php echo $job['logo'] ? base_url() . "uploads/jobs/logo/" . $job['logo'] : base_url() . "assets/frontend/default-new/image/icon/office-building.png";  ?>" alt="">
+                            </div>
+                            <div class="col-md-10 job-card-title" style="margin: auto;"><?php echo $job['title']; ?></div>
                         </div>
-                        <div class="col-md-10 job-card-title"><?php echo $job['title']; ?></div>
+
+                    </div>
+                    <div class="job-detail-buttons mb-3 ellipsis-line-2">
+                        <button class="search-buttons detail-button"><?php echo $job['employment_type']; ?> </button>
+                        <button class="search-buttons detail-button"><?php echo $job['work_mode']; ?> </button>
+                        <button class="search-buttons detail-button"><?php echo $job['location']; ?></button>
+                        <button class="search-buttons detail-button"><?php echo $job['min_experience'] == $job['max_experience'] ? $job['min_experience'] . " Years" : $job['min_experience'] . " - " . $job['max_experience'] . " Years"; ?> </button>
                     </div>
 
+                    <div class="job-card-subtitle">
+                        <?php echo ellipsis(strip_tags(htmlspecialchars_decode_($job['description'])), 150); ?>
+                    </div>
+                    <div class="mt-2 ellipsis-line-2">
+                        <?php foreach (json_decode($job['required_skills']) as $skill) : ?>
+                            <span class="badge text-bg-dark"><?php echo $skill; ?></span>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="job-card-buttons">
+                        <button class="search-buttons card-buttons"> <a style="color: white;" href="<?php echo base_url('home/job_details?id=' . $job['id']) ?>" target="_blank" rel="noopener noreferrer">View Job</a></button>
+                    </div>
                 </div>
-                <div class="job-detail-buttons mb-3 ellipsis-line-2">
-                    <button class="search-buttons detail-button"><?php echo $job['employment_type']; ?> </button>
-                    <button class="search-buttons detail-button"><?php echo $job['work_mode']; ?> </button>
-                    <button class="search-buttons detail-button"><?php echo $job['location']; ?></button>
-                    <button class="search-buttons detail-button"><?php echo $job['min_experience'] == $job['max_experience'] ? $job['min_experience'] . " Years" : $job['min_experience'] ." - " . $job['max_experience'] . " Years"; ?> </button>
-                </div>
-
-                <div class="job-card-subtitle">
-                <?php echo ellipsis(strip_tags(htmlspecialchars_decode_($job['description'])), 150); ?>
-                </div>
-                <div class="mt-2 ellipsis-line-2">
-                    <?php foreach(json_decode($job['required_skills']) as $skill): ?>
-                    <span class="badge text-bg-dark"><?php echo $skill; ?></span>
-                    <?php endforeach; ?>
-                </div>
-                <div class="job-card-buttons">
-                    <button class="search-buttons card-buttons"> <a style="color: white;" href="<?php echo base_url('home/job_details?id='.$job['id']) ?>" target="_blank" rel="noopener noreferrer">Apply Now</a></button>
-                </div>
-            </div>
             <?php endforeach; ?>
 
         </div>
@@ -1075,4 +1075,17 @@ $top_instructor_ids = array_slice($top_instructor_ids, 0, 10);
             }
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all elements with class 'clickable-div'
+        var divs = document.querySelectorAll('.clickable-job-div');
+
+        // Add click event listener to each div
+        divs.forEach(function(div) {
+            div.addEventListener('click', function() {
+                var url = div.getAttribute('data-id');
+                window.open(url, '_blank');
+            });
+        });
+    });
 </script>

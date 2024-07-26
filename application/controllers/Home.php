@@ -2320,7 +2320,11 @@ class Home extends CI_Controller
     {
         $this->load->model("Job_model");
         $job_details = $this->Job_model->getJobTitle($_GET['id']);
+        $job_banner = $this->Job_model->getOgBanner($_GET['id']);
+        $job_skills = $this->Job_model->getSkills($_GET['id']);
         $page_data['page_name'] = "job_details";
+        $page_data['page_banner'] = $job_banner['og_banner'];
+        $page_data['description'] = 'Job Skills : ' . implode(', ', json_decode($job_skills['required_skills']));
         $page_data['page_title'] = site_phrase($job_details['title']);
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
     }

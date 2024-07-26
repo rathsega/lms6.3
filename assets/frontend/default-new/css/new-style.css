@@ -4278,6 +4278,12 @@ font-family: 'Secular One', sans-serif; */
   font-weight: 600;
   color: #000;
 }
+.job_details_page .job-card-title {
+  font-size: 22px;
+    line-height: 27px;
+    font-weight: 700;
+    color: #000;
+}
 .job-card-title:hover{
   color:#754ffe!important;
 }

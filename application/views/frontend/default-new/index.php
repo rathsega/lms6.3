@@ -42,6 +42,10 @@ if ($language_dirs) {
 	<?php elseif ($page_name == 'blogs') : ?>
 		<meta name="keywords" content="<?php echo get_settings('website_keywords'); ?>" />
 		<meta name="description" content="<?php echo get_frontend_settings('blog_page_subtitle'); ?>" />
+	<?php elseif ($page_name == 'job_details') : ?>
+		<meta name="keywords" content="<?php echo get_settings('website_keywords'); ?>" />
+		<meta name="description" content="<?php echo $description; ?>" />
+		<meta name="og:description" content="<?php echo $description; ?>" />
 	<?php else : ?>
 		<meta name="keywords" content="<?php echo get_settings('website_keywords'); ?>" />
 		<meta name="description" content="<?php echo get_settings('website_description'); ?>" />
@@ -61,6 +65,9 @@ if ($language_dirs) {
 	<?php elseif ($page_name == 'blogs') : ?>
 		<meta property="og:title" content="<?php echo get_frontend_settings('blog_page_title'); ?>" />
 		<meta property="og:image" content="<?php echo site_url('uploads/blog/page-banner/' . get_frontend_settings('blog_page_banner')); ?>">
+	<?php elseif ($page_name == 'job_details') : ?>
+		<meta property="og:title" content="<?php echo $page_title; ?>" />
+		<meta property="og:image" content="<?php echo $page_banner ? site_url('uploads/jobs/banner/' . $page_banner) : site_url('assets/frontend/default-new/image/icon/hiring.jpg'); ?>">
 	<?php else : ?>
 		<meta property="og:title" content="<?php echo $page_title; ?>" />
 		<meta property="og:image" content="<?= base_url("uploads/system/home-banner-mobile.webp"); ?>">

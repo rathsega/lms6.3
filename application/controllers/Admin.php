@@ -3277,12 +3277,45 @@ class Admin extends CI_Controller
     {
         $this->load->model('Job_model');
 
+        if (isset($_FILES['logo']) && $_FILES['logo']['error'] == UPLOAD_ERR_OK) {
+            $this->load->helper('url'); // Load URL helper for base_url()
+            $config = [];
+            // Load the File Uploading library
+            $config['upload_path'] = './uploads/jobs/logo';
+            $config['allowed_types'] = '*'; // Define allowed file types
+            $config['encrypt_name'] = TRUE; // Generate a random file name
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('logo')) {
+                $uploadData = $this->upload->data();
+                $logoFileName = $uploadData['file_name'];
+            }
+        }
+
+        if (isset($_FILES['og_banner']) && $_FILES['og_banner']['error'] == UPLOAD_ERR_OK) {
+            $this->load->helper('url'); // Load URL helper for base_url()
+
+            $config1 = [];
+            // Load the File Uploading library
+            $config1['upload_path'] = './uploads/jobs/banner';
+            $config1['allowed_types'] = '*'; // Define allowed file types
+            $config1['encrypt_name'] = TRUE; // Generate a random file name
+
+            $this->upload->initialize($config1); 
+
+            if ($this->upload->do_upload('og_banner')) {
+                $uploadData = $this->upload->data();
+                $bannerFileName = $uploadData['file_name'];
+            }
+        }
+
         $data = array(
             'title' => $this->input->post('title'),
             'description' => $this->input->post('description'),
             'company_name' => $this->input->post('company_name'),
             'employment_type' => $this->input->post('employment_type'),
-            'location' => $this->input->post('location'),
+            'location' =>   implode(',',$this->input->post('locations')),
             'min_pay_scale' => $this->input->post('min_pay_scale'),
             'max_pay_scale' => $this->input->post('max_pay_scale'),
             'min_experience' => $this->input->post('min_experience'),
@@ -3292,7 +3325,10 @@ class Admin extends CI_Controller
             'work_mode' => $this->input->post('work_mode'),
             'industry' => $this->input->post('industry'),
             'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
+            'updated_at' => date('Y-m-d H:i:s'),
+            'logo' => $logoFileName,
+            'og_banner'=> $bannerFileName,
+            'status' => 1
         );
         $this->Job_model->add_job($data);
         redirect(site_url('admin/jobs'), 'refresh');
@@ -3301,12 +3337,46 @@ class Admin extends CI_Controller
     public function update_job($id)
     {
         $this->load->model('Job_model');
+
+        if (isset($_FILES['logo']) && $_FILES['logo']['error'] == UPLOAD_ERR_OK) {
+            $this->load->helper('url'); // Load URL helper for base_url()
+            $config = [];
+            // Load the File Uploading library
+            $config['upload_path'] = './uploads/jobs/logo';
+            $config['allowed_types'] = '*'; // Define allowed file types
+            $config['encrypt_name'] = TRUE; // Generate a random file name
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('logo')) {
+                $uploadData = $this->upload->data();
+                $logoFileName = $uploadData['file_name'];
+            }
+        }
+
+        if (isset($_FILES['og_banner']) && $_FILES['og_banner']['error'] == UPLOAD_ERR_OK) {
+            $this->load->helper('url'); // Load URL helper for base_url()
+
+            $config1 = [];
+            // Load the File Uploading library
+            $config1['upload_path'] = './uploads/jobs/banner';
+            $config1['allowed_types'] = '*'; // Define allowed file types
+            $config1['encrypt_name'] = TRUE; // Generate a random file name
+
+            $this->upload->initialize($config1); 
+
+            if ($this->upload->do_upload('og_banner')) {
+                $uploadData = $this->upload->data();
+                $bannerFileName = $uploadData['file_name'];
+            }
+        }
+
         $update_data = array(
             'title' => $this->input->post('title'),
             'description' => $this->input->post('description'),
             'company_name' => $this->input->post('company_name'),
             'employment_type' => $this->input->post('employment_type'),
-            'location' => $this->input->post('location'),
+            'location' => implode(',',$this->input->post('locations')),
             'min_pay_scale' => $this->input->post('min_pay_scale'),
             'max_pay_scale' => $this->input->post('max_pay_scale'),
             'min_experience' => $this->input->post('min_experience'),
@@ -3315,8 +3385,19 @@ class Admin extends CI_Controller
             'required_skills' => json_encode($this->input->post('required_skills')), // Assuming required_skills is an array
             'work_mode' => $this->input->post('work_mode'),
             'industry' => $this->input->post('industry'),
-            'updated_at' => date('Y-m-d H:i:s')
+            'updated_at' => date('Y-m-d H:i:s'),
+            'logo' => $logoFileName,
+            'og_banner'=> $bannerFileName,
+            'status' => 1
         );
+
+        if($logoFileName){
+            $update_data['logo'] = $logoFileName;
+        }
+        if($bannerFileName){
+            $update_data['og_banner'] = $bannerFileName;
+        }
+        
         $this->Job_model->update_job($id, $update_data);
         redirect(site_url('admin/jobs'), 'refresh');
     }

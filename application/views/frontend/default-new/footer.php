@@ -98,7 +98,7 @@ if ($stripe_info[0]['active'] == 0) {
 
 <?php include "move_to_top.php"; ?>
 
-<!-- <div class="container">
+<div class="container">
   <div class="row">
     <div class="nb-form">
       <p class="title">Send a message</p>
@@ -115,7 +115,7 @@ if ($stripe_info[0]['active'] == 0) {
       </form>
     </div>
   </div>
-</div> -->
+</div>
 <style>
 /*.rotate-on-hover:click {
   transform: rotate(180deg); 

@@ -42,7 +42,7 @@ class Jobs extends CI_Controller
             show_404();
         }
         echo json_encode($job);
-    }    
+    }
 
     public function create()
     {
@@ -97,7 +97,13 @@ class Jobs extends CI_Controller
         $experiences = $this->Job_model->getUniqueExperiences();
         $locations = $this->Job_model->getUniqueLocations();
         $payScales = $this->Job_model->getUniquePayScales();
+        $payScales = array("min_pay_scale"=>80000, "max_pay_scale"=>100000);
 
+        /*$all_locations = [];
+        foreach($locations as $location){
+            array_merge($all_locations, explode(',', $location));
+        }
+        $locations = array_unique($all_locations);*/
         echo json_encode([
             'work_modes' => $workModes,
             'experiences' => $experiences,
@@ -137,19 +143,19 @@ class Jobs extends CI_Controller
         $pay_scale = (string)$input['pay_scale'];
         $perPage = $input['limit'];
         $page = $input['page'];
-        
+
         // Load the model
         $this->load->model('Job_model');
-        
+
         // Initialize the query builder for total count
         $this->db->select('id')->from('jobs');
-        
+
         // Apply filters for total count
         if ($work_mode) {
             $work_modes = explode(',', $work_mode);
             $this->db->where_in('work_mode', $work_modes);
         }
-        
+
         if ($experience) {
             $experience_ranges = explode(',', $experience);
             $this->db->group_start();
@@ -162,12 +168,20 @@ class Jobs extends CI_Controller
             }
             $this->db->group_end();
         }
-        
+
         if ($location) {
             $locations = explode(',', $location);
-            $this->db->where_in('location', $locations);
+            $this->db->group_start();
+
+            // Add LIKE conditions for each location
+            foreach ($locations as $loc) {
+                $this->db->or_like('location', $loc);
+            }
+
+            // Close the group of conditions
+            $this->db->group_end();
         }
-        
+
         if ($pay_scale) {
             $pay_scale_ranges = explode(',', $pay_scale);
             $this->db->group_start();
@@ -178,21 +192,35 @@ class Jobs extends CI_Controller
                     ->where('max_pay_scale >=', $min_pay)
                     ->group_end();
             }
+
+            // Add conditions for records where min_pay_scale or max_pay_scale are null, empty, or zero
+            $this->db->or_group_start()
+            ->where('min_pay_scale IS NULL', null, false)
+            ->or_where('max_pay_scale IS NULL', null, false)
+            ->or_where('min_pay_scale', 0)
+            ->or_where('max_pay_scale', 0)
+            ->or_where('min_pay_scale', '')
+            ->or_where('max_pay_scale', '')
+            ->group_end();
+
+            // Close the main group
             $this->db->group_end();
+
         }
-        
+        $this->db->where('status', 1);
+
         // Get total count
         $total_count = $this->db->count_all_results();
-        
+
         // Initialize the query builder for paginated results
         $this->db->select('*')->from('jobs');
-        
+
         // Apply filters for paginated results
         if ($work_mode) {
             $work_modes = explode(',', $work_mode);
             $this->db->where_in('work_mode', $work_modes);
         }
-        
+
         if ($experience) {
             $experience_ranges = explode(',', $experience);
             $this->db->group_start();
@@ -205,12 +233,20 @@ class Jobs extends CI_Controller
             }
             $this->db->group_end();
         }
-        
+
         if ($location) {
             $locations = explode(',', $location);
-            $this->db->where_in('location', $locations);
+            $this->db->group_start();
+
+            // Add LIKE conditions for each location
+            foreach ($locations as $loc) {
+                $this->db->or_like('location', $loc);
+            }
+
+            // Close the group of conditions
+            $this->db->group_end();
         }
-        
+
         if ($pay_scale) {
             $pay_scale_ranges = explode(',', $pay_scale);
             $this->db->group_start();
@@ -221,36 +257,95 @@ class Jobs extends CI_Controller
                     ->where('max_pay_scale >=', $min_pay)
                     ->group_end();
             }
+
+             // Add conditions for records where min_pay_scale or max_pay_scale are null, empty, or zero
+            $this->db->or_group_start()
+            ->where('min_pay_scale IS NULL', null, false)
+            ->or_where('max_pay_scale IS NULL', null, false)
+            ->or_where('min_pay_scale', 0)
+            ->or_where('max_pay_scale', 0)
+            ->or_where('min_pay_scale', '')
+            ->or_where('max_pay_scale', '')
+            ->group_end();
+
+            // Close the main group
             $this->db->group_end();
         }
-        
+
+        $this->db->where('status', 1);
+
         // Pagination
         $offset = ($page - 1) * $perPage;
         $this->db->order_by('created_at', 'DESC')
             ->limit($perPage, $offset);
-        
+
         $query = $this->db->get();
         $jobs = $query->result_array();
-        
+
         // Prepare the response
         $response = [
             'total_count' => $total_count,
-            'jobs' => $jobs
+            'jobs' => $jobs,
+            'query'=>$this->db->last_query()
         ];
-        
+
         echo json_encode($response);
-        
     }
 
-    public function toggle_status(){
+    public function toggle_status()
+    {
         $this->load->library('session');
         $this->load->model('Job_model');
         $job_id = $_POST['job_id'];
         $status = $_POST['status'];
-        $data = array('status'=>!$status);
+        $data = array('status' => !$status);
         $updated = $this->Job_model->toggle_status($job_id, $data);
 
         // $this->session->set_flashdata('flash_message', get_phrase('Status updated successfully.'));
     }
 
+    function get_skills()
+    {
+        $skill  = $_GET['term'];
+        if(strlen($skill) == 1){
+            $this->db->where('LENGTH(skill) <', 3);
+        } else if(strlen($skill) == 2){
+            $this->db->where('LENGTH(skill) <', 4);
+        }
+        $this->db->like('skill', $skill);
+        $this->db->order_by('skill', "asc");
+        $query =  $this->db->get('skills');
+
+        $data = $query->result_array();
+
+        echo json_encode($data);
+    }
+
+    function get_industry()
+    {
+        /*$industry_name  = $_GET['term'];
+        if(strlen($industry_name) == 1){
+            $this->db->where('LENGTH(industry_name) <', 3);
+        } else if(strlen($industry_name) == 2){
+            $this->db->where('LENGTH(industry_name) <', 4);
+        }
+        $this->db->like('industry_name', $industry_name);*/
+        $this->db->order_by('industry_name', "asc");
+        $query =  $this->db->get('industry');
+
+        $data = $query->result_array();
+
+        echo json_encode($data);
+    }
+
+    function get_qualifications()
+    {
+        $qualification  = $_GET['term'];
+        $this->db->like('educational_qualification_name', $qualification);
+        $query =  $this->db->get('educational_qualification');
+
+        $data = $query->result_array();
+
+        echo json_encode($data);
+    }
 }

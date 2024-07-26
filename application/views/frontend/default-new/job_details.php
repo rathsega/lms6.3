@@ -86,7 +86,96 @@
         font-weight: 500;
         color: #000;
     }
+
+    .error {
+        color: red;
+        font-size: 14px;
+    }
+
+    .note {
+        font-size: 12px;
+        color: gray;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: green;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        margin-left: 3%;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #ddd;
+    }
+
+    .share-social-media img {
+        width: 27px !important;
+
+    }
+
+    .share-social-media {
+        display: flex !important;
+        flex-direction: row !important;
+    }
 </style>
+
+<script>
+    function enableShareOptions() {
+        event.stopPropagation();
+        console.log("clicked");
+        let myDiv = document.getElementById("share-button-lg");
+        $("#share-button-lg").toggle('show');
+
+    }
+
+    function shareOnFacebook() {
+        event.preventDefault();
+        event.stopPropagation();
+        const url = window.location.href;
+        const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+        window.open(facebookUrl, '_blank');
+    }
+
+    function shareOnLinkedin() {
+        event.preventDefault();
+        event.stopPropagation();
+        let title = document.getElementById('job_title').innerText;
+        const url = window.location.href;
+        const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;
+        window.open(linkedinUrl, '_blank');
+    }
+
+    function shareOnWhatsApp() {
+        event.preventDefault();
+        event.stopPropagation();
+        let title = document.getElementById('job_title').innerText;
+        const url = window.location.href;
+        const text = `Check out this course: ${title} - ${url}`;
+        const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+        window.open(whatsappUrl, '_blank');
+    }
+
+    function shareOnSkype() {
+        event.preventDefault();
+        event.stopPropagation();
+        let title = document.getElementById('job_title').innerText;
+        const url = window.location.href;
+        const text = `Check out this course: ${title} - ${url}`;
+        const skypeUrl = `https://web.skype.com/share?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
+        window.open(skypeUrl, '_blank');
+    }
+
+</script>
 
 <!-- Main Wrapper -->
 <div class="main-wrapper">
@@ -97,15 +186,9 @@
                 <div class="col-md-8">
                     <div class="row">
                         <div class="col-md-2 logo-w">
-                            <svg class="job-logo" viewBox="0 -13 512 512" xmlns="http://www.w3.org/2000/svg" style="background-color:#2e2882">
-                                <g fill="#feb0a5">
-                                    <path d="M256 92.5l127.7 91.6L512 92 383.7 0 256 91.5 128.3 0 0 92l128.3 92zm0 0M256 275.9l-127.7-91.5L0 276.4l128.3 92L256 277l127.7 91.5 128.3-92-128.3-92zm0 0"></path>
-                                    <path d="M127.7 394.1l128.4 92 128.3-92-128.3-92zm0 0"></path>
-                                </g>
-                                <path d="M512 92L383.7 0 256 91.5v1l127.7 91.6zm0 0M512 276.4l-128.3-92L256 275.9v1l127.7 91.5zm0 0M256 486.1l128.4-92-128.3-92zm0 0" fill="#feb0a5"></path>
-                            </svg>
+                            <img id="client_logo" height="90px" width="90px" alt="">
                         </div>
-                        <div class="col-md-10 mbl-conte">
+                        <div class="col-md-10 mbl-conte job_details_page">
                             <h1 class="job-card-title " id="job_title"></h1>
                             <img src="<?php echo base_url() . "assets/frontend/default-new/image/office-building.svg"; ?>" alt=""> <span class="text-secondary location-para" id="comapny_name"></span>
                             <img src="<?php echo base_url() . "assets/frontend/default-new/image/loaction_pin.svg"; ?>" alt=""> <span class="text-secondary location-para job_location"></span>
@@ -119,13 +202,29 @@
                         </div>
                     </div>
                     <div class="job-description pt-3">
-                        <h5 class="subs-title">Job description</h5>
+                        <h5 class="subs-title">Job Description</h5>
                         <p id="job_description"></p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="text-center">
                         <button class="btn btn-primary px-5 w-75" id="apply_job_btn" data-fancybox="">Apply Now</button>
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-primary px-5 w-75 mt-2" onclick="enableShareOptions()" data-fancybox=""> <i class="fa fa-share"></i> Share</button>
+                    </div>
+
+                    <div class="job-description-card mt-4 p-3 rounded dropdown-content" id="share-button-lg">
+                        <div class=" shadow-lg bg-info-subtle rounded">
+                            <div class="share-social-media ">
+                                <a href="#" onclick="shareOnFacebook()" class="facebook-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/facebook_share_icon.svg"; ?>" alt=""></a>
+                                <a href="#" onclick="shareOnLinkedin()" class="linkedin-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/linkedin_share_icon.svg"; ?>" alt=""></a>
+                                <a href="#" onclick="shareOnWhatsApp()" class="whatsapp-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/whatsapp_share_icon.svg"; ?>" alt=""></a>
+                                <a href="#" onclick="shareOnSkype()" class="skype-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/skype_share_icon.svg"; ?>" alt=""></a>
+
+                            </div>
+                        </div>
                     </div>
                     <div class="job-description-card mt-4 p-3 rounded">
                         <div class="d-flex ">
@@ -232,6 +331,8 @@
                                     <div class="col-lg-12 col-md-12 col-sm-12 phon-enquery">
                                         <div>
                                             <input name="apply_job_resume" type="file" class="form-control " id="apply_job_resume" required placeholder="<?php echo get_phrase('Phone *') ?>">
+                                            <div class="note">Note: Allows PDF, DOC, DOCX files only up to 2MB size.</div>
+                                            <div class="error" id="fileError"></div>
                                             <ul id="fileList"></ul>
                                         </div>
                                     </div>
@@ -281,6 +382,27 @@
     document.getElementById('apply_job_resume').addEventListener('change', function(event) {
         let file = event.target.files[0];
         if (file) {
+
+            var fileInput = document.getElementById('apply_job_resume');
+            var fileError = document.getElementById('fileError');
+            var allowedExtensions = /(\.pdf|\.doc|\.docx)$/i;
+            var maxSize = 2 * 1024 * 1024; // 2MB
+
+            fileError.textContent = '';
+
+            if (!allowedExtensions.exec(file.name)) {
+                fileError.textContent = 'Invalid file type. Only PDF, DOC, and DOCX files are allowed.';
+                fileInput.value = '';
+                e.preventDefault();
+                return false;
+            }
+
+            if (file.size > maxSize) {
+                fileError.textContent = 'File size exceeds 2MB.';
+                fileInput.value = '';
+                e.preventDefault();
+                return false;
+            }
 
             //delete if there is a file
             if ($("#resume_file").val()) {
@@ -366,7 +488,16 @@
             //craeted date
             $(".job_created_at").text(convertdateStringToDate(response.created_at));
             //salary
-            $(".job_salary").text('₹' + numberWithCommas(response.min_pay_scale) + '- ₹' + numberWithCommas(response.max_pay_scale));
+            if (response.min_pay_scale == response.max_pay_scale) {
+                if (response.min_pay_scale > 0) {
+                    $(".job_salary").text('₹' + numberWithCommas(response.min_pay_scale) + ' PA');
+                } else {
+                    $(".job_salary").text('Not discolsed');
+
+                }
+            } else {
+                $(".job_salary").text('₹' + numberWithCommas(response.min_pay_scale) + '- ₹' + numberWithCommas(response.max_pay_scale) + ' PA');
+            }
             //employment type
             $("#job_employment_type").text(response.employment_type);
             //work mode
@@ -380,7 +511,12 @@
             $('#job_qualification').text((JSON.parse(response.qualification)).toString())
             //description
             $("#job_description").html(response.description);
-
+            //client logo
+            if (response.logo) {
+                $('#client_logo').attr('src', '<?php echo base_url() . "uploads/jobs/logo/";  ?>' + response.logo)
+            } else {
+                $('#client_logo').attr('src', '<?php echo base_url() . "assets/frontend/default-new/image/icon/office-building.png";  ?>')
+            }
 
         })
 
@@ -505,5 +641,18 @@
                 console.error('Error:', status, (JSON.parse(error.responseText)).messages.error);
             });
         });
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('#share-button-lg')) {
+                const dropdowns = document.getElementsByClassName('dropdown-content');
+                for (let i = 0; i < dropdowns.length; i++) {
+                    const openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        };
     }
 </script>

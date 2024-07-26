@@ -36,8 +36,11 @@
                                     <td><?php echo $job['name']; ?></td>
                                     <td><?php echo $job['email']; ?></td>
                                     <td><?php echo $job['phone']; ?></td>
-                                    <td><?php echo $job['date']; ?></td>
-                                    <td><a href="<?php echo base_url('uploads/resume/' . $job['resume']); ?>" target="_blank">View Resume</a></td>
+                                    <td><?php echo date('Y-m-d H:i', strtotime($job['created_at'])); ?></td>
+                                    <td>
+                                        <a href="<?php echo base_url('uploads/resume/' . $job['resume']); ?>" target="_blank">View</a>
+                                        <a href="<?php echo base_url('uploads/resume/' . $job['resume']); ?>" download="<?php echo $job['job_title']; ?>"><i class="fa fa-download"></i></a>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
