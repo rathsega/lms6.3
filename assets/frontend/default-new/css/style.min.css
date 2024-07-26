@@ -898,3 +898,39 @@ del span{
   max-height: 10em;
   /* 2 lines * line-height, adjust if line-height changes */
 }
+
+.job-other-details {
+  order: 2;
+}
+
+.social-share-options {
+  order: 1;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 2048px) {
+  /* .crs-container {
+    flex-direction: row;
+  } */
+
+  .job-other-details {
+    order: 2;
+  }
+
+  .social-share-options {
+    order: 1;
+  }
+}
+
+@media only screen and (min-width: 350px) and (max-width: 991px) {
+  /* .crs-container {
+    flex-direction: row;
+  } */
+
+  .job-other-details {
+    order: 2;
+  }
+
+  .social-share-options {
+    order: 1;
+  }
+}

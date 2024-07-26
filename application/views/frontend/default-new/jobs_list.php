@@ -665,19 +665,22 @@
                             <circle cx="18" cy="19" r="3"></circle>
                             <path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path>
                             </svg>
-                            <div id="share-options-${slide.id}" class="dropdown-content shadow-lg bg-info-subtle rounded">
-                                <div class="share-social-media ">
-                                    <a href="#" onclick="shareOnFacebook(${slide.id})" class="facebook-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/facebook_share_icon.svg"; ?>" alt=""></a>
-                                    <a href="#" onclick="shareOnLinkedin(${slide.id}, '${slide.title}')" class="linkedin-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/linkedin_share_icon.svg"; ?>" alt=""></a>
-                                    <a href="#" onclick="shareOnWhatsApp(${slide.id}, '${slide.title}')" class="whatsapp-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/whatsapp_share_icon.svg"; ?>" alt=""></a>
-                                    <a href="#" onclick="shareOnSkype(${slide.id}, '${slide.title}')" class="skype-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/skype_share_icon.svg"; ?>" alt=""></a>
-
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8 mbl-conte mt-3">
+                <div class="col-md-12 mbl-conte social-share-options  d-flex justify-content-end">
+                    <div id="share-options-${slide.id}" class="dropdown-content shadow-lg bg-info-subtle rounded">
+                        <div class="share-social-media ">
+                            <a href="#" onclick="shareOnFacebook(${slide.id})" class="facebook-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/facebook_share_icon.svg"; ?>" alt=""></a>
+                            <a href="#" onclick="shareOnLinkedin(${slide.id}, '${slide.title}')" class="linkedin-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/linkedin_share_icon.svg"; ?>" alt=""></a>
+                            <a href="#" onclick="shareOnWhatsApp(${slide.id}, '${slide.title}')" class="whatsapp-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/whatsapp_share_icon.svg"; ?>" alt=""></a>
+                            <a href="#" onclick="shareOnSkype(${slide.id}, '${slide.title}')" class="skype-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/skype_share_icon.svg"; ?>" alt=""></a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 mbl-conte mt-3 job-other-details">
                   <img src="<?php echo base_url() . "assets/frontend/default-new/image/office-building.svg"; ?>" alt=""> <span class="text-secondary location-para">${slide.company_name}</span>
                   <img src="<?php echo base_url() . "assets/frontend/default-new/image/yaer_of-work.svg"; ?>" alt=""> <span class="text-secondary location-para">${slide.min_experience == slide.max_experience ? slide.min_experience : slide.min_experience + " - " + slide.max_experience} Years</span>
                   <img src="<?php echo base_url() . "assets/frontend/default-new/image/loaction_pin.svg"; ?>" alt=""> <span class="text-secondary location-para">${slide.location}</span>
