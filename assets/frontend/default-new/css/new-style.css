@@ -4244,6 +4244,17 @@ font-family: 'Secular One', sans-serif; */
   grid-row-gap: 25px;
   animation: slideY .6s both;
 }
+
+@media screen and (max-width: 575px) {
+  .job-cards {
+    padding-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: 25px;
+    grid-row-gap: 25px;
+    animation: slideY .6s both;
+  }
+}
 .job-card {
   padding: 20px 16px;
   background-color: #ffffff;
@@ -4273,7 +4284,7 @@ font-family: 'Secular One', sans-serif; */
   text-overflow: ellipsis;
 }
 .job-card-title {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 23px;
   font-weight: 600;
   color: #000;
@@ -4337,4 +4348,9 @@ font-family: 'Secular One', sans-serif; */
       padding: 10px;
       border-radius: 8px;
   }
+}
+
+.first-row {
+  display: grid;
+  grid-template-columns: 20% auto 10%;
 }

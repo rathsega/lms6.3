@@ -124,7 +124,7 @@
     }
 
     .job-card-title {
-        font-size: 16px;
+        font-size: 18px;
         line-height: 18px;
         font-weight: 600;
         color: #392C7D;
@@ -188,6 +188,23 @@
         border-radius: 6px;
         margin-top: 30px;
         padding-top: 30px;
+        display: grid;
+    }
+
+    .first-row {
+        display: grid;
+        grid-template-columns: 20% auto 10%;
+    }
+
+    .margin-auto {
+        margin-left: 0;
+        margin-top: 3%;
+    }
+
+    @media screen and (max-width: 767px) {
+        .margin-auto {
+            margin: auto;
+        }
     }
 
     .job-logo-listing {
@@ -333,6 +350,7 @@
         window.open(url, '_blank');
     }
 </script>
+
 <!-- Main Wrapper -->
 <div class="main-wrapper">
 
@@ -353,48 +371,17 @@
     ?>
 
     <!-- Home Banner -->
-    <section class="home-slide-3 d-flex align-items-center d-none d-md-block">
-
-
-    </section>
+    <!-- <section class="home-slide-3 d-flex align-items-center d-none d-md-block">
+       
+    </section> -->
+    <?php include "breadcrumb.php"; ?>
 
     <!-- --------mobile--filter------------------------- -->
-    <section class="home-slide-3 d-flex align-items-center d-block d-md-none">
+    <section class=" d-block">
         <div class="container">
-            <div class="col-md-10 mx-auto search-bar align-items-center ">
-                <div class="flex-grow-1 me-2">
-                    <select class="form-select wider-select-2" aria-label="Skill">
-                        <option selected>Enter skills / designation / companies</option>
-                        <option value="skill1">Skill 1</option>
-                        <option value="skill2">Skill 2</option>
-                        <option value="skill3">Skill 3</option>
-                    </select>
-                </div>
-                <div class="flex-grow-1 me-2">
-                    <select class="form-select wider-select" aria-label="Experience (Years)">
-                        <option selected>Select experience</option>
-                        <option value="1">1 Year</option>
-                        <option value="2">2 Years</option>
-                        <option value="3">3 Years +</option>
-                    </select>
-                </div>
-                <div class="flex-grow-1 me-2">
-                    <select class="form-select wider-select" aria-label="Location">
-                        <option selected>Enter location</option>
-                        <option value="location1">Location 1</option>
-                        <option value="location2">Location 2</option>
-                        <option value="location3">Location 3</option>
-                    </select>
-                </div>
+            <div class="col-md-10 mx-auto align-items-center ">
                 <div class="input-group d-flex align-items-center">
-                    <div>
-                        <button class="btn btn-primary px-3 j-s-btn" type="submit">Search</button>
-                    </div>
-                    <div class="filter-btn">
-                        <svg type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#000" class="bi bi-funnel-fill order-2" viewBox="0 0 16 16">
-                            <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5z" />
-                        </svg>
-                    </div>
+
                     <!-- ---------side-bar mobile canvas---------------- -->
                     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                         <div class="offcanvas-header">
@@ -402,152 +389,49 @@
                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body">
-                            <div class="col-md-3 ">
-                                <div class="job-time job-time-card mb-4">
-                                    <div class="job-time-title">Job title</div>
-                                    <div class="job-wrapper">
-                                        <div class="type-container">
-                                            <input type="checkbox" id="job1" class="job-style" checked="">
-                                            <label for="job1">Front-end Developer</label>
-                                            <span class="job-number">56</span>
-                                        </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="job2" class="job-style">
-                                            <label for="job2">UI-UX Designer</label>
-                                            <span class="job-number">43</span>
-                                        </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="job3" class="job-style">
-                                            <label for="job3">UI - Developer</label>
-                                            <span class="job-number">24</span>
-                                        </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="job4" class="job-style">
-                                            <label for="job4">Back-end Developer</label>
-                                            <span class="job-number">27</span>
-                                        </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="job5" class="job-style">
-                                            <label for="job5">Graphic-Designer</label>
-                                            <span class="job-number">76</span>
-                                        </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="job6" class="job-style">
-                                            <label for="job6">SEO</label>
-                                            <span class="job-number">28</span>
-                                        </div>
-                                        <a href="" class="view-m-links"> View More</a>
-                                    </div>
-                                </div>
+                            <div class="col-md-3 " id="filterButtonMobile">
 
                                 <div class="job-time job-time-card mb-3">
                                     <div class="job-time-title">Work Mode</div>
                                     <div class="job-wrapper">
-                                        <div class="type-container">
-                                            <input type="checkbox" id="wm1" class="job-style" checked="">
-                                            <label for="wm1">Work from office</label>
-                                            <span class="job-number">56</span>
-                                        </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="wm2" class="job-style">
-                                            <label for="wm2">Remote</label>
-                                            <span class="job-number">43</span>
-                                        </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="wm3" class="job-style">
-                                            <label for="wm3">Work from home</label>
-                                            <span class="job-number">24</span>
-                                        </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="wm4" class="job-style">
-                                            <label for="wm4">WFH - WFO</label>
-                                            <span class="job-number">27</span>
-                                        </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="wm5" class="job-style">
-                                            <label for="wm5">Temp - WFH</label>
-                                            <span class="job-number">76</span>
-                                        </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="wm6" class="job-style">
-                                            <label for="wm6">Freelancing</label>
-                                            <span class="job-number">16</span>
-                                        </div>
+                                        <div class="job-time job-time-card mb-3" id="workModeFiltersMobile"></div>
                                     </div>
                                 </div>
 
                                 <div class="job-time job-time-card mb-3">
                                     <div class="job-time-title">Experience - Level</div>
-                                    <div class="job-wrapper">
-                                        <label for="customRange1" class="form-label">0 - Any</label>
-                                        <input type="range" class="form-range" id="customRange1">
-                                    </div>
+                                    <div class="job-wrapper" id="experienceFiltersMobile"></div>
                                 </div>
 
 
                                 <div class="job-time job-time-card mb-3">
                                     <div class="job-time-title">Location</div>
-                                    <div class="job-wrapper">
-                                        <div class="type-container">
-                                            <input type="checkbox" id="loc1" class="job-style" checked="">
-                                            <label for="loc1">Hyderabad</label>
-                                            <span class="job-number">56</span>
-                                        </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="loc2" class="job-style">
-                                            <label for="loc2">Delhi</label>
-                                            <span class="job-number">43</span>
-                                        </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="loc3" class="job-style">
-                                            <label for="loc3">Bangaluru</label>
-                                            <span class="job-number">24</span>
-                                        </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="loc4" class="job-style">
-                                            <label for="loc4">Mumbai</label>
-                                            <span class="job-number">27</span>
-                                        </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="loc5" class="job-style">
-                                            <label for="loc5">Kolkata</label>
-                                            <span class="job-number">76</span>
-                                        </div>
+                                    <div class="job-wrapper  truncate-location-filters">
+                                        <div class="job-time job-time-card mb-3" id="locationFiltersMobile"></div>
+
                                     </div>
-                                    <a href="" class="view-m-links"> View More</a>
+                                    <a href="javascript:void(0);" id="showMoreLocBtnMobile" class="view-m-links"> Show More</a>
                                 </div>
 
 
                                 <div class="job-time job-time-card mb-3">
                                     <div class="job-time-title">Salary range</div>
-                                    <div class="job-wrapper">
-                                        <div class="type-container">
-                                            <input type="checkbox" id="sal1" class="job-style" checked="">
-                                            <label for="sal1">0-3 Lakhs</label>
-                                            <span class="job-number">56</span>
+                                    <div class="job-wrapper truncate-pay-scale-filters" id="payScaleFiltersMobile">
+                                        <div class="job-time job-time-card mb-3">
+                                            <div class="job-wrapper">
+
+                                                <?php foreach ($payscale_ranges as $value => $label) : ?>
+                                                    <div class="type-container">
+                                                        <input type="checkbox" id="<?= htmlspecialchars($label) ?>" name="pay_scales[]" value="<?= htmlspecialchars($value) ?>" class="pay-scale job-style">
+                                                        <label for="<?= htmlspecialchars($label) ?>"><?= htmlspecialchars($label) ?></label>
+                                                    </div>
+                                                <?php endforeach; ?>
+
+                                            </div>
                                         </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="sal2" class="job-style">
-                                            <label for="sal2">3-6 Lakhs</label>
-                                            <span class="job-number">43</span>
-                                        </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="sal3" class="job-style">
-                                            <label for="sal3">6-10 Lakhs</label>
-                                            <span class="job-number">24</span>
-                                        </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="sal4" class="job-style">
-                                            <label for="sal4">10-13 Lakhs</label>
-                                            <span class="job-number">27</span>
-                                        </div>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="sal5" class="job-style">
-                                            <label for="sal5">13-15 Lakhs</label>
-                                            <span class="job-number">76</span>
-                                        </div>
+
                                     </div>
-                                    <a href="" class="view-m-links"> View More</a>
+                                    <a href="javascript:void(0);" id="showMorePayScaleBtnMobile" class="view-m-links"> Show More</a>
                                 </div>
 
                             </div>
@@ -561,82 +445,94 @@
         </div>
     </section>
     <!-- --------mobile//--filter------------------------- -->
-    <div class="listing-jobs-section container">
-        <div class="row">
-            <div class="col-md-3 d-none d-md-block" id="filterButton">
+    <section class="grid-view courses-list-view">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 d-none d-md-block" id="filterButton">
 
-                <div class="job-time job-time-card mb-3">
-                    <div class="job-time-title">Work mode</div>
-                    <div class="job-wrapper">
-                    <div class="job-time job-time-card mb-3" id="workModeFilters"></div>
-
-                    </div>
-                </div>
-
-                <div class="job-time job-time-card mb-3">
-                    <div class="job-time-title">Experience - Level</div>
-                    <div class="job-wrapper" id="experienceFilters">
-                    </div>
-                </div>
-
-
-                <div class="job-time job-time-card mb-3">
-                    <div class="job-time-title">Location</div>
-                    <div class="job-wrapper  truncate-location-filters">
-                    <div class="job-time job-time-card mb-3" id="locationFilters"></div>
-
-                    </div>
-                    <a href="javascript:void(0);" id="showMoreLocBtn" class="view-m-links"> Show More</a>
-                </div>
-
-
-                <div class="job-time job-time-card mb-3">
-                    <div class="job-time-title">Salary Range</div>
-                    <div class="job-wrapper truncate-pay-scale-filters" id="payScaleFilters">
+                    <div class="course-all-category">
                         <div class="job-time job-time-card mb-3">
+                            <div class="job-time-title">Work mode</div>
                             <div class="job-wrapper">
-                                
-                                    <?php foreach ($payscale_ranges as $value => $label) : ?>
-                                        <div class="type-container">
-                                            <input type="checkbox" id="<?= htmlspecialchars($label) ?>" name="pay_scales[]" value="<?= htmlspecialchars($value) ?>" class="pay-scale job-style">
-                                            <label for="<?= htmlspecialchars($label) ?>"><?= htmlspecialchars($label) ?></label>
-                                        </div>
-                                    <?php endforeach; ?>
-                                
+                                <div class="job-time job-time-card mb-3" id="workModeFilters"></div>
+                            </div>
+                        </div>
+
+                        <div class="job-time job-time-card mb-3">
+                            <div class="job-time-title">Experience - Level</div>
+                            <div class="job-wrapper" id="experienceFilters">
+                            </div>
+                        </div>
+
+
+                        <div class="job-time job-time-card mb-3">
+                            <div class="job-time-title">Location</div>
+                            <div class="job-wrapper  truncate-location-filters">
+                                <div class="job-time job-time-card mb-3" id="locationFilters"></div>
+
+                            </div>
+                            <a href="javascript:void(0);" id="showMoreLocBtn" class="view-m-links"> Show More</a>
+                        </div>
+
+
+                        <div class="job-time job-time-card mb-3">
+                            <div class="job-time-title">Salary Range</div>
+                            <div class="job-wrapper truncate-pay-scale-filters" id="payScaleFilters">
+                                <div class="job-time job-time-card mb-3">
+                                    <div class="job-wrapper">
+
+                                        <?php foreach ($payscale_ranges as $value => $label) : ?>
+                                            <div class="type-container">
+                                                <input type="checkbox" id="<?= htmlspecialchars($label) ?>" name="pay_scales[]" value="<?= htmlspecialchars($value) ?>" class="pay-scale job-style">
+                                                <label for="<?= htmlspecialchars($label) ?>"><?= htmlspecialchars($label) ?></label>
+                                            </div>
+                                        <?php endforeach; ?>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <a href="javascript:void(0);" id="showMorePayScaleBtn" class="view-m-links"> Show More</a>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-9">
+                    <div id="btnContainer ">
+                        <div class="col-lg-12 col-md-10  col-sm-10">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-start">
+                                    <li class="page-item">
+                                        <a class="page-link" href="javascript:void(0);" id="job_prev_btn">Previous</a>
+                                    </li>
+                                    <li class="page-item navigation-btn">
+                                        <a class="page-link navi-bord" href="javascript:void(0);" id="page_numbers"></a>
+                                    </li>
+                                    <li class="page-item navigation-btn">
+                                        <a class="page-link" href="javascript:void(0);" id="job_nxt_btn">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="col-lg-2 col-sm-2 col-md-2 d-block d-md-none">
+                            <div class="filter-btn">
+                                <svg type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#000" class="bi bi-funnel-fill order-2" viewBox="0 0 16 16">
+                                    <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5z" />
+                                </svg>
                             </div>
                         </div>
 
                     </div>
-                    <a href="javascript:void(0);" id="showMorePayScaleBtn" class="view-m-links"> Show More</a>
-                </div>
 
-            </div>
-
-            <div class="col-md-9">
-                <div class="row">
-                    <div class="col-md-12 d-none d-md-block">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-start">
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0);" id="job_prev_btn">Previous</a>
-                                </li>
-                                <li class="page-item navigation-btn">
-                                    <a class="page-link navi-bord" href="javascript:void(0);" id="page_numbers"></a>
-                                </li>
-                                <li class="page-item navigation-btn">
-                                    <a class="page-link" href="javascript:void(0);" id="job_nxt_btn">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+                    <div id="jobs_slides"></div>
 
                 </div>
-
-                <div id="jobs_slides"></div>
-
             </div>
         </div>
-    </div>
+
+    </section>
 
 
 
@@ -753,12 +649,35 @@
                     pay_scale = '₹' + numberWithCommas(slide.min_pay_scale) + '- ₹' + numberWithCommas(slide.max_pay_scale) + ' PA';
                 }
                 jobs_slides += `<div class="job-listings-section-card mb-5" onclick="showJobDetails(${slide.id})" style="cursor: pointer !important;">
-              <div class="row">
-                <div class="col-md-2 logo-w-listing">
-                  <img height="70px" width="70px" src="${client_logo}" alt="">
+              <div class="row display-grid">
+                <div class="row first-row">
+                    <div class="col-sm-2 col-md-2 col-lg-2">
+                        <img height="70px" width="70px" src="${client_logo}" alt="">
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-8 margin-auto">
+                        <h1 class="job-card-title ">${slide.title}</h1>
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2 margin-auto">
+                        <div class="job-action">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" onclick="enableShareOptions(${slide.id})"  class="share-button-lg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2">
+                            <circle cx="18" cy="5" r="3"></circle>
+                            <circle cx="6" cy="12" r="3"></circle>
+                            <circle cx="18" cy="19" r="3"></circle>
+                            <path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path>
+                            </svg>
+                            <div id="share-options-${slide.id}" class="dropdown-content shadow-lg bg-info-subtle rounded">
+                                <div class="share-social-media ">
+                                    <a href="#" onclick="shareOnFacebook(${slide.id})" class="facebook-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/facebook_share_icon.svg"; ?>" alt=""></a>
+                                    <a href="#" onclick="shareOnLinkedin(${slide.id}, '${slide.title}')" class="linkedin-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/linkedin_share_icon.svg"; ?>" alt=""></a>
+                                    <a href="#" onclick="shareOnWhatsApp(${slide.id}, '${slide.title}')" class="whatsapp-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/whatsapp_share_icon.svg"; ?>" alt=""></a>
+                                    <a href="#" onclick="shareOnSkype(${slide.id}, '${slide.title}')" class="skype-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/skype_share_icon.svg"; ?>" alt=""></a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-8 mbl-conte">
-                  <h1 class="job-card-title ">${slide.title} </h1>
+                <div class="col-md-8 mbl-conte mt-3">
                   <img src="<?php echo base_url() . "assets/frontend/default-new/image/office-building.svg"; ?>" alt=""> <span class="text-secondary location-para">${slide.company_name}</span>
                   <img src="<?php echo base_url() . "assets/frontend/default-new/image/yaer_of-work.svg"; ?>" alt=""> <span class="text-secondary location-para">${slide.min_experience == slide.max_experience ? slide.min_experience : slide.min_experience + " - " + slide.max_experience} Years</span>
                   <img src="<?php echo base_url() . "assets/frontend/default-new/image/loaction_pin.svg"; ?>" alt=""> <span class="text-secondary location-para">${slide.location}</span>
@@ -771,25 +690,7 @@
                     <button class="search-buttons detail-button">${(JSON.parse(slide.required_skills)).join(", ")}</button>
                   </div>
                 </div>
-                <div class="col-md-2 d-flex justify-content-end">
-                  <div class="job-action">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" onclick="enableShareOptions(${slide.id})"  class="share-button-lg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2">
-                      <circle cx="18" cy="5" r="3"></circle>
-                      <circle cx="6" cy="12" r="3"></circle>
-                      <circle cx="18" cy="19" r="3"></circle>
-                      <path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path>
-                    </svg>
-                    <div id="share-options-${slide.id}" class="dropdown-content shadow-lg bg-info-subtle rounded">
-										<div class="share-social-media ">
-											<a href="#" onclick="shareOnFacebook(${slide.id})" class="facebook-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/facebook_share_icon.svg"; ?>" alt=""></a>
-											<a href="#" onclick="shareOnLinkedin(${slide.id}, '${slide.title}')" class="linkedin-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/linkedin_share_icon.svg"; ?>" alt=""></a>
-											<a href="#" onclick="shareOnWhatsApp(${slide.id}, '${slide.title}')" class="whatsapp-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/whatsapp_share_icon.svg"; ?>" alt=""></a>
-											<a href="#" onclick="shareOnSkype(${slide.id}, '${slide.title}')" class="skype-share"><img src="<?php echo base_url() . "assets/frontend/default-new/image/icon/skype_share_icon.svg"; ?>" alt=""></a>
-
-										</div>
-									</div>
-                  </div>
-                </div>
+                
               </div>
             </div>`;
             })
@@ -820,15 +721,15 @@
                 }
                 let label = "";
                 if (type == 'experience') {
-                    label = `<label for="${type}_${i}_${end}"> ${i} - ${end} Years</label>`;
+                    label = `<label for="${type}_${i}_${end}__${id}"> ${i} - ${end} Years</label>`;
                 } else {
-                    label = `<label for="${type}_${i}_${end}">₹ ${numberWithCommas(i)} - ₹ ${numberWithCommas(end)}</label>`;
+                    label = `<label for="${type}_${i}_${end}__${id}">₹ ${numberWithCommas(i)} - ₹ ${numberWithCommas(end)}</label>`;
                 }
                 let field = '';
                 if (type == 'experience') {
-                    field = `<input type="checkbox" id="${type}_${i}_${end}" name="experiences[]" value="${i}-${end}" class="experience job-style">`;
+                    field = `<input type="checkbox" id="${type}_${i}_${end}__${id}" name="experiences[]" value="${i}-${end}" class="experience job-style">`;
                 } else {
-                    field = `<input type="checkbox" id="${type}_${i}_${end}" name="pay_scales[]" value="${i}-${end}" class="pay-scale job-style">`;
+                    field = `<input type="checkbox" id="${type}_${i}_${end}__${id}" name="pay_scales[]" value="${i}-${end}" class="pay-scale job-style">`;
                 }
 
                 filterOptions += `
@@ -864,15 +765,26 @@
                 <label for="w-wm_${key}">${mode.work_mode}</label>
                 <span class="job-number">${mode.count}</span>
               </div>`);
+                $('#workModeFiltersMobile').append(`<div class="type-container">
+                <input type="checkbox" id="w-wm_${key}_mobile" value="${mode.work_mode}" name="work_modes[]"  class="work-mode job-style">
+                <label for="w-wm_${key}_mobile">${mode.work_mode}</label>
+                <span class="job-number">${mode.count}</span>
+              </div>`);
             });
 
             generateFilters(data.experiences.min_experience, data.experiences.max_experience, 'experience', 3, 'experienceFilters');
+            generateFilters(data.experiences.min_experience, data.experiences.max_experience, 'experience', 3, 'experienceFiltersMobile');
             //generateFilters(data.pay_scales.min_pay_scale, data.pay_scales.max_pay_scale, 'salary', 200000, 'payScaleFilters');
 
             data.locations.forEach((loc, key) => {
                 $('#locationFilters').append(`<div class="type-container">
                 <input type="checkbox" id="w-loc_${key}" name="locations[]" value="${loc.location}" class="location job-style">
                 <label for="w-loc_${key}">${loc.location}</label>
+                <span class="job-number">${loc.count}</span>
+              </div>`);
+                $('#locationFiltersMobile').append(`<div class="type-container">
+                <input type="checkbox" id="w-loc_${key}_mobile" name="locations[]" value="${loc.location}" class="location job-style">
+                <label for="w-loc_${key}_mobile">${loc.location}</label>
                 <span class="job-number">${loc.count}</span>
               </div>`);
             });
@@ -945,6 +857,13 @@
 
         // Filter button click event
         $('#filterButton').click(function(event) {
+            if (event.target.nodeName == "INPUT") {
+                var filters = collectFilters();
+                paginationDetails.currentPageNumber = 1;
+                loadJobs(filters);
+            }
+        });
+        $('#filterButtonMobile').click(function(event) {
             if (event.target.nodeName == "INPUT") {
                 var filters = collectFilters();
                 paginationDetails.currentPageNumber = 1;
@@ -1031,7 +950,8 @@
         }
 
         function displayPageNumbers() {
-            $('#page_numbers').text(`${paginationDetails.currentPageNumber * paginationDetails.records_per_page > paginationDetails.total_records_count ? paginationDetails.total_records_count : paginationDetails.currentPageNumber * paginationDetails.records_per_page  }  out of  ${paginationDetails.total_records_count} Jobs`);
+            let job_str = paginationDetails.total_records_count > 1 ? 'Jobs' : 'Job';
+            $('#page_numbers').text(`${paginationDetails.currentPageNumber * paginationDetails.records_per_page > paginationDetails.total_records_count ? paginationDetails.total_records_count : paginationDetails.currentPageNumber * paginationDetails.records_per_page  }  out of  ${paginationDetails.total_records_count} ${job_str}`);
         }
 
 
@@ -1059,6 +979,27 @@
             }
         });
 
+        //location show more button Mobile
+        const locationFilterContainerMobile = document.getElementById('locationFiltersMobile');
+        const showMoreLocBtnMobile = document.getElementById('showMoreLocBtnMobile');
+
+        let maxHeightMobile = 13; // Initial max height
+
+        showMoreLocBtnMobile.addEventListener('click', function(e) {
+            e.preventDefault();
+            const currentHeight = locationFilterContainerMobile.clientHeight;
+            const scrollHeight = locationFilterContainerMobile.scrollHeight;
+            if (currentHeight < scrollHeight) {
+
+                maxHeightMobile += 5 // Increase by 250px on each click
+                locationFilterContainerMobile.style.maxHeightMobile = maxHeightMobile + 'em';
+            } else {
+                // All content is already visible, no further action needed
+                showMoreLocBtnMobile.disabled = true;
+                showMoreLocBtnMobile.innerText = 'No more content';
+            }
+        });
+
         //Pay scale show more button
         const payScaleContentContainer = document.getElementById('payScaleFilters');
         const showMorePayScaleBtn = document.getElementById('showMorePayScaleBtn');
@@ -1079,6 +1020,26 @@
                 // All content is already visible, no further action needed
                 showMorePayScaleBtn.disabled = true;
                 showMorePayScaleBtn.innerText = 'No more content';
+            }
+        });
+
+        //Pay scale show more button mobile
+        const payScaleContentContainerMobile = document.getElementById('payScaleFiltersMobile');
+        const showMorePayScaleBtnMobile = document.getElementById('showMorePayScaleBtnMobile');
+
+        let payScaleMaxHeightMobile = 13; // Initial max height
+
+        showMorePayScaleBtnMobile.addEventListener('click', function(e) {
+            e.preventDefault();
+            const currentHeight = payScaleContentContainerMobile.clientHeight;
+            const scrollHeight = payScaleContentContainerMobile.scrollHeight;
+            if (currentHeight < scrollHeight) {
+                payScaleMaxHeightMobile += 3 // Increase by 250px on each click
+                payScaleContentContainerMobile.style.maxHeight = payScaleMaxHeightMobile + 'em';
+            } else {
+                // All content is already visible, no further action needed
+                showMorePayScaleBtnMobile.disabled = true;
+                showMorePayScaleBtnMobile.innerText = 'No more content';
             }
         });
 

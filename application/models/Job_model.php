@@ -304,11 +304,13 @@ class Job_model extends CI_Model
         return $this->db->update('jobs', $data);
     }
 
-    public function getLatestThreeJobs()
+    
+
+    public function getLatestTenJobs()
     {
         $this->db->where('status', 1);
         $this->db->order_by("id", "desc");
-        $this->db->limit(3);
+        $this->db->limit(10);
         $query = $this->db->get('jobs');
         return $query->result_array();
     }

@@ -688,7 +688,7 @@ if ($payment_pending) {
 </section>
 <!---------- Latest courses Section End --------------->
 
-<section class="jobs-sections grid-view-body pb-4 ">
+<section class="courses grid-view-body pb-4 ">
     <div class="container">
         <h1 class="text-center">Latest Jobs</h1>
         <div class="row">
@@ -696,43 +696,46 @@ if ($payment_pending) {
             <div class="col-lg-8">
                 <p class="text-center fs-16 pt-4">These are the most latest jobs among listen courses learners worldwide</p>
             </div>
-            <div class="col-lg-2"><button class="btn btn-primary card-buttons"> <a style="color: white;" href="<?php echo base_url('home/jobs_list'); ?>" rel="noopener noreferrer">View All Jobs</a></button></div>
+            <div class="col-lg-2 text-center"><button class="btn btn-primary card-buttons"> <a style="color: white;" href="<?php echo base_url('home/jobs_list'); ?>" rel="noopener noreferrer">View All Jobs</a></button></div>
         </div>
         <?php
-        $jobs = $this->Job_model->getLatestThreeJobs();
+        $jobs = $this->Job_model->getLatestTenJobs();
         ?>
-        <div class="job-cards">
-            <?php foreach ($jobs as $job) : ?>
-                <div class="job-card clickable-job-div" data-id="<?php echo base_url('home/job_details?id=' . $job['id']) ?>">
-                    <div class="job-card-header mb-2">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <img height="46px" src="<?php echo $job['logo'] ? base_url() . "uploads/jobs/logo/" . $job['logo'] : base_url() . "assets/frontend/default-new/image/icon/office-building.png";  ?>" alt="">
+        <div class="courses-card">
+            <div class="course-group-slider">
+                <?php foreach ($jobs as $job) : ?>
+                    <div class=" single-popup-course job-card clickable-job-div" data-id="<?php echo base_url('home/job_details?id=' . $job['id']) ?>">
+                        <div class="job-card-header mb-2">
+                            <div class="row first-row">
+                                <div class="col-md-2">
+                                    <img height="46px" src="<?php echo $job['logo'] ? base_url() . "uploads/jobs/logo/" . $job['logo'] : base_url() . "assets/frontend/default-new/image/icon/office-building.png";  ?>" alt="">
+                                </div>
+                                <div class="col-md-9 job-card-title" style="margin: auto;"><?php echo $job['title']; ?></div>
                             </div>
-                            <div class="col-md-10 job-card-title" style="margin: auto;"><?php echo $job['title']; ?></div>
+
+                        </div>
+                        <div class="job-detail-buttons mb-3 ellipsis-line-2">
+                            <button class="search-buttons detail-button"><?php echo $job['employment_type']; ?> </button>
+                            <button class="search-buttons detail-button"><?php echo $job['work_mode']; ?> </button>
+                            <button class="search-buttons detail-button"><?php echo $job['location']; ?></button>
+                            <button class="search-buttons detail-button"><?php echo $job['min_experience'] == $job['max_experience'] ? $job['min_experience'] . " Years" : $job['min_experience'] . " - " . $job['max_experience'] . " Years"; ?> </button>
                         </div>
 
+                        <div class="job-card-subtitle">
+                            <?php echo ellipsis(strip_tags(htmlspecialchars_decode_($job['description'])), 150); ?>
+                        </div>
+                        <div class="mt-2 ellipsis-line-2">
+                            <?php foreach (json_decode($job['required_skills']) as $skill) : ?>
+                                <span class="badge text-bg-dark"><?php echo $skill; ?></span>
+                            <?php endforeach; ?>
+                        </div>
+                        <div class="job-card-buttons">
+                            <button class="search-buttons card-buttons"> <a style="color: white;" href="<?php echo base_url('home/job_details?id=' . $job['id']) ?>" target="_blank" rel="noopener noreferrer">View Job</a></button>
+                        </div>
                     </div>
-                    <div class="job-detail-buttons mb-3 ellipsis-line-2">
-                        <button class="search-buttons detail-button"><?php echo $job['employment_type']; ?> </button>
-                        <button class="search-buttons detail-button"><?php echo $job['work_mode']; ?> </button>
-                        <button class="search-buttons detail-button"><?php echo $job['location']; ?></button>
-                        <button class="search-buttons detail-button"><?php echo $job['min_experience'] == $job['max_experience'] ? $job['min_experience'] . " Years" : $job['min_experience'] . " - " . $job['max_experience'] . " Years"; ?> </button>
-                    </div>
+                <?php endforeach; ?>
+            </div>
 
-                    <div class="job-card-subtitle">
-                        <?php echo ellipsis(strip_tags(htmlspecialchars_decode_($job['description'])), 150); ?>
-                    </div>
-                    <div class="mt-2 ellipsis-line-2">
-                        <?php foreach (json_decode($job['required_skills']) as $skill) : ?>
-                            <span class="badge text-bg-dark"><?php echo $skill; ?></span>
-                        <?php endforeach; ?>
-                    </div>
-                    <div class="job-card-buttons">
-                        <button class="search-buttons card-buttons"> <a style="color: white;" href="<?php echo base_url('home/job_details?id=' . $job['id']) ?>" target="_blank" rel="noopener noreferrer">View Job</a></button>
-                    </div>
-                </div>
-            <?php endforeach; ?>
 
         </div>
     </div>
