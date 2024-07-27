@@ -3391,10 +3391,10 @@ class Admin extends CI_Controller
             'status' => 1
         );
 
-        if($logoFileName){
+        if(isset($logoFileName)){
             $update_data['logo'] = $logoFileName;
         }
-        if($bannerFileName){
+        if(isset($bannerFileName)){
             $update_data['og_banner'] = $bannerFileName;
         }
         

@@ -197,7 +197,7 @@
     }
 
     .margin-auto {
-        margin-left: 0;
+        margin-left: 10px !important;
         margin-top: 3%;
     }
 
@@ -422,7 +422,7 @@
 
                                                 <?php foreach ($payscale_ranges as $value => $label) : ?>
                                                     <div class="type-container">
-                                                        <input type="checkbox" id="<?= htmlspecialchars($label) ?>" name="pay_scales[]" value="<?= htmlspecialchars($value) ?>" class="pay-scale job-style">
+                                                        <input type="checkbox" id="<?= htmlspecialchars($label) ?>_mobile" name="pay_scales[]" value="<?= htmlspecialchars($value) ?>" class="pay-scale job-style">
                                                         <label for="<?= htmlspecialchars($label) ?>"><?= htmlspecialchars($label) ?></label>
                                                     </div>
                                                 <?php endforeach; ?>

@@ -128,7 +128,7 @@ $qualifications = [
                         <div class="form-group">
 
                             <label for="location">Location<span class="required">*</span></label>
-                            <input type="text" id="location_autocomplete" required class="form-control" value="<?php echo set_value('location'); ?>">
+                            <input type="text" id="location_autocomplete" class="form-control" value="<?php echo set_value('location'); ?>">
                             <div id="selected-locations">
                                 <?php 
                                     $selected_locations = explode(',',$job['location']);
@@ -177,7 +177,7 @@ $qualifications = [
                             
 
                             <label for="required_skills">Required Skills<span class="required">*</span></label>
-                            <input type="text" id="skill_autocomplete" required class="form-control" value="<?php echo set_value('company_name'); ?>">
+                            <input type="text" id="skill_autocomplete" class="form-control" value="<?php echo set_value('company_name'); ?>">
                             <div id="selected-skills">
                             <?php
                                 $skills = json_decode($job['required_skills']);

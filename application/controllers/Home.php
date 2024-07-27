@@ -2401,12 +2401,15 @@ class Home extends CI_Controller
     public function applyJob()
     {
         $input = json_decode(file_get_contents('php://input'), true);
+        log_message("error", "Job application data : " .  json_encode($input));
+        date_default_timezone_set('Asia/Kolkata');
         $data = [
             'name' => $input['apply_job_name'],
             'email' => $input['apply_job_email'],
-            'phone' => $input['apply_job_phone'],
+            'phone' => $input['full'],
             'resume' => basename($input['resume_file']),
-            'job_id' => $input['job_id']
+            'job_id' => $input['job_id'],
+            'created_at'=> date('Y-m-d H:i:s')
         ];
 
         $this->load->model('Job_model');

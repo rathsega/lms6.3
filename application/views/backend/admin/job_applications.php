@@ -29,6 +29,7 @@
                         </thead>
                         <tbody>
                             <?php
+                            date_default_timezone_set('Asia/Kolkata');
                             foreach ($data as $key => $job) : ?>
                                 <tr>
                                     <td><?php echo $key + 1; ?></td>

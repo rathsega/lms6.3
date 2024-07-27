@@ -341,7 +341,7 @@
                                     <div class="col-12">
 
                                         <div class="form-btn">
-                                            <button type="submit" class="btn btn-primary col-12"><?php echo get_phrase('Submit'); ?></button>
+                                            <button type="submit" id="job_submit_btn" class="btn btn-primary col-12"><?php echo get_phrase('Submit'); ?></button>
                                         </div>
                                     </div>
                                 </div>
@@ -405,12 +405,14 @@
             }
 
             //delete if there is a file
-            if ($("#resume_file").val()) {
+            let resume_file_ele = $("#resume_file");
+            if (resume_file_ele.length && resume_file_ele.val().trim() !== "") {
                 deleteFile($("#resume_file").val());
             }
             let formData = new FormData();
             formData.append('file', file);
-
+            $("#job_submit_btn").prop('disabled', true);
+            $("#job_submit_btn").text("File uploading...");
             let xhr = new XMLHttpRequest();
             xhr.open('POST', "<?php echo base_url("home/upload"); ?>", true);
             xhr.onload = function() {
@@ -422,6 +424,8 @@
                         <input type="hidden" name="resume_file" id="resume_file" value="${response.filePath}">
                     `;
                     document.getElementById('fileList').appendChild(li);
+                    $("#job_submit_btn").prop('disabled', false);
+                    $("#job_submit_btn").text("Submit");
                 }
             };
             xhr.send(formData);
