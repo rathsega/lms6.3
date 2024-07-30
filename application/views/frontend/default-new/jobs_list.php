@@ -394,14 +394,14 @@
                                 </div>
 
                                 <div class="job-time job-time-card mb-3">
-                                    <div class="job-time-title">Experience - Level</div>
+                                    <div class="job-time-title">Experience</div>
                                     <div class="job-wrapper" id="experienceFiltersMobile"></div>
                                 </div>
 
 
                                 <div class="job-time job-time-card mb-3">
                                     <div class="job-time-title">Location</div>
-                                    <div class="job-wrapper  truncate-location-filters">
+                                    <div class="job-wrapper  truncate-location-filters" id="locationFiltersContainerMobile">
                                         <div class="job-time job-time-card mb-3" id="locationFiltersMobile"></div>
 
                                     </div>
@@ -418,7 +418,7 @@
                                                 <?php foreach ($payscale_ranges as $value => $label) : ?>
                                                     <div class="type-container">
                                                         <input type="checkbox" id="<?= htmlspecialchars($label) ?>_mobile" name="pay_scales[]" value="<?= htmlspecialchars($value) ?>" class="pay-scale job-style">
-                                                        <label for="<?= htmlspecialchars($label) ?>"><?= htmlspecialchars($label) ?></label>
+                                                        <label for="<?= htmlspecialchars($label) ?>_mobile"><?= htmlspecialchars($label) ?></label>
                                                     </div>
                                                 <?php endforeach; ?>
 
@@ -447,14 +447,14 @@
 
                     <div class="course-all-category">
                         <div class="job-time job-time-card mb-3">
-                            <div class="job-time-title">Work mode</div>
+                            <div class="job-time-title">Work Mode</div>
                             <div class="job-wrapper">
                                 <div class="job-time job-time-card mb-3" id="workModeFilters"></div>
                             </div>
                         </div>
 
                         <div class="job-time job-time-card mb-3">
-                            <div class="job-time-title">Experience - Level</div>
+                            <div class="job-time-title">Experience</div>
                             <div class="job-wrapper" id="experienceFilters">
                             </div>
                         </div>
@@ -462,7 +462,7 @@
 
                         <div class="job-time job-time-card mb-3">
                             <div class="job-time-title">Location</div>
-                            <div class="job-wrapper  truncate-location-filters">
+                            <div class="job-wrapper  truncate-location-filters" id="locationFiltersContainer">
                                 <div class="job-time job-time-card mb-3" id="locationFilters"></div>
 
                             </div>
@@ -645,12 +645,15 @@
                 }
                 jobs_slides += `<div class="job-listings-section-card" onclick="showJobDetails(${slide.id})" style="cursor: pointer !important;">
               <div class="row display-grid">
-                <div class="row first-row">
-                    <div class="col-sm-2 col-md-2 col-lg-2">
+                <div class="row job-card-first-row">
+                    <div class="col-sm-2 col-md-2 col-lg-2 mt-3">
                         <img height="70px" width="70px" src="${client_logo}" alt="">
                     </div>
-                    <div class="col-sm-8 col-md-8 col-lg-8 margin-auto">
+                    <div class=" margin-auto mt-3">
                         <h1 class="job-card-title ">${slide.title}</h1>
+                        <div class="job-card-subtitle mt-1">
+                            ${slide.short_description}
+                        </div>
                     </div>
                     <div class="col-sm-2 col-md-2 col-lg-2 margin-auto">
                         <div class="job-action">
@@ -675,13 +678,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 mbl-conte mt-3 job-other-details">
-                  <img src="<?php echo base_url() . "assets/frontend/default-new/image/office-building.svg"; ?>" alt=""> <span class="text-secondary location-para">${slide.company_name}</span>
-                  <img src="<?php echo base_url() . "assets/frontend/default-new/image/yaer_of-work.svg"; ?>" alt=""> <span class="text-secondary location-para">${slide.min_experience == slide.max_experience ? slide.min_experience : slide.min_experience + " - " + slide.max_experience} Years</span>
-                  <img src="<?php echo base_url() . "assets/frontend/default-new/image/loaction_pin.svg"; ?>" alt=""> <span class="text-secondary location-para">${slide.location}</span>
-                  <!-- <img src="<?php echo base_url() . "assets/frontend/default-new/image/clock_mnth.svg"; ?>" alt=""> <span class="text-secondary location-para">${convertdateStringToDate(slide.created_at)}</span> -->
-
-                  <img src="<?php echo base_url() . "assets/frontend/default-new/image/wallet_job.svg"; ?>" alt=""> <span class="text-secondary location-para">${pay_scale}</span>
+                <div class="col-md-12 mbl-conte mt-3 job-other-details no-break-container">
+                  <span class="no-break"><img src="<?php echo base_url() . "assets/frontend/default-new/image/office-building.svg"; ?>" alt=""> <span class="text-secondary location-para">${slide.company_name}</span></span>
+                  <span class="no-break"><img src="<?php echo base_url() . "assets/frontend/default-new/image/yaer_of-work.svg"; ?>" alt=""> <span class="text-secondary location-para">${slide.min_experience == slide.max_experience ? slide.min_experience : slide.min_experience + " - " + slide.max_experience} Years</span></span>
+                  <span class="no-break"><img src="<?php echo base_url() . "assets/frontend/default-new/image/loaction_pin.svg"; ?>" alt=""> <span class="text-secondary location-para">${slide.location}</span></span>
+                  <span class="no-break"><img src="<?php echo base_url() . "assets/frontend/default-new/image/wallet_job.svg"; ?>" alt=""> <span class="text-secondary location-para">${pay_scale}</span></span>
                   <div class="job-detail-buttons mb-3 ellipsis-line-2">
                     <button class="search-buttons detail-button">${slide.employment_type} </button>
                     <button class="search-buttons detail-button">${slide.work_mode}</button>
@@ -764,7 +765,7 @@
               </div>`);
                 $('#workModeFiltersMobile').append(`<div class="type-container">
                 <input type="checkbox" id="w-wm_${key}_mobile" value="${mode.work_mode}" name="work_modes[]"  class="work-mode job-style">
-                <label for="w-wm_${key}_mobile">${mode.work_mode}</label>
+                <label for="w-wm_${key}_mobile">${mode.work_mode} (${mode.count})</label>
               </div>`);
             });
 
@@ -779,8 +780,7 @@
               </div>`);
                 $('#locationFiltersMobile').append(`<div class="type-container">
                 <input type="checkbox" id="w-loc_${key}_mobile" name="locations[]" value="${loc.location}" class="location job-style">
-                <label for="w-loc_${key}_mobile">${loc.location}</label>
-                <span class="job-number">${loc.count}</span>
+                <label for="w-loc_${key}_mobile">${loc.location} (${loc.count})</label>
               </div>`);
             });
         }
@@ -952,7 +952,7 @@
 
 
         //location show more button
-        const contentContainer = document.getElementById('locationFilters');
+        const contentContainer = document.getElementById('locationFiltersContainer');
         const showMoreLocBtn = document.getElementById('showMoreLocBtn');
 
         let maxHeight = 13; // Initial max height
@@ -961,6 +961,8 @@
             e.preventDefault();
             const currentHeight = contentContainer.clientHeight;
             const scrollHeight = contentContainer.scrollHeight;
+            console.log(currentHeight);
+                console.log(scrollHeight);
             if (currentHeight < scrollHeight) {
 
                 console.log(currentHeight);
@@ -975,7 +977,7 @@
         });
 
         //location show more button Mobile
-        const locationFilterContainerMobile = document.getElementById('locationFiltersMobile');
+        const locationFilterContainerMobile = document.getElementById('locationFiltersContainerMobile');
         const showMoreLocBtnMobile = document.getElementById('showMoreLocBtnMobile');
 
         let maxHeightMobile = 13; // Initial max height
@@ -984,10 +986,14 @@
             e.preventDefault();
             const currentHeight = locationFilterContainerMobile.clientHeight;
             const scrollHeight = locationFilterContainerMobile.scrollHeight;
+
+            console.log(currentHeight);
+                console.log(scrollHeight);
+
             if (currentHeight < scrollHeight) {
 
                 maxHeightMobile += 5 // Increase by 250px on each click
-                locationFilterContainerMobile.style.maxHeightMobile = maxHeightMobile + 'em';
+                locationFilterContainerMobile.style.maxHeight = maxHeightMobile + 'em';
             } else {
                 // All content is already visible, no further action needed
                 showMoreLocBtnMobile.disabled = true;

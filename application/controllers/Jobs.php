@@ -282,10 +282,16 @@ class Jobs extends CI_Controller
         $query = $this->db->get();
         $jobs = $query->result_array();
 
+        $jobs1 = [];
+        foreach($jobs as $job){
+            $job['short_description'] = ellipsis(strip_tags(htmlspecialchars_decode_($job['description'])), 150);
+            $jobs1[] = $job;
+        }
+
         // Prepare the response
         $response = [
             'total_count' => $total_count,
-            'jobs' => $jobs,
+            'jobs' => $jobs1,
             'query'=>$this->db->last_query()
         ];
 

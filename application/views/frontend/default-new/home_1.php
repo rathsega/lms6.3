@@ -706,7 +706,7 @@ if ($payment_pending) {
                 <?php foreach ($jobs as $job) : ?>
                     <div class=" single-popup-course job-card clickable-job-div" data-id="<?php echo base_url('home/job_details?id=' . $job['id']) ?>">
                         <div class="job-card-header mb-2">
-                            <div class="row first-row">
+                            <div class="row job-card-first-row">
                                 <div class="col-md-2">
                                     <img height="46px" src="<?php echo $job['logo'] ? base_url() . "uploads/jobs/logo/" . $job['logo'] : base_url() . "assets/frontend/default-new/image/icon/office-building.png";  ?>" alt="">
                                 </div>
@@ -724,7 +724,7 @@ if ($payment_pending) {
                         <div class="job-card-subtitle">
                             <?php echo ellipsis(strip_tags(htmlspecialchars_decode_($job['description'])), 150); ?>
                         </div>
-                        <div class="mt-2 ellipsis-line-2">
+                        <div class=" ellipsis-line-2" style="height: 100% !important;">
                             <?php foreach (json_decode($job['required_skills']) as $skill) : ?>
                                 <span class="badge text-bg-dark"><?php echo $skill; ?></span>
                             <?php endforeach; ?>

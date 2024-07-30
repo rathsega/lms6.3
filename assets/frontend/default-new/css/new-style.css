@@ -4350,33 +4350,63 @@ font-family: 'Secular One', sans-serif; */
   }
 }
 
-.first-row {
+.job-card-first-row {
+  display: grid;
+  grid-template-columns: 10% auto;
+  gap: 10px; /* Adjust the gap between grid items if needed */
+}
+
+.display-grid .job-card-first-row {
   display: grid;
   grid-template-columns: 10% auto 10%;
   gap: 10px; /* Adjust the gap between grid items if needed */
 }
 
+.job-card-first-row {
+  display: grid;
+  grid-template-columns: 10% auto 10%;
+  gap: 10px; /* Adjust the gap between grid items if needed */
+}
+
+
+
 @media (max-width: 1200px) {
-  .first-row {
+  .display-grid .job-card-first-row {
     grid-template-columns: 15% auto 15%;
+  }
+
+  .job-card-first-row {
+    grid-template-columns: 15% auto;
   }
 }
 
 @media (max-width: 992px) {
-  .first-row {
+  .display-grid .job-card-first-row {
     grid-template-columns: 20% auto 20%;
+  }
+
+  .job-card-first-row {
+    grid-template-columns: 20% auto;
   }
 }
 
 @media (max-width: 768px) {
-  .first-row {
+  .display-grid .job-card-first-row {
     grid-template-columns: 20% auto 15%;
+  }
+
+  .job-card-first-row {
+    grid-template-columns: 20% auto;
   }
 }
 
 @media (max-width: 576px) {
-  .first-row {
+  .display-grid .job-card-first-row {
     grid-template-columns: 20% auto 15%;
+  }
+
+  .job-card-first-row {
+    grid-template-columns: 20% auto;
   }
 
 }
@@ -4384,4 +4414,13 @@ font-family: 'Secular One', sans-serif; */
 
 .cursor-default{
   cursor: default;
+}
+
+.no-break-container {
+  overflow-wrap: break-word; /* Allows breaking long words to fit within the container */
+}
+
+.no-break {
+  white-space: nowrap; /* Prevents the span from breaking mid-word */
+  display: inline-block; /* Ensures the span is treated as a block for overflow purposes */
 }
