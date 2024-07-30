@@ -125,7 +125,7 @@
 
     .job-card-title {
         font-size: 18px;
-        line-height: 18px;
+        line-height: 22px;
         font-weight: 600;
         color: #392C7D;
     }
@@ -184,10 +184,10 @@
 
     .job-listings-section-card {
         box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-        padding: 18px;
+        padding-left: 15px;
         border-radius: 6px;
         margin-top: 30px;
-        padding-top: 30px;
+        padding-top: 10px;
         display: grid;
     }
 
@@ -648,7 +648,7 @@
                 } else {
                     pay_scale = '₹' + numberWithCommas(slide.min_pay_scale) + '- ₹' + numberWithCommas(slide.max_pay_scale) + ' PA';
                 }
-                jobs_slides += `<div class="job-listings-section-card mb-5" onclick="showJobDetails(${slide.id})" style="cursor: pointer !important;">
+                jobs_slides += `<div class="job-listings-section-card" onclick="showJobDetails(${slide.id})" style="cursor: pointer !important;">
               <div class="row display-grid">
                 <div class="row first-row">
                     <div class="col-sm-2 col-md-2 col-lg-2">
@@ -680,7 +680,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8 mbl-conte mt-3 job-other-details">
+                <div class="col-md-12 mbl-conte mt-3 job-other-details">
                   <img src="<?php echo base_url() . "assets/frontend/default-new/image/office-building.svg"; ?>" alt=""> <span class="text-secondary location-para">${slide.company_name}</span>
                   <img src="<?php echo base_url() . "assets/frontend/default-new/image/yaer_of-work.svg"; ?>" alt=""> <span class="text-secondary location-para">${slide.min_experience == slide.max_experience ? slide.min_experience : slide.min_experience + " - " + slide.max_experience} Years</span>
                   <img src="<?php echo base_url() . "assets/frontend/default-new/image/loaction_pin.svg"; ?>" alt=""> <span class="text-secondary location-para">${slide.location}</span>

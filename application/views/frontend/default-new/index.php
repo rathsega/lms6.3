@@ -138,6 +138,7 @@ if ($language_dirs) {
 	} else {
 		include $page_name . '.php';
 	}
+	include 'social_strip.php';
 	include 'footer.php';
 	include 'includes_bottom.php';
 	include 'modal.php';
