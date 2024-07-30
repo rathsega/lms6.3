@@ -190,12 +190,7 @@
         padding-top: 10px;
         display: grid;
     }
-
-    .first-row {
-        display: grid;
-        grid-template-columns: 20% auto 10%;
-    }
-
+    
     .margin-auto {
         margin-left: 10px !important;
         margin-top: 3%;
@@ -508,7 +503,7 @@
                                         <a class="page-link" href="javascript:void(0);" id="job_prev_btn">Previous</a>
                                     </li>
                                     <li class="page-item navigation-btn">
-                                        <a class="page-link navi-bord" href="javascript:void(0);" id="page_numbers"></a>
+                                        <a class="page-link navi-bord cursor-default" href="javascript:void(0);" id="page_numbers"></a>
                                     </li>
                                     <li class="page-item navigation-btn">
                                         <a class="page-link" href="javascript:void(0);" id="job_nxt_btn">Next</a>
@@ -765,13 +760,11 @@
             data.work_modes.forEach((mode, key) => {
                 $('#workModeFilters').append(`<div class="type-container">
                 <input type="checkbox" id="w-wm_${key}" value="${mode.work_mode}" name="work_modes[]"  class="work-mode job-style">
-                <label for="w-wm_${key}">${mode.work_mode}</label>
-                <span class="job-number">${mode.count}</span>
+                <label for="w-wm_${key}">${mode.work_mode} (${mode.count})</label>
               </div>`);
                 $('#workModeFiltersMobile').append(`<div class="type-container">
                 <input type="checkbox" id="w-wm_${key}_mobile" value="${mode.work_mode}" name="work_modes[]"  class="work-mode job-style">
                 <label for="w-wm_${key}_mobile">${mode.work_mode}</label>
-                <span class="job-number">${mode.count}</span>
               </div>`);
             });
 
@@ -782,8 +775,7 @@
             data.locations.forEach((loc, key) => {
                 $('#locationFilters').append(`<div class="type-container">
                 <input type="checkbox" id="w-loc_${key}" name="locations[]" value="${loc.location}" class="location job-style">
-                <label for="w-loc_${key}">${loc.location}</label>
-                <span class="job-number">${loc.count}</span>
+                <label for="w-loc_${key}">${loc.location} (${loc.count})</label>
               </div>`);
                 $('#locationFiltersMobile').append(`<div class="type-container">
                 <input type="checkbox" id="w-loc_${key}_mobile" name="locations[]" value="${loc.location}" class="location job-style">

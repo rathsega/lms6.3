@@ -14,11 +14,11 @@
                             </li>
                             <li><i class="fa-solid fa-chevron-right"></i></li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                <span><?php echo $page_title; ?></span>
+                                <span><?php echo ucwords($page_title); ?></span>
                             </li>
                         </ol>
                     </nav>
-                    <h1><?php echo $page_title; ?></h1>
+                    <h1><?php echo ucwords($page_title); ?></h1>
                 </div>
                 <div class="col-3 ms-auto d-none d-sm-inline-block">
                     <div class="book-img">

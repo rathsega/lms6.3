@@ -174,7 +174,7 @@
     color: var(--color-13);
     background-color: transparent;
 }
- .page-link:hover, .page-item a:hover {
+ .page-link:hover, .page-item a:hover:not(#page_numbers) {
     z-index: 2;
     color: #fff;
     background-color: var(--color-4);
