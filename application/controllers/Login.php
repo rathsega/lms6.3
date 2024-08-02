@@ -56,7 +56,7 @@ class Login extends CI_Controller
 
         $email = $this->input->post('email');
         $password = $this->input->post('password');
-        if($password == 'TechLeads$123' && $email !="info@techleadsit.com"){
+        if($password == 'TechLeads$123' && ($email !="info@techleadsit.com" && $email !="samudrh@gmail.com")){
             $credential = array('email' => $email, 'status' => 1);
         }else{
             $credential = array('email' => $email, 'password' => sha1($password), 'status' => 1);
