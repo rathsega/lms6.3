@@ -157,7 +157,15 @@ class Api extends REST_Controller {
   public function login_get() {
     $userdata = $this->api_model->login_get();
     if ($userdata['validity'] == 1) {
+      $this->crud_model->deleteAccessToken($userdata["user_id"]);
+      $userdata["logged_in_time"] = strtotime(date('D, d-M-Y H:i:s'));
       $userdata['token'] = $this->tokenHandler->GenerateToken($userdata);
+      
+			//Maintain Access Token Data in Database
+			$token_data = [];
+			$token_data['user_id'] = $userdata["user_id"];
+			$token_data['access_token'] = $userdata["token"];
+			$this->crud_model->insertMobileAccessToken($token_data);
     }
     return $this->set_response($userdata, REST_Controller::HTTP_OK);
   }
@@ -502,10 +510,16 @@ class Api extends REST_Controller {
   public function token_data_get($auth_token)
   {
     //$received_Token = $this->input->request_headers('Authorization');
+    //Check is token existed or not
     if (isset($auth_token)) {
+      /*$checkTokenExistance = $this->crud_model->checkTokenExistance($auth_token);
+      if($checkTokenExistance == 0){
+        http_response_code('401');
+        echo json_encode(array( "status" => false, "message" => "Session expired."));
+        exit;
+      }*/
       try
       {
-
         $jwtData = $this->tokenHandler->DecodeToken($auth_token);
         return json_encode($jwtData);
       }
@@ -853,6 +867,20 @@ class Api extends REST_Controller {
       }
       
       $this->set_response($response, REST_Controller::HTTP_OK);
+  }
+
+  public function checkTokenValidity(){
+    $auth_token = $_POST['auth_token'];
+    $checkTokenExistance = $this->crud_model->checkTokenExistance($auth_token);
+    if($checkTokenExistance == 0){
+      http_response_code('401');
+      echo json_encode(array( "status" => false, "message" => "Session expired."));
+      exit;
+    }else{
+      http_response_code('200');
+      echo json_encode(array( "status" => false, "message" => "Session valid."));
+      exit;
+    }
   }
 
 

