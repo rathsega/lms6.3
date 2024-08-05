@@ -1,10 +1,52 @@
 <?php $user_details = $this->user_model->get_all_user($blog_details['user_id'])->row_array(); ?>
+<style>
+    
+        .no-bootstrap li::before,
+        .no-bootstrap li::after {
+            content: none !important;
+        }
+        .no-bootstrap li{
+            list-style-type: disc !important;
+            margin: 10px 10px !important;
+        }
+        .no-bootstrap p b {
+            font-size: 16px !important;
+        }
 
+        .no-bootstrap p{
+            margin-top: 10px !important;
+            margin-bottom: 10px !important;
+            font-size: 14px !important;
+        }
+
+        .no-bootstrap h2{
+            font-size: 25px  !important;
+            color: #42464e !important;
+        }
+
+        .no-bootstrap h3{
+            font-size: 18px !important;
+            color: #42464e !important;
+        }
+
+        .no-bootstrap, b{
+            color: #42464e !important;
+        }
+
+        .no-bootstrap h1{
+            padding-top: 1px !important;
+        }
+
+        .no-bootstrap br, .no-bootstrap p b br{ 
+            display: none !important;
+        }
+
+
+
+</style>
 <!--------- Blog section start ---------->
 <section class="blog-body courses blog pb-3 mb-5">
     <div class="container">
-        <h1 class="text-center"><span><?php echo get_phrase('Inspirational Journeys'); ?></span></h1>
-        <p class="text-center"><?php echo get_phrase('Follow the Stories of Academics and Their Research Expeditions') ?></p>
         <div class="courses-card">
             <div class="row">
                 <div class="col-lg-8">
@@ -23,7 +65,7 @@
                             <img src="<?php echo base_url($blog_banner); ?>" class="card-img-top radius-10" width="100%" alt="<?php echo $blog_details['title']; ?>">
                         <?php endif; ?>
 
-                        <?php echo htmlspecialchars_decode_($blog_details['description']); ?>
+                        <div class="no-bootstrap"><?php echo htmlspecialchars_decode_($blog_details['description']); ?></div>
                     </div>
 
                     <?php if(count(explode(',',$blog_details['keywords'])) > 1): ?>
